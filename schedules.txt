@@ -28,15 +28,15 @@
 
 {
 "isActive" : "True",
-"questInProgress" : "True",
-"schedule_everyXDays" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
 "scheduleName" : "Scheduled Bed Time",
 "scheduleUUID" : "4FE6E061-FFD8-45ED-A10A-F9C4AA86B181",
 "schedule_XDayDelay" : "1",
-"startTime" : "15/01/2026, 22:30:00",
-"scheduledStartTime" : "15/01/2026, 22:30:00",
-"scheduledEndTime" : "16/01/2026, 9:00:05",
-"schedule_lastCompletionTime" : "nil",
+"startTime" : "19/01/2026, 22:30:00",
+"scheduledStartTime" : "19/01/2026, 22:30:00",
+"scheduledEndTime" : "20/01/2026, 8:00:05",
+"schedule_lastCompletionTime" : "18/01/2026, 21:48:52",
 "schedule_scheduledDays" : "1111111"
 }
 
@@ -47,10 +47,10 @@
 "scheduleName" : "Scheduled Gym time",
 "scheduleUUID" : "B94D744C-AAC7-457F-87AF-B3C112F0F2EA",
 "schedule_XDayDelay" : "3",
-"startTime" : "16/01/2026, 11:00:00",
-"scheduledStartTime" : "16/01/2026, 11:00:00",
-"scheduledEndTime" : "16/01/2026, 15:00:05",
-"schedule_lastCompletionTime" : "nil",
+"startTime" : "19/01/2026, 11:00:00",
+"scheduledStartTime" : "19/01/2026, 11:00:00",
+"scheduledEndTime" : "19/01/2026, 20:00:05",
+"schedule_lastCompletionTime" : "16/01/2026, 15:10:30",
 "schedule_scheduledDays" : "1111100"
 }
 

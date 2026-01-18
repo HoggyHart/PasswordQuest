@@ -13,7 +13,7 @@ class DeadmansSwitch:
         raise NotImplementedError("Not implemented properly")
         self.deadman.kill()
 
-    def createSwitch(self, addr):
+    def createSwitch(self):
         self.switch = subprocess.Popen(
             [sys.executable, "C:/Users/willi/OneDrive/Desktop/code/PasswordQuest/DeadMansSwitch.py"],
             creationflags=( subprocess.DETACHED_PROCESS |

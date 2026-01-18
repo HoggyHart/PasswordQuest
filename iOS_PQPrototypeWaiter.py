@@ -180,25 +180,33 @@ class Schedule:
     def saveToFile(self):
         global fileLock
 
+        #stored with each schedule json split up by double line breaks
+        writtenSchedules = Schedule.readListFromFile(scheduleFileDir)
         print("                     --"+threading.current_thread().name+": WAITING fileLock")
         fileLock.acquire_lock()
         print("                     --"+threading.current_thread().name+": ACQUIRED fileLock")
-        schFile = open(scheduleFileDir, "r")
-        writtenSchedules = schFile.readlines()
-        schFile.close()
         schFile = open(scheduleFileDir, "w")
+
+        #see if updating existing schedule
         updateForExistingSchedule = False
         i = 0
-        for schJson in writtenSchedules:
-            if self.scheduleUUID in schJson:
-                writtenSchedules[i] = self.toJson() + "\n"
+        for sch in writtenSchedules:
+            if self.scheduleUUID == sch.scheduleUUID:
+                writtenSchedules[i] = self
                 updateForExistingSchedule = True
                 break
             i+=1
         if not updateForExistingSchedule:
-            writtenSchedules.append(self.toJson()  + "\n")
+            writtenSchedules.append(self)
         
-        schFile.writelines(writtenSchedules)
+        #re-write all schedules back in to file
+        i = 0
+        totalStr = ""
+        for i in range(0,len(writtenSchedules)):
+            totalStr += writtenSchedules[i].toJson()
+            if i < writtenSchedules.__len__()-1:
+                totalStr += "\n\n"
+        schFile.write(totalStr)
         schFile.close()
         fileLock.release_lock()
         print("                     --"+threading.current_thread().name+": RELEASED fileLock")
@@ -239,6 +247,10 @@ class Schedule:
             fileLock.acquire_lock()
             schFile = open(schDir,"r")
             content = schFile.read()
+            if content == '':
+                fileLock.release_lock()
+                return []
+            #in file, schedules are separated by double line breaks
             schs = content.split("\n\n")
             print("============= RAW FILE DATA =============")
             print(repr(content))
@@ -253,7 +265,10 @@ class Schedule:
             schFile.close()
         except Exception as e:
             print("ERROR LOADING: ",e)
-            return None
+            fileLock.release_lock()
+            return []
+        
+        fileLock.release_lock()
         return schList
 
 schedules: list[Schedule] = []
@@ -265,12 +280,15 @@ class MyServer(SimpleHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
+
     def do_POST(self):
         global keysLock, schedules
         print("Received POST to",self.path)
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
         message = post_data.decode('utf-8')
+        print("Received:")
+        print(repr(message))
 
         if(self.path == "/synchronise/schedules"):
             self.synchroniseSchedules(message)
@@ -278,11 +296,11 @@ class MyServer(SimpleHTTPRequestHandler):
         elif(self.path == "/synchronise/schedule"):
             self.synchroniseSchedule(message)
             return
-        elif(self.path == "/keysubmit"):
+        else:
             self.addKey(message)
             return
-        else:
-            print("hmmm...")
+        #else:
+      #      print("hmmm...")
 
         print(f"Received POST data: {post_data.decode('utf-8')}")
         
@@ -290,20 +308,31 @@ class MyServer(SimpleHTTPRequestHandler):
         self.send_header('Content-type', 'text/html')
         self.end_headers()
         
-        response_message = (b"POST request received successfully! But sent to unknown path: ",self.path)
-        self.wfile.write(response_message)
-    def synchroniseSchedules(self, schJsons):
+        response_message = f"POST request received successfully! But sent to unknown path: {self.path}"
+        self.wfile.write(bytes(response_message))
+
+    def synchroniseSchedules(self, schJsons: str):
         global keysLock, fileLock, schedules
         print("Received synchronisation POST request")
+        #post load comes in split by \r\n\r\n
         schList = schJsons.split("\r\n\r\n")
+        print("Received schedules:")
+        for s in schList:
+            print("===========================")
+            print(s)
+        print("===========================")
 
         #overwrite all schedules
+        print("Waitin for FileLock")
         fileLock.acquire_lock()
+        print("Acquired for FileLock")
         schFile = open(scheduleFileDir,"w")
-        schFile.write(schJsons)
+        schFile.write(schJsons.replace("\r\n\r\n","\n\n"))
         schFile.close()
         fileLock.release_lock()
+        print("Rleased for FileLock")
 
+        #overwrite global schedules list
         try:
             print("Synchronising....") 
             print("                     --"+threading.current_thread().name+": WAITING schedulesLock")
@@ -324,6 +353,7 @@ class MyServer(SimpleHTTPRequestHandler):
         self.end_headers()
         response_message = b"POST request received successfully!"
         self.wfile.write(response_message)
+
     def synchroniseSchedule(self, schJson):
         global schedules
         try:
@@ -351,6 +381,7 @@ class MyServer(SimpleHTTPRequestHandler):
         self.end_headers()
         response_message = b"POST request received successfully!"
         self.wfile.write(response_message)
+
     def addKey(self, key):
         global keysLock
         print("appending to keys")
@@ -389,7 +420,7 @@ def connectToPrivateNetwork():
     networkList = []
     print(connectionProgressPadding+"Visible Networks: ")
     for n in networks:
-        print(connectionProgressPadding+n.ssid)
+        print(connectionProgressPadding+"Found: "+n.ssid)
         networkList.append(n.ssid.strip())
 
     print(connectionProgressPadding+"Checking for "+network_SSID+"...")
@@ -458,7 +489,7 @@ def newMain():
 
         #---Create a deadmans switch
         #create another process that checks for pings to tcp://localhost:1617
-        deadmansSwitch.createSwitch("tcp://*:1617") #can be stopped via deadmansSwitch.stop() (hopefully)
+        #deadmansSwitch.createSwitch() #can be stopped via deadmansSwitch.stop() (hopefully)
         #create a thread that sends pings to ttcp://localhost:1617
         deadmanThread = threading.Thread(target=DeadmansSwitch.deadmansHold)
         deadmanThread.start()
@@ -472,11 +503,6 @@ def newMain():
 
         print("Starting program")
         schedules = Schedule.readListFromFile(scheduleFileDir)
-        if schedules == None:
-            print("FAILED TO LOAD")
-            screen_on()
-            return
-        
         serverThread = threading.Thread(target=hostServer)
         serverThread.start()
 
