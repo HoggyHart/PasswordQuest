@@ -460,7 +460,7 @@ def newMain():
         #create another process that checks for pings to tcp://localhost:1617
         deadmansSwitch.createSwitch("tcp://*:1617") #can be stopped via deadmansSwitch.stop() (hopefully)
         #create a thread that sends pings to ttcp://localhost:1617
-        deadmanThread = threading.Thread(target=DeadmansSwitch.deadmansHold, args=("tcp://localhost:1617",))
+        deadmanThread = threading.Thread(target=DeadmansSwitch.deadmansHold)
         deadmanThread.start()
         #if this program gets ended, the pings stop sending and switch is 'released', causing a PC shutdown
 
@@ -482,92 +482,91 @@ def newMain():
 
         connectionThread = threading.Thread(target=pollConnection)
         connectionThread.start()
+        while(True):
+            now = datetime.now()
+
+            questsInProgress = False
+
+            #check if key received to end progress of quest
+            #check if quest scheduled to start
+            #global keysLock
+            print("Checking schedules")
+            print("                     --"+threading.current_thread().name+": WAITING schedulesLock")
+            schedulesLock.acquire_lock()
+            print("                     --"+threading.current_thread().name+": ACQUIRED schedulesLock")
+            for schedule in schedules:
+                print("Inspecting "+schedule.scheduleName)
+                #if quest currently active 
+                #   -> key received? endQuest()
+                #   -> not received? questsInProgress = True
+                if schedule.questInProgress:
+                    print("Waiting for key for "+schedule.scheduleName)
+                    actualEndTime = schedule.startTime + (schedule.scheduledEndTime - schedule.scheduledStartTime)
+                    print("     Scheduled from "+schedule.startTime.__str__()+" to "+actualEndTime.__str__())
+                    #if quest in progress then the only the pc should be doing is trying to allow the user to unlock the pc
+                    if not connected and not attemptingConnection:
+                        #connecting to the network will make the hostServer thread start attempting to host the server
+                        threading.Thread(target=connectToPrivateNetwork).start()
+                    
+
+                    #try ending active scheduled quest, no need to check if no schedule end keys have been received
+                    if len(received_keys) > 0:
+                        #if active, may be pending on key to end
+                        scheduleEndKey = schedule.scheduleUUID  
+                        print("                     --"+threading.current_thread().name+": WAITING keysLock")
+                        keysLock.acquire_lock()
+                        print("                     --"+threading.current_thread().name+": ACQUIRED keysLock")
+                        for key in received_keys:
+                            if scheduleEndKey in key:
+                                finishedOnTime = key.split('_')[1]
+                                print("Key received for "+schedule.scheduleName)
+                                if finishedOnTime == "YES":
+                                    print(schedule.scheduleName + " completed on time!\n")
+                                    schedule.endQuest()
+                                    schedule.saveToFile()
+                                    lockedUntilNextQuestCompletionOREOD = False
+                                    break
+                                else:
+                                    print(schedule.scheduleName + " failed.\n")
+                                    schedule.endQuest()
+                                    schedule.saveToFile()
+                                # lockedUntilNextQuestCompletionOREOD = True
+                                    lockedUntilNextQuestCompletionOREOD = False
+                                    break
+                        keysLock.release_lock()
+                        print("                     --"+threading.current_thread().name+": RELEASED keysLock")
+                    else:
+                        print("No keys received\n")
+                    questsInProgress = True
+                #if scheduled quest inactive, see if it needs to start
+                elif schedule.isActive:
+                    actualEndTime = schedule.startTime + (schedule.scheduledEndTime - schedule.scheduledStartTime)
+                    print("Checking if "+schedule.scheduleName+" should start ("+schedule.startTime.__str__()+" - "+actualEndTime.__str__()+")")
+                    if schedule.startTime <= now:
+                        print("Starting",schedule.scheduleName+"'s quest lockdown\n")
+                        schedule.questInProgress = True
+                        schedule.saveToFile()
+                    else:
+                        print("Not time.\n")
+                else:
+                    print(schedule.scheduleName, "not active\n")
+            schedulesLock.release_lock()
+            print("                     --"+threading.current_thread().name+": RELEASED schedulesLock")
+            
+            #check computer lock status
+            if (questsInProgress or lockedUntilNextQuestCompletionOREOD):
+                print("==========================================================================================================COMPUTER LOCKED==========================================================================================================")
+                #screen_off()
+                computerLocked = True
+            else:
+                print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++COMPUTER UNLOCKED++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+                screen_on()
+                computerLocked = False
+            time.sleep(5)
     except Exception as e:
         print(e)
         screen_on()
-        return
-    
-    while(True):
-        now = datetime.now()
-
-        questsInProgress = False
-
-        #check if key received to end progress of quest
-        #check if quest scheduled to start
-        #global keysLock
-        print("Checking schedules")
-        print("                     --"+threading.current_thread().name+": WAITING schedulesLock")
-        schedulesLock.acquire_lock()
-        print("                     --"+threading.current_thread().name+": ACQUIRED schedulesLock")
-        for schedule in schedules:
-            print("Inspecting "+schedule.scheduleName)
-            #if quest currently active 
-            #   -> key received? endQuest()
-            #   -> not received? questsInProgress = True
-            if schedule.questInProgress:
-                print("Waiting for key for "+schedule.scheduleName)
-                actualEndTime = schedule.startTime + (schedule.scheduledEndTime - schedule.scheduledStartTime)
-                print("     Scheduled from "+schedule.startTime.__str__()+" to "+actualEndTime.__str__())
-                #if quest in progress then the only the pc should be doing is trying to allow the user to unlock the pc
-                if not connected and not attemptingConnection:
-                    #connecting to the network will make the hostServer thread start attempting to host the server
-                    threading.Thread(target=connectToPrivateNetwork).start()
-                
-
-                #try ending active scheduled quest, no need to check if no schedule end keys have been received
-                if len(received_keys) > 0:
-                    #if active, may be pending on key to end
-                    scheduleEndKey = schedule.scheduleUUID  
-                    print("                     --"+threading.current_thread().name+": WAITING keysLock")
-                    keysLock.acquire_lock()
-                    print("                     --"+threading.current_thread().name+": ACQUIRED keysLock")
-                    for key in received_keys:
-                        if scheduleEndKey in key:
-                            finishedOnTime = key.split('_')[1]
-                            print("Key received for "+schedule.scheduleName)
-                            if finishedOnTime == "YES":
-                                print(schedule.scheduleName + " completed on time!\n")
-                                schedule.endQuest()
-                                schedule.saveToFile()
-                                lockedUntilNextQuestCompletionOREOD = False
-                                break
-                            else:
-                                print(schedule.scheduleName + " failed.\n")
-                                schedule.endQuest()
-                                schedule.saveToFile()
-                               # lockedUntilNextQuestCompletionOREOD = True
-                                lockedUntilNextQuestCompletionOREOD = False
-                                break
-                    keysLock.release_lock()
-                    print("                     --"+threading.current_thread().name+": RELEASED keysLock")
-                else:
-                    print("No keys received\n")
-                questsInProgress = True
-            #if scheduled quest inactive, see if it needs to start
-            elif schedule.isActive:
-                actualEndTime = schedule.startTime + (schedule.scheduledEndTime - schedule.scheduledStartTime)
-                print("Checking if "+schedule.scheduleName+" should start ("+schedule.startTime.__str__()+" - "+actualEndTime.__str__()+")")
-                if schedule.startTime <= now:
-                    print("Starting",schedule.scheduleName+"'s quest lockdown\n")
-                    schedule.questInProgress = True
-                    schedule.saveToFile()
-                else:
-                    print("Not time.\n")
-            else:
-                print(schedule.scheduleName, "not active\n")
-        schedulesLock.release_lock()
-        print("                     --"+threading.current_thread().name+": RELEASED schedulesLock")
-        
-        #check computer lock status
-        if (questsInProgress or lockedUntilNextQuestCompletionOREOD):
-            print("==========================================================================================================COMPUTER LOCKED==========================================================================================================")
-            #screen_off()
-            computerLocked = True
-        else:
-            print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++COMPUTER UNLOCKED++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-            screen_on()
-            computerLocked = False
-        time.sleep(5)
+        input()
 
 if __name__ == "__main__":
     newMain()

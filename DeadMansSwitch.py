@@ -16,13 +16,14 @@ class DeadmansSwitch:
     def createSwitch(self, addr):
         self.switch = subprocess.Popen(
             [sys.executable, "C:/Users/willi/OneDrive/Desktop/code/PasswordQuest/DeadMansSwitch.py"],
-            creationflags=( subprocess.CREATE_NEW_CONSOLE |
-                        subprocess.CREATE_NEW_PROCESS_GROUP),
+            creationflags=( subprocess.DETACHED_PROCESS |
+                        subprocess.CREATE_NEW_PROCESS_GROUP |
+                        subprocess.CREATE_NO_WINDOW),
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
             stdin=subprocess.DEVNULL
         )
-        self.switch.start()
+
     def stopSwitch(self):
         self.switch.kill()
 
