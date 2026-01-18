@@ -489,7 +489,7 @@ def newMain():
 
         #---Create a deadmans switch
         #create another process that checks for pings to tcp://localhost:1617
-        #deadmansSwitch.createSwitch() #can be stopped via deadmansSwitch.stop() (hopefully)
+        deadmansSwitch.createSwitch() #can be stopped via deadmansSwitch.stop() (hopefully)
         #create a thread that sends pings to ttcp://localhost:1617
         deadmanThread = threading.Thread(target=DeadmansSwitch.deadmansHold)
         deadmanThread.start()
