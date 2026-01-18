@@ -51,8 +51,10 @@ import json
 import subprocess
 #import re
 from winwifi import WinWiFi
-global received_keys, computerLocked, lockedUntilNextQuestCompletionOREOD, schedules, keysLock, connected, PQ_Server
+from DeadMansSwitch import DeadmansSwitch
+global received_keys, computerLocked, lockedUntilNextQuestCompletionOREOD, schedules, keysLock, connected, PQ_Server, deadmansSwitch
 #schedules defined after Schedule class def
+deadmansSwitch = DeadmansSwitch()
 received_keys: list[str] = []
 computerLocked = False
 lockedUntilNextQuestCompletionOREOD = False
@@ -450,9 +452,20 @@ def pollConnection():
         time.sleep(5)
 
 def newMain():
-    global received_keys, computerLocked, lockedUntilNextQuestCompletionOREOD, schedules, keysLock, connected, schedulesLock
+    global received_keys, computerLocked, lockedUntilNextQuestCompletionOREOD, schedules, keysLock, connected, schedulesLock, deadmansSwitch
     try:
         print("Locking during init...")
+
+        #---Create a deadmans switch
+        #create another process that checks for pings to tcp://localhost:1617
+        deadmansSwitch.createSwitch("tcp://*:1617") #can be stopped via deadmansSwitch.stop() (hopefully)
+        #create a thread that sends pings to ttcp://localhost:1617
+        deadmanThread = threading.Thread(target=DeadmansSwitch.deadmansHold, args=("tcp://localhost:1617",))
+        deadmanThread.start()
+        #if this program gets ended, the pings stop sending and switch is 'released', causing a PC shutdown
+
+
+        
         screen_off()
         computerLocked = True
         print("==========================================================================================================COMPUTER LOCKED==========================================================================================================")
@@ -473,6 +486,7 @@ def newMain():
         print(e)
         screen_on()
         return
+    
     while(True):
         now = datetime.now()
 
@@ -547,7 +561,7 @@ def newMain():
         #check computer lock status
         if (questsInProgress or lockedUntilNextQuestCompletionOREOD):
             print("==========================================================================================================COMPUTER LOCKED==========================================================================================================")
-            screen_off()
+            #screen_off()
             computerLocked = True
         else:
             print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++COMPUTER UNLOCKED++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
@@ -555,7 +569,8 @@ def newMain():
             computerLocked = False
         time.sleep(5)
 
-newMain()
+if __name__ == "__main__":
+    newMain()
 
 #PROGRAM FLOW
 # 
