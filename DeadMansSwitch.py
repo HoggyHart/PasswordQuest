@@ -36,7 +36,7 @@ class DeadmansSwitch:
     def switchHeldPollerStatic(port=1618):
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.bind(("127.0.0.1", port))
-        s.settimeout(1.5)
+        s.settimeout(5)
         while True:
             try:
                 data, _ = s.recvfrom(1024)

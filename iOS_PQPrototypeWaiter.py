@@ -564,6 +564,7 @@ def newMain():
                 computerLocked = False
             time.sleep(5)
     except Exception as e:
+        deadmansSwitch.stopSwitch()
         print(e)
         screen_on()
         input()
