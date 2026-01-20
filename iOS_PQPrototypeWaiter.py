@@ -16,6 +16,7 @@ import win32api
 import time
 import ctypes
 import win32api, win32con
+import pygetwindow as gw
 
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
@@ -106,7 +107,7 @@ class Schedule:
     #scheduledEndTime: datetime
     #scheduledStartTime: datetime
     #scheduleName: str
-    #scheduleUUID: str
+    #questUUID: str
     #
     #scheduleInfo_everyXDays: bool
     #scheduleInfo_XDayDelay: int
@@ -123,7 +124,7 @@ class Schedule:
         
         #simple string
         self.scheduleName = str(data['scheduleName'])
-        self.scheduleUUID = str(data['scheduleUUID'])
+        self.questUUID = str(data['scheduleUUID'])
 
         #int
         self.scheduleInfo_XDayDelay = int(data['schedule_XDayDelay'])
@@ -191,7 +192,7 @@ class Schedule:
         updateForExistingSchedule = False
         i = 0
         for sch in writtenSchedules:
-            if self.scheduleUUID == sch.scheduleUUID:
+            if self.questUUID == sch.questUUID:
                 writtenSchedules[i] = self
                 updateForExistingSchedule = True
                 break
@@ -216,13 +217,13 @@ class Schedule:
         self.updateStartTime()
 
     def toJson(self):
-        #should be formatted { "isActive" : "True", "questInProgress" : "False", "schedule_everyXDays" : "False", "scheduleName" : "Scheduled New Quest", "scheduleUUID" : "FE61BBA7-2D07-4BBF-B335-1FF8DD12EB2B", "schedule_XDayDelay" : "1", "startTime" : "06/01/2026, 11:09:00", "scheduledStartTime" : "06/01/2026, 11:09:00", "scheduledEndTime" : "06/01/2026, 20:00:00", "schedule_lastCompletionTime" : "05/01/2026, 19:16:45", "schedule_scheduledDays" : "1111111" }
+        #should be formatted { "isActive" : "True", "questInProgress" : "False", "schedule_everyXDays" : "False", "scheduleName" : "Scheduled New Quest", "questUUID" : "FE61BBA7-2D07-4BBF-B335-1FF8DD12EB2B", "schedule_XDayDelay" : "1", "startTime" : "06/01/2026, 11:09:00", "scheduledStartTime" : "06/01/2026, 11:09:00", "scheduledEndTime" : "06/01/2026, 20:00:00", "schedule_lastCompletionTime" : "05/01/2026, 19:16:45", "schedule_scheduledDays" : "1111111" }
         string = "{\n"
         string += "\"isActive\" : \""+self.isActive.__str__()+"\",\n"
         string += "\"questInProgress\" : \""+self.questInProgress.__str__()+"\",\n"
         string += "\"schedule_everyXDays\" : \""+self.scheduleInfo_everyXDays.__str__()+"\",\n"
         string += "\"scheduleName\" : \""+ self.scheduleName.__str__()+"\",\n"
-        string += "\"scheduleUUID\" : \""+ self.scheduleUUID.__str__()+"\",\n"
+        string += "\"scheduleUUID\" : \""+ self.questUUID.__str__()+"\",\n"
         string += "\"schedule_XDayDelay\" : \""+self.scheduleInfo_XDayDelay.__str__()+"\",\n"
         string += "\"startTime\" : \""+dateToJson(self.startTime)+"\",\n"
         string += "\"scheduledStartTime\" : \""+dateToJson(self.scheduledStartTime)+"\",\n"
@@ -366,7 +367,7 @@ class MyServer(SimpleHTTPRequestHandler):
             schedulesLock.acquire_lock()
             print("                     --"+threading.current_thread().name+": ACQUIRED schedulesLock")
             for i in range(len(schedules)):
-                if schedule.scheduleUUID == schedules[i].scheduleUUID:
+                if schedule.questUUID == schedules[i].questUUID:
                     schedules[i] = schedule
                     updateForExistingSchedule = True
                     break
@@ -538,7 +539,7 @@ def newMain():
                     #try ending active scheduled quest, no need to check if no schedule end keys have been received
                     if len(received_keys) > 0:
                         #if active, may be pending on key to end
-                        scheduleEndKey = schedule.scheduleUUID  
+                        scheduleEndKey = schedule.questUUID  
                         print("                     --"+threading.current_thread().name+": WAITING keysLock")
                         keysLock.acquire_lock()
                         print("                     --"+threading.current_thread().name+": ACQUIRED keysLock")
@@ -582,7 +583,10 @@ def newMain():
             #check computer lock status
             if (questsInProgress or lockedUntilNextQuestCompletionOREOD):
                 print("==========================================================================================================COMPUTER LOCKED==========================================================================================================")
-                #screen_off()
+                screen_off()
+                
+                win = gw.getWindowsWithTitle('C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\\python3.11.exe')[0] 
+                win.activate()
                 computerLocked = True
             else:
                 print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++COMPUTER UNLOCKED++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
@@ -632,7 +636,7 @@ if __name__ == "__main__":
 #               SCHEDULE LOCKDOWN ENDING IS ASSOCIATED WITH UUID SO ENDING THE LOCKDOWN WILL NOT BE AFFECTED
 #           ADD/UPDATE SCHEDULE APPROPRIATELY
 #           
-#       IF SCHEDULEUUID+BOOL JSON RECEIVED, ADD TO RECEIVED_KEYS
+#       IF questUUID+BOOL JSON RECEIVED, ADD TO RECEIVED_KEYS
 
 
 #CHANGES TO BE MADE TO IOS APP: SCHEDULE'S SHOULD TRACK VIA BOOL IF THEY ARE SYNCHRONISED WITH THE PC LOCK SERVER OR NOT
