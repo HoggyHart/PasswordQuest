@@ -15,7 +15,7 @@ class DeadmansSwitch:
 
     def createSwitch(self):
         self.switch = subprocess.Popen(
-            [sys.executable, "C:/Users/willi/OneDrive/Desktop/code/PasswordQuest/DeadMansSwitch.py"],
+            ["python3", "C:/Users/willi/OneDrive/Desktop/code/PasswordQuest/DeadMansSwitch.py"],
             creationflags=( subprocess.DETACHED_PROCESS |
                         subprocess.CREATE_NEW_PROCESS_GROUP |
                         subprocess.CREATE_NO_WINDOW),

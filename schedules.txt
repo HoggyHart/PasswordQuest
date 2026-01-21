@@ -28,7 +28,7 @@
 
 {
 "isActive" : "True",
-"questInProgress" : "False",
+"questInProgress" : "True",
 "schedule_everyXDays" : "True",
 "scheduleName" : "Scheduled Bed Time",
 "scheduleUUID" : "4FE6E061-FFD8-45ED-A10A-F9C4AA86B181",
