@@ -5,6 +5,16 @@
 import threading
 #import pywhatkit
 import time
+#import win32gui
+import win32con
+#import pygetwindow as gw 
+#from pywhatkit.core import core
+#import webbrowser as web
+import win32api
+#import pyautogui
+
+import time
+import ctypes
 import win32api, win32con
 import pygetwindow as gw
 
@@ -12,13 +22,32 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 
 # LOCK STUFF ---------------------------------------------------------------------------------------------------------
+def screen_off():
+  #  ctypes.windll.user32.SendMessageW(65535, 274, 61808, 2)
+    ctypes.windll.user32.BlockInput(True)
+    pass
+def screen_on():
+ #   ctypes.windll.user32.SendMessageW(65535, 274, 61808, -1)
+    ctypes.windll.user32.BlockInput(False)
+    move_cursor()
+    
+def move_cursor():
+    x, y = (0,0)
+    win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, x, y)
 
+def lockStuff():
+     #turn screen off so user has trouble interfering
+    screen_off()
+    print("STARTING")
+    ctypes.windll.user32.BlockInput(True)
+    time.sleep(3)
+    screen_on()
+    ctypes.windll.user32.BlockInput(False)
+    print("FINISHING")
+    
 # SERVER STUFF ---------------------------------------------------------------------------------------------
 
 from datetime import datetime, timedelta
-#from ThreadUtils import acquireLock, releaseLock
-import ThreadUtils
-from Schedule import Schedule
 import json
 import subprocess
 #import re
@@ -35,6 +64,214 @@ schedulesLock = threading.Lock()
 fileLock = threading.Lock()
 scheduleFileDir = "C:/Users/willi/OneDrive/Desktop/code/PasswordQuest/schedules.txt"
 connected = False
+
+def dateFromJson(txt: str):
+    try:
+        date,time = txt.split(',')
+        time = time.split(' ')[1]
+
+        d = date.split('/')[0]
+        m = date.split('/')[1]
+        y = date.split('/')[2]
+
+        h = time.split(':')[0]
+        mi = time.split(':')[1]
+        s = time.split(':')[2]
+
+        newDate = datetime(year=int(y),month=int(m),day=int(d),hour=int(h),minute=int(mi),second=int(s))
+        
+        return newDate
+    except:
+        return None
+def dateToJson(date: datetime):
+    try:
+        txt = ""
+        txt += str(date.day) + "/"
+        txt += str(date.month) +"/"
+        txt += str(date.year) + ", "
+        txt += str(date.hour) + ":"
+        txt += str(date.minute) + ":"
+        txt += str(date.second)
+        return txt
+    except:
+        return "nil"
+def boolFromJson(txt: str):
+    if txt == "False":
+        return False
+    return True
+
+class Schedule:
+    #isActive: bool
+    #questInProgress: bool
+    #startTime: datetime
+    #scheduledEndTime: datetime
+    #scheduledStartTime: datetime
+    #scheduleName: str
+    #questUUID: str
+    #
+    #scheduleInfo_everyXDays: bool
+    #scheduleInfo_XDayDelay: int
+    #scheduleInfo_ScheduledDays: list[bool] = []
+    #scheduleInfo_lastCompletionTime: datetime
+
+    def __init__(self, jsonSch):
+        #decode from json
+        data = json.loads(jsonSch)
+        #simple bools
+        self.isActive = boolFromJson(data['isActive'])
+        self.questInProgress = boolFromJson(data['questInProgress'])
+        self.scheduleInfo_everyXDays = boolFromJson(data['schedule_everyXDays'])
+        
+        #simple string
+        self.scheduleName = str(data['scheduleName'])
+        self.questUUID = str(data['scheduleUUID'])
+
+        #int
+        self.scheduleInfo_XDayDelay = int(data['schedule_XDayDelay'])
+
+        #dates (formatted "dd-mm-yyyy hh:mm::ss" )
+        self.startTime = dateFromJson(str(data['startTime']))
+        self.scheduledStartTime = dateFromJson(str(data['scheduledStartTime']))
+        self.scheduledEndTime = dateFromJson(str(data['scheduledEndTime']))
+        self.scheduleInfo_lastCompletionTime = dateFromJson(str(data['schedule_lastCompletionTime']))
+
+        #bitset
+        arr = str(data['schedule_scheduledDays'])
+        self.scheduleInfo_ScheduledDays = []
+        for i in range(0,7):
+            #calc from back of val in case of int32, int64, etc. 0s at beginning
+            val = arr[len(arr)-1-i]
+            self.scheduleInfo_ScheduledDays.insert(0,not (val=="0"))
+
+    def getNext_XDayDelay_StartTime(self, fromDate: datetime) -> datetime:
+        return fromDate + timedelta(days=self.scheduleInfo_XDayDelay)
+
+    def getNext_ScheduledDays_StartTime(self, fromDate: datetime) -> datetime:
+        curDayOfWeek = fromDate.weekday()
+
+        for i in range(0,7):
+            #if day scheduled and first scheduled day found
+            if self.scheduleInfo_ScheduledDays[i]==True:
+                gap = i - curDayOfWeek
+
+            if self.scheduleInfo_ScheduledDays[i]==True and i > curDayOfWeek:
+                gap = i - curDayOfWeek
+                break
+            
+        if gap < 0:
+            gap += 7
+        return fromDate + timedelta(days=gap)
+
+    def updateStartTime(self):
+
+        dur = self.scheduledEndTime - self.scheduledStartTime
+
+        startMinute = self.scheduledStartTime.minute
+        startHour = self.scheduledStartTime.hour
+        self.scheduledStartTime = datetime(self.startTime.year,self.startTime.month,self.startTime.day,startHour,startMinute,self.startTime.second)
+
+        if self.scheduleInfo_everyXDays:
+            self.scheduledStartTime = self.getNext_XDayDelay_StartTime(self.scheduledStartTime)
+        else:
+            self.scheduledStartTime = self.getNext_ScheduledDays_StartTime(self.scheduledStartTime)
+                                                                 
+        self.startTime = self.scheduledStartTime
+        self.scheduledEndTime = self.scheduledStartTime + dur
+
+    def saveToFile(self):
+        global fileLock
+
+        #stored with each schedule json split up by double line breaks
+        writtenSchedules = Schedule.readListFromFile(scheduleFileDir)
+        print("                     --"+threading.current_thread().name+": WAITING fileLock")
+        fileLock.acquire_lock()
+        print("                     --"+threading.current_thread().name+": ACQUIRED fileLock")
+        schFile = open(scheduleFileDir, "w")
+
+        #see if updating existing schedule
+        updateForExistingSchedule = False
+        i = 0
+        for sch in writtenSchedules:
+            if self.questUUID == sch.questUUID:
+                writtenSchedules[i] = self
+                updateForExistingSchedule = True
+                break
+            i+=1
+        if not updateForExistingSchedule:
+            writtenSchedules.append(self)
+        
+        #re-write all schedules back in to file
+        i = 0
+        totalStr = ""
+        for i in range(0,len(writtenSchedules)):
+            totalStr += writtenSchedules[i].toJson()
+            if i < writtenSchedules.__len__()-1:
+                totalStr += "\n\n"
+        schFile.write(totalStr)
+        schFile.close()
+        fileLock.release_lock()
+        print("                     --"+threading.current_thread().name+": RELEASED fileLock")
+ 
+    def endQuest(self):
+        self.questInProgress = False
+        self.updateStartTime()
+
+    def toJson(self):
+        #should be formatted { "isActive" : "True", "questInProgress" : "False", "schedule_everyXDays" : "False", "scheduleName" : "Scheduled New Quest", "questUUID" : "FE61BBA7-2D07-4BBF-B335-1FF8DD12EB2B", "schedule_XDayDelay" : "1", "startTime" : "06/01/2026, 11:09:00", "scheduledStartTime" : "06/01/2026, 11:09:00", "scheduledEndTime" : "06/01/2026, 20:00:00", "schedule_lastCompletionTime" : "05/01/2026, 19:16:45", "schedule_scheduledDays" : "1111111" }
+        string = "{\n"
+        string += "\"isActive\" : \""+self.isActive.__str__()+"\",\n"
+        string += "\"questInProgress\" : \""+self.questInProgress.__str__()+"\",\n"
+        string += "\"schedule_everyXDays\" : \""+self.scheduleInfo_everyXDays.__str__()+"\",\n"
+        string += "\"scheduleName\" : \""+ self.scheduleName.__str__()+"\",\n"
+        string += "\"scheduleUUID\" : \""+ self.questUUID.__str__()+"\",\n"
+        string += "\"schedule_XDayDelay\" : \""+self.scheduleInfo_XDayDelay.__str__()+"\",\n"
+        string += "\"startTime\" : \""+dateToJson(self.startTime)+"\",\n"
+        string += "\"scheduledStartTime\" : \""+dateToJson(self.scheduledStartTime)+"\",\n"
+        string += "\"scheduledEndTime\" : \""+dateToJson(self.scheduledEndTime)+"\",\n"
+        string += "\"schedule_lastCompletionTime\" : \""+dateToJson(self.scheduleInfo_lastCompletionTime)+"\",\n"
+        arr = ""
+        for i in range(0,7):
+            #calc from back of val in case of int32, int64, etc. 0s at beginning
+            val = self.scheduleInfo_ScheduledDays[i]
+            if val==False:
+                arr += '0'
+            else:
+                arr += '1'
+        string += "\"schedule_scheduledDays\" : \""+arr+"\"\n}"
+        return string
+
+    def readListFromFile(schDir):
+        global fileLock
+        schList: list[Schedule] = []
+        try:
+            print('loading schedules')
+            fileLock.acquire_lock()
+            schFile = open(schDir,"r")
+            content = schFile.read()
+            if content == '':
+                fileLock.release_lock()
+                return []
+            #in file, schedules are separated by double line breaks
+            schs = content.split("\n\n")
+            print("============= RAW FILE DATA =============")
+            print(repr(content))
+            print("=========================================\n")
+            for sch in schs:
+                print("============= LOADED =============")
+                print(sch)
+                schList.append(Schedule(sch))
+                print("                AS                ")
+                print(schList[-1].toJson())
+                print("==================================\n")
+            schFile.close()
+        except Exception as e:
+            print("ERROR LOADING: ",e)
+            fileLock.release_lock()
+            return []
+        
+        fileLock.release_lock()
+        return schList
+
 schedules: list[Schedule] = []
 
 class MyServer(SimpleHTTPRequestHandler):
@@ -122,13 +359,13 @@ class MyServer(SimpleHTTPRequestHandler):
         global schedules
         try:
             schedule = Schedule(schJson)
-            ThreadUtils.acquireLock(fileLock, "File Lock")
             schedule.saveToFile()
-            ThreadUtils.releaseLock(fileLock, "File Lock")
             print(schedule.toJson())
 
             updateForExistingSchedule = False
-            ThreadUtils.acquireLock(schedulesLock, "Schedules Lock")
+            print("                     --"+threading.current_thread().name+": WAITING schedulesLock")
+            schedulesLock.acquire_lock()
+            print("                     --"+threading.current_thread().name+": ACQUIRED schedulesLock")
             for i in range(len(schedules)):
                 if schedule.questUUID == schedules[i].questUUID:
                     schedules[i] = schedule
@@ -136,10 +373,10 @@ class MyServer(SimpleHTTPRequestHandler):
                     break
             if not updateForExistingSchedule:
                 schedules.append(schedule)
+            schedulesLock.release_lock()
+            print("                     --"+threading.current_thread().name+": RELEASED schedulesLock")
         except Exception as e:
-            print("     FAILED to decode json:",e)
-        ThreadUtils.releaseLock(fileLock, "File Lock")
-        ThreadUtils.releaseLock(schedulesLock, "Schedules Lock") 
+            print("     FAILED to decode json:",e)  
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
@@ -163,6 +400,7 @@ class MyServer(SimpleHTTPRequestHandler):
         response_message = b"POST request received successfully!"
         self.wfile.write(response_message)
         
+
 global attemptingConnection
 attemptingConnection = False
 
