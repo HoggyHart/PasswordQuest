@@ -6,54 +6,26 @@ import threading
 #import pywhatkit
 import time
 #import win32gui
-import win32con
 #import pygetwindow as gw 
 #from pywhatkit.core import core
 #import webbrowser as web
-import win32api
 #import pyautogui
 
+import ThreadUtils
+import ComputerControl
 import time
-import ctypes
-import win32api, win32con
 import pygetwindow as gw
-
-from http.server import HTTPServer, SimpleHTTPRequestHandler
-
-
-# LOCK STUFF ---------------------------------------------------------------------------------------------------------
-def screen_off():
-  #  ctypes.windll.user32.SendMessageW(65535, 274, 61808, 2)
-    ctypes.windll.user32.BlockInput(True)
-    pass
-def screen_on():
- #   ctypes.windll.user32.SendMessageW(65535, 274, 61808, -1)
-    ctypes.windll.user32.BlockInput(False)
-    move_cursor()
-    
-def move_cursor():
-    x, y = (0,0)
-    win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, x, y)
-
-def lockStuff():
-     #turn screen off so user has trouble interfering
-    screen_off()
-    print("STARTING")
-    ctypes.windll.user32.BlockInput(True)
-    time.sleep(3)
-    screen_on()
-    ctypes.windll.user32.BlockInput(False)
-    print("FINISHING")
-    
-# SERVER STUFF ---------------------------------------------------------------------------------------------
-
 from datetime import datetime, timedelta
 import json
 import subprocess
 #import re
 from winwifi import WinWiFi
 from DeadMansSwitch import DeadmansSwitch
-global received_keys, computerLocked, lockedUntilNextQuestCompletionOREOD, schedules, keysLock, connected, PQ_Server, deadmansSwitch
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+
+
+# SERVER STUFF ---------------------------------------------------------------------------------------------
+global received_keys, computerLocked, lockedUntilNextQuestCompletionOREOD, schedules, keysLock, connected, PQ_Server, deadmansSwitch, questLock
 #schedules defined after Schedule class def
 deadmansSwitch = DeadmansSwitch()
 received_keys: list[str] = []
@@ -61,8 +33,10 @@ computerLocked = False
 lockedUntilNextQuestCompletionOREOD = False
 keysLock = threading.Lock() 
 schedulesLock = threading.Lock()
+questLock = threading.Lock()
 fileLock = threading.Lock()
 scheduleFileDir = "C:/Users/willi/OneDrive/Desktop/code/PasswordQuest/schedules.txt"
+questFileDir = "C:/Users/willi/OneDrive/Desktop/code/PasswordQuest/activequests.txt"
 connected = False
 
 def dateFromJson(txt: str):
@@ -100,6 +74,37 @@ def boolFromJson(txt: str):
         return False
     return True
 
+class Quest:
+    def __init__(self, jsonQ):
+        data = json.loads(jsonQ)
+        self.questUUID = data['questUUID']
+        self.isActive = True
+    
+    def toJson(self):
+        string = "{\n\"questUUID\" : \""+ self.questUUID.__str__()+"\"\n}"
+        return string
+
+    def saveToFile(self):
+        global fileLock
+
+        ThreadUtils.acquireLock(fileLock, "File Lock")
+        # if adding a quest (quest only exists/is active when expecting a key and only saves to file when creating/deleting
+        if self.isActive:
+            writtenQuests = open(questFileDir, "a")
+            writtenQuests.write(self.toJson()+"\n")
+            writtenQuests.close()
+        else:
+            writtenQuests = open(questFileDir, "r")
+            lines = writtenQuests.readlines()
+            writtenQuests.close()
+            #only write the non-this-uuid ones back
+            writtenQuests = open(questFileDir, "w")
+            for line in lines:
+                if self.questUUID not in line:
+                    writtenQuests.write(line+"\n")
+            writtenQuests.close()
+        ThreadUtils.releaseLock(fileLock, "File Lock")
+
 class Schedule:
     #isActive: bool
     #questInProgress: bool
@@ -124,7 +129,7 @@ class Schedule:
         
         #simple string
         self.scheduleName = str(data['scheduleName'])
-        self.questUUID = str(data['scheduleUUID'])
+        self.questUUID = str(data['questUUID'])
 
         #int
         self.scheduleInfo_XDayDelay = int(data['schedule_XDayDelay'])
@@ -183,9 +188,7 @@ class Schedule:
 
         #stored with each schedule json split up by double line breaks
         writtenSchedules = Schedule.readListFromFile(scheduleFileDir)
-        print("                     --"+threading.current_thread().name+": WAITING fileLock")
-        fileLock.acquire_lock()
-        print("                     --"+threading.current_thread().name+": ACQUIRED fileLock")
+        ThreadUtils.acquireLock(fileLock, "File Lock")
         schFile = open(scheduleFileDir, "w")
 
         #see if updating existing schedule
@@ -209,8 +212,7 @@ class Schedule:
                 totalStr += "\n\n"
         schFile.write(totalStr)
         schFile.close()
-        fileLock.release_lock()
-        print("                     --"+threading.current_thread().name+": RELEASED fileLock")
+        ThreadUtils.releaseLock(fileLock, "File Lock")
  
     def endQuest(self):
         self.questInProgress = False
@@ -223,7 +225,7 @@ class Schedule:
         string += "\"questInProgress\" : \""+self.questInProgress.__str__()+"\",\n"
         string += "\"schedule_everyXDays\" : \""+self.scheduleInfo_everyXDays.__str__()+"\",\n"
         string += "\"scheduleName\" : \""+ self.scheduleName.__str__()+"\",\n"
-        string += "\"scheduleUUID\" : \""+ self.questUUID.__str__()+"\",\n"
+        string += "\"questUUID\" : \""+ self.questUUID.__str__()+"\",\n"
         string += "\"schedule_XDayDelay\" : \""+self.scheduleInfo_XDayDelay.__str__()+"\",\n"
         string += "\"startTime\" : \""+dateToJson(self.startTime)+"\",\n"
         string += "\"scheduledStartTime\" : \""+dateToJson(self.scheduledStartTime)+"\",\n"
@@ -271,9 +273,22 @@ class Schedule:
         
         fileLock.release_lock()
         return schList
+    
+    def tryStarting(self) -> Quest:
+        actualEndTime = self.startTime + (self.scheduledEndTime - self.scheduledStartTime)
+
+        print("Checking if "+self.scheduleName+" should have started ("+self.startTime.__str__()+" - "+actualEndTime.__str__()+")")
+        if self.startTime <= datetime.now():
+            print("Starting",self.scheduleName+"'s quest lockdown\n")
+            self.questInProgress = True
+            self.saveToFile()
+            return Quest("{\n\"questUUID\":\""+self.questUUID.__str__()+"\"\n}")
+        else:
+            print("Not time.\n")
+            return None
 
 schedules: list[Schedule] = []
-
+activeQuests: list[Quest] = []
 class MyServer(SimpleHTTPRequestHandler):
 
     def do_GET(self):
@@ -296,6 +311,9 @@ class MyServer(SimpleHTTPRequestHandler):
             return
         elif(self.path == "/synchronise/schedule"):
             self.synchroniseSchedule(message)
+            return
+        elif(self.path == "/synchronise/startQuest"):
+            self.startQuest(message)
             return
         else:
             self.addKey(message)
@@ -324,21 +342,16 @@ class MyServer(SimpleHTTPRequestHandler):
         print("===========================")
 
         #overwrite all schedules
-        print("Waitin for FileLock")
-        fileLock.acquire_lock()
-        print("Acquired for FileLock")
+        ThreadUtils.acquireLock(fileLock, "File Lock")
         schFile = open(scheduleFileDir,"w")
         schFile.write(schJsons.replace("\r\n\r\n","\n\n"))
         schFile.close()
-        fileLock.release_lock()
-        print("Rleased for FileLock")
+        ThreadUtils.releaseLock(fileLock, "File Lock")
 
         #overwrite global schedules list
         try:
             print("Synchronising....") 
-            print("                     --"+threading.current_thread().name+": WAITING schedulesLock")
-            schedulesLock.acquire_lock()
-            print("                     --"+threading.current_thread().name+": ACQUIRED schedulesLock")
+            ThreadUtils.acquireLock(schedulesLock, "Schedules Lock")
             schedules = []
             for sch in schList:
                 schedule = Schedule(sch)
@@ -347,8 +360,7 @@ class MyServer(SimpleHTTPRequestHandler):
         except Exception as e:
             print("ERROR SYNCHRONISING",e)
 
-        schedulesLock.release_lock()
-        print("                     --"+threading.current_thread().name+": RELEASED schedulesLock")
+        ThreadUtils.releaseLock(schedulesLock, "Schedules Lock")
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
@@ -383,16 +395,28 @@ class MyServer(SimpleHTTPRequestHandler):
         response_message = b"POST request received successfully!"
         self.wfile.write(response_message)
 
-    def addKey(self, key):
-        global keysLock
+    def startQuest(self, quest):
+        global questLock
+
+        data = json.load(quest)
+
+        q = Quest(data)
+        q.saveToFile()
+        
+        ThreadUtils.acquireLock(questLock, "Quest Lock")
+        activeQuests.append(q)
+        ThreadUtils.releaseLock(questLock, "Quest Lock")
+
+    def addKey(self, reward):
+        global keysLock, received_keys
         print("appending to keys")
-    #   global received_keys, keysLock
-        print("                     --"+threading.current_thread().name+": WAITING keysLock")
-        keysLock.acquire_lock()
-        print("                     --"+threading.current_thread().name+": ACQUIRED keysLock")
+
+        data = json.load(reward)
+        key = data['questUUID'] + "_" + boolFromJson(data['completedOnTime'])
+
+        ThreadUtils.acquireLock(keysLock, "Key Lock")
         received_keys.append(key)
-        keysLock.release_lock()
-        print("                     --"+threading.current_thread().name+": RELEASED keysLock")
+        ThreadUtils.releaseLock(keysLock, "Key Lock")
         print("finished appending to keys")
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
@@ -483,120 +507,169 @@ def pollConnection():
             connected= False
         time.sleep(5)
 
+def checkForKey(schedule: Schedule) -> bool:
+    global received_keys, keysLock
+    keyFound = False
+
+    #try ending active scheduled quest, no need to check if no schedule end keys have been received
+    if len(received_keys) > 0:
+        #if active, may be pending on key to end
+        scheduleEndKey = schedule.questUUID  
+        ThreadUtils.acquireLock(keysLock, "Keys Lock")
+        for key in received_keys:
+            if scheduleEndKey in key:
+                keyFound = True
+                finishedOnTime = key.split('_')[1]
+                print("Key received for "+schedule.scheduleName)
+                if finishedOnTime == "True":
+                    print(schedule.scheduleName + " completed on time!\n")
+                    break
+                else:
+                    print(schedule.scheduleName + " failed.\n")
+                    break
+        ThreadUtils.releaseLock(keysLock, "Keys Lock")
+    else:
+        print("No keys received\n")
+    
+    if keyFound:
+        schedule.endQuest()
+        schedule.saveToFile()
+    return keyFound
+
+def checkForKey(quest: Quest) -> bool:
+    global received_keys, keysLock
+    keyFound = False
+
+    #try ending active scheduled quest, no need to check if no schedule end keys have been received
+    if len(received_keys) > 0:
+        #if active, may be pending on key to end
+        questEndKey = quest.questUUID
+        for key in received_keys:
+            if questEndKey in key:
+                keyFound = True
+                finishedOnTime = key.split('_')[1]
+                print("Quest Key Received")
+                if finishedOnTime == "True":
+                    print("Quest Complete!\n")
+                    break
+                else:
+                    print("Quest Failed.\n")
+                    break
+    else:
+        print("No keys received\n")
+    
+    if keyFound:
+        quest.isActive = False
+        quest.saveToFile()
+    return keyFound
+
+def controlLoop():
+    global keysLock, schedulesLock, questLock
+    while(True):
+
+        questsInProgress = False
+
+        #check if key received to end progress of quest
+        #check if quest scheduled to start
+        ThreadUtils.acquireLock(keysLock, "Keys Lock")
+        ThreadUtils.acquireLock(schedulesLock, "Schedules Lock")
+        global schedules
+        for schedule in schedules:
+            print("Inspecting "+schedule.scheduleName)
+            #if quest currently active 
+            #   -> key received? endQuest()
+            #   -> not received? questsInProgress = True
+            if schedule.questInProgress:
+                #if quest in progress then the only thing the pc should be doing is trying to allow the user to unlock the pc
+                global connected, attemptingConnection
+                if not connected and not attemptingConnection:
+                    #connecting to the network will make the hostServer thread start attempting to host the server
+                    threading.Thread(target=connectToPrivateNetwork).start()
+                    
+                #if no key provided, quest still in progress and lockdown still in effect
+                if not checkForKey(schedule):
+                    questsInProgress = True
+
+            #if scheduled quest inactive, see if it needs to start
+            elif schedule.isActive:
+                quest = schedule.tryStarting()
+
+                if quest != None:
+                    questsInProgress = True
+            else:
+                print(schedule.scheduleName, "not active\n")
+        ThreadUtils.releaseLock(schedulesLock, "Schedules Lock")
+        
+        ThreadUtils.acquireLock(questLock, "Quest Lock")
+        global activeQuests
+        for quest in activeQuests:
+            if not checkForKey(quest):
+                questsInProgress = True
+
+        delCount = 0
+        for i in range(len(activeQuests)):
+            if not activeQuests[i - delCount].isActive:
+                activeQuests.remove(activeQuests[i - delCount])
+                delCount+=1
+                continue
+        ThreadUtils.releaseLock(questLock, "Quest Lock")
+
+        #all keys have been checked and used, so clear them
+        global received_keys
+        received_keys = []
+        ThreadUtils.releaseLock(keysLock, "Keys Lock")
+
+        #check computer lock status
+        global computerLocked
+        if (questsInProgress):
+            print("===========================================================================================================COMPUTER LOCKED===========================================================================================================")
+            #ComputerControl.blockInput()
+            computerLocked = True
+            win = gw.getWindowsWithTitle('C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\\python3.11.exe')[0] 
+            win.activate()
+        else:
+            print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++COMPUTER UNLOCKED++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+            ComputerControl.unblockInput()
+            computerLocked = False
+        time.sleep(5)
+
 def newMain():
-    global received_keys, computerLocked, lockedUntilNextQuestCompletionOREOD, schedules, keysLock, connected, schedulesLock, deadmansSwitch
+    global computerLocked, schedules, connected, schedulesLock, deadmansSwitch, questLock, activeQuests, keysLock
     try:
-        print("Locking during init...")
+        print("Locking during init...") 
+        ComputerControl.blockInput()
+        print("==========================================================================================================COMPUTER LOCKED==========================================================================================================")
 
         #---Create a deadmans switch
         #create another process that checks for pings to tcp://localhost:1617
+        print("Creating deadmans switch")
         deadmansSwitch.createSwitch() #can be stopped via deadmansSwitch.stop() (hopefully)
         #create a thread that sends pings to ttcp://localhost:1617
+        print("Holding deadmans switch")
         deadmanThread = threading.Thread(target=DeadmansSwitch.deadmansHold)
         deadmanThread.start()
         #if this program gets ended, the pings stop sending and switch is 'released', causing a PC shutdown
 
-
-        
-      #  screen_off()
-        computerLocked = True
-        print("==========================================================================================================COMPUTER LOCKED==========================================================================================================")
-
-        print("Starting program")
+        print("loading schedules")
         schedules = Schedule.readListFromFile(scheduleFileDir)
+
+        print("creating server thread")
         serverThread = threading.Thread(target=hostServer)
         serverThread.start()
 
+        print("creating phone connection poller")
         connectionThread = threading.Thread(target=pollConnection)
         connectionThread.start()
-        while(True):
-            now = datetime.now()
 
-            questsInProgress = False
+        print("Init finished... Unlocking and starting now")
+        ComputerControl.unblockInput()
+        
+        controlLoop()
 
-            #check if key received to end progress of quest
-            #check if quest scheduled to start
-            #global keysLock
-            print("Checking schedules")
-            print("                     --"+threading.current_thread().name+": WAITING schedulesLock")
-            schedulesLock.acquire_lock()
-            print("                     --"+threading.current_thread().name+": ACQUIRED schedulesLock")
-            for schedule in schedules:
-                print("Inspecting "+schedule.scheduleName)
-                #if quest currently active 
-                #   -> key received? endQuest()
-                #   -> not received? questsInProgress = True
-                if schedule.questInProgress:
-                    print("Waiting for key for "+schedule.scheduleName)
-                    actualEndTime = schedule.startTime + (schedule.scheduledEndTime - schedule.scheduledStartTime)
-                    print("     Scheduled from "+schedule.startTime.__str__()+" to "+actualEndTime.__str__())
-                    #if quest in progress then the only the pc should be doing is trying to allow the user to unlock the pc
-                    if not connected and not attemptingConnection:
-                        #connecting to the network will make the hostServer thread start attempting to host the server
-                        threading.Thread(target=connectToPrivateNetwork).start()
-                    
-
-                    #try ending active scheduled quest, no need to check if no schedule end keys have been received
-                    if len(received_keys) > 0:
-                        #if active, may be pending on key to end
-                        scheduleEndKey = schedule.questUUID  
-                        print("                     --"+threading.current_thread().name+": WAITING keysLock")
-                        keysLock.acquire_lock()
-                        print("                     --"+threading.current_thread().name+": ACQUIRED keysLock")
-                        for key in received_keys:
-                            if scheduleEndKey in key:
-                                finishedOnTime = key.split('_')[1]
-                                print("Key received for "+schedule.scheduleName)
-                                if finishedOnTime == "YES":
-                                    print(schedule.scheduleName + " completed on time!\n")
-                                    schedule.endQuest()
-                                    schedule.saveToFile()
-                                    lockedUntilNextQuestCompletionOREOD = False
-                                    break
-                                else:
-                                    print(schedule.scheduleName + " failed.\n")
-                                    schedule.endQuest()
-                                    schedule.saveToFile()
-                                # lockedUntilNextQuestCompletionOREOD = True
-                                    lockedUntilNextQuestCompletionOREOD = False
-                                    break
-                        keysLock.release_lock()
-                        print("                     --"+threading.current_thread().name+": RELEASED keysLock")
-                    else:
-                        print("No keys received\n")
-                    questsInProgress = True
-                #if scheduled quest inactive, see if it needs to start
-                elif schedule.isActive:
-                    actualEndTime = schedule.startTime + (schedule.scheduledEndTime - schedule.scheduledStartTime)
-                    print("Checking if "+schedule.scheduleName+" should start ("+schedule.startTime.__str__()+" - "+actualEndTime.__str__()+")")
-                    if schedule.startTime <= now:
-                        print("Starting",schedule.scheduleName+"'s quest lockdown\n")
-                        schedule.questInProgress = True
-                        schedule.saveToFile()
-                    else:
-                        print("Not time.\n")
-                else:
-                    print(schedule.scheduleName, "not active\n")
-            schedulesLock.release_lock()
-            print("                     --"+threading.current_thread().name+": RELEASED schedulesLock")
-            
-            #check computer lock status
-            if (questsInProgress or lockedUntilNextQuestCompletionOREOD):
-                print("==========================================================================================================COMPUTER LOCKED==========================================================================================================")
-               # screen_off()
-                
-                win = gw.getWindowsWithTitle('C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\\python3.11.exe')[0] 
-                win.activate()
-                computerLocked = True
-            else:
-                print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++COMPUTER UNLOCKED++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-                screen_on()
-                computerLocked = False
-            time.sleep(5)
     except Exception as e:
         deadmansSwitch.stopSwitch()
         print(e)
-        screen_on()
+        ComputerControl.unblockInput()
         input()
 
 if __name__ == "__main__":
