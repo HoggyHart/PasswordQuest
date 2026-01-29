@@ -27,12 +27,14 @@ struct QuestManagerView: View {
                                 Text("\(quest.questName!)")
                             }
                         }
+                        .onDelete(perform: deleteQuests)
                     }
                     .toolbar {
-                        ToolbarItem {
+                        HStack{
                             Button(action: addQuest) {
-                                Label("Add Item", systemImage: "plus")
+                                    Label("Add Item", systemImage: "plus")
                             }
+                            EditButton()
                         }
                     }
                     Text("Select a quest")
@@ -53,6 +55,15 @@ struct QuestManagerView: View {
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
+    
+    private func deleteQuests(offsets: IndexSet) {
+        viewContext.perform {
+            withAnimation {
+                offsets.map {quests[$0] }.forEach(viewContext.delete)
+                do{try viewContext.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
             }
         }
     }

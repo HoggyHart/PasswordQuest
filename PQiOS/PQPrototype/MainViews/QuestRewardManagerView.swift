@@ -16,16 +16,19 @@ struct QuestRewardManagerView: View {
     private var rewards: FetchedResults<QuestReward>
     
     var body: some View {
-        List{
-            ForEach(rewards){ reward in
-                Button(){
-                    redeemReward(result: reward)
-                } label: {
-                    HStack{
-                        Image(systemName: reward.completedOnTime ? "checkmark.circle.fill" : "x.circle.fill")
-                            .foregroundColor(reward.completedOnTime ? .green : .red)
-                        Text("\(reward.quest!.questName!)(\(reward.obtainmentDate!.formatted(date: .numeric, time: .shortened)))")
-                        Spacer()
+        VStack{
+            Text("Quest Rewards")
+            List{
+                ForEach(rewards){ reward in
+                    Button(){
+                        redeemReward(result: reward)
+                    } label: {
+                        HStack{
+                            Image(systemName: reward.completedOnTime ? "checkmark.circle.fill" : "x.circle.fill")
+                                .foregroundColor(reward.completedOnTime ? .green : .red)
+                            Text("\(reward.quest!.questName!)(\(reward.obtainmentDate!.formatted(date: .numeric, time: .shortened)))")
+                            Spacer()
+                        }
                     }
                 }
             }

@@ -19,6 +19,39 @@ extension Quest : Identifiable {
         }
     }
     
+    func toJson() -> String{
+        var string = "{\n"
+        string += "    \"questUUID\" : \"" + self.questUUID!.uuidString + "\"\n"
+        string +=   "}"
+        return string
+    }
+    func sendStartQuestSignal(){
+        if let url = URL(string:"http://172.20.10.5:1617/synchronise/activequest") {
+            var request = URLRequest(url: url)
+            
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = "POST"
+            
+            let questKey = self.toJson()
+            
+            let newData = Data(questKey.utf8)
+            let task = URLSession.shared.uploadTask(with: request, from: newData){ data, response, error in
+                print("sent")
+                if let error = error {
+                    // Handle the error
+                    print("Error: \(error.localizedDescription)")
+                } else if let response = (response as? HTTPURLResponse){
+                    // Process the data
+                    print(response.statusCode)
+                    if response.statusCode == 200{
+                        print("Success")
+                    }
+                }
+            }
+            task.resume()
+        }
+    }
+    
     public func updateProgress(){
         if self.isActive{
             var stillInProgress = false
@@ -118,8 +151,8 @@ extension Quest : Identifiable {
             
             //create quest reward (key)
             let reward = QuestReward(context: self.managedObjectContext!)
-            reward.completedOnTime = tasksComplete()
-            reward.key = self.questUUID!
+                        reward.completedOnTime = tasksComplete()
+                        reward.key = self.questUUID!
             reward.obtainmentDate = Date.now
             reward.scheduled = getCurrentScheduler() != nil
             self.addToRewards(reward)

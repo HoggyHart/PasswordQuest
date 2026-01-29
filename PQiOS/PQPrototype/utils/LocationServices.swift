@@ -40,10 +40,8 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
         locationManager.delegate = self //! forces optional to be considered as object
         print("LocationServices: delegate set")
         locationManager.activityType = CLActivityType.fitness //not sure what this does. I guess delay between updates maybe? might just be stat-tracking
-        err_globalLocationNotEnabled = false
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.pausesLocationUpdatesAutomatically = false
-        err_globalLocationNotEnabled = true
         //used in View object to display error
     }
     
@@ -162,7 +160,10 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
         do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
     }
     
-    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+    func locationManager(
+        _ manager: CLLocationManager,
+        didExitRegion region: CLRegion
+    ){
         print("left region at \(Date.now)")
         guard let task = taskFor(region: region) else { return }
         task.updateRecordedTime()

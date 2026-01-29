@@ -24,6 +24,7 @@ struct MainView: View {
         if MainView.scheduleAndQuestUpdater == nil{
             MainView.scheduleAndQuestUpdater = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){_ in
                 let bgContext = PersistenceController.shared.container.newBackgroundContext()
+                //try to start scheduled quests
                 bgContext.perform {
                     do{
                         //load schedules
@@ -34,19 +35,39 @@ struct MainView: View {
                             
                             //if schedule isnt active skip this one
                             if !schedule.isActive { continue }
-                            
                             let quest = schedule.quest!
-                            //if scheduled quest is already active
-                            //  OR scheduled quest has already been completed today
-                            //IMPROVEMENT: add a "complete quest ahead of schedule" option
-                            //
-                            //if quest already active OR it was completed and the startTime has not updated (via turning in quest)
-                            if quest.isActive
-                                || (schedule.lastEndDate ?? Date.distantPast > schedule.startTime!)
-                            { continue }
                             
-                            //if still in window to start quest, start it
-                            if schedule.startTime! <= Date.now && Date.now < schedule.getActualEndTime() {
+                            //if in progress, skip as it has already started
+                            if schedule.getState() == 0
+                            { continue }
+                            //else if NOT in progress but quest is active (i.e. started manually/by another scheduler
+                            else if quest.isActive{
+                                //if quest active because of another scheduler, continue
+                                if let activeSch = quest.getCurrentScheduler(){
+                                    //skip
+                                    continue
+                                }
+                                //else: quest not scheduled but is active during schedule time -> assume it has been started early and update schedule startTime to make this quest contribute to the schedule's completion
+                                else{
+                                    schedule.startTime = quest.questStartTime
+                                    continue
+                                }
+                            }
+                            
+                            //  ensures Date.now is < end time
+                            if Date.now > schedule.getActualEndTime(){
+                                schedule.catchUp(padQuestFailures: true)
+                            }
+                            
+                            
+                            //starting scheduled quest
+                            //if not time, go next
+                            if Date.now < schedule.startTime!{
+                                continue
+                            }
+                            //if past time to start (and < end thx to prev check)
+                            //start!
+                            else{
                                 quest.start(intendedStartTime: schedule.startTime!)
                                 schedule.lastScheduleCompletedOnTime = false
                             }

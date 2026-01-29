@@ -58,6 +58,7 @@ struct QuestView: View {
                         //check if there are any other quests still in progress
                         let allQuests = try bgContext.fetch(Quest.fetchRequest())
                         var anyActive = false
+                        //FIX: the quest used here is from the mainContext, but this fetches from the background context. they do not share the same status and as such the bgContext one has not ended yet so the location service does not stop. Also this may have something to do with the liveUpdate not updating values correctly?
                         for individualQuest in allQuests{
                             if individualQuest.isActive{
                                 anyActive = true

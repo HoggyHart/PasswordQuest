@@ -142,38 +142,35 @@ extension Schedule : Identifiable {
                 scheduledEndTime!
                     .timeIntervalSince(scheduledStartTime!))
     }
-    //called at a time where lastCompletionDate < Date.now.
-    // if quest turned in, then schedule update goes to next start time since lastCompletionDate
-    // this allows the user to stack up schedule completions since lastScheduleCompletedOnTime is set to true here
-    // I think this is a nice feature, but could lead to a potential system abuse problem
-    func turnInQuest(){
-        if let url = URL(string:"http://172.20.10.5:1617") {
-            var request = URLRequest(url: url)
+    
+    ///Used when Date.now > schedule.endTime and schedule must catch up
+    ///Pads
+    func catchUp(padQuestFailures: Bool){
+        if Date.now < self.getActualEndTime() { return }
+        
+        let dur = scheduledEndTime!.timeIntervalSince(scheduledStartTime!)
+        let startMinute = Calendar.current.component(.minute, from: scheduledStartTime!)
+        let startHour = Calendar.current.component(.hour, from: scheduledStartTime!)
+        scheduledStartTime = Calendar.current.date(bySettingHour: startHour, minute: startMinute, second: 0, of: startTime!)!
+        startTime = scheduledStartTime
+        //FIX: .getActualEndTime() is only needed first time, after that the startTime == scheduledStartTime so the extra calcs are not needed
+        while self.scheduledEndTime! < Date.now{
             
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpMethod = "POST"
-            let key = self.scheduleUUID!.uuidString + "_" + (lastScheduleCompletedOnTime ? "YES" : "nil")
-            let newData = Data(key.utf8)
-            let task = URLSession.shared.uploadTask(with: request, from: newData){ data, response, error in
-                if let error = error {
-                    // Handle the error
-                    print("Error: \(error.localizedDescription)")
-                } else if let response = (response as? HTTPURLResponse){
-                    // Process the data
-                    if response.statusCode == 200{
-                        //if quest is still in progress then end it
-                        //questStartTime = nil if quest has ended (i.e. completed successfully
-                        if self.startTime!.timeIntervalSince1970 == self.quest!.questStartTime?.timeIntervalSince1970{
-                            self.quest!.end()
-                        }
-                
-                        self.updateStartTime(delay: nil)
-                        self.lastEndDate = Date.now
-                        self.lastScheduleCompletedOnTime = true
-                    }
-                }
+            if schedule!.everyXDays{
+                scheduledStartTime = getNext_XDayDelay_StartTime(fromDate: scheduledStartTime!)
+            }else{
+                scheduledStartTime = getNext_ScheduledDays_StartTime(fromDate: scheduledStartTime!)
             }
-            task.resume()
+            scheduledEndTime = scheduledStartTime!.addingTimeInterval(dur)
+            
+            if padQuestFailures{
+                let reward = QuestReward(context: self.managedObjectContext!)
+                reward.completedOnTime = false
+                reward.key = self.quest!.questUUID!
+                reward.scheduled = true
+                reward.obtainmentDate = self.scheduledEndTime!
+                self.quest!.addToRewards(reward)
+            }
         }
     }
 }

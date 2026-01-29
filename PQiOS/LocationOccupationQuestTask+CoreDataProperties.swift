@@ -45,7 +45,7 @@ extension LocationOccupationQuestTask: MKMapViewDelegate {
         LocationServices.service.locationManager.startMonitoring(for: taskArea!)
     }
     
-    //lastUpdate is set after this method in update() and LocationManager.onRegionExit
+    //lastUpdate is set after this method in update() and in LocationManager.onRegionEnter/Exit
     func updateRecordedTime(){
         if occupiedAtLastUpdate{
             let timeToClear = Date.now.timeIntervalSince(lastUpdate!)
@@ -57,7 +57,8 @@ extension LocationOccupationQuestTask: MKMapViewDelegate {
             }
         }
     }
-    
+    //func called during liveUpdates
+    //calcDistance may not be necessary if the locationmanager automatically handles region entering/exiting
     override func update() {
         if completed {return}
         
@@ -69,7 +70,7 @@ extension LocationOccupationQuestTask: MKMapViewDelegate {
             updateRecordedTime()
             occupiedAtLastUpdate = true
         }else{
-            occupiedAtLastUpdate=false
+            occupiedAtLastUpdate = false
         }
         lastUpdate = Date.now
     }
