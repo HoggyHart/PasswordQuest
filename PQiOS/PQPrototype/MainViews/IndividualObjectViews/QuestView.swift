@@ -50,9 +50,11 @@ struct QuestView: View {
             let bgContext = PersistenceController.shared.container.newBackgroundContext()
             bgContext.perform {
                 do{
+                    let quest = bgContext.object(with: quest.objectID) as! Quest
                     if !quest.isActive { return; }
                     
-                    quest.updateProgress();
+                    quest.updateProgress()
+                    print("updated")
                     //if now completed
                     if !quest.isActive{
                         //check if there are any other quests still in progress
@@ -211,6 +213,10 @@ struct QuestView: View {
             }
         }
         .onAppear(perform: startLiveUpdater)
+        .onDisappear {
+            liveUpdater?.invalidate()
+            liveUpdater = nil
+        }
     }
     
     func taskStatusColor(task: QuestTask) -> Color{

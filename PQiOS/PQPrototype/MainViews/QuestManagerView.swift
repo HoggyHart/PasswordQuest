@@ -32,7 +32,7 @@ struct QuestManagerView: View {
                     .toolbar {
                         HStack{
                             Button(action: addQuest) {
-                                    Label("Add Item", systemImage: "plus")
+                                Label("Add Item", systemImage: "plus")
                             }
                             EditButton()
                         }
