@@ -17,6 +17,7 @@ extension Quest : Identifiable {
         for t in tasks!{
             (t as! QuestTask).start()
         }
+        sendStartQuestSignal()
     }
     
     func toJson() -> String{
@@ -105,8 +106,9 @@ extension Quest : Identifiable {
         
     }
     public func tasksComplete() -> Bool{
-        if self.tasks!.allObjects.isEmpty { return false }
-        for qTask in self.tasks!{
+        //optionals used here because when deleting a quest that just been QuestView'd the app crashes (not tested if it is based on not having added any tasks or not)
+        if self.tasks?.allObjects.isEmpty ?? false { return false }
+        for qTask in self.tasks ?? [] {
             if !(qTask as! QuestTask).completed{
                 return false
             }
