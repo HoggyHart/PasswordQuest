@@ -33,16 +33,18 @@
         <relationship name="quest" maxCount="1" deletionRule="Nullify" destinationEntity="Quest" inverseName="tasks" inverseEntity="Quest"/>
     </entity>
     <entity name="Schedule" representedClassName="Schedule" syncable="YES">
+        <attribute name="everyXDays" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isActive" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lastEndDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="lastScheduleCompletedOnTime" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="schedule" attributeType="Transformable" valueTransformerName="STITransformer" customClassName=".ScheduleTypeInfo"/>
+        <attribute name="scheduledDays" attributeType="Transformable" valueTransformerName="NSWeekTransformer" customClassName=".NSWeek"/>
         <attribute name="scheduledEndTime" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="scheduledStartTime" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="scheduleName" attributeType="String"/>
         <attribute name="scheduleUUID" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="startTime" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="synchronised" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="xDayDelay" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES"/>
         <relationship name="quest" maxCount="1" deletionRule="Nullify" destinationEntity="Quest" inverseName="schedulers" inverseEntity="Quest"/>
     </entity>
 </model>

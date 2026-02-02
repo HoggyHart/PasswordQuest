@@ -117,10 +117,11 @@ extension Quest : Identifiable {
     }
     
     public func getCurrentScheduler() -> Schedule?{
+        if !self.isActive {return nil}
         for schedule in schedulers!{
             let schedule = schedule as! Schedule
             //if this scheduler is active and was scheduled to start a quest at the same time this quest was started (i.e. this scheduler started this now-ending quest) then log the last completion date
-            if schedule.isActive && schedule.startTime?.timeIntervalSince1970 == questStartTime?.timeIntervalSince1970 {
+            if schedule.isActive && schedule.startTime!.equals(date2: questStartTime!) {
                 return schedule
             }
         }
@@ -128,12 +129,7 @@ extension Quest : Identifiable {
     }
     public func endCurrentSchduler(){
         if let scheduler = getCurrentScheduler(){
-            //lastEndDate
-            scheduler.lastEndDate = Date.now
-            ////was it completed on time? is the current time earlier than the deadline?
-            //was it completed on time -> Were the tasks complete? This assumes that the quest cannot continue beyond the scheduled time
-            scheduler.lastScheduleCompletedOnTime = tasksComplete()//Date.now <= scheduler.getActualEndTime()
-            scheduler.updateStartTime(delay: nil)
+            scheduler.endScheduledPeriod()
         }
     }
     
@@ -149,7 +145,6 @@ extension Quest : Identifiable {
     }
     public func end(){
         if self.isActive{
-            self.isActive = false
             
             //create quest reward (key)
             let reward = QuestReward(context: self.managedObjectContext!)
@@ -164,7 +159,9 @@ extension Quest : Identifiable {
             
             //leave task progress and questStartTime alone to indicate quest status as completed or failed
             //these are changed in reset()
-            locked = false
+            
+            self.isActive = false
+            self.locked = false
         }
     }
     public func fail(){

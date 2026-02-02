@@ -35,16 +35,15 @@ struct MainView: View {
                             
                             //if schedule isnt active skip this one
                             if !schedule.isActive { continue }
-                            let quest = schedule.quest!
                             
+                            let quest = schedule.quest!
                             //if in progress, skip as it has already started
                             if schedule.getState() == 0
                             { continue }
                             //else if NOT in progress but quest is active (i.e. started manually/by another scheduler
                             else if quest.isActive{
                                 //if quest active because of another scheduler, continue
-                                if let activeSch = quest.getCurrentScheduler(){
-                                    //skip
+                                if quest.getCurrentScheduler() != nil{
                                     continue
                                 }
                                 //else: quest not scheduled but is active during schedule time -> assume it has been started early and update schedule startTime to make this quest contribute to the schedule's completion
@@ -56,10 +55,8 @@ struct MainView: View {
                             
                             //  ensures Date.now is < end time
                             if Date.now > schedule.getActualEndTime(){
-                                schedule.catchUp(padQuestFailures: true)
+                                schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now,padQuestFailures: true)
                             }
-                            
-                            
                             //starting scheduled quest
                             //if not time, go next
                             if Date.now < schedule.startTime!{

@@ -3,10 +3,82 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "Schedule.getState():Schedule.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #2 in closure #1 in closure #3 in closure #1 in closure #3 in closure #1 in ScheduleView.body.getter:ScheduleView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "1&lt;&lt;i">
+            </PersistentString>
+            <PersistentString
+               value = "self.schedule.scheduledDays!.week">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Schedule.amendNextScheduledPeriod(toNextStartFrom:padQuestFailures:):Schedule.swift">
+      </ContextState>
+      <ContextState
+         contextName = "implicit closure #1 in closure #1 in closure #2 in closure #1 in closure #3 in closure #1 in closure #3 in closure #1 in ScheduleView.body.getter:ScheduleView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.schedule.scheduledDays">
+            </PersistentString>
+            <PersistentString
+               value = "1&lt;&lt;i">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #1 in closure #3 in closure #1 in closure #3 in closure #1 in ScheduleView.body.getter:ScheduleView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.schedule.scheduledDays!.toBitSetString()">
+            </PersistentString>
+            <PersistentString
+               value = "1&lt;&lt;i">
+            </PersistentString>
+            <PersistentString
+               value = "schedule.scheduledDays!.contains(Week.Element(rawValue:1&lt;&lt;i))">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Week.init(rawValue:):ScheduleTypeInfo.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.toBitSetString()">
+            </PersistentString>
+            <PersistentString
+               value = "Week.monday">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ScheduleTypeInfo.encode(with:):ScheduleTypeInfo.swift">
          <PersistentStrings>
             <PersistentString
                value = "self">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "QuestView.body.getter:QuestView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Schedule.lateInit(quest:):Schedule.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.scheduledDays!.week.toBitSetString()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in QuestView.addSchedule():QuestView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "schedule.scheduledDays">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

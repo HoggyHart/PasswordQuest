@@ -17,33 +17,24 @@ struct ScheduleView: View {
     
     @ObservedObject
     var schedule: Schedule
+
+    //havent quite figured out how to properly handle Transformables, so this is here still
+    @State var schDayArr: [Bool] = [true,true,true,true,true,true,true]
     
-   // @State var quest: Quest?
-    @State var scheduleName: String = "no name"
-    @State var everyXDays: Bool = false
-    @State var XDayDelay: Int = 1
-    @State var editedScheduledDaysArr: [Bool] = [true,true,true,true,true,true,true]
-    @State var editedStartTime: Date = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date.now)!
-    @State var editedScheduledEndTime: Date = Calendar.current.date(bySettingHour: 23, minute: 59, second: 1, of: Date.now)!
+    let defaultStartTime = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date.now)!
+    let defaultEndTime = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: Date.now)!
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Quest.objectID, ascending: true)], animation: .default)
     private var quests: FetchedResults<Quest>
     
     init(scheduleToLoad: Schedule){
         self.schedule = scheduleToLoad
-     //   self.quest = schedule.quest!
     }
     
     func loadData(){
-      //  self.quest = schedule.quest!
-        self.scheduleName = schedule.scheduleName!
-        self.everyXDays = schedule.schedule!.everyXDays
-        self.XDayDelay = schedule.schedule!.XDayDelay
         for i in 0..<7{
-            self.editedScheduledDaysArr[i] = schedule.schedule!.scheduledDays.contains(.Element(rawValue: 1<<i))
+            schDayArr[i] = schedule.scheduledDays!.week.contains(.Element(rawValue: 1<<i))
         }
-        self.editedStartTime = schedule.scheduledStartTime!
-        self.editedScheduledEndTime = schedule.scheduledEndTime!
     }
     var body: some View {
         VStack{
@@ -54,41 +45,32 @@ struct ScheduleView: View {
                 }
             }
             HStack{
-                TextField("Quest Name", text: $scheduleName)
+                TextField("Quest Name", text: $schedule.scheduleName ?? "Unset Name")
                     .font(.title)
                     .disabled(!editMode!.wrappedValue.isEditing)
                 if editMode!.wrappedValue.isEditing {Image(systemName:"pencil")}
             }
             
             Divider()
-            
-           // HStack{
-                Text("Scheduled Quest: "+schedule.quest!.questName!)
-             //   Picker("Scheduled Quest", selection: $quest) {
-               //     ForEach(quests){ q in
-             //           Text(q.questName!)
-             //       }
-             //   }
-            //    .disabled(!editMode!.wrappedValue.isEditing)
-          //  }
-            
+            Text("Scheduled Quest: "+schedule.quest!.questName!)
             Divider()
             
             VStack{
                 HStack{
-                    Toggle(isOn: $everyXDays){}.disabled(!editMode!.wrappedValue.isEditing)
-                        .opacity(editMode!.wrappedValue.isEditing ? 1 : 0)
-                        .labelsHidden()
-                        .frame(width: editMode!.wrappedValue.isEditing ? 50 : 0)
-                    if everyXDays{
+                    if editMode!.wrappedValue.isEditing {
+                        Toggle(isOn: $schedule.everyXDays){}
+                            .labelsHidden()
+                    }
+                    if schedule.everyXDays{
                         HStack(spacing: 0){
-                            Text("Schedule every \(XDayDelay) days")
-                            Spacer()
-                            Stepper(label: {}, onIncrement: {XDayDelay+=1}, onDecrement: {XDayDelay-=1; if XDayDelay<=0 {XDayDelay = 1}})
-                                .disabled(!editMode!.wrappedValue.isEditing)
-                                .opacity(editMode!.wrappedValue.isEditing ? 1 : 0)
-                                .frame(alignment: .trailing)
-                                .labelsHidden()
+                            Text("Schedule every \(schedule.xDayDelay) days")
+                            if editMode!.wrappedValue.isEditing {
+                                Spacer()
+                                Stepper(label: {}, onIncrement: {schedule.xDayDelay+=1}, onDecrement: {schedule.xDayDelay-=1; if schedule.xDayDelay<=0 {schedule.xDayDelay = 1}})
+                                    .disabled(!editMode!.wrappedValue.isEditing)
+                                    .frame(alignment: .trailing)
+                                    .labelsHidden()
+                            }
                         }
                     }else{
                         HStack{
@@ -96,11 +78,16 @@ struct ScheduleView: View {
                             Spacer()
                             ForEach(0..<7) { i in
                                 Button(){
-                                    editedScheduledDaysArr[i].toggle()
+                                    //schedule.scheduledDays?.willChangeValue(forKey: "week")
+                                    //schedule.scheduledDays!.week = Week.toggle(obj: schedule.scheduledDays!.week, day: 1<<i)
+                                    //schedule.scheduledDays!.didChangeValue(forKey: "week")
+                                    schDayArr[i].toggle()
                                 } label: {
                                     ZStack{
-                                        if editedScheduledDaysArr[i] { Image(systemName:"circle.fill").foregroundColor(.green)}
-                                        else{ Image(systemName:"circle")}
+                                        Image(systemName: schDayArr[i] ?
+                                              "circle.fill" : "circle")
+                                        .foregroundColor(schDayArr[i] ? .green : .red)
+                                        //complicated nonsense to get the first letter of each day (M,T,W,T,F,S,S)
                                         Text(Week.daysOfTheWeek[i][..<Week.daysOfTheWeek[i].index(Week.daysOfTheWeek[i].startIndex, offsetBy: 1)]).foregroundColor(.black)
                                     }
                                 }
@@ -113,26 +100,21 @@ struct ScheduleView: View {
             HStack{
                 Spacer()
                 Text("From")
-                DatePicker("ScheduledStart", selection: $editedStartTime, displayedComponents: .hourAndMinute).labelsHidden()
+                DatePicker("ScheduledStart", selection: $schedule.scheduledStartTime ?? defaultStartTime, displayedComponents: .hourAndMinute).labelsHidden()
                     .disabled(!editMode!.wrappedValue.isEditing)
                 Text("to")
-                DatePicker(selection: $editedScheduledEndTime, displayedComponents: .hourAndMinute, label: {Text("to")})
+                DatePicker(selection: $schedule.scheduledEndTime ?? defaultEndTime, displayedComponents: .hourAndMinute, label: {Text("to")})
                     .labelsHidden()
                     .disabled(!editMode!.wrappedValue.isEditing)
                 //if end time hour+min is before start time hour+min
-                if editedStartTime
-                    > Calendar.current.date(
-                        bySettingHour: Calendar.current.component(.hour, from: editedScheduledEndTime),
-                        minute: Calendar.current.component(.minute, from: editedScheduledEndTime),
-                        second: Calendar.current.component(.second, from: editedScheduledEndTime),
-                        of: editedStartTime)!{
+                if endBeforeStart(){
                     Text("next day")
                 }
                 Spacer()
             }
             HStack{
                 Text("Next start date:")
-                DatePicker(selection: $editedStartTime, in: Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date.now)!..., displayedComponents: .date, label: {Text("Next start date ")})
+                DatePicker(selection: $schedule.scheduledStartTime ?? defaultStartTime, in: Calendar.current.date(bySetting: .second, value: 0, of: Date.now)!..., displayedComponents: .date, label: {Text("Next start date ")})
                     .labelsHidden()
                     .disabled(!editMode!.wrappedValue.isEditing)
             }
@@ -140,7 +122,9 @@ struct ScheduleView: View {
             if !editMode!.wrappedValue.isEditing{
                 Button(){
                     context.perform {
-                        schedule.isActive.toggle()
+                        if schedule.scheduledPeriodRelativity() < 1 {
+                            schedule.isActive.toggle()}
+                        else { _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now) }
                         do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
                         
                     }
@@ -172,24 +156,28 @@ struct ScheduleView: View {
                 }
             }
         }
+        .onDisappear {
+            context.perform{
+                context.rollback()
+                do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+            }
+        }
     }
     
+    func endBeforeStart() -> Bool{
+        return schedule.scheduledStartTime! > Calendar.current.date(  bySettingHour: Calendar.current.component(.hour, from: schedule.scheduledEndTime!), minute: Calendar.current.component(.minute, from: schedule.scheduledEndTime!), second: Calendar.current.component(.second, from: schedule.scheduledEndTime!), of: schedule.scheduledStartTime!)!
+    }
     func updateSchedule(){
         context.perform {
             //ordered by UI appearance
-            self.schedule.scheduleName = scheduleName
+           // self.schedule.scheduleName = scheduleName
         
-            //type of schedule
-            schedule.schedule!.everyXDays = everyXDays
-            //xdaydelay
-            schedule.schedule!.XDayDelay = XDayDelay
-            //scheduleddays
             for i in 0..<7{
-                if editedScheduledDaysArr[i]{
-                    if !schedule.schedule!.scheduledDays.contains(.Element(rawValue: 1<<i)) {schedule.schedule!.scheduledDays.insert(.Element(rawValue: 1<<i))}
+                if schDayArr[i]{
+                    if !schedule.scheduledDays!.week.contains(.Element(rawValue: 1<<i)) {schedule.scheduledDays!.week.insert(.Element(rawValue: 1<<i))}
                 }else{
-                    if schedule.schedule!.scheduledDays.contains(.Element(rawValue: 1<<i))
-                    {schedule.schedule!.scheduledDays.remove(.Element(rawValue: 1<<i))}
+                    if schedule.scheduledDays!.week.contains(.Element(rawValue: 1<<i))
+                    {schedule.scheduledDays!.week.remove(.Element(rawValue: 1<<i))}
                 }
             }
             
@@ -200,28 +188,28 @@ struct ScheduleView: View {
             
         //---validate scheduled time to ensure it hasnt already passed
             //set it to start date
-            let hour = Calendar.current.component(.hour, from: editedScheduledEndTime)
-            let minute = Calendar.current.component(.minute, from: editedScheduledEndTime)
-            editedScheduledEndTime = Calendar.current.date(bySettingHour: hour, minute: minute, second: 5, of: editedStartTime)!
+            let hour = Calendar.current.component(.hour, from: schedule.scheduledEndTime!)
+            let minute = Calendar.current.component(.minute, from: schedule.scheduledEndTime!)
+            schedule.scheduledEndTime = Calendar.current.date(bySettingHour: hour, minute: minute, second: 5, of: schedule.scheduledStartTime!)!
             //then push it ahead if needed (i.e. 22:00 start - 8:00 end --> move end to next day)
-            while editedScheduledEndTime < editedStartTime{
-                editedScheduledEndTime.addTimeInterval(86400)
+            while schedule.scheduledEndTime! < schedule.scheduledStartTime!{
+                schedule.scheduledEndTime!.addTimeInterval(86400)
             }
             //then check that it cannot have already ended, moving the start time to the next day if it needs to
-            if editedScheduledEndTime < Date.now{
+            if schedule.scheduledEndTime! < Date.now{
                 //if it is before, then either
                 //   - skip to starting tomorrow
                 //or - skip to starting at next scheduled day of week
-                editedStartTime = everyXDays ? editedStartTime.addingTimeInterval(86400) : schedule.getNext_ScheduledDays_StartTime(fromDate: editedStartTime)
+                schedule.scheduledStartTime = schedule.everyXDays ? schedule.scheduledStartTime!.addingTimeInterval(86400) : schedule.getNext_ScheduledDays_StartTime(fromDate: schedule.scheduledStartTime!)
             }
             //and move the end time to keep up
-            while editedScheduledEndTime < editedStartTime{
-                editedScheduledEndTime.addTimeInterval(86400)
+            while schedule.scheduledEndTime! < schedule.scheduledStartTime!{
+                schedule.scheduledEndTime!.addTimeInterval(86400)
             }
             //then set the times
-            schedule.scheduledStartTime = editedStartTime
-            schedule.startTime = editedStartTime
-            schedule.scheduledEndTime = editedScheduledEndTime
+            //schedule.scheduledStartTime = editedStartTime
+            //schedule.startTime = editedStartTime
+            //schedule.scheduledEndTime = editedScheduledEndTime
             
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
@@ -233,11 +221,8 @@ struct ScheduleView: View {
     q.lateInit(name: "Preview Quest")
     let sch = Schedule(context: PersistenceController.preview.container.viewContext)
     sch.lateInit(quest: q)
-    return VStack{
-    EditButton()
-    
+    return
     ScheduleView(
         scheduleToLoad: sch)
     .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-}
 }

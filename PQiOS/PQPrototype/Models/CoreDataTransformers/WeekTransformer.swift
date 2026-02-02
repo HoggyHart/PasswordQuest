@@ -1,7 +1,14 @@
+//
+//  WeekTransformer.swift
+//  PQPrototype
+//
+//  Created by William Hart on 31/01/2026.
+//
+
 import Foundation
 
-@objc(STITransformer)
-class STITransformer: ValueTransformer{
+@objc(NSWeekTransformer)
+class NSWeekTransformer: ValueTransformer{
     
     override class func allowsReverseTransformation() -> Bool {
            true
@@ -14,14 +21,14 @@ class STITransformer: ValueTransformer{
     
     //transform usable Range into NSData for DB
     override public func transformedValue(_ value: Any?) -> Any? {
-            guard let range = value as? ScheduleTypeInfo else { return nil }
+            guard let range = value as? NSWeek else { return nil }
             
             do {
                 
                 let data = try NSKeyedArchiver.archivedData(withRootObject: range, requiringSecureCoding: false)
                 return data
             } catch {
-                assertionFailure("Failed to transform `ScheduleTypeInfo` to `Data`")
+                assertionFailure("Failed to transform `Week` to `Data`")
                 return nil
             }
         }
@@ -30,9 +37,9 @@ class STITransformer: ValueTransformer{
             guard let data = value as? NSData else { return nil }
             
             do {
-                return try NSKeyedUnarchiver.unarchivedObject(ofClass: ScheduleTypeInfo.self, from: data as Data)
+                return try NSKeyedUnarchiver.unarchivedObject(ofClass: NSWeek.self, from: data as Data)
             } catch {
-                return ScheduleTypeInfo(frequency: -1)
+                return NSWeek(week: Week(rawValue: 8))
                 //assertionFailure("Failed to transform `Data` to `ScheduleTypeInfo`")
                //xs return nil
             }

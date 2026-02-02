@@ -86,115 +86,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7ABA5029-97B8-4A1C-973B-A75602B99258"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Models/ScheduleTypeInfo.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "init(scheduledDays:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FF7D1DEE-125C-4920-AA05-390804BA9EFF"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/IndividualObjectViews/ScheduleView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "loadData()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "FF7D1DEE-125C-4920-AA05-390804BA9EFF - 70516e2e5dc83cf"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.ScheduleView.loadData() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQPrototype/MainViews/IndividualObjectViews/ScheduleView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "38"
-                  endingLineNumber = "38"
-                  offsetFromSymbolStart = "353">
-               </Location>
-               <Location
-                  uuid = "FF7D1DEE-125C-4920-AA05-390804BA9EFF - 70516e2e5dc83cf"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.ScheduleView.loadData() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQPrototype/MainViews/IndividualObjectViews/ScheduleView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "38"
-                  endingLineNumber = "38"
-                  offsetFromSymbolStart = "1409">
-               </Location>
-               <Location
-                  uuid = "FF7D1DEE-125C-4920-AA05-390804BA9EFF - b9441d48394742b5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "implicit closure #1 (Swift.Int32) -&gt; PQPrototype.Week in PQPrototype.ScheduleView.loadData() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQPrototype/MainViews/IndividualObjectViews/ScheduleView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "38"
-                  endingLineNumber = "38"
-                  offsetFromSymbolStart = "18">
-               </Location>
-               <Location
-                  uuid = "FF7D1DEE-125C-4920-AA05-390804BA9EFF - 70516e2e5dc8360"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.ScheduleView.loadData() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQPrototype/MainViews/IndividualObjectViews/ScheduleView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "41"
-                  endingLineNumber = "41"
-                  offsetFromSymbolStart = "2004">
-               </Location>
-               <Location
-                  uuid = "FF7D1DEE-125C-4920-AA05-390804BA9EFF - b9441d483947421a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "implicit closure #1 (Swift.Int32) -&gt; PQPrototype.Week in PQPrototype.ScheduleView.loadData() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQPrototype/MainViews/IndividualObjectViews/ScheduleView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "41"
-                  endingLineNumber = "41"
-                  offsetFromSymbolStart = "18">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "03C316D8-0946-43FE-9105-7C61C590F383"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -202,73 +93,9 @@
             filePath = "PQPrototype/MainViews/IndividualObjectViews/ScheduleView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
             landmarkName = "init(scheduleToLoad:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AB101B6B-436F-4526-AC17-460946004CD6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Models/ScheduleTypeInfo.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "init?(coder:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "AB101B6B-436F-4526-AC17-460946004CD6 - e4a52190728b725e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.ScheduleTypeInfo.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;PQPrototype.ScheduleTypeInfo&gt;"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQPrototype/Models/ScheduleTypeInfo.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "44"
-                  endingLineNumber = "44"
-                  offsetFromSymbolStart = "1105">
-               </Location>
-               <Location
-                  uuid = "AB101B6B-436F-4526-AC17-460946004CD6 - e4a52190728b725e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.ScheduleTypeInfo.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;PQPrototype.ScheduleTypeInfo&gt;"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQPrototype/Models/ScheduleTypeInfo.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "44"
-                  endingLineNumber = "44"
-                  offsetFromSymbolStart = "403">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "58F7AEE6-8B8E-41FD-A906-013269B0D28B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Models/ScheduleTypeInfo.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "encode(with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -282,8 +109,8 @@
             filePath = "Schedule.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "getNext_ScheduledDays_StartTime(fromDate:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -330,8 +157,8 @@
             filePath = "PQPrototype/MainViews/IndividualObjectViews/ScheduleView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
             landmarkName = "updateSchedule()"
             landmarkType = "7">
          </BreakpointContent>
@@ -346,9 +173,375 @@
             filePath = "PQPrototype/MainViews/IndividualObjectViews/ScheduleView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
             landmarkName = "updateSchedule()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "863D90CA-334A-4ED5-A1B4-BD4824D55E6E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Schedule.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "getState()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4295A7CF-61AB-42C9-A949-3C00AAD28925"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Schedule.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "amendNextScheduledPeriod(toNextStartFrom:padQuestFailures:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4295A7CF-61AB-42C9-A949-3C00AAD28925 - f7d568fb73b075cf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PQPrototype.Schedule.getActualEndTime() -&gt; Foundation.Date"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/Schedule.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "140"
+                  endingLineNumber = "140"
+                  offsetFromSymbolStart = "171">
+               </Location>
+               <Location
+                  uuid = "4295A7CF-61AB-42C9-A949-3C00AAD28925 - 58cd53d6f6c3a131"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PQPrototype.Schedule.amendNextScheduledPeriod(toNextStartFrom: Foundation.Date, padQuestFailures: Swift.Bool) -&gt; Swift.Int"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/Schedule.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "140"
+                  endingLineNumber = "140"
+                  offsetFromSymbolStart = "975">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A2C149C9-C757-474D-9D7A-2C85155114EA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Schedule.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "amendNextScheduledPeriod(toNextStartFrom:padQuestFailures:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A2C149C9-C757-474D-9D7A-2C85155114EA - 58cd53d6f6c3a1f3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PQPrototype.Schedule.amendNextScheduledPeriod(toNextStartFrom: Foundation.Date, padQuestFailures: Swift.Bool) -&gt; Swift.Int"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/Schedule.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "142"
+                  endingLineNumber = "142"
+                  offsetFromSymbolStart = "1376">
+               </Location>
+               <Location
+                  uuid = "A2C149C9-C757-474D-9D7A-2C85155114EA - 58cd53d6f6c3a1f3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PQPrototype.Schedule.amendNextScheduledPeriod(toNextStartFrom: Foundation.Date, padQuestFailures: Swift.Bool) -&gt; Swift.Int"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/Schedule.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "142"
+                  endingLineNumber = "142"
+                  offsetFromSymbolStart = "534">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "72B582DE-4361-4A70-A629-8002B555B1D8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Schedule.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "lateInit(quest:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "70489057-7784-4FAC-8EA5-A8EA455EF902"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PQPrototype/Models/ScheduleTypeInfo.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "toggle(obj:day:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "70489057-7784-4FAC-8EA5-A8EA455EF902 - c90876b8d26e3f6d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static PQPrototype.Week.toggle(obj: PQPrototype.Week, day: Swift.Int32) -&gt; PQPrototype.Week"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/PQPrototype/Models/ScheduleTypeInfo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "148">
+               </Location>
+               <Location
+                  uuid = "70489057-7784-4FAC-8EA5-A8EA455EF902 - 9718ade70761199"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "implicit closure #1 (Swift.Int32) -&gt; PQPrototype.Week in static PQPrototype.Week.toggle(obj: PQPrototype.Week, day: Swift.Int32) -&gt; PQPrototype.Week"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/PQPrototype/Models/ScheduleTypeInfo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "23">
+               </Location>
+               <Location
+                  uuid = "70489057-7784-4FAC-8EA5-A8EA455EF902 - c90876b8d26e3f8e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static PQPrototype.Week.toggle(obj: PQPrototype.Week, day: Swift.Int32) -&gt; PQPrototype.Week"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/PQPrototype/Models/ScheduleTypeInfo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "148">
+               </Location>
+               <Location
+                  uuid = "70489057-7784-4FAC-8EA5-A8EA455EF902 - 9718ade7076117a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "implicit closure #1 (Swift.Int32) -&gt; PQPrototype.Week in static PQPrototype.Week.toggle(obj: PQPrototype.Week, day: Swift.Int32) -&gt; PQPrototype.Week"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/PQPrototype/Models/ScheduleTypeInfo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "23">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CF1D38DD-B5C1-4113-A109-B6F9586E2DD4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PQPrototype/MainViews/IndividualObjectViews/ScheduleView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C154CFF1-50D9-4B82-8FDF-35BDFFEE8095"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Schedule.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "9"
+            endingLineNumber = "9"
+            landmarkName = "Schedule"
+            landmarkType = "21">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "260B4CFB-0BF6-4C1A-92D6-FA623E9AC6D2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Schedule.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "lateInit(quest:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F08C49F1-0596-42AF-915C-A361F7910550"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Schedule.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "lateInit(quest:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4DFDE016-C875-4B3E-92D4-48D6C2CDFA29"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PQPrototype/Models/ScheduleTypeInfo.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "init(rawValue:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4DFDE016-C875-4B3E-92D4-48D6C2CDFA29 - 8a5b4f04da7847c1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PQPrototype.Week.init(rawValue: Swift.Int32) -&gt; PQPrototype.Week"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/PQPrototype/Models/ScheduleTypeInfo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "80">
+               </Location>
+               <Location
+                  uuid = "4DFDE016-C875-4B3E-92D4-48D6C2CDFA29 - 8a5b4f04da78440b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PQPrototype.Week.init(rawValue: Swift.Int32) -&gt; PQPrototype.Week"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/PQPrototype/Models/ScheduleTypeInfo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "46">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DAD6D367-033F-4272-BEB1-9BB71FB92CAC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PQPrototype/MainViews/IndividualObjectViews/ScheduleView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "updateSchedule()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D306A02C-0407-4D29-984F-609380144192"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Schedule.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "endScheduledPeriod()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "48ADB3CB-D007-4299-9234-0463C8A61541"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Quest.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "end()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

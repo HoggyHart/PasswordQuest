@@ -8,6 +8,8 @@
 import Foundation
 
 public class Week: OptionSet{
+
+    
     public let rawValue: Int32
     required public init(rawValue: Int32) {
         self.rawValue = rawValue
@@ -20,7 +22,22 @@ public class Week: OptionSet{
         }
         return str
     }
-
+    //returns copy of object with val toggled since otherwise it churns out "immutable value" nonsense
+    ///obj: Week to affect
+    ///day: day to toggle, should be passed in as .monday / .tuesday / 1<<2
+    ///Returns copy of object with given day toggled
+    static func toggle(obj: Week, day: Int32) -> Week {
+        if obj.contains(.Element(rawValue: day)) {
+            var copy = obj
+            copy.remove(.Element(rawValue: day))
+            return copy
+        }
+        else {
+            var copy = obj
+            copy.insert(.Element(rawValue: day))
+            return copy
+        }
+    }
     static let daysOfTheWeek: [String] = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
     
     static let monday    = Week(rawValue: 1 << 0)
@@ -31,37 +48,57 @@ public class Week: OptionSet{
     static let saturday  = Week(rawValue: 1 << 5)
     static let sunday    = Week(rawValue: 1 << 6)
 
-
     static let everyday: Week = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
     static let weekdays: Week = [.monday, .tuesday, .wednesday, .thursday, .friday]
     static let weekends: Week = [.saturday, .sunday]
 }
 
-public class ScheduleTypeInfo: NSObject, NSSecureCoding{
+//needs to be wrapper because i think when doing .contains(.Element(rawValue: X)) it would always return false if Week implemented NSObject/NSSecureCoding
+// maybe try unwrapping into Week later for simplicity's sake
+public class NSWeek: NSObject, NSSecureCoding{
     public static var supportsSecureCoding: Bool = true
     
+    public var week: Week
+    
     public func encode(with coder: NSCoder) {
-        coder.encode(everyXDays, forKey: "everyXDays")
-        coder.encode(XDayDelay, forKey: "XDayDelay")
-        coder.encode(scheduledDays.rawValue, forKey: "scheduledDays")
+        coder.encode(week.rawValue, forKey: "week")
+    }
+    public required init?(coder: NSCoder) {
+        week = Week(rawValue:coder.decodeInt32(forKey: "week"))
     }
     
-    required public init?(coder: NSCoder) {
-        everyXDays = coder.decodeBool(forKey: "everyXDays")
-        XDayDelay = coder.decodeInteger(forKey: "XDayDelay")
-        scheduledDays = Week(rawValue:coder.decodeInt32(forKey: "scheduledDays"))
+    init(week: Week){
+        self.week = week
     }
-    
-    init(scheduledDays: Week){
-        self.everyXDays = false
-        self.scheduledDays = scheduledDays
-    }
-    
-    init(frequency: Int){
-        everyXDays = true
-        self.XDayDelay = frequency
-    }
-    var everyXDays: Bool
-    var XDayDelay: Int = 1
-    var scheduledDays: Week = .everyday
 }
+
+
+//
+//public class ScheduleTypeInfo: NSObject, NSSecureCoding{
+//    public static var supportsSecureCoding: Bool = true
+//    
+//    public func encode(with coder: NSCoder) {
+//        coder.encode(everyXDays, forKey: "everyXDays")
+//        coder.encode(XDayDelay, forKey: "XDayDelay")
+//        coder.encode(scheduledDays.rawValue, forKey: "scheduledDays")
+//    }
+//    
+//    required public init?(coder: NSCoder) {
+//        everyXDays = coder.decodeBool(forKey: "everyXDays")
+//        XDayDelay = coder.decodeInteger(forKey: "XDayDelay")
+//        scheduledDays = Week(rawValue:coder.decodeInt32(forKey: "scheduledDays"))
+//    }
+//    
+//    init(scheduledDays: Week){
+//        self.everyXDays = false
+//        self.scheduledDays = scheduledDays
+//    }
+//    
+//    init(frequency: Int){
+//        everyXDays = true
+//        self.XDayDelay = frequency
+//    }
+//    var everyXDays: Bool
+//    var XDayDelay: Int = 1
+//    var scheduledDays: Week = .everyday
+//}

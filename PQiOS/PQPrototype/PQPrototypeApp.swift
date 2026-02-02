@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreLocation
 @main
+
 struct PQPrototypeApp: App {
     let persistenceController = PersistenceController.shared
 
