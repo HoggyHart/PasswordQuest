@@ -208,7 +208,7 @@ struct ScheduleView: View {
             }
             //then set the times
             //schedule.scheduledStartTime = editedStartTime
-            //schedule.startTime = editedStartTime
+            schedule.startTime = schedule.scheduledStartTime
             //schedule.scheduledEndTime = editedScheduledEndTime
             
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
