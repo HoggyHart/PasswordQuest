@@ -79,3 +79,7 @@ extension Quest {
     @NSManaged public func removeFromRewards(_ values: NSSet)
 
 }
+
+extension Quest: Identifiable{
+    
+}

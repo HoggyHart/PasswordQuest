@@ -4,6 +4,7 @@
 <dict>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>bluetooth-peripheral</string>
 		<string>fetch</string>
 		<string>location</string>
 		<string>processing</string>

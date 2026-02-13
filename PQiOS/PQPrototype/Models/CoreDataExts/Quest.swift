@@ -1,5 +1,5 @@
 import Foundation
-extension Quest : Identifiable {
+extension Quest{
     
     public func lateInit(name: String){
         self.isActive = false
