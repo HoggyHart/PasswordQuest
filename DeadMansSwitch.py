@@ -44,7 +44,7 @@ class DeadmansSwitch:
                         data, _ = s.recvfrom(1024)
                         # heartbeat received
                     except socket.timeout:
-                        os.system('shutdown /s /t 30 /c "Deadman\'s switch activated.\nNO CHEATING!"')
+                        os.system('shutdown /s /t 0 /c "Deadman\'s switch activated.\nNO CHEATING!"')
                         return
             except:
                 continue

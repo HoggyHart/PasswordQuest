@@ -1,0 +1,231 @@
+2026-02-08 11:57:02,103 - DEBUG - iOS_PQPrototypeWaiter - Locking during init
+2026-02-08 11:57:02,104 - DEBUG - iOS_PQPrototypeWaiter - ==========================================================================================================COMPUTER LOCKED==========================================================================================================
+2026-02-08 11:57:02,105 - DEBUG - iOS_PQPrototypeWaiter - Creating deadmans switch
+2026-02-08 11:57:02,115 - DEBUG - iOS_PQPrototypeWaiter - Holding deadmans switch
+2026-02-08 11:57:02,116 - DEBUG - iOS_PQPrototypeWaiter - loading schedules
+2026-02-08 11:57:02,148 - DEBUG - iOS_PQPrototypeWaiter - loading schedules
+2026-02-08 11:57:02,176 - DEBUG - iOS_PQPrototypeWaiter - ============= RAW FILE DATA =============
+2026-02-08 11:57:02,182 - DEBUG - iOS_PQPrototypeWaiter - '{\n"isActive" : "False",\n"questInProgress" : "False",\n"schedule_everyXDays" : "False",\n"scheduleName" : "Scheduled Gym",\n"scheduleUUID" : "E6D49CEC-EC1B-4E99-844E-C7E7F2B3A501",\n"questUUID" : "7BFCA3E3-2FAD-4129-8E00-DC37475E9918",\n"schedule_XDayDelay" : "2",\n"startTime" : "30/01/2026, 15:30:00",\n"scheduledStartTime" : "30/01/2026, 15:30:00",\n"scheduledEndTime" : "30/01/2026, 20:00:05",\n"schedule_lastCompletionTime" : "29/01/2026, 23:46:58",\n"schedule_scheduledDays" : "1010100"\n}\n\n{\n"isActive" : "False",\n"questInProgress" : "False",\n"schedule_everyXDays" : "False",\n"scheduleName" : "CampusQuest II",\n"scheduleUUID" : "E26F32B5-684D-419E-B10A-6DCB46154DCA",\n"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",\n"schedule_XDayDelay" : "1",\n"startTime" : "25/01/2026, 15:00:00",\n"scheduledStartTime" : "25/01/2026, 15:00:00",\n"scheduledEndTime" : "25/01/2026, 19:00:05",\n"schedule_lastCompletionTime" : "nil",\n"schedule_scheduledDays" : "1111100"\n}\n\n{\n"isActive" : "False",\n"questInProgress" : "False",\n"schedule_everyXDays" : "False",\n"scheduleName" : "CampusQuest I",\n"scheduleUUID" : "B9CA7B1C-EF31-4569-946E-7096E531740D",\n"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",\n"schedule_XDayDelay" : "1",\n"startTime" : "25/01/2026, 9:00:00",\n"scheduledStartTime" : "25/01/2026, 9:00:00",\n"scheduledEndTime" : "25/01/2026, 13:00:05",\n"schedule_lastCompletionTime" : "nil",\n"schedule_scheduledDays" : "1111100"\n}\n\n{\n"isActive" : "False",\n"questInProgress" : "False",\n"schedule_everyXDays" : "True",\n"scheduleName" : "Bedtime Locker",\n"scheduleUUID" : "E96D10C0-E544-40AD-A420-4DCF881E38A4",\n"questUUID" : "D55BEBE0-B40D-465F-BB45-F1BF1753551D",\n"schedule_XDayDelay" : "1",\n"startTime" : "31/01/2026, 22:00:00",\n"scheduledStartTime" : "31/01/2026, 22:00:00",\n"scheduledEndTime" : "01/02/2026, 6:00:05",\n"schedule_lastCompletionTime" : "30/01/2026, 14:32:07",\n"schedule_scheduledDays" : "1111111"\n}\n\n{\n"isActive" : "False",\n"questInProgress" : "False",\n"schedule_everyXDays" : "True",\n"scheduleName" : "Scheduled Sainsbury’s Shopping",\n"scheduleUUID" : "AB5F4C31-7A05-4BDF-B0CD-1A435A9BCF63",\n"questUUID" : "EEB7B2ED-26C9-4B8C-AFF5-95124CD1B5AF",\n"schedule_XDayDelay" : "5",\n"startTime" : "30/01/2026, 11:00:00",\n"scheduledStartTime" : "30/01/2026, 11:00:00",\n"scheduledEndTime" : "30/01/2026, 17:00:05",\n"schedule_lastCompletionTime" : "nil",\n"schedule_scheduledDays" : "0000000"\n}'
+2026-02-08 11:57:02,184 - DEBUG - iOS_PQPrototypeWaiter - =========================================
+
+2026-02-08 11:57:02,186 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-02-08 11:57:02,187 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "Scheduled Gym",
+"scheduleUUID" : "E6D49CEC-EC1B-4E99-844E-C7E7F2B3A501",
+"questUUID" : "7BFCA3E3-2FAD-4129-8E00-DC37475E9918",
+"schedule_XDayDelay" : "2",
+"startTime" : "30/01/2026, 15:30:00",
+"scheduledStartTime" : "30/01/2026, 15:30:00",
+"scheduledEndTime" : "30/01/2026, 20:00:05",
+"schedule_lastCompletionTime" : "29/01/2026, 23:46:58",
+"schedule_scheduledDays" : "1010100"
+}
+2026-02-08 11:57:02,189 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-02-08 11:57:02,212 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "Scheduled Gym",
+"questUUID" : "7BFCA3E3-2FAD-4129-8E00-DC37475E9918",
+"schedule_XDayDelay" : "2",
+"startTime" : "30/1/2026, 15:30:0",
+"scheduledStartTime" : "30/1/2026, 15:30:0",
+"scheduledEndTime" : "30/1/2026, 20:0:5",
+"schedule_lastCompletionTime" : "29/1/2026, 23:46:58",
+"schedule_scheduledDays" : "1010100"
+}
+2026-02-08 11:57:02,215 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-02-08 11:57:02,218 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-02-08 11:57:02,219 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "CampusQuest II",
+"scheduleUUID" : "E26F32B5-684D-419E-B10A-6DCB46154DCA",
+"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
+"schedule_XDayDelay" : "1",
+"startTime" : "25/01/2026, 15:00:00",
+"scheduledStartTime" : "25/01/2026, 15:00:00",
+"scheduledEndTime" : "25/01/2026, 19:00:05",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "1111100"
+}
+2026-02-08 11:57:02,222 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-02-08 11:57:02,231 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "CampusQuest II",
+"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
+"schedule_XDayDelay" : "1",
+"startTime" : "25/1/2026, 15:0:0",
+"scheduledStartTime" : "25/1/2026, 15:0:0",
+"scheduledEndTime" : "25/1/2026, 19:0:5",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "1111100"
+}
+2026-02-08 11:57:02,233 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-02-08 11:57:02,234 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-02-08 11:57:02,236 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "CampusQuest I",
+"scheduleUUID" : "B9CA7B1C-EF31-4569-946E-7096E531740D",
+"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
+"schedule_XDayDelay" : "1",
+"startTime" : "25/01/2026, 9:00:00",
+"scheduledStartTime" : "25/01/2026, 9:00:00",
+"scheduledEndTime" : "25/01/2026, 13:00:05",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "1111100"
+}
+2026-02-08 11:57:02,238 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-02-08 11:57:02,239 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "CampusQuest I",
+"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
+"schedule_XDayDelay" : "1",
+"startTime" : "25/1/2026, 9:0:0",
+"scheduledStartTime" : "25/1/2026, 9:0:0",
+"scheduledEndTime" : "25/1/2026, 13:0:5",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "1111100"
+}
+2026-02-08 11:57:02,241 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-02-08 11:57:02,243 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-02-08 11:57:02,246 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Bedtime Locker",
+"scheduleUUID" : "E96D10C0-E544-40AD-A420-4DCF881E38A4",
+"questUUID" : "D55BEBE0-B40D-465F-BB45-F1BF1753551D",
+"schedule_XDayDelay" : "1",
+"startTime" : "31/01/2026, 22:00:00",
+"scheduledStartTime" : "31/01/2026, 22:00:00",
+"scheduledEndTime" : "01/02/2026, 6:00:05",
+"schedule_lastCompletionTime" : "30/01/2026, 14:32:07",
+"schedule_scheduledDays" : "1111111"
+}
+2026-02-08 11:57:02,249 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-02-08 11:57:02,250 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Bedtime Locker",
+"questUUID" : "D55BEBE0-B40D-465F-BB45-F1BF1753551D",
+"schedule_XDayDelay" : "1",
+"startTime" : "31/1/2026, 22:0:0",
+"scheduledStartTime" : "31/1/2026, 22:0:0",
+"scheduledEndTime" : "1/2/2026, 6:0:5",
+"schedule_lastCompletionTime" : "30/1/2026, 14:32:7",
+"schedule_scheduledDays" : "1111111"
+}
+2026-02-08 11:57:02,253 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-02-08 11:57:02,255 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-02-08 11:57:02,257 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Scheduled Sainsbury’s Shopping",
+"scheduleUUID" : "AB5F4C31-7A05-4BDF-B0CD-1A435A9BCF63",
+"questUUID" : "EEB7B2ED-26C9-4B8C-AFF5-95124CD1B5AF",
+"schedule_XDayDelay" : "5",
+"startTime" : "30/01/2026, 11:00:00",
+"scheduledStartTime" : "30/01/2026, 11:00:00",
+"scheduledEndTime" : "30/01/2026, 17:00:05",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "0000000"
+}
+2026-02-08 11:57:02,259 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-02-08 11:57:02,262 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Scheduled Sainsbury’s Shopping",
+"questUUID" : "EEB7B2ED-26C9-4B8C-AFF5-95124CD1B5AF",
+"schedule_XDayDelay" : "5",
+"startTime" : "30/1/2026, 11:0:0",
+"scheduledStartTime" : "30/1/2026, 11:0:0",
+"scheduledEndTime" : "30/1/2026, 17:0:5",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "0000000"
+}
+2026-02-08 11:57:02,265 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-02-08 11:57:02,267 - DEBUG - iOS_PQPrototypeWaiter - Loading active quests
+2026-02-08 11:57:02,268 - DEBUG - iOS_PQPrototypeWaiter - loading quests
+2026-02-08 11:57:02,276 - DEBUG - iOS_PQPrototypeWaiter - creating server thread
+2026-02-08 11:57:02,278 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-02-08 11:57:02,278 - DEBUG - iOS_PQPrototypeWaiter - creating phone connection poller
+2026-02-08 11:57:02,293 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-02-08 11:57:02,293 - DEBUG - iOS_PQPrototypeWaiter - Init finished... Unlocking and starting now
+2026-02-08 11:57:02,295 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-02-08 11:57:02,297 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-02-08 11:57:02,298 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-02-08 11:57:02,300 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-02-08 11:57:02,310 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-02-08 11:57:02,324 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-02-08 11:57:02,327 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-02-08 11:57:02,328 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-02-08 11:57:02,331 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-02-08 11:57:02,333 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Gym not active
+
+2026-02-08 11:57:02,335 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-02-08 11:57:02,336 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest II not active
+
+2026-02-08 11:57:02,340 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-02-08 11:57:02,342 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest I not active
+
+2026-02-08 11:57:02,344 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-02-08 11:57:02,345 - DEBUG - iOS_PQPrototypeWaiter - Bedtime Locker not active
+
+2026-02-08 11:57:02,347 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Sainsbury’s Shopping
+2026-02-08 11:57:02,348 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Sainsbury’s Shopping not active
+
+2026-02-08 11:57:02,350 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-02-08 11:57:02,353 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-02-08 11:57:02,355 - DEBUG - iOS_PQPrototypeWaiter - ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++COMPUTER UNLOCKED++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2026-02-08 11:57:02,357 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-02-08 11:57:04,441 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-02-08 11:57:04,442 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-02-08 11:57:04,443 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-02-08 11:57:05,292 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-02-08 11:57:07,363 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-02-08 11:57:07,363 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-02-08 11:57:07,364 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-02-08 11:57:07,364 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-02-08 11:57:07,364 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-02-08 11:57:07,364 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-02-08 11:57:07,364 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-02-08 11:57:07,365 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-02-08 11:57:07,365 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-02-08 11:57:07,365 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Gym not active
+
+2026-02-08 11:57:07,365 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-02-08 11:57:07,365 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest II not active
+
+2026-02-08 11:57:07,366 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-02-08 11:57:07,385 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest I not active
+
+2026-02-08 11:57:07,386 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-02-08 11:57:07,386 - DEBUG - iOS_PQPrototypeWaiter - Bedtime Locker not active
+
+2026-02-08 11:57:07,386 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Sainsbury’s Shopping
+2026-02-08 11:57:07,386 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Sainsbury’s Shopping not active
+
+2026-02-08 11:57:07,386 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-02-08 11:57:07,387 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-02-08 11:57:07,387 - DEBUG - iOS_PQPrototypeWaiter - ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++COMPUTER UNLOCKED++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2026-02-08 11:57:07,387 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-02-08 11:57:08,292 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds

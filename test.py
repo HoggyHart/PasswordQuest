@@ -1,14 +1,6 @@
-import threading
+import datetime
 
-lock = threading.Lock()
-
-list = [0,1,2,3,4,5,6,7,8,9,10,10,12,11]
-delCount = 0
-for i in range(len(list)):
-    print(i-delCount)
-    if list[i-delCount]%2 == 0:
-        list.remove(list[i-delCount])
-        delCount+=1
-        continue
-
-print(list)
+logFile = open("C:/Users/willi/OneDrive/Desktop/code/PasswordQuest/logs"+"/"+datetime.datetime.now().__str__().split('.')[0].replace(' ','_').replace(':','-')+".txt","w")
+logFile.write("line1")
+logFile.write("line2!")
+logFile.close()

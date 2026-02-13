@@ -1,0 +1,473 @@
+2026-01-26 15:26:09,564 - DEBUG - iOS_PQPrototypeWaiter - Locking during init
+2026-01-26 15:26:09,565 - DEBUG - iOS_PQPrototypeWaiter - ==========================================================================================================COMPUTER LOCKED==========================================================================================================
+2026-01-26 15:26:09,565 - DEBUG - iOS_PQPrototypeWaiter - Creating deadmans switch
+2026-01-26 15:26:09,572 - DEBUG - iOS_PQPrototypeWaiter - Holding deadmans switch
+2026-01-26 15:26:09,573 - DEBUG - iOS_PQPrototypeWaiter - loading schedules
+2026-01-26 15:26:09,573 - DEBUG - iOS_PQPrototypeWaiter - loading schedules
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter - ============= RAW FILE DATA =============
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter - '{\n"isActive" : "True",\n"questInProgress" : "False",\n"schedule_everyXDays" : "True",\n"scheduleName" : "Scheduled Gym",\n"questUUID" : "7BFCA3E3-2FAD-4129-8E00-DC37475E9918",\n"schedule_XDayDelay" : "2",\n"startTime" : "27/1/2026, 14:30:0",\n"scheduledStartTime" : "27/1/2026, 14:30:0",\n"scheduledEndTime" : "27/1/2026, 17:0:5",\n"schedule_lastCompletionTime" : "25/1/2026, 16:47:36",\n"schedule_scheduledDays" : "1111111"\n}\n\n{\n"isActive" : "False",\n"questInProgress" : "False",\n"schedule_everyXDays" : "False",\n"scheduleName" : "CampusQuest II",\n"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",\n"schedule_XDayDelay" : "1",\n"startTime" : "25/1/2026, 15:0:0",\n"scheduledStartTime" : "25/1/2026, 15:0:0",\n"scheduledEndTime" : "25/1/2026, 19:0:5",\n"schedule_lastCompletionTime" : "nil",\n"schedule_scheduledDays" : "1111100"\n}\n\n{\n"isActive" : "False",\n"questInProgress" : "False",\n"schedule_everyXDays" : "False",\n"scheduleName" : "CampusQuest I",\n"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",\n"schedule_XDayDelay" : "1",\n"startTime" : "25/1/2026, 9:0:0",\n"scheduledStartTime" : "25/1/2026, 9:0:0",\n"scheduledEndTime" : "25/1/2026, 13:0:5",\n"schedule_lastCompletionTime" : "nil",\n"schedule_scheduledDays" : "1111100"\n}\n\n{\n"isActive" : "True",\n"questInProgress" : "True",\n"schedule_everyXDays" : "True",\n"scheduleName" : "Bedtime Locker",\n"questUUID" : "D55BEBE0-B40D-465F-BB45-F1BF1753551D",\n"schedule_XDayDelay" : "1",\n"startTime" : "25/1/2026, 23:0:0",\n"scheduledStartTime" : "25/1/2026, 23:0:0",\n"scheduledEndTime" : "26/1/2026, 6:0:5",\n"schedule_lastCompletionTime" : "nil",\n"schedule_scheduledDays" : "1111111"\n}'
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter - =========================================
+
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "True",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Scheduled Gym",
+"questUUID" : "7BFCA3E3-2FAD-4129-8E00-DC37475E9918",
+"schedule_XDayDelay" : "2",
+"startTime" : "27/1/2026, 14:30:0",
+"scheduledStartTime" : "27/1/2026, 14:30:0",
+"scheduledEndTime" : "27/1/2026, 17:0:5",
+"schedule_lastCompletionTime" : "25/1/2026, 16:47:36",
+"schedule_scheduledDays" : "1111111"
+}
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "True",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Scheduled Gym",
+"questUUID" : "7BFCA3E3-2FAD-4129-8E00-DC37475E9918",
+"schedule_XDayDelay" : "2",
+"startTime" : "27/1/2026, 14:30:0",
+"scheduledStartTime" : "27/1/2026, 14:30:0",
+"scheduledEndTime" : "27/1/2026, 17:0:5",
+"schedule_lastCompletionTime" : "25/1/2026, 16:47:36",
+"schedule_scheduledDays" : "1111111"
+}
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "CampusQuest II",
+"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
+"schedule_XDayDelay" : "1",
+"startTime" : "25/1/2026, 15:0:0",
+"scheduledStartTime" : "25/1/2026, 15:0:0",
+"scheduledEndTime" : "25/1/2026, 19:0:5",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "1111100"
+}
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "CampusQuest II",
+"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
+"schedule_XDayDelay" : "1",
+"startTime" : "25/1/2026, 15:0:0",
+"scheduledStartTime" : "25/1/2026, 15:0:0",
+"scheduledEndTime" : "25/1/2026, 19:0:5",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "1111100"
+}
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "CampusQuest I",
+"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
+"schedule_XDayDelay" : "1",
+"startTime" : "25/1/2026, 9:0:0",
+"scheduledStartTime" : "25/1/2026, 9:0:0",
+"scheduledEndTime" : "25/1/2026, 13:0:5",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "1111100"
+}
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "CampusQuest I",
+"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
+"schedule_XDayDelay" : "1",
+"startTime" : "25/1/2026, 9:0:0",
+"scheduledStartTime" : "25/1/2026, 9:0:0",
+"scheduledEndTime" : "25/1/2026, 13:0:5",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "1111100"
+}
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-01-26 15:26:09,584 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "True",
+"questInProgress" : "True",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Bedtime Locker",
+"questUUID" : "D55BEBE0-B40D-465F-BB45-F1BF1753551D",
+"schedule_XDayDelay" : "1",
+"startTime" : "25/1/2026, 23:0:0",
+"scheduledStartTime" : "25/1/2026, 23:0:0",
+"scheduledEndTime" : "26/1/2026, 6:0:5",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "1111111"
+}
+2026-01-26 15:26:09,585 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-01-26 15:26:09,585 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "True",
+"questInProgress" : "True",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Bedtime Locker",
+"questUUID" : "D55BEBE0-B40D-465F-BB45-F1BF1753551D",
+"schedule_XDayDelay" : "1",
+"startTime" : "25/1/2026, 23:0:0",
+"scheduledStartTime" : "25/1/2026, 23:0:0",
+"scheduledEndTime" : "26/1/2026, 6:0:5",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "1111111"
+}
+2026-01-26 15:26:09,585 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-01-26 15:26:09,585 - DEBUG - iOS_PQPrototypeWaiter - creating server thread
+2026-01-26 15:26:09,585 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:26:09,585 - DEBUG - iOS_PQPrototypeWaiter - creating phone connection poller
+2026-01-26 15:26:09,585 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:26:09,585 - DEBUG - iOS_PQPrototypeWaiter - Init finished... Unlocking and starting now
+2026-01-26 15:26:09,585 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-26 15:26:09,586 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-26 15:26:09,586 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-26 15:26:09,586 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-26 15:26:09,586 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-26 15:26:09,586 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-26 15:26:09,586 - DEBUG - iOS_PQPrototypeWaiter - Checking if Scheduled Gym should have started (2026-01-27 14:30:00 - 2026-01-27 17:00:05)
+2026-01-26 15:26:09,586 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-26 15:26:09,586 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-26 15:26:09,589 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-26 15:26:09,590 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-26 15:26:09,591 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-26 15:26:09,591 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-26 15:26:09,591 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-26 15:26:09,591 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-26 15:26:09,591 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-26 15:26:09,591 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-26 15:26:09,591 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-26 15:26:09,592 - DEBUG - iOS_PQPrototypeWaiter - Failed to bring window to front
+2026-01-26 15:26:09,592 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-26 15:26:09,721 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:26:09,721 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:26:09,721 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:26:12,585 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:26:14,593 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-26 15:26:14,593 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-26 15:26:14,593 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-26 15:26:14,593 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-26 15:26:14,593 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-26 15:26:14,593 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-26 15:26:14,593 - DEBUG - iOS_PQPrototypeWaiter - Checking if Scheduled Gym should have started (2026-01-27 14:30:00 - 2026-01-27 17:00:05)
+2026-01-26 15:26:14,593 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-26 15:26:14,594 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-26 15:26:14,596 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-26 15:26:14,597 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-26 15:26:14,597 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-26 15:26:14,597 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-26 15:26:14,597 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-26 15:26:14,597 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-26 15:26:14,597 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-26 15:26:14,597 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-26 15:26:14,597 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-26 15:26:14,598 - DEBUG - iOS_PQPrototypeWaiter - Failed to bring window to front
+2026-01-26 15:26:14,598 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-26 15:26:14,709 - DEBUG - iOS_PQPrototypeWaiter -                                                                                               ==CONNECTION PROGRESS== ||| Visible Networks: 
+2026-01-26 15:26:14,709 - DEBUG - iOS_PQPrototypeWaiter -                                                                                               ==CONNECTION PROGRESS== ||| Found: Tapo_Cam_6401
+2026-01-26 15:26:14,709 - DEBUG - iOS_PQPrototypeWaiter -                                                                                               ==CONNECTION PROGRESS== ||| Found: Optify
+2026-01-26 15:26:14,709 - DEBUG - iOS_PQPrototypeWaiter -                                                                                               ==CONNECTION PROGRESS== ||| Checking for WillPhone...
+2026-01-26 15:26:14,710 - DEBUG - iOS_PQPrototypeWaiter -                                                                                               ==CONNECTION PROGRESS== ||| Quest Network not found...
+2026-01-26 15:26:14,721 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:26:14,792 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:26:14,792 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:26:14,792 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:26:15,586 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:26:18,586 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:26:19,598 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-26 15:26:19,598 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-26 15:26:19,598 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-26 15:26:19,598 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-26 15:26:19,598 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-26 15:26:19,598 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-26 15:26:19,598 - DEBUG - iOS_PQPrototypeWaiter - Checking if Scheduled Gym should have started (2026-01-27 14:30:00 - 2026-01-27 17:00:05)
+2026-01-26 15:26:19,598 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-26 15:26:19,599 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-26 15:26:19,600 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-26 15:26:19,602 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-26 15:26:19,602 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-26 15:26:19,602 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-26 15:26:19,602 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-26 15:26:19,602 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-26 15:26:19,602 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-26 15:26:19,602 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-26 15:26:19,602 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-26 15:26:19,603 - DEBUG - iOS_PQPrototypeWaiter - Failed to bring window to front
+2026-01-26 15:26:19,603 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-26 15:26:19,793 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:26:19,870 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:26:19,871 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:26:19,871 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:26:21,587 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:26:24,588 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:26:24,603 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-26 15:26:24,603 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-26 15:26:24,603 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-26 15:26:24,603 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-26 15:26:24,603 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-26 15:26:24,604 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-26 15:26:24,604 - DEBUG - iOS_PQPrototypeWaiter - Checking if Scheduled Gym should have started (2026-01-27 14:30:00 - 2026-01-27 17:00:05)
+2026-01-26 15:26:24,604 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-26 15:26:24,604 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-26 15:26:24,606 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-26 15:26:24,607 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-26 15:26:24,607 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-26 15:26:24,607 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-26 15:26:24,607 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-26 15:26:24,607 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-26 15:26:24,607 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-26 15:26:24,607 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-26 15:26:24,607 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-26 15:26:24,608 - DEBUG - iOS_PQPrototypeWaiter - Failed to bring window to front
+2026-01-26 15:26:24,608 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-26 15:26:24,703 - DEBUG - iOS_PQPrototypeWaiter -                                                                                               ==CONNECTION PROGRESS== ||| Visible Networks: 
+2026-01-26 15:26:24,703 - DEBUG - iOS_PQPrototypeWaiter -                                                                                               ==CONNECTION PROGRESS== ||| Found: VM8383937
+2026-01-26 15:26:24,703 - DEBUG - iOS_PQPrototypeWaiter -                                                                                               ==CONNECTION PROGRESS== ||| Found: Optify
+2026-01-26 15:26:24,703 - DEBUG - iOS_PQPrototypeWaiter -                                                                                               ==CONNECTION PROGRESS== ||| Found: Tapo_Cam_6401
+2026-01-26 15:26:24,703 - DEBUG - iOS_PQPrototypeWaiter -                                                                                               ==CONNECTION PROGRESS== ||| Checking for WillPhone...
+2026-01-26 15:26:24,703 - DEBUG - iOS_PQPrototypeWaiter -                                                                                               ==CONNECTION PROGRESS== ||| Quest Network not found...
+2026-01-26 15:26:24,871 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:26:24,942 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:26:24,942 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:26:24,942 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:26:27,588 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:26:29,608 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-26 15:26:29,608 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-26 15:26:29,609 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-26 15:26:29,609 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-26 15:26:29,609 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-26 15:26:29,609 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-26 15:26:29,609 - DEBUG - iOS_PQPrototypeWaiter - Checking if Scheduled Gym should have started (2026-01-27 14:30:00 - 2026-01-27 17:00:05)
+2026-01-26 15:26:29,609 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-26 15:26:29,609 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-26 15:26:29,611 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-26 15:26:29,612 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-26 15:26:29,612 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-26 15:26:29,613 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-26 15:26:29,613 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-26 15:26:29,613 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-26 15:26:29,613 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-26 15:26:29,613 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-26 15:26:29,613 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-26 15:26:29,613 - DEBUG - iOS_PQPrototypeWaiter - Failed to bring window to front
+2026-01-26 15:26:29,613 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-26 15:26:29,942 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:26:30,020 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:26:30,020 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:26:30,020 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:26:30,589 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:26:33,589 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:26:34,713 - DEBUG - iOS_PQPrototypeWaiter -                                                                                               ==CONNECTION PROGRESS== ||| Visible Networks: 
+2026-01-26 15:26:34,713 - DEBUG - iOS_PQPrototypeWaiter -                                                                                               ==CONNECTION PROGRESS== ||| Found: VM8383937
+2026-01-26 15:26:34,713 - DEBUG - iOS_PQPrototypeWaiter -                                                                                               ==CONNECTION PROGRESS== ||| Found: Optify
+2026-01-26 15:26:34,713 - DEBUG - iOS_PQPrototypeWaiter -                                                                                               ==CONNECTION PROGRESS== ||| Found: Tapo_Cam_6401
+2026-01-26 15:26:34,713 - DEBUG - iOS_PQPrototypeWaiter -                                                                                               ==CONNECTION PROGRESS== ||| Checking for WillPhone...
+2026-01-26 15:26:34,713 - DEBUG - iOS_PQPrototypeWaiter -                                                                                               ==CONNECTION PROGRESS== ||| Quest Network not found...
+2026-01-26 15:26:35,020 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:26:35,092 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:26:35,092 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:26:35,092 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:26:36,590 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:26:39,590 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:26:40,092 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:26:40,167 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:26:40,168 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:26:40,168 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:26:42,590 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:26:45,168 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:26:45,241 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:26:45,241 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:26:45,241 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:26:45,591 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:26:48,591 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:26:50,241 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:26:50,316 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:26:50,316 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:26:50,316 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:26:51,592 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:26:54,592 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:26:55,317 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:26:55,395 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:26:55,395 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:26:55,395 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:26:57,593 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:00,396 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:27:00,470 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:27:00,470 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:27:00,470 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:27:00,593 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:03,594 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:05,471 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:27:05,564 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:27:05,564 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:27:05,564 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:27:06,594 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:09,594 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:10,564 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:27:10,638 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:27:10,638 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:27:10,638 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:27:12,595 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:15,595 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:15,638 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:27:15,716 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:27:15,716 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:27:15,717 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:27:18,596 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:20,717 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:27:20,794 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:27:20,794 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:27:20,794 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:27:21,596 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:24,597 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:25,794 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:27:25,869 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:27:25,869 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:27:25,869 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:27:27,597 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:30,598 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:30,869 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:27:30,944 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:27:30,944 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:27:30,944 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:27:33,598 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:35,944 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:27:36,020 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:27:36,020 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:27:36,020 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:27:36,599 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:39,599 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:41,020 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:27:41,095 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:27:41,095 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:27:41,095 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:27:42,600 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:45,600 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:46,096 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:27:46,172 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:27:46,172 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:27:46,172 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:27:48,601 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:51,173 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:27:51,246 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:27:51,246 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:27:51,246 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:27:51,601 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:54,602 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:27:56,247 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:27:56,320 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:27:56,320 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:27:56,320 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:27:57,602 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:00,603 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:01,320 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:28:01,393 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:28:01,394 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:28:01,394 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:28:03,603 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:06,394 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:28:06,466 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:28:06,467 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:28:06,467 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:28:06,604 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:09,604 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:11,467 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:28:11,541 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:28:11,541 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:28:11,541 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:28:12,604 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:15,605 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:16,542 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:28:16,619 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:28:16,619 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:28:16,619 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:28:18,605 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:21,606 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:21,619 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:28:21,693 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:28:21,693 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:28:21,693 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:28:24,607 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:26,693 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:28:26,769 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:28:26,769 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:28:26,769 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:28:27,607 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:30,608 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:31,770 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:28:31,843 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:28:31,843 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:28:31,843 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:28:33,608 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:36,608 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:36,843 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:28:36,922 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:28:36,922 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:28:36,922 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:28:39,609 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:41,923 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:28:41,998 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:28:41,998 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:28:41,998 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:28:42,609 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:45,610 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:46,999 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:28:47,074 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:28:47,074 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:28:47,074 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:28:48,611 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:51,611 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:52,074 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:28:52,147 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:28:52,147 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:28:52,147 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:28:54,612 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:28:57,148 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:28:57,233 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:28:57,233 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:28:57,233 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:28:57,613 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:29:00,613 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:29:02,233 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:29:02,315 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:29:02,315 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:29:02,315 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:29:03,614 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:29:06,614 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:29:07,315 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:29:07,390 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:29:07,390 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:29:07,390 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:29:09,615 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:29:12,390 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-26 15:29:12,462 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-26 15:29:12,462 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-26 15:29:12,462 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-26 15:29:12,615 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:29:15,615 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-26 15:29:15,852 - DEBUG - unknwn - Calling CoUninitialize()
+2026-01-26 15:29:15,852 - DEBUG - unknwn - CoUninitialize() done.

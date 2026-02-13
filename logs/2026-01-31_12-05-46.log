@@ -1,0 +1,175 @@
+2026-01-31 12:05:46,343 - DEBUG - iOS_PQPrototypeWaiter - Locking during init
+2026-01-31 12:05:46,344 - DEBUG - iOS_PQPrototypeWaiter - ==========================================================================================================COMPUTER LOCKED==========================================================================================================
+2026-01-31 12:05:46,344 - DEBUG - iOS_PQPrototypeWaiter - Creating deadmans switch
+2026-01-31 12:05:46,352 - DEBUG - iOS_PQPrototypeWaiter - Holding deadmans switch
+2026-01-31 12:05:46,353 - DEBUG - iOS_PQPrototypeWaiter - loading schedules
+2026-01-31 12:05:46,360 - DEBUG - iOS_PQPrototypeWaiter - loading schedules
+2026-01-31 12:05:46,371 - DEBUG - iOS_PQPrototypeWaiter - ============= RAW FILE DATA =============
+2026-01-31 12:05:46,375 - DEBUG - iOS_PQPrototypeWaiter - '{\n"isActive" : "False",\n"questInProgress" : "False",\n"schedule_everyXDays" : "False",\n"scheduleName" : "Scheduled Gym",\n"scheduleUUID" : "E6D49CEC-EC1B-4E99-844E-C7E7F2B3A501",\n"questUUID" : "7BFCA3E3-2FAD-4129-8E00-DC37475E9918",\n"schedule_XDayDelay" : "2",\n"startTime" : "30/01/2026, 15:30:00",\n"scheduledStartTime" : "30/01/2026, 15:30:00",\n"scheduledEndTime" : "30/01/2026, 20:00:05",\n"schedule_lastCompletionTime" : "29/01/2026, 23:46:58",\n"schedule_scheduledDays" : "1010100"\n}\n\n{\n"isActive" : "False",\n"questInProgress" : "False",\n"schedule_everyXDays" : "False",\n"scheduleName" : "CampusQuest II",\n"scheduleUUID" : "E26F32B5-684D-419E-B10A-6DCB46154DCA",\n"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",\n"schedule_XDayDelay" : "1",\n"startTime" : "25/01/2026, 15:00:00",\n"scheduledStartTime" : "25/01/2026, 15:00:00",\n"scheduledEndTime" : "25/01/2026, 19:00:05",\n"schedule_lastCompletionTime" : "nil",\n"schedule_scheduledDays" : "1111100"\n}\n\n{\n"isActive" : "False",\n"questInProgress" : "False",\n"schedule_everyXDays" : "False",\n"scheduleName" : "CampusQuest I",\n"scheduleUUID" : "B9CA7B1C-EF31-4569-946E-7096E531740D",\n"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",\n"schedule_XDayDelay" : "1",\n"startTime" : "25/01/2026, 9:00:00",\n"scheduledStartTime" : "25/01/2026, 9:00:00",\n"scheduledEndTime" : "25/01/2026, 13:00:05",\n"schedule_lastCompletionTime" : "nil",\n"schedule_scheduledDays" : "1111100"\n}\n\n{\n"isActive" : "True",\n"questInProgress" : "False",\n"schedule_everyXDays" : "True",\n"scheduleName" : "Bedtime Locker",\n"scheduleUUID" : "E96D10C0-E544-40AD-A420-4DCF881E38A4",\n"questUUID" : "D55BEBE0-B40D-465F-BB45-F1BF1753551D",\n"schedule_XDayDelay" : "1",\n"startTime" : "30/01/2026, 22:00:00",\n"scheduledStartTime" : "30/01/2026, 22:00:00",\n"scheduledEndTime" : "31/01/2026, 6:00:05",\n"schedule_lastCompletionTime" : "30/01/2026, 14:32:07",\n"schedule_scheduledDays" : "1111111"\n}\n\n{\n"isActive" : "False",\n"questInProgress" : "False",\n"schedule_everyXDays" : "True",\n"scheduleName" : "Scheduled Sainsbury’s Shopping",\n"scheduleUUID" : "AB5F4C31-7A05-4BDF-B0CD-1A435A9BCF63",\n"questUUID" : "EEB7B2ED-26C9-4B8C-AFF5-95124CD1B5AF",\n"schedule_XDayDelay" : "5",\n"startTime" : "30/01/2026, 11:00:00",\n"scheduledStartTime" : "30/01/2026, 11:00:00",\n"scheduledEndTime" : "30/01/2026, 17:00:05",\n"schedule_lastCompletionTime" : "nil",\n"schedule_scheduledDays" : "0000000"\n}'
+2026-01-31 12:05:46,376 - DEBUG - iOS_PQPrototypeWaiter - =========================================
+
+2026-01-31 12:05:46,393 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-01-31 12:05:46,394 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "Scheduled Gym",
+"scheduleUUID" : "E6D49CEC-EC1B-4E99-844E-C7E7F2B3A501",
+"questUUID" : "7BFCA3E3-2FAD-4129-8E00-DC37475E9918",
+"schedule_XDayDelay" : "2",
+"startTime" : "30/01/2026, 15:30:00",
+"scheduledStartTime" : "30/01/2026, 15:30:00",
+"scheduledEndTime" : "30/01/2026, 20:00:05",
+"schedule_lastCompletionTime" : "29/01/2026, 23:46:58",
+"schedule_scheduledDays" : "1010100"
+}
+2026-01-31 12:05:46,395 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-01-31 12:05:46,396 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "Scheduled Gym",
+"questUUID" : "7BFCA3E3-2FAD-4129-8E00-DC37475E9918",
+"schedule_XDayDelay" : "2",
+"startTime" : "30/1/2026, 15:30:0",
+"scheduledStartTime" : "30/1/2026, 15:30:0",
+"scheduledEndTime" : "30/1/2026, 20:0:5",
+"schedule_lastCompletionTime" : "29/1/2026, 23:46:58",
+"schedule_scheduledDays" : "1010100"
+}
+2026-01-31 12:05:46,397 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-01-31 12:05:46,397 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-01-31 12:05:46,398 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "CampusQuest II",
+"scheduleUUID" : "E26F32B5-684D-419E-B10A-6DCB46154DCA",
+"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
+"schedule_XDayDelay" : "1",
+"startTime" : "25/01/2026, 15:00:00",
+"scheduledStartTime" : "25/01/2026, 15:00:00",
+"scheduledEndTime" : "25/01/2026, 19:00:05",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "1111100"
+}
+2026-01-31 12:05:46,399 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-01-31 12:05:46,399 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "CampusQuest II",
+"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
+"schedule_XDayDelay" : "1",
+"startTime" : "25/1/2026, 15:0:0",
+"scheduledStartTime" : "25/1/2026, 15:0:0",
+"scheduledEndTime" : "25/1/2026, 19:0:5",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "1111100"
+}
+2026-01-31 12:05:46,401 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-01-31 12:05:46,401 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-01-31 12:05:46,402 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "CampusQuest I",
+"scheduleUUID" : "B9CA7B1C-EF31-4569-946E-7096E531740D",
+"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
+"schedule_XDayDelay" : "1",
+"startTime" : "25/01/2026, 9:00:00",
+"scheduledStartTime" : "25/01/2026, 9:00:00",
+"scheduledEndTime" : "25/01/2026, 13:00:05",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "1111100"
+}
+2026-01-31 12:05:46,404 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-01-31 12:05:46,404 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "CampusQuest I",
+"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
+"schedule_XDayDelay" : "1",
+"startTime" : "25/1/2026, 9:0:0",
+"scheduledStartTime" : "25/1/2026, 9:0:0",
+"scheduledEndTime" : "25/1/2026, 13:0:5",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "1111100"
+}
+2026-01-31 12:05:46,405 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-01-31 12:05:46,486 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-01-31 12:05:46,487 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "True",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Bedtime Locker",
+"scheduleUUID" : "E96D10C0-E544-40AD-A420-4DCF881E38A4",
+"questUUID" : "D55BEBE0-B40D-465F-BB45-F1BF1753551D",
+"schedule_XDayDelay" : "1",
+"startTime" : "30/01/2026, 22:00:00",
+"scheduledStartTime" : "30/01/2026, 22:00:00",
+"scheduledEndTime" : "31/01/2026, 6:00:05",
+"schedule_lastCompletionTime" : "30/01/2026, 14:32:07",
+"schedule_scheduledDays" : "1111111"
+}
+2026-01-31 12:05:46,488 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-01-31 12:05:46,518 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "True",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Bedtime Locker",
+"questUUID" : "D55BEBE0-B40D-465F-BB45-F1BF1753551D",
+"schedule_XDayDelay" : "1",
+"startTime" : "30/1/2026, 22:0:0",
+"scheduledStartTime" : "30/1/2026, 22:0:0",
+"scheduledEndTime" : "31/1/2026, 6:0:5",
+"schedule_lastCompletionTime" : "30/1/2026, 14:32:7",
+"schedule_scheduledDays" : "1111111"
+}
+2026-01-31 12:05:46,519 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-01-31 12:05:46,520 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-01-31 12:05:46,520 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Scheduled Sainsbury’s Shopping",
+"scheduleUUID" : "AB5F4C31-7A05-4BDF-B0CD-1A435A9BCF63",
+"questUUID" : "EEB7B2ED-26C9-4B8C-AFF5-95124CD1B5AF",
+"schedule_XDayDelay" : "5",
+"startTime" : "30/01/2026, 11:00:00",
+"scheduledStartTime" : "30/01/2026, 11:00:00",
+"scheduledEndTime" : "30/01/2026, 17:00:05",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "0000000"
+}
+2026-01-31 12:05:46,521 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-01-31 12:05:46,522 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Scheduled Sainsbury’s Shopping",
+"questUUID" : "EEB7B2ED-26C9-4B8C-AFF5-95124CD1B5AF",
+"schedule_XDayDelay" : "5",
+"startTime" : "30/1/2026, 11:0:0",
+"scheduledStartTime" : "30/1/2026, 11:0:0",
+"scheduledEndTime" : "30/1/2026, 17:0:5",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "0000000"
+}
+2026-01-31 12:05:46,522 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-01-31 12:05:46,523 - DEBUG - iOS_PQPrototypeWaiter - Loading active quests
+2026-01-31 12:05:46,523 - DEBUG - iOS_PQPrototypeWaiter - loading quests
+2026-01-31 12:05:46,531 - DEBUG - iOS_PQPrototypeWaiter - ============= RAW FILE DATA =============
+2026-01-31 12:05:46,549 - DEBUG - iOS_PQPrototypeWaiter - '{\n\n}\n\n'
+2026-01-31 12:05:46,550 - DEBUG - iOS_PQPrototypeWaiter - =========================================
+
+2026-01-31 12:05:46,551 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-01-31 12:05:46,551 - DEBUG - iOS_PQPrototypeWaiter - {
+2026-01-31 12:05:46,552 - DEBUG - iOS_PQPrototypeWaiter - Main loop escaped!
+2026-01-31 12:05:46,552 - DEBUG - iOS_PQPrototypeWaiter - can only concatenate str (not "JSONDecodeError") to str

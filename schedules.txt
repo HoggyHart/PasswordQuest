@@ -2,12 +2,28 @@
 "isActive" : "False",
 "questInProgress" : "False",
 "schedule_everyXDays" : "False",
-"scheduleName" : "Scheduled Campus work pt2",
-"questUUID" : "3E12A2DD-E459-48B8-AD5B-542D84884A6B",
+"scheduleName" : "Scheduled Gym",
+"scheduleUUID" : "E6D49CEC-EC1B-4E99-844E-C7E7F2B3A501",
+"questUUID" : "7BFCA3E3-2FAD-4129-8E00-DC37475E9918",
+"schedule_XDayDelay" : "2",
+"startTime" : "30/01/2026, 15:30:00",
+"scheduledStartTime" : "30/01/2026, 15:30:00",
+"scheduledEndTime" : "30/01/2026, 20:00:05",
+"schedule_lastCompletionTime" : "29/01/2026, 23:46:58",
+"schedule_scheduledDays" : "1010100"
+}
+
+{
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "CampusQuest II",
+"scheduleUUID" : "E26F32B5-684D-419E-B10A-6DCB46154DCA",
+"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
 "schedule_XDayDelay" : "1",
-"startTime" : "15/1/2026, 9:0:0",
-"scheduledStartTime" : "15/1/2026, 9:0:0",
-"scheduledEndTime" : "15/1/2026, 12:0:5",
+"startTime" : "25/01/2026, 15:00:00",
+"scheduledStartTime" : "25/01/2026, 15:00:00",
+"scheduledEndTime" : "25/01/2026, 19:00:05",
 "schedule_lastCompletionTime" : "nil",
 "schedule_scheduledDays" : "1111100"
 }
@@ -16,54 +32,43 @@
 "isActive" : "False",
 "questInProgress" : "False",
 "schedule_everyXDays" : "False",
-"scheduleName" : "Scheduled Campus work part 2",
-"questUUID" : "E306DC79-368E-446C-9ECD-3684D2CC5D56",
+"scheduleName" : "CampusQuest I",
+"scheduleUUID" : "B9CA7B1C-EF31-4569-946E-7096E531740D",
+"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
 "schedule_XDayDelay" : "1",
-"startTime" : "15/1/2026, 14:0:0",
-"scheduledStartTime" : "15/1/2026, 14:0:0",
-"scheduledEndTime" : "15/1/2026, 18:0:5",
+"startTime" : "25/01/2026, 9:00:00",
+"scheduledStartTime" : "25/01/2026, 9:00:00",
+"scheduledEndTime" : "25/01/2026, 13:00:05",
 "schedule_lastCompletionTime" : "nil",
 "schedule_scheduledDays" : "1111100"
 }
 
 {
-"isActive" : "True",
-"questInProgress" : "True",
+"isActive" : "False",
+"questInProgress" : "False",
 "schedule_everyXDays" : "True",
-"scheduleName" : "Scheduled Bed Time",
-"questUUID" : "4FE6E061-FFD8-45ED-A10A-F9C4AA86B181",
+"scheduleName" : "Bedtime Locker",
+"scheduleUUID" : "E96D10C0-E544-40AD-A420-4DCF881E38A4",
+"questUUID" : "D55BEBE0-B40D-465F-BB45-F1BF1753551D",
 "schedule_XDayDelay" : "1",
-"startTime" : "20/1/2026, 22:30:0",
-"scheduledStartTime" : "20/1/2026, 22:30:0",
-"scheduledEndTime" : "21/1/2026, 8:0:5",
-"schedule_lastCompletionTime" : "20/1/2026, 10:40:4",
+"startTime" : "31/01/2026, 22:00:00",
+"scheduledStartTime" : "31/01/2026, 22:00:00",
+"scheduledEndTime" : "01/02/2026, 6:00:05",
+"schedule_lastCompletionTime" : "30/01/2026, 14:32:07",
 "schedule_scheduledDays" : "1111111"
 }
 
 {
-"isActive" : "True",
-"questInProgress" : "True",
-"schedule_everyXDays" : "True",
-"scheduleName" : "Scheduled Gym time",
-"questUUID" : "B94D744C-AAC7-457F-87AF-B3C112F0F2EA",
-"schedule_XDayDelay" : "3",
-"startTime" : "23/1/2026, 13:0:0",
-"scheduledStartTime" : "23/1/2026, 13:0:0",
-"scheduledEndTime" : "23/1/2026, 15:0:5",
-"schedule_lastCompletionTime" : "19/1/2026, 14:5:14",
-"schedule_scheduledDays" : "1111100"
-}
-
-{
 "isActive" : "False",
 "questInProgress" : "False",
-"schedule_everyXDays" : "False",
-"scheduleName" : "Scheduled New Quest",
-"questUUID" : "DC2F5C08-2FEA-4268-B613-6C033FCE5992",
-"schedule_XDayDelay" : "1",
-"startTime" : "15/1/2026, 23:55:19",
-"scheduledStartTime" : "15/1/2026, 23:55:19",
-"scheduledEndTime" : "15/1/2026, 23:59:59",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Scheduled Sainsbury’s Shopping",
+"scheduleUUID" : "AB5F4C31-7A05-4BDF-B0CD-1A435A9BCF63",
+"questUUID" : "EEB7B2ED-26C9-4B8C-AFF5-95124CD1B5AF",
+"schedule_XDayDelay" : "5",
+"startTime" : "30/01/2026, 11:00:00",
+"scheduledStartTime" : "30/01/2026, 11:00:00",
+"scheduledEndTime" : "30/01/2026, 17:00:05",
 "schedule_lastCompletionTime" : "nil",
-"schedule_scheduledDays" : "1111100"
+"schedule_scheduledDays" : "0000000"
 }

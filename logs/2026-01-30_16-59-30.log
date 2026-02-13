@@ -1,0 +1,756 @@
+2026-01-30 16:59:30,900 - DEBUG - iOS_PQPrototypeWaiter - Locking during init
+2026-01-30 16:59:30,900 - DEBUG - iOS_PQPrototypeWaiter - ==========================================================================================================COMPUTER LOCKED==========================================================================================================
+2026-01-30 16:59:30,901 - DEBUG - iOS_PQPrototypeWaiter - Creating deadmans switch
+2026-01-30 16:59:30,908 - DEBUG - iOS_PQPrototypeWaiter - Holding deadmans switch
+2026-01-30 16:59:30,909 - DEBUG - iOS_PQPrototypeWaiter - loading schedules
+2026-01-30 16:59:30,943 - DEBUG - iOS_PQPrototypeWaiter - loading schedules
+2026-01-30 16:59:30,954 - DEBUG - iOS_PQPrototypeWaiter - ============= RAW FILE DATA =============
+2026-01-30 16:59:30,959 - DEBUG - iOS_PQPrototypeWaiter - '{\n"isActive" : "False",\n"questInProgress" : "False",\n"schedule_everyXDays" : "False",\n"scheduleName" : "Scheduled Gym",\n"scheduleUUID" : "E6D49CEC-EC1B-4E99-844E-C7E7F2B3A501",\n"questUUID" : "7BFCA3E3-2FAD-4129-8E00-DC37475E9918",\n"schedule_XDayDelay" : "2",\n"startTime" : "30/01/2026, 15:30:00",\n"scheduledStartTime" : "30/01/2026, 15:30:00",\n"scheduledEndTime" : "30/01/2026, 20:00:05",\n"schedule_lastCompletionTime" : "29/01/2026, 23:46:58",\n"schedule_scheduledDays" : "1010100"\n}\n\n{\n"isActive" : "False",\n"questInProgress" : "False",\n"schedule_everyXDays" : "False",\n"scheduleName" : "CampusQuest II",\n"scheduleUUID" : "E26F32B5-684D-419E-B10A-6DCB46154DCA",\n"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",\n"schedule_XDayDelay" : "1",\n"startTime" : "25/01/2026, 15:00:00",\n"scheduledStartTime" : "25/01/2026, 15:00:00",\n"scheduledEndTime" : "25/01/2026, 19:00:05",\n"schedule_lastCompletionTime" : "nil",\n"schedule_scheduledDays" : "1111100"\n}\n\n{\n"isActive" : "False",\n"questInProgress" : "False",\n"schedule_everyXDays" : "False",\n"scheduleName" : "CampusQuest I",\n"scheduleUUID" : "B9CA7B1C-EF31-4569-946E-7096E531740D",\n"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",\n"schedule_XDayDelay" : "1",\n"startTime" : "25/01/2026, 9:00:00",\n"scheduledStartTime" : "25/01/2026, 9:00:00",\n"scheduledEndTime" : "25/01/2026, 13:00:05",\n"schedule_lastCompletionTime" : "nil",\n"schedule_scheduledDays" : "1111100"\n}\n\n{\n"isActive" : "True",\n"questInProgress" : "False",\n"schedule_everyXDays" : "True",\n"scheduleName" : "Bedtime Locker",\n"scheduleUUID" : "E96D10C0-E544-40AD-A420-4DCF881E38A4",\n"questUUID" : "D55BEBE0-B40D-465F-BB45-F1BF1753551D",\n"schedule_XDayDelay" : "1",\n"startTime" : "30/01/2026, 22:00:00",\n"scheduledStartTime" : "30/01/2026, 22:00:00",\n"scheduledEndTime" : "31/01/2026, 6:00:05",\n"schedule_lastCompletionTime" : "30/01/2026, 14:32:07",\n"schedule_scheduledDays" : "1111111"\n}\n\n{\n"isActive" : "False",\n"questInProgress" : "False",\n"schedule_everyXDays" : "True",\n"scheduleName" : "Scheduled Sainsbury’s Shopping",\n"scheduleUUID" : "AB5F4C31-7A05-4BDF-B0CD-1A435A9BCF63",\n"questUUID" : "EEB7B2ED-26C9-4B8C-AFF5-95124CD1B5AF",\n"schedule_XDayDelay" : "5",\n"startTime" : "30/01/2026, 11:00:00",\n"scheduledStartTime" : "30/01/2026, 11:00:00",\n"scheduledEndTime" : "30/01/2026, 17:00:05",\n"schedule_lastCompletionTime" : "nil",\n"schedule_scheduledDays" : "0000000"\n}'
+2026-01-30 16:59:30,960 - DEBUG - iOS_PQPrototypeWaiter - =========================================
+
+2026-01-30 16:59:30,961 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-01-30 16:59:30,962 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "Scheduled Gym",
+"scheduleUUID" : "E6D49CEC-EC1B-4E99-844E-C7E7F2B3A501",
+"questUUID" : "7BFCA3E3-2FAD-4129-8E00-DC37475E9918",
+"schedule_XDayDelay" : "2",
+"startTime" : "30/01/2026, 15:30:00",
+"scheduledStartTime" : "30/01/2026, 15:30:00",
+"scheduledEndTime" : "30/01/2026, 20:00:05",
+"schedule_lastCompletionTime" : "29/01/2026, 23:46:58",
+"schedule_scheduledDays" : "1010100"
+}
+2026-01-30 16:59:30,964 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-01-30 16:59:30,965 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "Scheduled Gym",
+"questUUID" : "7BFCA3E3-2FAD-4129-8E00-DC37475E9918",
+"schedule_XDayDelay" : "2",
+"startTime" : "30/1/2026, 15:30:0",
+"scheduledStartTime" : "30/1/2026, 15:30:0",
+"scheduledEndTime" : "30/1/2026, 20:0:5",
+"schedule_lastCompletionTime" : "29/1/2026, 23:46:58",
+"schedule_scheduledDays" : "1010100"
+}
+2026-01-30 16:59:30,966 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-01-30 16:59:30,967 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-01-30 16:59:30,968 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "CampusQuest II",
+"scheduleUUID" : "E26F32B5-684D-419E-B10A-6DCB46154DCA",
+"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
+"schedule_XDayDelay" : "1",
+"startTime" : "25/01/2026, 15:00:00",
+"scheduledStartTime" : "25/01/2026, 15:00:00",
+"scheduledEndTime" : "25/01/2026, 19:00:05",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "1111100"
+}
+2026-01-30 16:59:30,970 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-01-30 16:59:30,973 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "CampusQuest II",
+"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
+"schedule_XDayDelay" : "1",
+"startTime" : "25/1/2026, 15:0:0",
+"scheduledStartTime" : "25/1/2026, 15:0:0",
+"scheduledEndTime" : "25/1/2026, 19:0:5",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "1111100"
+}
+2026-01-30 16:59:30,987 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-01-30 16:59:30,988 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-01-30 16:59:30,989 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "CampusQuest I",
+"scheduleUUID" : "B9CA7B1C-EF31-4569-946E-7096E531740D",
+"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
+"schedule_XDayDelay" : "1",
+"startTime" : "25/01/2026, 9:00:00",
+"scheduledStartTime" : "25/01/2026, 9:00:00",
+"scheduledEndTime" : "25/01/2026, 13:00:05",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "1111100"
+}
+2026-01-30 16:59:30,991 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-01-30 16:59:30,992 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "CampusQuest I",
+"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
+"schedule_XDayDelay" : "1",
+"startTime" : "25/1/2026, 9:0:0",
+"scheduledStartTime" : "25/1/2026, 9:0:0",
+"scheduledEndTime" : "25/1/2026, 13:0:5",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "1111100"
+}
+2026-01-30 16:59:30,993 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-01-30 16:59:30,994 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-01-30 16:59:30,994 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "True",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Bedtime Locker",
+"scheduleUUID" : "E96D10C0-E544-40AD-A420-4DCF881E38A4",
+"questUUID" : "D55BEBE0-B40D-465F-BB45-F1BF1753551D",
+"schedule_XDayDelay" : "1",
+"startTime" : "30/01/2026, 22:00:00",
+"scheduledStartTime" : "30/01/2026, 22:00:00",
+"scheduledEndTime" : "31/01/2026, 6:00:05",
+"schedule_lastCompletionTime" : "30/01/2026, 14:32:07",
+"schedule_scheduledDays" : "1111111"
+}
+2026-01-30 16:59:30,996 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-01-30 16:59:30,997 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "True",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Bedtime Locker",
+"questUUID" : "D55BEBE0-B40D-465F-BB45-F1BF1753551D",
+"schedule_XDayDelay" : "1",
+"startTime" : "30/1/2026, 22:0:0",
+"scheduledStartTime" : "30/1/2026, 22:0:0",
+"scheduledEndTime" : "31/1/2026, 6:0:5",
+"schedule_lastCompletionTime" : "30/1/2026, 14:32:7",
+"schedule_scheduledDays" : "1111111"
+}
+2026-01-30 16:59:30,998 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-01-30 16:59:30,999 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-01-30 16:59:31,002 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Scheduled Sainsbury’s Shopping",
+"scheduleUUID" : "AB5F4C31-7A05-4BDF-B0CD-1A435A9BCF63",
+"questUUID" : "EEB7B2ED-26C9-4B8C-AFF5-95124CD1B5AF",
+"schedule_XDayDelay" : "5",
+"startTime" : "30/01/2026, 11:00:00",
+"scheduledStartTime" : "30/01/2026, 11:00:00",
+"scheduledEndTime" : "30/01/2026, 17:00:05",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "0000000"
+}
+2026-01-30 16:59:31,003 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-01-30 16:59:31,004 - DEBUG - iOS_PQPrototypeWaiter - {
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Scheduled Sainsbury’s Shopping",
+"questUUID" : "EEB7B2ED-26C9-4B8C-AFF5-95124CD1B5AF",
+"schedule_XDayDelay" : "5",
+"startTime" : "30/1/2026, 11:0:0",
+"scheduledStartTime" : "30/1/2026, 11:0:0",
+"scheduledEndTime" : "30/1/2026, 17:0:5",
+"schedule_lastCompletionTime" : "nil",
+"schedule_scheduledDays" : "0000000"
+}
+2026-01-30 16:59:31,005 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-01-30 16:59:31,005 - DEBUG - iOS_PQPrototypeWaiter - Loading active quests
+2026-01-30 16:59:31,006 - DEBUG - iOS_PQPrototypeWaiter - loading quests
+2026-01-30 16:59:31,017 - DEBUG - iOS_PQPrototypeWaiter - ============= RAW FILE DATA =============
+2026-01-30 16:59:31,051 - DEBUG - iOS_PQPrototypeWaiter - '{\n"questUUID" : "EEB7B2ED-26C9-4B8C-AFF5-95124CD1B5AF"\n}\n'
+2026-01-30 16:59:31,052 - DEBUG - iOS_PQPrototypeWaiter - =========================================
+
+2026-01-30 16:59:31,053 - DEBUG - iOS_PQPrototypeWaiter - ============= LOADED =============
+2026-01-30 16:59:31,053 - DEBUG - iOS_PQPrototypeWaiter - {
+"questUUID" : "EEB7B2ED-26C9-4B8C-AFF5-95124CD1B5AF"
+}
+
+2026-01-30 16:59:31,066 - DEBUG - iOS_PQPrototypeWaiter -                 AS                
+2026-01-30 16:59:31,066 - DEBUG - iOS_PQPrototypeWaiter - {
+"questUUID" : "EEB7B2ED-26C9-4B8C-AFF5-95124CD1B5AF"
+}
+2026-01-30 16:59:31,068 - DEBUG - iOS_PQPrototypeWaiter - ==================================
+
+2026-01-30 16:59:31,068 - DEBUG - iOS_PQPrototypeWaiter - creating server thread
+2026-01-30 16:59:31,069 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 16:59:31,069 - DEBUG - iOS_PQPrototypeWaiter - creating phone connection poller
+2026-01-30 16:59:31,071 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-30 16:59:31,071 - DEBUG - iOS_PQPrototypeWaiter - Init finished... Unlocking and starting now
+2026-01-30 16:59:31,072 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-30 16:59:31,072 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-30 16:59:31,073 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-30 16:59:31,222 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-30 16:59:31,234 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-30 16:59:31,235 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-30 16:59:31,236 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Gym not active
+
+2026-01-30 16:59:31,236 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-30 16:59:31,237 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest II not active
+
+2026-01-30 16:59:31,239 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-30 16:59:31,240 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest I not active
+
+2026-01-30 16:59:31,241 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-30 16:59:31,242 - DEBUG - iOS_PQPrototypeWaiter - Checking if Bedtime Locker should have started (2026-01-30 22:00:00 - 2026-01-31 06:00:05)
+2026-01-30 16:59:31,243 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-30 16:59:31,285 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Sainsbury’s Shopping
+2026-01-30 16:59:31,333 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Sainsbury’s Shopping not active
+
+2026-01-30 16:59:31,336 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-30 16:59:31,337 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-30 16:59:31,338 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-30 16:59:31,339 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-30 16:59:31,350 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-30 16:59:31,350 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-30 16:59:31,381 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-30 16:59:31,397 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-30 16:59:31,844 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-30 16:59:31,845 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-30 16:59:31,846 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-30 16:59:34,070 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 16:59:36,413 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-30 16:59:36,413 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-30 16:59:36,414 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-30 16:59:36,414 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-30 16:59:36,415 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-30 16:59:36,415 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-30 16:59:36,415 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Gym not active
+
+2026-01-30 16:59:36,415 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-30 16:59:36,416 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest II not active
+
+2026-01-30 16:59:36,416 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-30 16:59:36,455 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest I not active
+
+2026-01-30 16:59:36,456 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-30 16:59:36,457 - DEBUG - iOS_PQPrototypeWaiter - Checking if Bedtime Locker should have started (2026-01-30 22:00:00 - 2026-01-31 06:00:05)
+2026-01-30 16:59:36,457 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-30 16:59:36,457 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Sainsbury’s Shopping
+2026-01-30 16:59:36,457 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Sainsbury’s Shopping not active
+
+2026-01-30 16:59:36,458 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-30 16:59:36,458 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-30 16:59:36,458 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-30 16:59:36,459 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-30 16:59:36,459 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-30 16:59:36,459 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-30 16:59:36,460 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-30 16:59:36,461 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-30 16:59:36,847 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-30 16:59:37,071 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 16:59:37,258 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-30 16:59:37,258 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-30 16:59:37,259 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-30 16:59:40,072 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 16:59:41,462 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-30 16:59:41,462 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-30 16:59:41,463 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-30 16:59:41,463 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-30 16:59:41,464 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-30 16:59:41,464 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-30 16:59:41,464 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Gym not active
+
+2026-01-30 16:59:41,464 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-30 16:59:41,465 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest II not active
+
+2026-01-30 16:59:41,465 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-30 16:59:41,465 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest I not active
+
+2026-01-30 16:59:41,465 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-30 16:59:41,465 - DEBUG - iOS_PQPrototypeWaiter - Checking if Bedtime Locker should have started (2026-01-30 22:00:00 - 2026-01-31 06:00:05)
+2026-01-30 16:59:41,466 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-30 16:59:41,466 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Sainsbury’s Shopping
+2026-01-30 16:59:41,466 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Sainsbury’s Shopping not active
+
+2026-01-30 16:59:41,466 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-30 16:59:41,466 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-30 16:59:41,467 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-30 16:59:41,467 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-30 16:59:41,468 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-30 16:59:41,468 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-30 16:59:41,468 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-30 16:59:41,469 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-30 16:59:42,260 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-30 16:59:42,319 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-30 16:59:42,320 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-30 16:59:42,321 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-30 16:59:43,073 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 16:59:46,074 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 16:59:46,470 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-30 16:59:46,471 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-30 16:59:46,472 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-30 16:59:46,472 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-30 16:59:46,473 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-30 16:59:46,473 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-30 16:59:46,473 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Gym not active
+
+2026-01-30 16:59:46,473 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-30 16:59:46,473 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest II not active
+
+2026-01-30 16:59:46,474 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-30 16:59:46,474 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest I not active
+
+2026-01-30 16:59:46,474 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-30 16:59:46,474 - DEBUG - iOS_PQPrototypeWaiter - Checking if Bedtime Locker should have started (2026-01-30 22:00:00 - 2026-01-31 06:00:05)
+2026-01-30 16:59:46,475 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-30 16:59:46,475 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Sainsbury’s Shopping
+2026-01-30 16:59:46,475 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Sainsbury’s Shopping not active
+
+2026-01-30 16:59:46,475 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-30 16:59:46,475 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-30 16:59:46,476 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-30 16:59:46,476 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-30 16:59:46,476 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-30 16:59:46,476 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-30 16:59:46,477 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-30 16:59:46,478 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-30 16:59:47,321 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-30 16:59:47,378 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-30 16:59:47,378 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-30 16:59:47,379 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-30 16:59:49,075 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 16:59:51,478 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-30 16:59:51,479 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-30 16:59:51,480 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-30 16:59:51,481 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-30 16:59:51,481 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-30 16:59:51,481 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-30 16:59:51,481 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Gym not active
+
+2026-01-30 16:59:51,481 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-30 16:59:51,482 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest II not active
+
+2026-01-30 16:59:51,482 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-30 16:59:51,483 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest I not active
+
+2026-01-30 16:59:51,483 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-30 16:59:51,483 - DEBUG - iOS_PQPrototypeWaiter - Checking if Bedtime Locker should have started (2026-01-30 22:00:00 - 2026-01-31 06:00:05)
+2026-01-30 16:59:51,483 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-30 16:59:51,483 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Sainsbury’s Shopping
+2026-01-30 16:59:51,484 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Sainsbury’s Shopping not active
+
+2026-01-30 16:59:51,484 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-30 16:59:51,484 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-30 16:59:51,484 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-30 16:59:51,484 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-30 16:59:51,485 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-30 16:59:51,485 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-30 16:59:51,485 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-30 16:59:51,486 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-30 16:59:52,077 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 16:59:52,380 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-30 16:59:52,437 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-30 16:59:52,437 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-30 16:59:52,438 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-30 16:59:55,078 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 16:59:56,487 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-30 16:59:56,488 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-30 16:59:56,489 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-30 16:59:56,489 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-30 16:59:56,489 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-30 16:59:56,489 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-30 16:59:56,490 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Gym not active
+
+2026-01-30 16:59:56,490 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-30 16:59:56,490 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest II not active
+
+2026-01-30 16:59:56,491 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-30 16:59:56,491 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest I not active
+
+2026-01-30 16:59:56,491 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-30 16:59:56,491 - DEBUG - iOS_PQPrototypeWaiter - Checking if Bedtime Locker should have started (2026-01-30 22:00:00 - 2026-01-31 06:00:05)
+2026-01-30 16:59:56,492 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-30 16:59:56,492 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Sainsbury’s Shopping
+2026-01-30 16:59:56,492 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Sainsbury’s Shopping not active
+
+2026-01-30 16:59:56,492 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-30 16:59:56,493 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-30 16:59:56,493 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-30 16:59:56,493 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-30 16:59:56,493 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-30 16:59:56,493 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-30 16:59:56,494 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-30 16:59:56,495 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-30 16:59:57,439 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-30 16:59:57,496 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-30 16:59:57,496 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-30 16:59:57,497 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-30 16:59:58,079 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 17:00:01,080 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 17:00:01,495 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-30 17:00:01,496 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-30 17:00:01,497 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-30 17:00:01,497 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-30 17:00:01,498 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-30 17:00:01,498 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-30 17:00:01,498 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Gym not active
+
+2026-01-30 17:00:01,498 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-30 17:00:01,498 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest II not active
+
+2026-01-30 17:00:01,499 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-30 17:00:01,499 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest I not active
+
+2026-01-30 17:00:01,499 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-30 17:00:01,499 - DEBUG - iOS_PQPrototypeWaiter - Checking if Bedtime Locker should have started (2026-01-30 22:00:00 - 2026-01-31 06:00:05)
+2026-01-30 17:00:01,500 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-30 17:00:01,500 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Sainsbury’s Shopping
+2026-01-30 17:00:01,500 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Sainsbury’s Shopping not active
+
+2026-01-30 17:00:01,500 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-30 17:00:01,501 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-30 17:00:01,501 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-30 17:00:01,501 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-30 17:00:01,501 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-30 17:00:01,502 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-30 17:00:01,502 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-30 17:00:01,503 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-30 17:00:02,497 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-30 17:00:02,554 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-30 17:00:02,554 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-30 17:00:02,555 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-30 17:00:04,081 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 17:00:06,503 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-30 17:00:06,504 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-30 17:00:06,505 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-30 17:00:06,505 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-30 17:00:06,505 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-30 17:00:06,505 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-30 17:00:06,506 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Gym not active
+
+2026-01-30 17:00:06,506 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-30 17:00:06,506 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest II not active
+
+2026-01-30 17:00:06,506 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-30 17:00:06,507 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest I not active
+
+2026-01-30 17:00:06,507 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-30 17:00:06,507 - DEBUG - iOS_PQPrototypeWaiter - Checking if Bedtime Locker should have started (2026-01-30 22:00:00 - 2026-01-31 06:00:05)
+2026-01-30 17:00:06,507 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-30 17:00:06,507 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Sainsbury’s Shopping
+2026-01-30 17:00:06,508 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Sainsbury’s Shopping not active
+
+2026-01-30 17:00:06,508 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-30 17:00:06,508 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-30 17:00:06,508 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-30 17:00:06,508 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-30 17:00:06,509 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-30 17:00:06,509 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-30 17:00:06,509 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-30 17:00:06,510 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-30 17:00:07,082 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 17:00:07,556 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-30 17:00:07,663 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-30 17:00:07,664 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-30 17:00:07,665 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-30 17:00:10,083 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 17:00:11,511 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-30 17:00:11,512 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-30 17:00:11,513 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-30 17:00:11,513 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-30 17:00:11,513 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-30 17:00:11,513 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-30 17:00:11,514 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Gym not active
+
+2026-01-30 17:00:11,514 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-30 17:00:11,514 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest II not active
+
+2026-01-30 17:00:11,515 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-30 17:00:11,515 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest I not active
+
+2026-01-30 17:00:11,515 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-30 17:00:11,515 - DEBUG - iOS_PQPrototypeWaiter - Checking if Bedtime Locker should have started (2026-01-30 22:00:00 - 2026-01-31 06:00:05)
+2026-01-30 17:00:11,516 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-30 17:00:11,516 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Sainsbury’s Shopping
+2026-01-30 17:00:11,516 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Sainsbury’s Shopping not active
+
+2026-01-30 17:00:11,516 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-30 17:00:11,516 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-30 17:00:11,517 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-30 17:00:11,517 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-30 17:00:11,517 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-30 17:00:11,517 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-30 17:00:11,517 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-30 17:00:11,518 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-30 17:00:12,665 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-30 17:00:12,721 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-30 17:00:12,722 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-30 17:00:12,723 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-30 17:00:13,085 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 17:00:16,086 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 17:00:16,519 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-30 17:00:16,520 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-30 17:00:16,520 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-30 17:00:16,521 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-30 17:00:16,521 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-30 17:00:16,521 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-30 17:00:16,521 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Gym not active
+
+2026-01-30 17:00:16,521 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-30 17:00:16,521 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest II not active
+
+2026-01-30 17:00:16,522 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-30 17:00:16,522 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest I not active
+
+2026-01-30 17:00:16,522 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-30 17:00:16,522 - DEBUG - iOS_PQPrototypeWaiter - Checking if Bedtime Locker should have started (2026-01-30 22:00:00 - 2026-01-31 06:00:05)
+2026-01-30 17:00:16,523 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-30 17:00:16,523 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Sainsbury’s Shopping
+2026-01-30 17:00:16,523 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Sainsbury’s Shopping not active
+
+2026-01-30 17:00:16,523 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-30 17:00:16,523 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-30 17:00:16,524 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-30 17:00:16,524 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-30 17:00:16,524 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-30 17:00:16,524 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-30 17:00:16,524 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-30 17:00:16,525 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-30 17:00:17,723 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-30 17:00:17,780 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-30 17:00:17,781 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-30 17:00:17,781 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-30 17:00:19,088 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 17:00:21,526 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-30 17:00:21,527 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-30 17:00:21,528 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-30 17:00:21,528 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-30 17:00:21,528 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-30 17:00:21,528 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-30 17:00:21,529 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Gym not active
+
+2026-01-30 17:00:21,529 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-30 17:00:21,529 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest II not active
+
+2026-01-30 17:00:21,529 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-30 17:00:21,529 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest I not active
+
+2026-01-30 17:00:21,530 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-30 17:00:21,530 - DEBUG - iOS_PQPrototypeWaiter - Checking if Bedtime Locker should have started (2026-01-30 22:00:00 - 2026-01-31 06:00:05)
+2026-01-30 17:00:21,530 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-30 17:00:21,530 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Sainsbury’s Shopping
+2026-01-30 17:00:21,530 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Sainsbury’s Shopping not active
+
+2026-01-30 17:00:21,531 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-30 17:00:21,531 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-30 17:00:21,531 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-30 17:00:21,531 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-30 17:00:21,531 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-30 17:00:21,532 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-30 17:00:21,532 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-30 17:00:21,533 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-30 17:00:22,089 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 17:00:22,782 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-30 17:00:22,838 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-30 17:00:22,838 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-30 17:00:22,839 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-30 17:00:25,091 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 17:00:26,533 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-30 17:00:26,534 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-30 17:00:26,534 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-30 17:00:26,534 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-30 17:00:26,534 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-30 17:00:26,534 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-30 17:00:26,534 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Gym not active
+
+2026-01-30 17:00:26,535 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-30 17:00:26,535 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest II not active
+
+2026-01-30 17:00:26,535 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-30 17:00:26,535 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest I not active
+
+2026-01-30 17:00:26,535 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-30 17:00:26,535 - DEBUG - iOS_PQPrototypeWaiter - Checking if Bedtime Locker should have started (2026-01-30 22:00:00 - 2026-01-31 06:00:05)
+2026-01-30 17:00:26,536 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-30 17:00:26,536 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Sainsbury’s Shopping
+2026-01-30 17:00:26,536 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Sainsbury’s Shopping not active
+
+2026-01-30 17:00:26,536 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-30 17:00:26,536 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-30 17:00:26,536 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-30 17:00:26,536 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-30 17:00:26,536 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-30 17:00:26,537 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-30 17:00:26,537 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-30 17:00:26,567 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-30 17:00:27,840 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-30 17:00:27,897 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-30 17:00:27,897 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-30 17:00:27,898 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-30 17:00:28,092 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 17:00:31,093 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 17:00:31,568 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-30 17:00:31,568 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-30 17:00:31,569 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-30 17:00:31,569 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-30 17:00:31,569 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-30 17:00:31,570 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-30 17:00:31,570 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Gym not active
+
+2026-01-30 17:00:31,570 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-30 17:00:31,570 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest II not active
+
+2026-01-30 17:00:31,570 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-30 17:00:31,570 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest I not active
+
+2026-01-30 17:00:31,571 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-30 17:00:31,571 - DEBUG - iOS_PQPrototypeWaiter - Checking if Bedtime Locker should have started (2026-01-30 22:00:00 - 2026-01-31 06:00:05)
+2026-01-30 17:00:31,571 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-30 17:00:31,571 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Sainsbury’s Shopping
+2026-01-30 17:00:31,571 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Sainsbury’s Shopping not active
+
+2026-01-30 17:00:31,571 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-30 17:00:31,572 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-30 17:00:31,572 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-30 17:00:31,572 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-30 17:00:31,572 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-30 17:00:31,572 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-30 17:00:31,572 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-30 17:00:31,573 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-30 17:00:32,898 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-30 17:00:32,955 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-30 17:00:32,955 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-30 17:00:32,956 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-30 17:00:34,094 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 17:00:36,574 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-30 17:00:36,574 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-30 17:00:36,575 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-30 17:00:36,575 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-30 17:00:36,575 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-30 17:00:36,576 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-30 17:00:36,576 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Gym not active
+
+2026-01-30 17:00:36,576 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-30 17:00:36,576 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest II not active
+
+2026-01-30 17:00:36,576 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-30 17:00:36,577 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest I not active
+
+2026-01-30 17:00:36,577 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-30 17:00:36,577 - DEBUG - iOS_PQPrototypeWaiter - Checking if Bedtime Locker should have started (2026-01-30 22:00:00 - 2026-01-31 06:00:05)
+2026-01-30 17:00:36,577 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-30 17:00:36,577 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Sainsbury’s Shopping
+2026-01-30 17:00:36,577 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Sainsbury’s Shopping not active
+
+2026-01-30 17:00:36,577 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-30 17:00:36,577 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-30 17:00:36,578 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-30 17:00:36,578 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-30 17:00:36,578 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-30 17:00:36,578 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-30 17:00:36,578 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-30 17:00:36,579 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-30 17:00:37,095 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 17:00:37,957 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-30 17:00:38,013 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-30 17:00:38,013 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-30 17:00:38,014 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-30 17:00:40,096 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 17:00:41,580 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-30 17:00:41,580 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-30 17:00:41,581 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-30 17:00:41,582 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-30 17:00:41,582 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-30 17:00:41,582 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-30 17:00:41,582 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Gym not active
+
+2026-01-30 17:00:41,583 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-30 17:00:41,583 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest II not active
+
+2026-01-30 17:00:41,583 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-30 17:00:41,583 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest I not active
+
+2026-01-30 17:00:41,583 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-30 17:00:41,583 - DEBUG - iOS_PQPrototypeWaiter - Checking if Bedtime Locker should have started (2026-01-30 22:00:00 - 2026-01-31 06:00:05)
+2026-01-30 17:00:41,584 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-30 17:00:41,584 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Sainsbury’s Shopping
+2026-01-30 17:00:41,584 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Sainsbury’s Shopping not active
+
+2026-01-30 17:00:41,584 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-30 17:00:41,584 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-30 17:00:41,584 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-30 17:00:41,585 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-30 17:00:41,585 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-30 17:00:41,585 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-30 17:00:41,585 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-30 17:00:41,586 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-30 17:00:43,015 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-30 17:00:43,071 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-30 17:00:43,071 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-30 17:00:43,072 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-30 17:00:43,097 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 17:00:46,098 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
+2026-01-30 17:00:46,587 - DEBUG - iOS_PQPrototypeWaiter - checking again
+2026-01-30 17:00:46,587 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Keys Lock
+2026-01-30 17:00:46,588 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Keys Lock
+2026-01-30 17:00:46,588 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Schedules Lock
+2026-01-30 17:00:46,588 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Schedules Lock
+2026-01-30 17:00:46,589 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Gym
+2026-01-30 17:00:46,589 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Gym not active
+
+2026-01-30 17:00:46,589 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest II
+2026-01-30 17:00:46,589 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest II not active
+
+2026-01-30 17:00:46,589 - DEBUG - iOS_PQPrototypeWaiter - Inspecting CampusQuest I
+2026-01-30 17:00:46,589 - DEBUG - iOS_PQPrototypeWaiter - CampusQuest I not active
+
+2026-01-30 17:00:46,589 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Bedtime Locker
+2026-01-30 17:00:46,589 - DEBUG - iOS_PQPrototypeWaiter - Checking if Bedtime Locker should have started (2026-01-30 22:00:00 - 2026-01-31 06:00:05)
+2026-01-30 17:00:46,589 - DEBUG - iOS_PQPrototypeWaiter - Not time.
+
+2026-01-30 17:00:46,590 - DEBUG - iOS_PQPrototypeWaiter - Inspecting Scheduled Sainsbury’s Shopping
+2026-01-30 17:00:46,590 - DEBUG - iOS_PQPrototypeWaiter - Scheduled Sainsbury’s Shopping not active
+
+2026-01-30 17:00:46,590 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Schedules Lock
+2026-01-30 17:00:46,590 - DEBUG - ThreadUtils -                      --MainThread: WAITING FOR Quest Lock
+2026-01-30 17:00:46,590 - DEBUG - ThreadUtils -                      --MainThread: ACQUIRED Quest Lock
+2026-01-30 17:00:46,590 - DEBUG - iOS_PQPrototypeWaiter - No keys received
+
+2026-01-30 17:00:46,590 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Quest Lock
+2026-01-30 17:00:46,590 - DEBUG - ThreadUtils -                      --MainThread: RELEASED Keys Lock
+2026-01-30 17:00:46,591 - DEBUG - iOS_PQPrototypeWaiter - ===========================================================================================================COMPUTER LOCKED===========================================================================================================
+2026-01-30 17:00:46,592 - DEBUG - iOS_PQPrototypeWaiter - waiting before checking again
+2026-01-30 17:00:48,072 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Scanning networks...
+2026-01-30 17:00:48,129 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Result: Not connected to QuestNetwork
+2026-01-30 17:00:48,129 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| Attempting to shut down server
+2026-01-30 17:00:48,130 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                                                                     ==CONNECTION POLL== ||| No server to shut down
+2026-01-30 17:00:49,099 - DEBUG - iOS_PQPrototypeWaiter -                                                                                                                                             ==SERVER THREAD== ||| Not connected to Quest Network, retrying host in 3 seconds
