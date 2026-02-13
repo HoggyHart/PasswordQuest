@@ -4,7 +4,6 @@ import ctypes
 
 def blockInput():
     ctypes.windll.user32.BlockInput(True)
-    pass
 def screenOff():
     ctypes.windll.user32.SendMessageW(65535, 274, 61808, 2)
 
