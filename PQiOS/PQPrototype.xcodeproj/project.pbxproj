@@ -49,8 +49,6 @@
 		6BA9DDC22F3CED8F00AF1B06 /* LocationOccupationQuestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9DDC12F3CED8F00AF1B06 /* LocationOccupationQuestTask.swift */; };
 		6BA9DDC42F3CEDAC00AF1B06 /* QuestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9DDC32F3CEDAC00AF1B06 /* QuestTask.swift */; };
 		6BA9DDC62F3CEDC500AF1B06 /* QuestReward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9DDC52F3CEDC500AF1B06 /* QuestReward.swift */; };
-		6BA9DE062F3F6EE300AF1B06 /* ManualSyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9DE052F3F6EE300AF1B06 /* ManualSyncView.swift */; };
-		6BA9DE082F3F6EFC00AF1B06 /* BluetoothTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9DE072F3F6EFC00AF1B06 /* BluetoothTransfer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,8 +116,6 @@
 		6BA9DDC12F3CED8F00AF1B06 /* LocationOccupationQuestTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationOccupationQuestTask.swift; sourceTree = "<group>"; };
 		6BA9DDC32F3CEDAC00AF1B06 /* QuestTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTask.swift; sourceTree = "<group>"; };
 		6BA9DDC52F3CEDC500AF1B06 /* QuestReward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestReward.swift; sourceTree = "<group>"; };
-		6BA9DE052F3F6EE300AF1B06 /* ManualSyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualSyncView.swift; sourceTree = "<group>"; };
-		6BA9DE072F3F6EFC00AF1B06 /* BluetoothTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothTransfer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,7 +237,6 @@
 		6BA3F8652ED8BF4F00EBE046 /* PQPrototype */ = {
 			isa = PBXGroup;
 			children = (
-				6BA9DE042F3F6E1A00AF1B06 /* Bluetooth */,
 				6BA9DDBB2F3CE95900AF1B06 /* Persistence */,
 				6B7A48DD2F064964002102FE /* Info.plist */,
 				6B7A48C82F019255002102FE /* utils */,
@@ -326,15 +321,6 @@
 				6BA9DDC52F3CEDC500AF1B06 /* QuestReward.swift */,
 			);
 			path = CoreDataExts;
-			sourceTree = "<group>";
-		};
-		6BA9DE042F3F6E1A00AF1B06 /* Bluetooth */ = {
-			isa = PBXGroup;
-			children = (
-				6BA9DE052F3F6EE300AF1B06 /* ManualSyncView.swift */,
-				6BA9DE072F3F6EFC00AF1B06 /* BluetoothTransfer.swift */,
-			);
-			path = Bluetooth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -470,7 +456,6 @@
 				6B7386AF2F1E53510076E77F /* Quest.swift in Sources */,
 				6B7A48BA2F00370B002102FE /* LocationOccupationQuestTask+CoreDataClass.swift in Sources */,
 				6B2152C22EE8511500188D31 /* LocationServices.swift in Sources */,
-				6BA9DE062F3F6EE300AF1B06 /* ManualSyncView.swift in Sources */,
 				6B9E6D482F31789F000C403D /* StagedButton.swift in Sources */,
 				6B2152DE2EEB31FE00188D31 /* ScheduleManagerView.swift in Sources */,
 				6B7386B32F1E539C0076E77F /* QuestReward+CoreDataProperties.swift in Sources */,
@@ -494,7 +479,6 @@
 				6BA9DDBF2F3CEA2C00AF1B06 /* Quest2QuestV2.swift in Sources */,
 				6B7A48C62F00CAA9002102FE /* Quest+CoreDataClass.swift in Sources */,
 				6B7A48B62F0033C7002102FE /* QuestTask+CoreDataClass.swift in Sources */,
-				6BA9DE082F3F6EFC00AF1B06 /* BluetoothTransfer.swift in Sources */,
 				6B2152E42EEB3C0900188D31 /* MainView.swift in Sources */,
 				6B2152D62EEB261F00188D31 /* Week.swift in Sources */,
 				6B7A48D72F04BDE5002102FE /* TextFieldOverload.swift in Sources */,
