@@ -55,7 +55,7 @@ struct MainView: View {
                             
                             //  ensures Date.now is < end time
                             if Date.now > schedule.getActualEndTime(){
-                                schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now,padQuestFailures: true)
+                                _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now,padQuestFailures: true)
                             }
                             //starting scheduled quest
                             //if not time, go next

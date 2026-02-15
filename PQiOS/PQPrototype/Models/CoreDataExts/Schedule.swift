@@ -31,6 +31,10 @@ extension Schedule {
         self.quest = quest
     }
     
+    func isOneTime() -> Bool{
+        //if days of the week schedule with no scheduled days of the week
+        return !self.everyXDays && self.scheduledDays!.week.rawValue == 0
+    }
     func getDuration() -> TimeInterval{
         return scheduledEndTime!.timeIntervalSince(scheduledStartTime!)
     }
@@ -77,7 +81,11 @@ extension Schedule {
         return start.addingTimeInterval(Double(self.xDayDelay * 86400))
     }
     
-    func getNext_ScheduledDays_StartTime(fromDate: Date) -> Date{
+    func getNext_ScheduledDays_StartTime(fromDate: Date) -> Date?{
+        
+        if self.isOneTime() {
+            return nil
+        }
         
         let curDay = Calendar.current.component(.weekday, from: fromDate)
         
@@ -105,11 +113,13 @@ extension Schedule {
     }
     
     func getNextStartTime(fromDate: Date) -> Date{
-        if self.everyXDays{
-            return getNext_XDayDelay_StartTime(fromDate: fromDate)
-        }else{
-            return getNext_ScheduledDays_StartTime(fromDate: fromDate)
+        guard let nextStart = self.everyXDays ? getNext_XDayDelay_StartTime(fromDate: fromDate) : getNext_ScheduledDays_StartTime(fromDate: fromDate)
+        else{ //if cannot get a scheduled day (no days of the week chosen or invalid delay (<1))
+            //deactivate and leave start time as date given
+            self.isActive = false
+            return fromDate
         }
+        return nextStart
     }
     
     ///delay schedule start (in seconds)
@@ -140,55 +150,57 @@ extension Schedule {
         _ = amendNextScheduledPeriod(toNextStartFrom: Date.now) //_ = to get rid of warning
     }
     
-    ///-1: before
-    ///0: during
-    ///1: after
-    func scheduledPeriodRelativity(ofDate: Date = Date.now) -> Int{
-        if ofDate < self.startTime! { return -1 }
-        else if ofDate < self.getActualEndTime() { return 0 }
+    ///-1: scheduled period has passed by given date
+    ///0: schedule is/would be active at given date
+    ///1: schedule will not have started by given date
+    func scheduledPeriodRelativity(toDate: Date = Date.now) -> Int{
+        if self.getActualEndTime() <= toDate { return -1 }
+        else if self.startTime! <= toDate { return 0 }
         else { return 1 }
     }
     ///Used to move the scheduled start/end dates forward to make it possible for the scheduled quest to start automatically
     ///Can pad with QuestRewards to pretend it was doing schedules the whole time
+    ///return value indicates whether start time was moved forward, backward, or stayed the same
     func amendNextScheduledPeriod(toNextStartFrom: Date, padQuestFailures: Bool = false) -> Int{
-        //track whether scheduled moved back(-1), forward(1), or not at all (0)
-        var moved = 0
-        
+
+        if self.isOneTime(){
+            self.isActive = false
+            return 0
+        }
         let dur = self.getDuration()
         //if start time is already ahead of the given date
         if toNextStartFrom < self.startTime! {
             //just make sure it's the IMMEDIATE next possible start
             let nextScheduledStartTime = getNextStartTime(fromDate: toNextStartFrom)
+            
             if !nextScheduledStartTime.equals(date2: self.scheduledStartTime!){
-                //if updated next start time is not the same as the old next start time, assume it moved backward (i.e. 4th jan -> 3rd)
-                moved = -1
                 scheduledStartTime = nextScheduledStartTime
                 startTime = scheduledStartTime
                 scheduledEndTime = scheduledStartTime!.addingTimeInterval(dur)
             }
-            return moved
+        }
+        else{
+            //while current scheduled start is earlier than the given date (and
+            while self.scheduledStartTime! < toNextStartFrom{
+                //add quest "rewards"
+                if padQuestFailures{
+                    let reward = QuestReward(context: self.managedObjectContext!)
+                    reward.completedOnTime = false
+                    reward.key = self.quest!.questUUID!
+                    reward.scheduled = true
+                    reward.obtainmentDate = self.scheduledEndTime!
+                    self.quest!.addToRewards(reward)
+                }
+                //move schedule ahead
+                scheduledStartTime = getNextStartTime(fromDate: scheduledStartTime!)
+                scheduledEndTime = scheduledStartTime!.addingTimeInterval(dur)
+            }
+            //finalise start time
+            startTime = scheduledStartTime
         }
         
-        //while current scheduled start is earlier than the given date
-        while self.scheduledStartTime! < toNextStartFrom{
-            //mark as having moved forward
-            moved = 1
-            //add quest "rewards"
-            if padQuestFailures{
-                let reward = QuestReward(context: self.managedObjectContext!)
-                reward.completedOnTime = false
-                reward.key = self.quest!.questUUID!
-                reward.scheduled = true
-                reward.obtainmentDate = self.scheduledEndTime!
-                self.quest!.addToRewards(reward)
-            }
-            //move schedule ahead
-            scheduledStartTime = getNextStartTime(fromDate: scheduledStartTime!)
-            scheduledEndTime = scheduledStartTime!.addingTimeInterval(dur)
-        }
-        //finalise start time
-        startTime = scheduledStartTime
-        return moved
+        //doesnt reeally matter as this result isnt used anywhere atm.
+        return toNextStartFrom.timeIntervalSince(startTime!) < 0 ? -1 : toNextStartFrom.equals(date2: startTime!) ? 0 : 1
     }
 }
 
