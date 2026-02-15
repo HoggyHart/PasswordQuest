@@ -28,6 +28,8 @@ import logging
 
 # SERVER STUFF ---------------------------------------------------------------------------------------------
 global PQLog, received_keys, computerLocked, lockedUntilNextQuestCompletionOREOD, schedules, keysLock, connected, PQ_Server, deadmansSwitch, questLock, attemptingConnection
+global syncLock
+syncLock = True
 #schedules defined after Schedule class def
 PQLog: logging.Logger
 deadmansSwitch = DeadmansSwitch()
@@ -374,7 +376,8 @@ class MyServer(SimpleHTTPRequestHandler):
         self.wfile.write(bytes(response_message))
 
     def synchroniseSchedules(self, schJsons: str):
-        global PQLog, keysLock, fileLock, schedules
+        global PQLog, keysLock, fileLock, schedules, syncLock
+        syncLock = False
         PQLog.debug("Received synchronisation POST request")
         #post load comes in split by \r\n\r\n
         schList = schJsons.split("\n\n")
@@ -602,6 +605,7 @@ def checkForQKey(quest: Quest) -> bool:
 
 def controlLoop():
     global PQLog, keysLock, schedulesLock, questLock, schedules, activeQuests, received_keys, computerLocked, connected, attemptingConnection
+    global syncLock
     while(True):
         PQLog.debug('checking again')
         questsInProgress = False
@@ -663,7 +667,7 @@ def controlLoop():
         ThreadUtils.releaseLock(keysLock, "Keys Lock")
 
         #check computer lock status
-        if (questsInProgress):
+        if (questsInProgress or syncLock):
             PQLog.debug("===========================================================================================================COMPUTER LOCKED===========================================================================================================")
             ComputerControl.blockInput()
             computerLocked = True
