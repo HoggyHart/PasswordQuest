@@ -13,6 +13,7 @@ import CoreLocation
 
 struct ScheduleView: View {
     @Environment(\.editMode) private var editMode
+    private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
     @Environment(\.managedObjectContext) private var context
     
     @ObservedObject
@@ -48,8 +49,8 @@ struct ScheduleView: View {
             HStack{
                 TextField("Quest Name", text: $schedule.scheduleName ?? "Unset Name")
                     .font(.title)
-                    .disabled(!editMode!.wrappedValue.isEditing)
-                if editMode!.wrappedValue.isEditing {Image(systemName:"pencil")}
+                    .disabled(!editing)
+                if editing {Image(systemName:"pencil")}
             }
             
             Divider()
@@ -58,14 +59,14 @@ struct ScheduleView: View {
             
             VStack{
                 HStack{
-                    if editMode!.wrappedValue.isEditing {
+                    if editing {
                         Toggle(isOn: $schedule.everyXDays){}
                             .labelsHidden()
                     }
                     if schedule.everyXDays{
                         HStack(spacing: 0){
                             Text("Schedule every \(schedule.xDayDelay) days")
-                            if editMode!.wrappedValue.isEditing {
+                            if editing {
                                 Spacer()
                                 Stepper(label: {}, 
                                         onIncrement: {schedule.xDayDelay+=1},
@@ -73,7 +74,7 @@ struct ScheduleView: View {
                                             schedule.xDayDelay-=1;
                                             if schedule.xDayDelay<=0 {
                                                 schedule.xDayDelay = 1}}
-                                ).disabled(!editMode!.wrappedValue.isEditing)
+                                ).disabled(!editing)
                                     .frame(alignment: .trailing)
                                     .labelsHidden()
                             }
@@ -93,7 +94,7 @@ struct ScheduleView: View {
                                         Text(StringUtils.firstLetterOfString(str: Week.daysOfTheWeek[i])).foregroundColor(.black)
                                     }
                                 }
-                                .disabled(!editMode!.wrappedValue.isEditing)
+                                .disabled(!editing)
                             }
                         }
                     }
@@ -103,11 +104,11 @@ struct ScheduleView: View {
                 Spacer()
                 Text("From")
                 DatePicker("ScheduledStart", selection: $schedule.scheduledStartTime ?? defaultStartTime, displayedComponents: .hourAndMinute).labelsHidden()
-                    .disabled(!editMode!.wrappedValue.isEditing)
+                    .disabled(!editing)
                 Text("to")
                 DatePicker(selection: $schedule.scheduledEndTime ?? defaultEndTime, displayedComponents: .hourAndMinute, label: {Text("to")})
                     .labelsHidden()
-                    .disabled(!editMode!.wrappedValue.isEditing)
+                    .disabled(!editing)
                 //if end time hour+min is before start time hour+min
                 if endBeforeStart(){
                     Text("next day")
@@ -118,13 +119,13 @@ struct ScheduleView: View {
                 Text("Next start date:")
                 DatePicker(selection: $schedule.scheduledStartTime ?? defaultStartTime, in: Calendar.current.date(bySetting: .second, value: 0, of: Date.now)!..., displayedComponents: .date, label: {Text("Next start date ")})
                     .labelsHidden()
-                    .disabled(!editMode!.wrappedValue.isEditing)
+                    .disabled(!editing)
             }
             Divider()
             
             // --Activate Schedule **and** Synchronise schedule data with server buttons
             //only possible during stable state (not editing)
-            if !editMode!.wrappedValue.isEditing{
+            if !editing{
                 Button(){
                     toggleScheduleActiveStatus()
                 } label : {
@@ -142,7 +143,7 @@ struct ScheduleView: View {
             EditButton()
         }
         .onAppear(perform: loadData)
-        .onChange(of: editMode!.wrappedValue.isEditing) { nowEditing in
+        .onChange(of: editing) { nowEditing in
             if nowEditing == true{
                 deactivateSchedule()
             }else{

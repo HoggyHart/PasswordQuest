@@ -11,10 +11,13 @@ import MapKit
 
 struct LocationTaskView: View {
     @Environment(\.editMode) private var editMode
+    private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
+    
     @Environment(\.managedObjectContext) public var context
     
     @ObservedObject
     var locationTask: LocationOccupationQuestTask
+    
     @State var saved: Bool = false
     
     @State var editedName: String = ""
@@ -23,6 +26,10 @@ struct LocationTaskView: View {
     @State var editedSize: String = ""
     @State var editedDuration: Date = Date(timeIntervalSinceReferenceDate:3600)
 
+    
+    @State var latIsValidV = true
+    @State var longIsValidV = true
+    @State var radIsValidV = true
     @StateObject var viewModel = LocationTaskViewModel()
     
     init(locationTask: LocationOccupationQuestTask){
@@ -39,44 +46,81 @@ struct LocationTaskView: View {
     var body: some View {
         VStack{
             VStack{
-                //FIX: does not update automatically when value changes
-                // if session gets started via scheduler, user can change values to cheat / cause problems?
+                //edit button header since atm this view is broght up as a form from the bottom of QuestView
                 if !locationTask.quest!.isActive{
                     HStack{
                         Spacer()
                         EditButton()
                     }
                 }
-                Divider()
                 HStack{
-                    Text("Location Name: ")
-                    Spacer()
-                    TextField("name", text: $editedName)
-                        .disabled(false)
-                }
+                    TextField("Location Name: ", text: $locationTask.locationName ?? "Unnamed Location").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).disabled(!editing)
+                    if editing {Image(systemName:"pencil")}
+                }.frame(height:40) //needs set height, the pencil image causes this to get shorter (???) which resizes the map and causes lag
+                
                 Divider()
+                
+                // -- Latitude and Longitude
                 HStack{
-                    Text("Latitude: ")
-                    Spacer()
-                    TextField("lat", text: $editedLatitude)
+                    HStack{
+                        Text("Lat:")
+                        Spacer()
+                        VStack(spacing: 0){
+                            HStack(spacing:0){
+                                TextField("Latitude", text: $editedLatitude).disabled(!editing)
+                                if !latIsValidV{ Image(systemName: "exclamationmark.circle.fill")
+                                        .foregroundColor(.red)
+                                    .frame(alignment: .trailing) }
+                                if editing {Image(systemName:"pencil")}
+                            }
+                            Rectangle().frame(height: 1)
+                        }
+                    }
+                    
+                    HStack{
+                        Text("Lon:")
+                        Spacer()
+                        VStack(spacing: 0){
+                            HStack(spacing:0){
+                                TextField("Longitude", text: $editedLongitude).disabled(!editing)
+                                if !longIsValidV{ Image(systemName: "exclamationmark.circle.fill")
+                                        .foregroundColor(.red)
+                                    .frame(alignment: .trailing) }
+                                if editing {Image(systemName:"pencil")}
+                            }
+                            Rectangle().frame(height: 1)
+                        }
+                    }
                 }
-                HStack{
-                    Text("Longitude: ")
-                    Spacer()
-                    TextField("lon", text: $editedLongitude)
-                }
+                
                 Divider()
+                
+                // -- Radius of location  area
                 HStack{
-                    Text("Radius: ")
-                    Spacer()
-                    TextField("size", text: $editedSize)
+                    HStack{
+                        Text("Radius:")
+                        Spacer()
+                        VStack(spacing:0){
+                            HStack(spacing:0){
+                                TextField("size", text: $editedSize)
+                                    .disabled(!editing)
+                                if !radIsValidV{ Image(systemName: "exclamationmark.circle.fill")
+                                        .foregroundColor(.red)
+                                    .frame(alignment: .trailing) }
+                                if editing {Image(systemName:"pencil")}
+                            }
+                            Rectangle().frame(height:1)
+                        }
+                    }
+                    HStack{
+                        DatePicker(selection: $editedDuration, displayedComponents:.hourAndMinute, label: {Text("Duration:")})
+                            .environment(\.locale, Locale(identifier: "en_UK"))
+                            .datePickerStyle(GraphicalDatePickerStyle())
+                    }
                 }
-                Divider()
-                DatePicker(selection: $editedDuration, displayedComponents:.hourAndMinute, label: {Text("Required Occupation Period (hrs+mins)")})
-                    .environment(\.locale, Locale(identifier: "en_UK"))
-                    .datePickerStyle(GraphicalDatePickerStyle())
-            }.padding(EdgeInsets(top: 0, leading: 30, bottom: 0, trailing: 30))
-            Divider()
+            }.padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
+            
+            // -- MAP
             ZStack{
                 UIViewToViewWrapper(view: viewModel.map)
                 VStack{
@@ -107,32 +151,66 @@ struct LocationTaskView: View {
         }
         .onChange(of: editMode!.wrappedValue.isEditing) { v in
             if v == false{
-                save()
+                //if attempted to save and couldnt
+                if !save() {
+                    //maintain edit mode
+                    editMode?.wrappedValue = EditMode.active
+                }
             }
         }
         .onAppear(perform: loadData)
     }
     
-    func save(){
+    func latIsValid() -> Bool{
+        guard let lat: Double = Double(editedLatitude) else {
+            latIsValidV = false
+            return latIsValidV
+        }
+        
+        if lat < -90 || lat > 90 { latIsValidV = false }
+        else { latIsValidV = true }
+        return latIsValidV
+    }
+    
+    func longIsValid() -> Bool{
+        guard let long: Double = Double(editedLongitude) else {
+            longIsValidV = false
+            return longIsValidV
+        }
+        
+        if long < -180 || long > 180 { longIsValidV = false }
+        else { longIsValidV = true }
+        return longIsValidV
+    }
+    
+    func radIsValid() -> Bool{
+        guard let rad: Double = Double(editedSize) else {
+            radIsValidV = false
+            return radIsValidV
+        }
+        
+        if rad < 1 { radIsValidV = false }
+        else { radIsValidV = true }
+        return radIsValidV
+    }
+    
+    func save() -> Bool{
+        if !radIsValid() || !longIsValid() || !latIsValid(){
+            // flash the error
+            //return false "couldnt save, invalid data"
+            return false
+        }
         context.perform {
             let task = locationTask
             //FIX: region ID needs to be made unique somewhere
-            guard let lat: Double = Double(editedLatitude) else {
-                editedLatitude.append(" IS INVALID")
-                return
-            }
-            guard let lon: Double = Double(editedLongitude) else{
-                editedLongitude.append(" IS INVALID")
-                return
-            }
-            guard let rad: Double = Double(editedSize) else{
-                editedSize.append(" IS INVALID")
-                return
-            }
+            let lat: Double = Double(editedLatitude)!
+            let lon: Double = Double(editedLongitude)!
+            let rad: Double = Double(editedSize)!
+            
             //let dur = Calendar.current.date(bySetting: .second, value: 5, of: editedDuration)!.timeIntervalSinceReferenceDate
             let dur = editedDuration.timeIntervalSinceReferenceDate
             task.lateInit(
-                locName: editedName,
+                locName: task.locationName!,
                 taskArea: CLCircularRegion(
                     center: CLLocationCoordinate2D(
                         latitude: lat,
@@ -145,6 +223,7 @@ struct LocationTaskView: View {
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
             viewModel.refresh()
         }
+        return true
     }
   
 }

@@ -10,18 +10,24 @@ import CoreData
 import CoreLocation
 struct QuestView: View {
     @Environment(\.editMode) private var editMode
+    private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
     @Environment(\.managedObjectContext) private var context
     
-    @ObservedObject 
+    
+    // -- CoreData
+    @ObservedObject
     var quest: Quest
     
     //needs to be QuestTask realistically, but using that makes it crash "fetch request must have an entity"
     @FetchRequest private var tasks: FetchedResults<LocationOccupationQuestTask>
     @FetchRequest private var schedules: FetchedResults<Schedule>
     
+    // -- View state stuff
+    
     @State private var inspectedTaskID: NSManagedObjectID? = nil
     @State private var inspectedScheduleID: NSManagedObjectID? = nil
     @State private var schButtonFlip: Bool = false
+    
     private var isTaskSheetPresented: Binding<Bool> { Binding(get: { inspectedTaskID != nil }, set: { if !$0 { inspectedTaskID = nil } }) }
     private var isScheduleSheetPresented: Binding<Bool> { Binding(get: { inspectedScheduleID != nil }, set: { if !$0 { inspectedScheduleID = nil } }) }
     
@@ -84,14 +90,14 @@ struct QuestView: View {
             HStack{
                 TextField("Quest Name", text: $quest.questName ?? "Unset")
                     .font(.title)
-                    .disabled(!editMode!.wrappedValue.isEditing)
-                if editMode!.wrappedValue.isEditing {Image(systemName:"pencil")}
+                    .disabled(!editing)
+                if editing {Image(systemName:"pencil")}
             }
             Divider()
             HStack{
                 Text("Tasks: ")
                 Spacer()
-                if editMode!.wrappedValue.isEditing {
+                if editing {
                     Button(){
                         addTask()
                     } label: {
@@ -119,7 +125,7 @@ struct QuestView: View {
             HStack{
                 Text("Schedules")
                 Spacer()
-                if editMode!.wrappedValue.isEditing {
+                if editing {
                     Button(){
                         addSchedule()
                     } label: {
@@ -205,7 +211,7 @@ struct QuestView: View {
                 ScheduleView(scheduleToLoad: localSchedule)
             }
         }
-        .onChange(of: editMode!.wrappedValue.isEditing) { v in
+        .onChange(of: editing) { v in
             if v == false{
                 context.perform {
                     do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
@@ -421,7 +427,7 @@ struct QuestView: View {
 }
 
 #Preview {
-    var stdQuest = Quest(context: PersistenceController.preview.container.viewContext)
+    let stdQuest = Quest(context: PersistenceController.preview.container.viewContext)
     stdQuest.lateInit(name: "New Quest")
     let task = LocationOccupationQuestTask(context: PersistenceController.preview.container.viewContext)
     task.lateInit(locName: "Uni Library", taskArea: CLCircularRegion(center: CLLocationCoordinate2D(latitude: 50, longitude: 70), radius: 25, identifier: "idk"), questDuration: 5400)
