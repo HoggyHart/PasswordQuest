@@ -40,9 +40,9 @@ keysLock = threading.Lock()
 schedulesLock = threading.Lock()
 questLock = threading.Lock()
 fileLock = threading.Lock()
-scheduleFileDir = "C:/Users/willi/OneDrive/Desktop/code/PasswordQuest/schedules.txt"
-questFileDir = "C:/Users/willi/OneDrive/Desktop/code/PasswordQuest/activequests.txt"
-logFIleDir = "C:/Users/willi/OneDrive/Desktop/code/PasswordQuest/logs"
+scheduleFileDir = "C:/Users/willi/OneDrive/Desktop/code/PasswordQuest/PQPC/schedules.txt"
+questFileDir = "C:/Users/willi/OneDrive/Desktop/code/PasswordQuest/PQPC/activequests.txt"
+logFIleDir = "C:/Users/willi/OneDrive/Desktop/code/PasswordQuest/PQPC/logs"
 connected = False
 attemptingConnection = False
 
