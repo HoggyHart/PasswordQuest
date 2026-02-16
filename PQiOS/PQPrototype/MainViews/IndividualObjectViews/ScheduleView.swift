@@ -13,6 +13,7 @@ import CoreLocation
 
 struct ScheduleView: View {
     @Environment(\.editMode) private var editMode
+    private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
     @Environment(\.managedObjectContext) private var context
     
     @ObservedObject
@@ -38,6 +39,7 @@ struct ScheduleView: View {
     }
     var body: some View {
         VStack{
+            // --EDIT TOOLBAR ==needed since ScheduleView is raised as a form from the bottom of QuestView, it needs its own edit button.
             if !schedule.quest!.isActive {
                 HStack{
                     Spacer()
@@ -47,8 +49,8 @@ struct ScheduleView: View {
             HStack{
                 TextField("Quest Name", text: $schedule.scheduleName ?? "Unset Name")
                     .font(.title)
-                    .disabled(!editMode!.wrappedValue.isEditing)
-                if editMode!.wrappedValue.isEditing {Image(systemName:"pencil")}
+                    .disabled(!editing)
+                if editing {Image(systemName:"pencil")}
             }
             
             Divider()
@@ -57,17 +59,22 @@ struct ScheduleView: View {
             
             VStack{
                 HStack{
-                    if editMode!.wrappedValue.isEditing {
+                    if editing {
                         Toggle(isOn: $schedule.everyXDays){}
                             .labelsHidden()
                     }
                     if schedule.everyXDays{
                         HStack(spacing: 0){
                             Text("Schedule every \(schedule.xDayDelay) days")
-                            if editMode!.wrappedValue.isEditing {
+                            if editing {
                                 Spacer()
-                                Stepper(label: {}, onIncrement: {schedule.xDayDelay+=1}, onDecrement: {schedule.xDayDelay-=1; if schedule.xDayDelay<=0 {schedule.xDayDelay = 1}})
-                                    .disabled(!editMode!.wrappedValue.isEditing)
+                                Stepper(label: {}, 
+                                        onIncrement: {schedule.xDayDelay+=1},
+                                        onDecrement: {
+                                            schedule.xDayDelay-=1;
+                                            if schedule.xDayDelay<=0 {
+                                                schedule.xDayDelay = 1}}
+                                ).disabled(!editing)
                                     .frame(alignment: .trailing)
                                     .labelsHidden()
                             }
@@ -78,20 +85,16 @@ struct ScheduleView: View {
                             Spacer()
                             ForEach(0..<7) { i in
                                 Button(){
-                                    //schedule.scheduledDays?.willChangeValue(forKey: "week")
-                                    //schedule.scheduledDays!.week = Week.toggle(obj: schedule.scheduledDays!.week, day: 1<<i)
-                                    //schedule.scheduledDays!.didChangeValue(forKey: "week")
                                     schDayArr[i].toggle()
                                 } label: {
                                     ZStack{
                                         Image(systemName: schDayArr[i] ?
                                               "circle.fill" : "circle")
                                         .foregroundColor(schDayArr[i] ? .green : .red)
-                                        //complicated nonsense to get the first letter of each day (M,T,W,T,F,S,S)
-                                        Text(Week.daysOfTheWeek[i][..<Week.daysOfTheWeek[i].index(Week.daysOfTheWeek[i].startIndex, offsetBy: 1)]).foregroundColor(.black)
+                                        Text(StringUtils.firstLetterOfString(str: Week.daysOfTheWeek[i])).foregroundColor(.black)
                                     }
                                 }
-                                .disabled(!editMode!.wrappedValue.isEditing)
+                                .disabled(!editing)
                             }
                         }
                     }
@@ -101,11 +104,11 @@ struct ScheduleView: View {
                 Spacer()
                 Text("From")
                 DatePicker("ScheduledStart", selection: $schedule.scheduledStartTime ?? defaultStartTime, displayedComponents: .hourAndMinute).labelsHidden()
-                    .disabled(!editMode!.wrappedValue.isEditing)
+                    .disabled(!editing)
                 Text("to")
                 DatePicker(selection: $schedule.scheduledEndTime ?? defaultEndTime, displayedComponents: .hourAndMinute, label: {Text("to")})
                     .labelsHidden()
-                    .disabled(!editMode!.wrappedValue.isEditing)
+                    .disabled(!editing)
                 //if end time hour+min is before start time hour+min
                 if endBeforeStart(){
                     Text("next day")
@@ -116,26 +119,20 @@ struct ScheduleView: View {
                 Text("Next start date:")
                 DatePicker(selection: $schedule.scheduledStartTime ?? defaultStartTime, in: Calendar.current.date(bySetting: .second, value: 0, of: Date.now)!..., displayedComponents: .date, label: {Text("Next start date ")})
                     .labelsHidden()
-                    .disabled(!editMode!.wrappedValue.isEditing)
+                    .disabled(!editing)
             }
             Divider()
-            if !editMode!.wrappedValue.isEditing{
+            
+            // --Activate Schedule **and** Synchronise schedule data with server buttons
+            //only possible during stable state (not editing)
+            if !editing{
                 Button(){
-                    context.perform {
-                        if schedule.scheduledPeriodRelativity() < 1 {
-                            schedule.isActive.toggle()}
-                        else { _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now) }
-                        do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-                        
-                    }
+                    toggleScheduleActiveStatus()
                 } label : {
                     Text(schedule.isActive ? "Stop" : "Start")
                 }
                 Button(){
-                    context.perform {
-                        schedule.synchronise()
-                        do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-                    }
+                    synchroniseWithServer()
                 } label :{
                     Text("Synchronise")
                 }
@@ -146,21 +143,50 @@ struct ScheduleView: View {
             EditButton()
         }
         .onAppear(perform: loadData)
-        .onChange(of: editMode!.wrappedValue.isEditing) { v in
-            if v == false{
-               updateSchedule()
+        .onChange(of: editing) { nowEditing in
+            if nowEditing == true{
+                deactivateSchedule()
             }else{
-                context.perform{
-                    schedule.isActive = false
-                    do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-                }
+                updateSchedule()
             }
         }
         .onDisappear {
-            context.perform{
-                context.rollback()
-                do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+            undoUnsavedChanges()
+        }
+    }
+    
+    func deactivateSchedule(){
+        context.perform{
+            schedule.isActive = false
+            do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+        }
+    }
+    func undoUnsavedChanges(){
+        context.perform{
+            context.rollback()
+            do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+        }
+    }
+    func toggleScheduleActiveStatus(){
+        context.perform {
+            //if schedule has not ended yet
+            if schedule.scheduledPeriodRelativity() > -1 {
+                schedule.isActive.toggle()
             }
+            //else if schedule has already passed, it cannot be activated.
+            //  update start time to next opportunity
+            else { _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now) }
+            
+            //try saving this attribute change
+            do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+            
+        }
+    }
+    
+    func synchroniseWithServer(){
+        context.perform {
+            schedule.synchronise()
+            do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
     }
     
@@ -197,10 +223,8 @@ struct ScheduleView: View {
             }
             //then check that it cannot have already ended, moving the start time to the next day if it needs to
             if schedule.scheduledEndTime! < Date.now{
-                //if it is before, then either
-                //   - skip to starting tomorrow
-                //or - skip to starting at next scheduled day of week
-                schedule.scheduledStartTime = schedule.everyXDays ? schedule.scheduledStartTime!.addingTimeInterval(86400) : schedule.getNext_ScheduledDays_StartTime(fromDate: schedule.scheduledStartTime!)
+                //if it is before then skip to starting tomorrow (next possible time that fits schedulede time period)
+                schedule.scheduledStartTime = schedule.scheduledStartTime!.addingTimeInterval(86400)
             }
             //and move the end time to keep up
             while schedule.scheduledEndTime! < schedule.scheduledStartTime!{

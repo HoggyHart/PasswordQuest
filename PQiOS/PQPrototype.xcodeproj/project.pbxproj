@@ -49,6 +49,7 @@
 		6BA9DDC22F3CED8F00AF1B06 /* LocationOccupationQuestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9DDC12F3CED8F00AF1B06 /* LocationOccupationQuestTask.swift */; };
 		6BA9DDC42F3CEDAC00AF1B06 /* QuestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9DDC32F3CEDAC00AF1B06 /* QuestTask.swift */; };
 		6BA9DDC62F3CEDC500AF1B06 /* QuestReward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9DDC52F3CEDC500AF1B06 /* QuestReward.swift */; };
+		6BA9DE0A2F42003400AF1B06 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9DE092F42003400AF1B06 /* StringUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +117,7 @@
 		6BA9DDC12F3CED8F00AF1B06 /* LocationOccupationQuestTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationOccupationQuestTask.swift; sourceTree = "<group>"; };
 		6BA9DDC32F3CEDAC00AF1B06 /* QuestTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTask.swift; sourceTree = "<group>"; };
 		6BA9DDC52F3CEDC500AF1B06 /* QuestReward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestReward.swift; sourceTree = "<group>"; };
+		6BA9DE092F42003400AF1B06 /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +202,7 @@
 				6B7A48D02F02E31F002102FE /* UIViewtoViewWrapper.swift */,
 				6B7A48D62F04BDE5002102FE /* TextFieldOverload.swift */,
 				6BA5CD652F2D974000D07596 /* DateCompare.swift */,
+				6BA9DE092F42003400AF1B06 /* StringUtils.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 				6B7386B32F1E539C0076E77F /* QuestReward+CoreDataProperties.swift in Sources */,
 				6B2153232EEC2BEB00188D31 /* QuestView.swift in Sources */,
 				6B2152D22EE8E75400188D31 /* CLCircularRegionTransformer.swift in Sources */,
+				6BA9DE0A2F42003400AF1B06 /* StringUtils.swift in Sources */,
 				6B7A48C72F00CAA9002102FE /* Quest+CoreDataProperties.swift in Sources */,
 				6B2153402EECEC0900188D31 /* ScheduleView.swift in Sources */,
 				6B7386B22F1E539C0076E77F /* QuestReward+CoreDataClass.swift in Sources */,
