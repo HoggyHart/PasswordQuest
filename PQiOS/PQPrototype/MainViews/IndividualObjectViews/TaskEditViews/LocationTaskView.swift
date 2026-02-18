@@ -174,28 +174,27 @@ struct LocationTaskView: View {
     
     func longIsValid() -> Bool{
         guard let long: Double = Double(editedLongitude) else {
-            longIsValidV = false
-            return longIsValidV
+            return false
         }
         
-        if long < -180 || long > 180 { longIsValidV = false }
-        else { longIsValidV = true }
-        return longIsValidV
+        if long < -180 || long > 180 { return false }
+        return true
     }
     
     func radIsValid() -> Bool{
         guard let rad: Double = Double(editedSize) else {
-            radIsValidV = false
-            return radIsValidV
+            return false
         }
         
-        if rad < 1 { radIsValidV = false }
-        else { radIsValidV = true }
-        return radIsValidV
+        if rad < 1 { return false }
+        else { return true }
     }
     
     func save() -> Bool{
-        if !radIsValid() || !longIsValid() || !latIsValid(){
+        radIsValidV = radIsValid()
+        longIsValidV = longIsValid()
+        latIsValidV = latIsValid()
+        if !radIsValidV || !longIsValidV || !latIsValidV{
             // flash the error
             //return false "couldnt save, invalid data"
             return false
