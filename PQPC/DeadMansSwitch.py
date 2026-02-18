@@ -15,7 +15,7 @@ class DeadmansSwitch:
 
     def createSwitch(self):
         self.switch = subprocess.Popen(
-            ["C:/Python314/pythonw.exe", "C:/Users/willi/OneDrive/Desktop/code/PasswordQuest/DeadMansSwitch.py"],
+            ["C:/Python314/pythonw.exe", "C:/Users/willi/OneDrive/Desktop/code/PasswordQuest/PQPC/DeadMansSwitch.py"],
             creationflags=( subprocess.DETACHED_PROCESS |
                         subprocess.CREATE_NEW_PROCESS_GROUP),
             stdout=subprocess.DEVNULL,
