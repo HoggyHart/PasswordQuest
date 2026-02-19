@@ -211,7 +211,7 @@ struct LocationTaskView: View {
             task.taskArea!.latitude = lat
             task.taskArea!.longitude = lon
             task.taskArea!.radius = rad
-            task.name = editedName
+            task.taskArea!.name = editedName
             task.requiredOccupationDuration = dur
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
             viewModel.refresh()
