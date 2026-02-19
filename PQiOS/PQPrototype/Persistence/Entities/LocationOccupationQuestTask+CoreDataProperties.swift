@@ -2,14 +2,13 @@
 //  LocationOccupationQuestTask+CoreDataProperties.swift
 //  PQPrototype
 //
-//  Created by William Hart on 28/12/2025.
+//  Created by William Hart on 18/02/2026.
 //
 //
 
 import Foundation
 import CoreData
-import CoreLocation
-import MapKit
+
 
 extension LocationOccupationQuestTask {
 
@@ -18,14 +17,9 @@ extension LocationOccupationQuestTask {
     }
 
     @NSManaged public var lastUpdate: Date?
-    @NSManaged public var locationName: String?
     @NSManaged public var occupiedAtLastUpdate: Bool
     @NSManaged public var recordedOccupationTime: Double
     @NSManaged public var requiredOccupationDuration: Double
-    @NSManaged public var taskArea: CLCircularRegion?
+    @NSManaged public var taskArea: Location?
 
-}
-
-extension LocationOccupationQuestTask{
-    
 }

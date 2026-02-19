@@ -32,7 +32,7 @@ class LocationTaskViewModel : ObservableObject{
          //longitude min is 0.0005029141584742547, in the interest of having max zoom be 8.0x, standard span is set to 8x the min
          //lat value is obtained by setting these to whatever, and then lat is set based on long. So i set them both to 0.004 (8x 0.0005) and then copied the span as was measured and outputted upon the first call of setBaseSpan()
         map.setRegion(MKCoordinateRegion(center:
-                                            area.taskArea!.center,
+                                            area.taskArea!.center(),
                                            span: MKCoordinateSpan(
                                             latitudeDelta: 0.005519282850478646,
                                             longitudeDelta: 0.0040233132599780674)),
@@ -61,11 +61,11 @@ class LocationTaskViewModel : ObservableObject{
         //add a central pin to mark the quest (to be replaced with a quest-related png (i.e. goblin tower png)
         //this makes it easily visible when zoomed out
         let questPin = MKPointAnnotation()
-        questPin.title = area!.locationName!
-        questPin.coordinate = area!.taskArea!.center
+        questPin.title = area!.taskArea!.name!
+        questPin.coordinate = area!.taskArea!.center()
         
         //this shows the area to go to to complete the quest
-        let questCircle = MKCircle(center: area!.taskArea!.center, radius: CLLocationDistance(area!.taskArea!.radius))
+        let questCircle = MKCircle(center: area!.taskArea!.center(), radius: CLLocationDistance(area!.taskArea!.radius))
         
         self.map.addAnnotation(questPin)
         self.map.addOverlay(questCircle, level:.aboveRoads)

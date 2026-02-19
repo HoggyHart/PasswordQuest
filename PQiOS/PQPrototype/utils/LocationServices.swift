@@ -137,11 +137,13 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
     
     let context: NSManagedObjectContext
     
+    ///return the task that owns this region
     func taskFor(region: CLRegion) -> LocationOccupationQuestTask?{
         do{
             let tasks = try context.fetch(LocationOccupationQuestTask.fetchRequest())
             for t in tasks{
-                if t.taskArea!.identifier == region.identifier{
+                
+                if t.taskArea!.identifier(questUUID: t.quest!.questUUID!) == region.identifier{
                     return t
                 }
             }

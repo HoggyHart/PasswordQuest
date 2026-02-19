@@ -36,9 +36,9 @@ struct LocationTaskView: View {
         self.locationTask = locationTask
     }
     func loadData(){
-        editedName = locationTask.locationName!
-        editedLatitude = String(locationTask.taskArea!.center.latitude)
-        editedLongitude = String(locationTask.taskArea!.center.longitude)
+        editedName = locationTask.taskArea!.name!
+        editedLatitude = String(locationTask.taskArea!.latitude)
+        editedLongitude = String(locationTask.taskArea!.longitude)
         editedSize = String(locationTask.taskArea!.radius)
         editedDuration = Date(timeIntervalSinceReferenceDate: locationTask.requiredOccupationDuration)
         viewModel.lateInit(area: locationTask)
@@ -54,7 +54,7 @@ struct LocationTaskView: View {
                     }
                 }
                 HStack{
-                    TextField("Location Name: ", text: $locationTask.locationName ?? "Unnamed Location").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).disabled(!editing)
+                    TextField("Location Name: ", text: $editedName).font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).disabled(!editing)
                     if editing {Image(systemName:"pencil")}
                 }.frame(height:40) //needs set height, the pencil image causes this to get shorter (???) which resizes the map and causes lag
                 
@@ -131,16 +131,16 @@ struct LocationTaskView: View {
                         } label :{
                             Image(systemName: "person.fill.questionmark")
                         }
-                        .frame(width: 40,height: 40)
+                        .frame(width: 50,height: 50)
                         Spacer()
                         Button(){
-                            viewModel.map.setCenter(locationTask.taskArea!.center, animated: true)
+                            viewModel.map.setCenter(CLLocationCoordinate2D(latitude: locationTask.taskArea!.latitude, longitude: locationTask.taskArea!.longitude), animated: true)
                         } label :{
                             ZStack{
                                 Image(systemName: "mappin.and.ellipse").shadow(radius: 10)
                             }
                         }
-                        .frame(width: 40,height: 40)
+                        .frame(width: 50,height: 50)
                     }
                 }
                 .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
@@ -208,17 +208,11 @@ struct LocationTaskView: View {
             
             //let dur = Calendar.current.date(bySetting: .second, value: 5, of: editedDuration)!.timeIntervalSinceReferenceDate
             let dur = editedDuration.timeIntervalSinceReferenceDate
-            task.lateInit(
-                locName: task.locationName!,
-                taskArea: CLCircularRegion(
-                    center: CLLocationCoordinate2D(
-                        latitude: lat,
-                        longitude: lon
-                    ),
-                    radius: rad,
-                    identifier: editedName+"_"+locationTask.quest!.questUUID!.uuidString),
-                questDuration: dur
-            )
+            task.taskArea!.latitude = lat
+            task.taskArea!.longitude = lon
+            task.taskArea!.radius = rad
+            task.name = editedName
+            task.requiredOccupationDuration = dur
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
             viewModel.refresh()
         }

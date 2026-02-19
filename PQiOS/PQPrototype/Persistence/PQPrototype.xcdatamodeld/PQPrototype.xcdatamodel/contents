@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="22H625" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Location" representedClassName="Location" syncable="YES">
+        <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String" defaultValueString="Unnamed Location"/>
+        <attribute name="radius" attributeType="Double" defaultValueString="100" usesScalarValueType="YES"/>
+        <relationship name="tasks" toMany="YES" deletionRule="Nullify" destinationEntity="LocationOccupationQuestTask" inverseName="taskArea" inverseEntity="LocationOccupationQuestTask"/>
+    </entity>
     <entity name="LocationOccupationQuestTask" representedClassName="LocationOccupationQuestTask" parentEntity="QuestTask" syncable="YES">
         <attribute name="lastUpdate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="locationName" attributeType="String"/>
         <attribute name="occupiedAtLastUpdate" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="recordedOccupationTime" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="requiredOccupationDuration" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="taskArea" attributeType="Transformable" valueTransformerName="CLCircularRegionTransformer"/>
+        <relationship name="taskArea" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="tasks" inverseEntity="Location"/>
     </entity>
     <entity name="Quest" representedClassName="Quest" syncable="YES">
         <attribute name="isActive" attributeType="Boolean" usesScalarValueType="YES"/>
