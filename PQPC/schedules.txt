@@ -1,74 +1,29 @@
 {
 "isActive" : "False",
 "questInProgress" : "False",
-"schedule_everyXDays" : "False",
-"scheduleName" : "Scheduled Gym",
-"scheduleUUID" : "E6D49CEC-EC1B-4E99-844E-C7E7F2B3A501",
-"questUUID" : "7BFCA3E3-2FAD-4129-8E00-DC37475E9918",
-"schedule_XDayDelay" : "2",
-"startTime" : "30/01/2026, 15:30:00",
-"scheduledStartTime" : "30/01/2026, 15:30:00",
-"scheduledEndTime" : "30/01/2026, 20:00:05",
-"schedule_lastCompletionTime" : "29/01/2026, 23:46:58",
-"schedule_scheduledDays" : "1010100"
-}
-
-{
-"isActive" : "False",
-"questInProgress" : "False",
-"schedule_everyXDays" : "False",
-"scheduleName" : "CampusQuest II",
-"scheduleUUID" : "E26F32B5-684D-419E-B10A-6DCB46154DCA",
-"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
-"schedule_XDayDelay" : "1",
-"startTime" : "25/01/2026, 15:00:00",
-"scheduledStartTime" : "25/01/2026, 15:00:00",
-"scheduledEndTime" : "25/01/2026, 19:00:05",
-"schedule_lastCompletionTime" : "nil",
-"schedule_scheduledDays" : "1111100"
-}
-
-{
-"isActive" : "False",
-"questInProgress" : "False",
-"schedule_everyXDays" : "False",
-"scheduleName" : "CampusQuest I",
-"scheduleUUID" : "B9CA7B1C-EF31-4569-946E-7096E531740D",
-"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
-"schedule_XDayDelay" : "1",
-"startTime" : "25/01/2026, 9:00:00",
-"scheduledStartTime" : "25/01/2026, 9:00:00",
-"scheduledEndTime" : "25/01/2026, 13:00:05",
-"schedule_lastCompletionTime" : "nil",
-"schedule_scheduledDays" : "1111100"
-}
-
-{
-"isActive" : "False",
-"questInProgress" : "False",
 "schedule_everyXDays" : "True",
-"scheduleName" : "Bedtime Locker",
-"scheduleUUID" : "E96D10C0-E544-40AD-A420-4DCF881E38A4",
-"questUUID" : "D55BEBE0-B40D-465F-BB45-F1BF1753551D",
+"scheduleName" : "CampusQuest I",
+"scheduleUUID" : "A46114D1-14A5-4C2C-A7B7-B72F15F3CA18",
+"questUUID" : "62E74230-01DA-4E84-AB25-78AD385A3E69",
 "schedule_XDayDelay" : "1",
-"startTime" : "31/01/2026, 22:00:00",
-"scheduledStartTime" : "31/01/2026, 22:00:00",
-"scheduledEndTime" : "01/02/2026, 6:00:05",
-"schedule_lastCompletionTime" : "30/01/2026, 14:32:07",
+"startTime" : "19/02/2026, 12:00:00",
+"scheduledStartTime" : "19/02/2026, 12:00:00",
+"scheduledEndTime" : "19/02/2026, 15:00:05",
+"schedule_lastCompletionTime" : "nil",
 "schedule_scheduledDays" : "1111111"
 }
 
 {
 "isActive" : "False",
 "questInProgress" : "False",
-"schedule_everyXDays" : "True",
-"scheduleName" : "Scheduled Sainsbury’s Shopping",
-"scheduleUUID" : "AB5F4C31-7A05-4BDF-B0CD-1A435A9BCF63",
-"questUUID" : "EEB7B2ED-26C9-4B8C-AFF5-95124CD1B5AF",
-"schedule_XDayDelay" : "5",
-"startTime" : "30/01/2026, 11:00:00",
-"scheduledStartTime" : "30/01/2026, 11:00:00",
-"scheduledEndTime" : "30/01/2026, 17:00:05",
-"schedule_lastCompletionTime" : "nil",
+"schedule_everyXDays" : "False",
+"scheduleName" : "Shop/Gym",
+"scheduleUUID" : "9D5816E7-A1CD-4F39-8E71-B0A3F554FCB8",
+"questUUID" : "A4AB59A4-C95C-4524-A330-CC62DA9D1AC7",
+"schedule_XDayDelay" : "1",
+"startTime" : "19/02/2026, 11:30:00",
+"scheduledStartTime" : "19/02/2026, 11:30:00",
+"scheduledEndTime" : "19/02/2026, 13:00:05",
+"schedule_lastCompletionTime" : "19/02/2026, 11:48:34",
 "schedule_scheduledDays" : "0000000"
 }

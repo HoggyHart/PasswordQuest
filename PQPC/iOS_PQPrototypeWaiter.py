@@ -195,7 +195,7 @@ class Schedule:
 
     def getNext_ScheduledDays_StartTime(self, fromDate: datetime) -> datetime:
         curDayOfWeek = fromDate.weekday()
-
+        gap = -999
         for i in range(0,7):
             #if day scheduled and first scheduled day found
             if self.scheduleInfo_ScheduledDays[i]==True:
@@ -205,6 +205,9 @@ class Schedule:
                 gap = i - curDayOfWeek
                 break
             
+        if gap == -999:
+            self.isActive = False
+            return fromDate
         if gap < 0:
             gap += 7
         return fromDate + timedelta(days=gap)
@@ -334,6 +337,8 @@ activeQuests: list[Quest] = []
 class MyServer(SimpleHTTPRequestHandler):
 
     def do_GET(self):
+        global syncLock
+        syncLock = False
         PQLog.debug("someones getting")
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
@@ -378,6 +383,7 @@ class MyServer(SimpleHTTPRequestHandler):
     def synchroniseSchedules(self, schJsons: str):
         global PQLog, keysLock, fileLock, schedules, syncLock
         syncLock = False
+        print("SYNCLOCK unlocking::",syncLock)
         PQLog.debug("Received synchronisation POST request")
         #post load comes in split by \r\n\r\n
         schList = schJsons.split("\n\n")
@@ -474,15 +480,20 @@ def connectToPrivateNetwork():
     global PQLog, connected, attemptingConnection
 
     attemptingConnection = True
+    PQLog.debug(connectionProgressPadding+"attemptingConnection=True") 
+
     connectionProgressPadding = "                                                                                              ==CONNECTION PROGRESS== ||| "
-    
     network_SSID = "WillPhone"
     network_Password = "poopoo1!"
+    PQLog.debug(connectionProgressPadding+"scanning networks...") 
     try:
         networks = WinWiFi.scan()
     except Exception as e:
         PQLog.debug(connectionProgressPadding+"Error scanning networks: "+e)
+        
         attemptingConnection = False
+        PQLog.debug(connectionProgressPadding+"attemptingConnection=False") 
+
         return
     networkList = []
     PQLog.debug(connectionProgressPadding+"Visible Networks: ")
@@ -502,6 +513,7 @@ def connectToPrivateNetwork():
         PQLog.debug(connectionProgressPadding+"Quest Network not found...")
         connected = False
     attemptingConnection = False
+    PQLog.debug(connectionProgressPadding+"attemptingConnection=False") 
 
 PQ_Server: HTTPServer = None
 def hostServer():
@@ -615,11 +627,6 @@ def controlLoop():
 
         ThreadUtils.acquireLock(questLock, "Quest Lock")
         #if quests are active, attempt to connect to network
-        if len(activeQuests)>0:
-            #if quest in progress then the only thing the pc should be doing is trying to allow the user to unlock the pc
-            if not connected and not attemptingConnection:
-                #connecting to the network will make the hostServer thread start attempting to host the server
-                threading.Thread(target=connectToPrivateNetwork).start()
 
         #check for keys
         for quest in activeQuests:
@@ -643,10 +650,6 @@ def controlLoop():
             #   -> key received? endQuest()
             #   -> not received? questsInProgress = True
             if schedule.questInProgress:
-                #if quest in progress then the only thing the pc should be doing is trying to allow the user to unlock the pc
-                if not connected and not attemptingConnection:
-                    #connecting to the network will make the hostServer thread start attempting to host the server
-                    threading.Thread(target=connectToPrivateNetwork).start()
                     
                 #if no key provided, quest still in progress and lockdown still in effect
                 if not checkForSchKey(schedule):
@@ -669,6 +672,12 @@ def controlLoop():
         #check computer lock status
         if (questsInProgress or syncLock):
             PQLog.debug("===========================================================================================================COMPUTER LOCKED===========================================================================================================")
+            #if quest in progress then the only thing the pc should be doing is trying to allow the user to unlock the pc
+            PQLog.debug("connected: "+str(connected)+" | attempting connection: "+str(attemptingConnection))
+            if not connected and not attemptingConnection:
+                PQLog.debug("attempting to find private network")
+                #connecting to the network will make the hostServer thread start attempting to host the server
+                threading.Thread(target=connectToPrivateNetwork).start()
             ComputerControl.blockInput()
             computerLocked = True
             try:

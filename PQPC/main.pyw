@@ -7,6 +7,7 @@ if __name__ == "__main__":
             creationflags=( subprocess.CREATE_NEW_CONSOLE)
                 )
         print('created')
+        input()
     except Exception as e:
         print(e)
         input()
