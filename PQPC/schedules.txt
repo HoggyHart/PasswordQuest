@@ -6,10 +6,10 @@
 "scheduleUUID" : "A46114D1-14A5-4C2C-A7B7-B72F15F3CA18",
 "questUUID" : "62E74230-01DA-4E84-AB25-78AD385A3E69",
 "schedule_XDayDelay" : "1",
-"startTime" : "19/02/2026, 12:00:00",
-"scheduledStartTime" : "19/02/2026, 12:00:00",
-"scheduledEndTime" : "19/02/2026, 15:00:05",
-"schedule_lastCompletionTime" : "nil",
+"startTime" : "22/02/2026, 17:00:00",
+"scheduledStartTime" : "22/02/2026, 17:00:00",
+"scheduledEndTime" : "22/02/2026, 18:30:05",
+"schedule_lastCompletionTime" : "20/02/2026, 19:40:46",
 "schedule_scheduledDays" : "1111111"
 }
 
@@ -17,13 +17,43 @@
 "isActive" : "False",
 "questInProgress" : "False",
 "schedule_everyXDays" : "False",
-"scheduleName" : "Shop/Gym",
+"scheduleName" : "Gym",
 "scheduleUUID" : "9D5816E7-A1CD-4F39-8E71-B0A3F554FCB8",
 "questUUID" : "A4AB59A4-C95C-4524-A330-CC62DA9D1AC7",
+"schedule_XDayDelay" : "3",
+"startTime" : "25/02/2026, 14:30:00",
+"scheduledStartTime" : "25/02/2026, 14:30:00",
+"scheduledEndTime" : "25/02/2026, 17:00:05",
+"schedule_lastCompletionTime" : "22/02/2026, 14:30:05",
+"schedule_scheduledDays" : "0010101"
+}
+
+{
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
+"scheduleName" : "The usual",
+"scheduleUUID" : "0EAFEBF4-C79F-4A13-82E2-51B1862973EE",
+"questUUID" : "65AA33C6-BDE5-4CAF-B55E-A6EDBFCA5593",
+"schedule_XDayDelay" : "5",
+"startTime" : "01/03/2026, 14:15:00",
+"scheduledStartTime" : "01/03/2026, 14:15:00",
+"scheduledEndTime" : "02/03/2026, 0:00:05",
+"schedule_lastCompletionTime" : "24/02/2026, 15:09:44",
+"schedule_scheduledDays" : "0010101"
+}
+
+{
+"isActive" : "True",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Scheduled Bedtime",
+"scheduleUUID" : "F5F2930C-161A-4C20-A11E-9C1235854204",
+"questUUID" : "9D437BCE-DF6E-43E6-99CD-C1272C73A732",
 "schedule_XDayDelay" : "1",
-"startTime" : "19/02/2026, 11:30:00",
-"scheduledStartTime" : "19/02/2026, 11:30:00",
-"scheduledEndTime" : "19/02/2026, 13:00:05",
-"schedule_lastCompletionTime" : "19/02/2026, 11:48:34",
-"schedule_scheduledDays" : "0000000"
+"startTime" : "25/02/2026, 23:00:00",
+"scheduledStartTime" : "25/02/2026, 23:00:00",
+"scheduledEndTime" : "26/02/2026, 6:00:05",
+"schedule_lastCompletionTime" : "24/02/2026, 23:00:43",
+"schedule_scheduledDays" : "1111100"
 }

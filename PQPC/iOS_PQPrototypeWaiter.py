@@ -478,18 +478,18 @@ class MyServer(SimpleHTTPRequestHandler):
 
 def connectToPrivateNetwork():
     global PQLog, connected, attemptingConnection
-
+    connectionProgressPadding = "                                                                                              ==CONNECTION PROGRESS== ||| "
+    
     attemptingConnection = True
     PQLog.debug(connectionProgressPadding+"attemptingConnection=True") 
-
-    connectionProgressPadding = "                                                                                              ==CONNECTION PROGRESS== ||| "
+    
     network_SSID = "WillPhone"
     network_Password = "poopoo1!"
     PQLog.debug(connectionProgressPadding+"scanning networks...") 
     try:
         networks = WinWiFi.scan()
     except Exception as e:
-        PQLog.debug(connectionProgressPadding+"Error scanning networks: "+e)
+        PQLog.debug(connectionProgressPadding+"Error scanning networks: "+str(e))
         
         attemptingConnection = False
         PQLog.debug(connectionProgressPadding+"attemptingConnection=False") 
