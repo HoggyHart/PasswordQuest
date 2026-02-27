@@ -28,7 +28,7 @@ import logging
 
 # SERVER STUFF ---------------------------------------------------------------------------------------------
 global PQLog, received_keys, computerLocked, lockedUntilNextQuestCompletionOREOD, schedules, keysLock, connected, PQ_Server, deadmansSwitch, questLock, attemptingConnection
-global syncLock
+global syncLock, myDMSwitch
 syncLock = True
 #schedules defined after Schedule class def
 PQLog: logging.Logger
@@ -692,23 +692,19 @@ def controlLoop():
         PQLog.debug('waiting before checking again')
         time.sleep(5)
 
+
 def newMain():
-    global PQLog, computerLocked, schedules, connected, schedulesLock, deadmansSwitch, questLock, activeQuests, keysLock
+    global PQLog, computerLocked, schedules, connected, schedulesLock, questLock, activeQuests, keysLock
     try:
 
         PQLog = logger.set_custom_logger("root")
         PQLog.debug("Locking during init")
         ComputerControl.blockInput()
         PQLog.debug("==========================================================================================================COMPUTER LOCKED==========================================================================================================")
-        #---Create a deadmans switch
-        #create another process that checks for pings to tcp://localhost:1617
-        PQLog.debug("Creating deadmans switch")
-        deadmansSwitch.createSwitch() #can be stopped via deadmansSwitch.stop() (hopefully)
-        #create a thread that sends pings to ttcp://localhost:1617
-        PQLog.debug("Holding deadmans switch")
-        deadmanThread = threading.Thread(target=DeadmansSwitch.deadmansHold)
-        deadmanThread.start()
-        #if this program gets ended, the pings stop sending and switch is 'released', causing a PC shutdown
+        #---Create a deadmans switch that shuts down computer if either this program or the switch program is closed
+        PQLog.debug("Creating deadmans switch two-way")
+        deadmansThread = deadmansSwitch.createTwoWaySwitch(0.5)
+        deadmansThread.start()
 
         PQLog.debug("loading schedules")
         schedules = Schedule.readListFromFile(scheduleFileDir)
