@@ -9,8 +9,9 @@ import psutil
 
 global isActive
 isActive = True
-import logger
+import logging
 
+log = logging.getLogger("root")
 class DeadmansSwitch:
 
 
@@ -29,18 +30,37 @@ class DeadmansSwitch:
     def deadmansSwitchV2(scriptName: str):
         while isActive:
             if not DeadmansSwitch.scriptIsRunning(scriptName):
-                os.system('shutdown /s /t 5 /c "Deadman\'s switch activated.\nNO CHEATING!"')
+                if isActive:
+                    log.critical("Did not find "+scriptName+"! Shutting down...")
+                    os.system('shutdown /s /t 5 /c "Deadman\'s switch activated.\nNO CHEATING!"')
                 return
             time.sleep(0.5)
 
     def scriptIsRunning(scriptFileName: str):
-        processes = [p.cmdline() for p in psutil.process_iter() if "python" in p.name().lower()]
-        matchingScripts = [p for p in processes if scriptFileName in p[1]]
-
-        if len(matchingScripts) > 0:
+        try:
+            processes = [p.cmdline() for p in psutil.process_iter() if "python" in p.name().lower()]
+            matchingScripts = [p for p in processes if scriptFileName in p[1]]
+            if len(matchingScripts) > 0:
+                return True
+            return False
+        except psutil.NoSuchProcess: # error during iterations. if deadmans program is not running then no error should be thrown.
             return True
-        return False
+        except Exception as e:
+            log.critical("Could not scan processes!"+str(e))
+            return False
 
+    #inversed: True if dms should timeout if it CAN find program
+    #           False if dms should timeout if it CANT find program
+    def oneTimeTimeout(scriptName: str, timeout: float, inversed: bool):
+        startTime = datetime.now()
+        timeouttd = timedelta(seconds=timeout)
+        while (datetime.now()-startTime).total_seconds() < timeouttd:
+            if not DeadmansSwitch.scriptIsRunning(scriptName):
+                if inversed: 
+                    pass
+                else:
+                    return False
+        return False
     def stopAllSwitches(self):
         global isActive
         isActive = False
@@ -55,15 +75,3 @@ if __name__ == "__main__":
     elif len(sys.argv) == 2:
         #pass name of script
         DeadmansSwitch.deadmansSwitchV2(sys.argv[1])
-    else:
-        _ = sys.argv[0]
-        programType = sys.argv[1]
-        port = int(sys.argv[2])              
-        delay = float(sys.argv[3])
-
-        if programType == "switch":
-            DeadmansSwitch.loopCheckSwitchHoldStatus(port,delay)
-        elif programType == "hold":
-            DeadmansSwitch.deadmansHold(port,delay)
-        elif programType == "both":
-            DeadmansSwitch.twoWaySwitch(port,port+1,delay)

@@ -25,7 +25,7 @@ def connect_to_wifi(ssid, password):
     profile.key = password  # The network password
 
     # Remove any existing profile for this network and add the new one
-    iface.remove_all_network_profiles()
+    iface.remove_all_network_profiles() #removes ALL, not just for this network. fix this pls
     tmp_profile = iface.add_network_profile(profile)
 
     # Attempt to connect

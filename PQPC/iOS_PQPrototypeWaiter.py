@@ -650,12 +650,15 @@ def controlLoop():
             ComputerControl.unblockInput()
             computerLocked = False
         time.sleep(5)
-
+import socket
 
 def newMain():
     global PQLog, computerLocked, schedules, connected, schedulesLock, questLock, activeQuests, keysLock
     try:
-
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        sock.sendto(b"alive", ("127.0.0.1", 1617))
+        sock.close()
+                             
         PQLog = logger.set_debug_logger("root")
         logger.printAndLog(PQLog,"Locking during init")
         ComputerControl.blockInput()
