@@ -18,6 +18,7 @@ extension Schedule {
 
     @NSManaged public var everyXDays: Bool
     @NSManaged public var isActive: Bool
+    @NSManaged public var nextSchLocked: Bool
     @NSManaged public var lastEndDate: Date?
     @NSManaged public var lastScheduleCompletedOnTime: Bool
     @NSManaged public var scheduledDays: NSWeek?

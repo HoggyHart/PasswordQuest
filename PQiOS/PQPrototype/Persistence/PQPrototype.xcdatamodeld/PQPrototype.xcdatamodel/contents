@@ -43,6 +43,7 @@
         <attribute name="isActive" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lastEndDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="lastScheduleCompletedOnTime" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="nextSchLocked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="scheduledDays" attributeType="Transformable" valueTransformerName="NSWeekTransformer" customClassName=".NSWeek"/>
         <attribute name="scheduledEndTime" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="scheduledStartTime" attributeType="Date" usesScalarValueType="NO"/>

@@ -16,6 +16,7 @@ extension Schedule {
         everyXDays = true
         self.xDayDelay = frequency
     }
+    
     public func lateInit(quest: Quest){
         isActive = false
         let d = Date.now.addingTimeInterval(10)
@@ -57,20 +58,20 @@ extension Schedule {
         if(!self.isActive){ // -2
             return -2
         }
-        //if sch completed today -> show succeed/fail
-        else if (Calendar.current.isDateInToday(self.lastEndDate ?? Date.distantFuture)){ // 1/2
-            if (!self.lastScheduleCompletedOnTime){ return 1 }
-            return 2
-        }
-        //else if not completed today -> just indicate whether it has started or not
-        else if (Date.now < self.startTime!){
+        //else if going to start today, return not started yet
+        else if (Calendar.current.isDateInToday(self.startTime!) && Date.now < self.startTime!){
             return -1
         }
+        //else if after schedule start, and quest is active due to this scheduler, return in progress
         else if quest!.getCurrentScheduler() == self {
             return 0
         }
-        //elses: 1. time to start but hasn't started for some reason (i.e. not started yet)
-        //       2. unknown state
+        //if sch completed today -> show succeed/fail
+        else if (Calendar.current.isDateInToday(self.lastEndDate ?? Date.distantFuture)){ // 1/2
+            if (self.lastScheduleCompletedOnTime == false){ return 1 }
+            return 2
+        }
+        //else: not scheduled today, return not started yet
         else { return -1 }
     }
     

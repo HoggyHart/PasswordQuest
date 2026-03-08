@@ -23,3 +23,4 @@ extension Location{
         return CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
     }
 }
+

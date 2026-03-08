@@ -91,7 +91,7 @@ struct ScheduleView: View {
                                         Image(systemName: schDayArr[i] ?
                                               "circle.fill" : "circle")
                                         .foregroundColor(schDayArr[i] ? .green : .red)
-                                        Text(StringUtils.firstLetterOfString(str: Week.daysOfTheWeek[i])).foregroundColor(.black)
+                                        Text(StringUtils.firstXLettersOfString(str: Week.daysOfTheWeek[i], x: 1)).foregroundColor(.black)
                                     }
                                 }
                                 .disabled(!editing)
@@ -122,6 +122,21 @@ struct ScheduleView: View {
                     .disabled(!editing)
             }
             Divider()
+            Button(){
+                context.perform{
+                    schedule.nextSchLocked.toggle()
+                    do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+                }
+            } label :{
+                ZStack{
+                    RoundedRectangle(cornerRadius: 50, style: .circular)
+                        .foregroundColor(schedule.nextSchLocked ? .red : .green)
+                    Image(systemName: schedule.nextSchLocked ? "lock.fill" : "lock.open.fill")
+                        .foregroundColor(schedule.nextSchLocked ? .black : .white)
+                        .font(.title2)
+                }
+                .frame(width: 50)
+            }
             
             // --Activate Schedule **and** Synchronise schedule data with server buttons
             //only possible during stable state (not editing)
@@ -245,8 +260,6 @@ struct ScheduleView: View {
     q.lateInit(name: "Preview Quest")
     let sch = Schedule(context: PersistenceController.preview.container.viewContext)
     sch.lateInit(quest: q)
-    return
-    ScheduleView(
-        scheduleToLoad: sch)
-    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    return ScheduleView(
+        scheduleToLoad: sch).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

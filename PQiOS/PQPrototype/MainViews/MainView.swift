@@ -42,11 +42,11 @@ struct MainView: View {
                             { continue }
                             //else if NOT in progress but quest is active (i.e. started manually/by another scheduler
                             else if quest.isActive{
-                                //if quest active because of another scheduler, continue
+                                //if quest active because of another scheduler, ignore and check next scheduler
                                 if quest.getCurrentScheduler() != nil{
                                     continue
                                 }
-                                //else: quest not scheduled but is active during schedule time -> assume it has been started early and update schedule startTime to make this quest contribute to the schedule's completion
+                                //else: quest not scheduled but is active during scheduled time -> assume it has been started early and update schedule startTime to make this quest contribute to the schedule's completion
                                 else{
                                     schedule.startTime = quest.questStartTime
                                     continue
@@ -66,6 +66,10 @@ struct MainView: View {
                             //start!
                             else{
                                 quest.start(intendedStartTime: schedule.startTime!)
+                                if schedule.nextSchLocked{
+                                    quest.locked = true
+                                    schedule.nextSchLocked = false
+                                }
                                 schedule.lastScheduleCompletedOnTime = false
                             }
                         }
