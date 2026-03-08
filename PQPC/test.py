@@ -1,27 +1,16 @@
 import requests
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 import threading
+import socket
+import sys
+from datetime import datetime, timedelta
+import time
+import DeadMansSwitch
+import psutil
 
-class myserv(SimpleHTTPRequestHandler):
+def checkIfScriptRUnning(scriptFileName):
+    processes = [p.cmdline() for p in psutil.process_iter() if "python" in p.name().lower()]
+    matchingScripts = [p for p in processes if scriptFileName in p[1]]
 
-    def do_GET(self):
-        print("someones getting")
-
-        self.send_response(200)
-        self.send_header('Content-type', 'text/html')
-        self.end_headers()
-
-        data = bytes("erm hiii!!",'utf-8')
-        self.wfile.write(data)
-
-
-def hostServer():
-    PQ_Server = HTTPServer(('127.0.0.1', 2468), myserv)
-    print("Server created!")
-    PQ_Server.serve_forever()
-    print("failed")
-
-serverThread = threading.Thread(target=hostServer)
-serverThread.start()
-
-print(requests.put("http://127.0.0.1:2468"))
+    if len(matchingScripts) > 0:
+        print("Running")

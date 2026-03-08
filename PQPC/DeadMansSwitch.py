@@ -1,57 +1,77 @@
 import os
 import time
+from datetime import datetime, timedelta
+import threading
 import subprocess
 import sys
 import socket
-class DeadmansSwitch:
-    
-    def createDeadman(self, addr):
-        raise NotImplementedError("Not implemented properly")
-        self.deadman = multiprocessing.Process(target=DeadmansSwitch.deadmansHold, args=(addr,))
-        self.deadman.start()
-    def stopDeadman(self):
-        raise NotImplementedError("Not implemented properly")
-        self.deadman.kill()
+import psutil
 
-    def createSwitch(self):
+global isActive
+isActive = True
+import logging
+
+log = logging.getLogger("root")
+class DeadmansSwitch:
+
+
+    def createTwoWaySwitchV2(self, processName: str):
+        #creates an external process called via main()
         self.switch = subprocess.Popen(
-            ["C:/Python314/pythonw.exe", "C:/Users/willi/OneDrive/Desktop/code/PasswordQuest/PQPC/DeadMansSwitch.py"],
+            ["C:/Python314/pythonw.exe", "C:/Users/willi/Desktop/code/PasswordQuest/PQPC/DeadMansSwitch.py", processName],
             creationflags=( subprocess.DETACHED_PROCESS |
                         subprocess.CREATE_NEW_PROCESS_GROUP),
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
             stdin=subprocess.DEVNULL
         )
+        return threading.Thread(target=DeadmansSwitch.deadmansSwitchV2,args=('DeadMansSwitch.py',))
 
-    def stopSwitch(self):
+    def deadmansSwitchV2(scriptName: str):
+        while isActive:
+            if not DeadmansSwitch.scriptIsRunning(scriptName):
+                if isActive:
+                    log.critical("Did not find "+scriptName+"! Shutting down...")
+                    os.system('shutdown /s /t 5 /c "Deadman\'s switch activated.\nNO CHEATING!"')
+                return
+            time.sleep(0.5)
+
+    def scriptIsRunning(scriptFileName: str):
+        try:
+            processes = [p.cmdline() for p in psutil.process_iter() if "python" in p.name().lower()]
+            matchingScripts = [p for p in processes if scriptFileName in p[1]]
+            if len(matchingScripts) > 0:
+                return True
+            return False
+        except psutil.NoSuchProcess: # error during iterations. if deadmans program is not running then no error should be thrown.
+            return True
+        except Exception as e:
+            log.critical("Could not scan processes!"+str(e))
+            return False
+
+    #inversed: True if dms should timeout if it CAN find program
+    #           False if dms should timeout if it CANT find program
+    def oneTimeTimeout(scriptName: str, timeout: float, inversed: bool):
+        startTime = datetime.now()
+        timeouttd = timedelta(seconds=timeout)
+        while (datetime.now()-startTime).total_seconds() < timeouttd:
+            if not DeadmansSwitch.scriptIsRunning(scriptName):
+                if inversed: 
+                    pass
+                else:
+                    return False
+        return False
+    def stopAllSwitches(self):
+        global isActive
+        isActive = False
         self.switch.kill()
-
-    def deadmansHold(port=1618):
-        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        while True:
-            sock.sendto(b"alive", ("127.0.0.1", port))
-            time.sleep(2)
-
-    def switchHeldPollerStatic(port=1618):
-        while True:
-            try:
-                    
-                s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-                s.bind(("127.0.0.1", port))
-                s.settimeout(5)
-                while True:
-                    try:
-                        data, _ = s.recvfrom(1024)
-                        # heartbeat received
-                    except socket.timeout:
-                        os.system('shutdown /s /t 0 /c "Deadman\'s switch activated.\nNO CHEATING!"')
-                        return
-            except:
-                continue
-
-    def stop(self):
-        self.isActive = False
+        #self.isActive = False
 
 if __name__ == "__main__":
-    DeadmansSwitch.switchHeldPollerStatic()
-    input()
+    print(sys.argv)
+    #arg1 = file name
+    if len(sys.argv) < 2:
+        pass
+    elif len(sys.argv) == 2:
+        #pass name of script
+        DeadmansSwitch.deadmansSwitchV2(sys.argv[1])

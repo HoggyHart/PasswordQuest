@@ -1,74 +1,83 @@
 {
-"isActive" : "False",
-"questInProgress" : "False",
-"schedule_everyXDays" : "False",
-"scheduleName" : "Scheduled Gym",
-"scheduleUUID" : "E6D49CEC-EC1B-4E99-844E-C7E7F2B3A501",
-"questUUID" : "7BFCA3E3-2FAD-4129-8E00-DC37475E9918",
-"schedule_XDayDelay" : "2",
-"startTime" : "30/01/2026, 15:30:00",
-"scheduledStartTime" : "30/01/2026, 15:30:00",
-"scheduledEndTime" : "30/01/2026, 20:00:05",
-"schedule_lastCompletionTime" : "29/01/2026, 23:46:58",
-"schedule_scheduledDays" : "1010100"
-}
-
-{
-"isActive" : "False",
-"questInProgress" : "False",
-"schedule_everyXDays" : "False",
-"scheduleName" : "CampusQuest II",
-"scheduleUUID" : "E26F32B5-684D-419E-B10A-6DCB46154DCA",
-"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
-"schedule_XDayDelay" : "1",
-"startTime" : "25/01/2026, 15:00:00",
-"scheduledStartTime" : "25/01/2026, 15:00:00",
-"scheduledEndTime" : "25/01/2026, 19:00:05",
-"schedule_lastCompletionTime" : "nil",
-"schedule_scheduledDays" : "1111100"
-}
-
-{
-"isActive" : "False",
-"questInProgress" : "False",
-"schedule_everyXDays" : "False",
-"scheduleName" : "CampusQuest I",
-"scheduleUUID" : "B9CA7B1C-EF31-4569-946E-7096E531740D",
-"questUUID" : "FFAAD0E4-619C-4696-AA7D-4860FE0F40E9",
-"schedule_XDayDelay" : "1",
-"startTime" : "25/01/2026, 9:00:00",
-"scheduledStartTime" : "25/01/2026, 9:00:00",
-"scheduledEndTime" : "25/01/2026, 13:00:05",
-"schedule_lastCompletionTime" : "nil",
-"schedule_scheduledDays" : "1111100"
-}
-
-{
-"isActive" : "False",
-"questInProgress" : "False",
+"isActive" : "True",
+"questInProgress" : "True",
 "schedule_everyXDays" : "True",
-"scheduleName" : "Bedtime Locker",
-"scheduleUUID" : "E96D10C0-E544-40AD-A420-4DCF881E38A4",
-"questUUID" : "D55BEBE0-B40D-465F-BB45-F1BF1753551D",
+"scheduleName" : "CampusQuest - Morning",
+"questUUID" : "62E74230-01DA-4E84-AB25-78AD385A3E69",
 "schedule_XDayDelay" : "1",
-"startTime" : "31/01/2026, 22:00:00",
-"scheduledStartTime" : "31/01/2026, 22:00:00",
-"scheduledEndTime" : "01/02/2026, 6:00:05",
-"schedule_lastCompletionTime" : "30/01/2026, 14:32:07",
+"startTime" : "7/3/2026, 10:0:0",
+"scheduledStartTime" : "7/3/2026, 10:0:0",
+"scheduledEndTime" : "7/3/2026, 13:0:5",
+"schedule_lastCompletionTime" : "6/3/2026, 13:0:5",
 "schedule_scheduledDays" : "1111111"
 }
 
 {
+"isActive" : "True",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Gym",
+"questUUID" : "A4AB59A4-C95C-4524-A330-CC62DA9D1AC7",
+"schedule_XDayDelay" : "3",
+"startTime" : "8/3/2026, 14:0:0",
+"scheduledStartTime" : "8/3/2026, 14:0:0",
+"scheduledEndTime" : "8/3/2026, 17:0:5",
+"schedule_lastCompletionTime" : "5/3/2026, 16:48:19",
+"schedule_scheduledDays" : "0000000"
+}
+
+{
 "isActive" : "False",
 "questInProgress" : "False",
 "schedule_everyXDays" : "True",
-"scheduleName" : "Scheduled Sainsbury’s Shopping",
-"scheduleUUID" : "AB5F4C31-7A05-4BDF-B0CD-1A435A9BCF63",
-"questUUID" : "EEB7B2ED-26C9-4B8C-AFF5-95124CD1B5AF",
+"scheduleName" : "The usual",
+"questUUID" : "65AA33C6-BDE5-4CAF-B55E-A6EDBFCA5593",
 "schedule_XDayDelay" : "5",
-"startTime" : "30/01/2026, 11:00:00",
-"scheduledStartTime" : "30/01/2026, 11:00:00",
-"scheduledEndTime" : "30/01/2026, 17:00:05",
-"schedule_lastCompletionTime" : "nil",
+"startTime" : "1/3/2026, 14:15:0",
+"scheduledStartTime" : "1/3/2026, 14:15:0",
+"scheduledEndTime" : "2/3/2026, 0:0:5",
+"schedule_lastCompletionTime" : "24/2/2026, 15:9:44",
+"schedule_scheduledDays" : "0010101"
+}
+
+{
+"isActive" : "True",
+"questInProgress" : "True",
+"schedule_everyXDays" : "True",
+"scheduleName" : "Scheduled Bedtime",
+"questUUID" : "9D437BCE-DF6E-43E6-99CD-C1272C73A732",
+"schedule_XDayDelay" : "1",
+"startTime" : "7/3/2026, 0:30:0",
+"scheduledStartTime" : "7/3/2026, 0:30:0",
+"scheduledEndTime" : "7/3/2026, 9:0:5",
+"schedule_lastCompletionTime" : "6/3/2026, 14:0:0",
+"schedule_scheduledDays" : "1111100"
+}
+
+{
+"isActive" : "True",
+"questInProgress" : "False",
+"schedule_everyXDays" : "True",
+"scheduleName" : "CampusQuest - Afternoon",
+"questUUID" : "62E74230-01DA-4E84-AB25-78AD385A3E69",
+"schedule_XDayDelay" : "1",
+"startTime" : "7/3/2026, 15:10:0",
+"scheduledStartTime" : "7/3/2026, 15:10:0",
+"scheduledEndTime" : "7/3/2026, 17:0:5",
+"schedule_lastCompletionTime" : "6/3/2026, 17:17:35",
+"schedule_scheduledDays" : "1111100"
+}
+
+{
+"isActive" : "False",
+"questInProgress" : "False",
+"schedule_everyXDays" : "False",
+"scheduleName" : "NEED spng+cleaning ASAP",
+"questUUID" : "65AA33C6-BDE5-4CAF-B55E-A6EDBFCA5593",
+"schedule_XDayDelay" : "1",
+"startTime" : "4/3/2026, 16:30:0",
+"scheduledStartTime" : "4/3/2026, 16:30:0",
+"scheduledEndTime" : "4/3/2026, 23:59:5",
+"schedule_lastCompletionTime" : "4/3/2026, 18:10:15",
 "schedule_scheduledDays" : "0000000"
 }
