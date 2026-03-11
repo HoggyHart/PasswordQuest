@@ -22,7 +22,7 @@ extension Schedule {
         let d = Date.now.addingTimeInterval(10)
         scheduledStartTime = d
         scheduledEndTime = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: Date.now)
-        scheduleName = "Scheduled "+quest.questName!
+        scheduleName = quest.questName!+" Schedule"
         scheduleUUID = UUID()
         startTime = scheduledStartTime
         setSchedule(scheduledDays: .weekdays)
@@ -30,6 +30,12 @@ extension Schedule {
         lastScheduleCompletedOnTime = true
         synchronised = false
         self.quest = quest
+    }
+    
+    func nxtDateTxt() -> String{
+            return !Calendar.current.isDateInToday(self.startTime!) ? self.startTime!.formatted(date: .abbreviated, time: .omitted)
+                        :
+                        self.startTime!.formatted(date: .omitted, time: .shortened)
     }
     
     func isOneTime() -> Bool{
