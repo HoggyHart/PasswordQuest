@@ -10,7 +10,7 @@ import SwiftUI
 struct Checkbox: View {
     var size: CGFloat = 30
     var ticked: Binding<Bool>
-    @State var checked = false
+    @State private var checked = false
     var body: some View {
         ZStack{
             Rectangle()

@@ -14,6 +14,7 @@ struct MainView: View {
     @Environment(\.managedObjectContext) private var context
     
     @State var SeORSc = true
+    let views = 4
     @State var menu = 0
 
     static private var scheduleAndQuestUpdater: Timer? = nil
@@ -94,23 +95,17 @@ struct MainView: View {
             else if menu == 2{
                 QuestRewardManagerView()
             }
+            else if menu == 3{
+                LocationManagerView()
+            }
         }
         HStack(spacing: 1){
-            Button(){
-                menu = 0
-            } label:
-            {
-                Rectangle()
-            }
-            Button(){
-                menu = 1
-            } label: {
-                Rectangle()
-            }
-            Button(){
-                menu = 2
-            } label: {
-                Rectangle()
+            ForEach(0..<views,id:\.self){i in
+                Button(){
+                    menu = i
+                } label: {
+                    Rectangle()
+                }
             }
         }
         .frame(height: 30)
