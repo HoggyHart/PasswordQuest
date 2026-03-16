@@ -3,7 +3,7 @@ import win32api
 import ctypes
 
 def blockInput():
-    ctypes.windll.user32.BlockInput(True)
+    #ctypes.windll.user32.BlockInput(True)
     pass
 
 def screenOff():

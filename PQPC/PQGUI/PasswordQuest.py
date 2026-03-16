@@ -1,11 +1,16 @@
 import tkinter as tk
+import sys
+sys.path.insert(1, 'C:\\Users\\willi\\Desktop\\code\\PasswordQuest\\PQPC')
+import iOS_PQPrototypeWaiter
+import threading
+import time
 
 class PQWindow(tk.Tk):
 
     def __init__(self):
         super().__init__()
         self.title("PasswordQuest")
-        self.geometry("1000x1000")
+        self.geometry("190x2560")
 
     def initLayout(self):
         self.children.clear()
@@ -32,7 +37,7 @@ class PQWindow(tk.Tk):
 
         #Main Content
         self.bodyFrame = tk.Frame(self.coreFrame)
-        self.bodyFrame.grid(row=1, sticky = 'NSEW')
+        self.bodyFrame.grid(row=1, sticky = 'N')
         self.loadSchedulesFrame()
 
         #Footer
@@ -43,8 +48,8 @@ class PQWindow(tk.Tk):
 
     def loadHeaderContent(self):
         #title
-        label = tk.Label(self.headerFrame, text="Hello World!", font=('Consolas',18))
-        label.grid(row=0, column=0, sticky='NW')
+        label = tk.Label(self.headerFrame, text="PQ", font=('Consolas',18))
+        label.grid(row=0, column=0, sticky='N')
         
         #buttons
         buttonFrame = tk.Frame(self.headerFrame)
@@ -52,7 +57,7 @@ class PQWindow(tk.Tk):
         buttonFrame.columnconfigure(1,weight=1)
         buttonFrame.columnconfigure(2,weight=1)
         buttonFrame.rowconfigure(0,weight=1)
-        buttonFrame.grid(row=0,column=1, sticky='NSW')
+        buttonFrame.grid(row=1,column=0, sticky='NSW')
         
         schButton = tk.Button(buttonFrame, text= "Schedules",command=self.loadSchedulesFrame)
         schButton.grid(row=0,column=0)
@@ -62,10 +67,14 @@ class PQWindow(tk.Tk):
         syncButton.grid(row=0, column=3, sticky = 'NSEW')
 
     def loadSchedulesFrame(self):
+        #reset view
         for child in self.bodyFrame.winfo_children():
             child.destroy()
-        text = tk.Label(self.bodyFrame, text="owhoasd")
-        text.grid()
+
+        #test label
+        self.scheduleOutput = tk.Label(self.bodyFrame, text="OUTPUT",anchor='n')
+        self.scheduleOutput.grid()
+
     
     def loadQuests(self):
         for child in self.bodyFrame.winfo_children():
@@ -76,6 +85,40 @@ class PQWindow(tk.Tk):
     def loadFooterContent(self):
         pass
 
+    def outputLoop(self):
+        while True:
+            try:
+                self.updateOutput()
+            except Exception as e:
+                try:
+                    self.scheduleOutput.config(text="ERROR: "+str(e))
+                except:
+                    pass #scheudleoutput is not on frame currently
+            time.sleep(2)
+
+    def updateOutput(self):
+        newOutput = ""
+        
+        for sch in iOS_PQPrototypeWaiter.schedules:
+            newOutput += sch.scheduleName+"\n"
+            if sch.questInProgress:
+                newOutput += "In Progress\n"
+            elif sch.isActive:
+                newOutput += "Starts at "+sch.startTime.__str__()+"\n"
+            else:
+                newOutput += "Not Active\n"
+            newOutput += "\n"
+
+        self.scheduleOutput.config(text=newOutput)
+
+    def startAndOutputConsole(self):
+        self.mainProcessingThread = threading.Thread(target = iOS_PQPrototypeWaiter.newMain)
+        self.mainProcessingThread.start()
+
+        self.outputThread = threading.Thread(target = self.outputLoop)
+        self.outputThread.start()
+
 root = PQWindow()
 root.initLayout()
+root.startAndOutputConsole()
 root.mainloop()

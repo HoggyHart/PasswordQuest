@@ -39,6 +39,7 @@ class DeadmansSwitch:
     def scriptIsRunning(scriptFileName: str):
         try:
             processes = [p.cmdline() for p in psutil.process_iter() if "python" in p.name().lower()]
+            print(processes)
             matchingScripts = [p for p in processes if scriptFileName in p[1]]
             if len(matchingScripts) > 0:
                 return True

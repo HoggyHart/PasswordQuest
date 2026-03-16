@@ -641,7 +641,7 @@ def controlLoop():
             ComputerControl.blockInput()
             computerLocked = True
             try:
-                win = gw.getWindowsWithTitle('C:\\Python314\\python.exe')[0] 
+                win = gw.getWindowsWithTitle('PasswordQuest')[0] 
                 win.activate()
             except:
                 logger.printAndLog(PQLog,"Failed to bring window to front")
@@ -665,7 +665,7 @@ def newMain():
         logger.printAndLog(PQLog,"=====================================================COMPUTER LOCKED=====================================================")
         #---Create a deadmans switch that shuts down computer if either this program or the switch program is closed
         logger.printAndLog(PQLog,"Creating deadmans switch two-way")
-        deadmansThread = deadmansSwitch.createTwoWaySwitchV2("iOS_PQPrototypeWaiter.py")
+        deadmansThread = deadmansSwitch.createTwoWaySwitchV2("PasswordQuest.py")
         deadmansThread.start()
 
         logger.printAndLog(PQLog,"loading schedules")
