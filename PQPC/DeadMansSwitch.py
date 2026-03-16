@@ -32,14 +32,14 @@ class DeadmansSwitch:
             if not DeadmansSwitch.scriptIsRunning(scriptName):
                 if isActive:
                     log.critical("Did not find "+scriptName+"! Shutting down...")
-                    os.system('shutdown /s /t 5 /c "Deadman\'s switch activated.\nNO CHEATING!"')
+                    os.system('shutdown /s /t 300 /c "Deadman\'s switch activated.\nNO CHEATING!"')
                 return
             time.sleep(0.5)
 
     def scriptIsRunning(scriptFileName: str):
         try:
             processes = [p.cmdline() for p in psutil.process_iter() if "python" in p.name().lower()]
-            print(processes)
+            #print(processes)
             matchingScripts = [p for p in processes if scriptFileName in p[1]]
             if len(matchingScripts) > 0:
                 return True

@@ -46,40 +46,41 @@ logFIleDir = "C:/Users/willi/Desktop/code/PasswordQuest/PQPC/logs"
 connected = False
 attemptingConnection = False
 
-def dateFromJson(txt: str):
-    try:
-        date,time = txt.split(',')
-        time = time.split(' ')[1]
+class utils:
+    def dateFromJson(txt: str):
+        try:
+            date,time = txt.split(',')
+            time = time.split(' ')[1]
 
-        d = date.split('/')[0]
-        m = date.split('/')[1]
-        y = date.split('/')[2]
+            d = date.split('/')[0]
+            m = date.split('/')[1]
+            y = date.split('/')[2]
 
-        h = time.split(':')[0]
-        mi = time.split(':')[1]
-        s = time.split(':')[2]
+            h = time.split(':')[0]
+            mi = time.split(':')[1]
+            s = time.split(':')[2]
 
-        newDate = datetime(year=int(y),month=int(m),day=int(d),hour=int(h),minute=int(mi),second=int(s))
-        
-        return newDate
-    except:
-        return None
-def dateToJson(date: datetime):
-    try:
-        txt = ""
-        txt += str(date.day) + "/"
-        txt += str(date.month) +"/"
-        txt += str(date.year) + ", "
-        txt += str(date.hour) + ":"
-        txt += str(date.minute) + ":"
-        txt += str(date.second)
-        return txt
-    except:
-        return "nil"
-def boolFromJson(txt: str):
-    if txt == "False":
-        return False
-    return True
+            newDate = datetime(year=int(y),month=int(m),day=int(d),hour=int(h),minute=int(mi),second=int(s))
+            
+            return newDate
+        except:
+            return None
+    def dateToJson(date: datetime):
+        try:
+            txt = ""
+            txt += str(date.day) + "/"
+            txt += str(date.month) +"/"
+            txt += str(date.year) + ", "
+            txt += str(date.hour) + ":"
+            txt += str(date.minute) + ":"
+            txt += str(date.second)
+            return txt
+        except:
+            return "nil"
+    def boolFromJson(txt: str):
+        if txt == "False":
+            return False
+        return True
 
 class Quest:
     def __init__(self, jsonQ):
@@ -88,7 +89,7 @@ class Quest:
             self.questUUID = data['questUUID']
             self.isActive = True
         except Exception as e:
-            print("Failed to load quest!")
+            #print("Failed to load quest!")
             raise e
     
     def toJson(self):
@@ -115,7 +116,7 @@ class Quest:
                 PQLog.debug("============= LOADED =============\n" + repr(q) + "\n                AS                \n" + qstList[-1].toJson() + "\n==================================")
             qstFile.close()
         except Exception as e:
-            print("Failed to finish loading quests!")
+            #print("Failed to finish loading quests!")
             PQLog.critical(str(e))
         
         ThreadUtils.releaseLock(fileLock,"fileLock")
@@ -162,9 +163,9 @@ class Schedule:
         #decode from json
         data = json.loads(jsonSch)
         #simple bools
-        self.isActive = boolFromJson(data['isActive'])
-        self.questInProgress = boolFromJson(data['questInProgress'])
-        self.scheduleInfo_everyXDays = boolFromJson(data['schedule_everyXDays'])
+        self.isActive = utils.boolFromJson(data['isActive'])
+        self.questInProgress = utils.boolFromJson(data['questInProgress'])
+        self.scheduleInfo_everyXDays = utils.boolFromJson(data['schedule_everyXDays'])
         
         #simple string
         self.scheduleName = str(data['scheduleName'])
@@ -174,10 +175,10 @@ class Schedule:
         self.scheduleInfo_XDayDelay = int(data['schedule_XDayDelay'])
 
         #dates (formatted "dd-mm-yyyy hh:mm::ss" )
-        self.startTime = dateFromJson(str(data['startTime']))
-        self.scheduledStartTime = dateFromJson(str(data['scheduledStartTime']))
-        self.scheduledEndTime = dateFromJson(str(data['scheduledEndTime']))
-        self.scheduleInfo_lastCompletionTime = dateFromJson(str(data['schedule_lastCompletionTime']))
+        self.startTime = utils.dateFromJson(str(data['startTime']))
+        self.scheduledStartTime = utils.dateFromJson(str(data['scheduledStartTime']))
+        self.scheduledEndTime = utils.dateFromJson(str(data['scheduledEndTime']))
+        self.scheduleInfo_lastCompletionTime = utils.dateFromJson(str(data['schedule_lastCompletionTime']))
 
         #bitset
         arr = str(data['schedule_scheduledDays'])
@@ -269,10 +270,10 @@ class Schedule:
         string += "\"scheduleName\" : \""+ self.scheduleName.__str__()+"\",\n"
         string += "\"questUUID\" : \""+ self.questUUID.__str__()+"\",\n"
         string += "\"schedule_XDayDelay\" : \""+self.scheduleInfo_XDayDelay.__str__()+"\",\n"
-        string += "\"startTime\" : \""+dateToJson(self.startTime)+"\",\n"
-        string += "\"scheduledStartTime\" : \""+dateToJson(self.scheduledStartTime)+"\",\n"
-        string += "\"scheduledEndTime\" : \""+dateToJson(self.scheduledEndTime)+"\",\n"
-        string += "\"schedule_lastCompletionTime\" : \""+dateToJson(self.scheduleInfo_lastCompletionTime)+"\",\n"
+        string += "\"startTime\" : \""+utils.dateToJson(self.startTime)+"\",\n"
+        string += "\"scheduledStartTime\" : \""+utils.dateToJson(self.scheduledStartTime)+"\",\n"
+        string += "\"scheduledEndTime\" : \""+utils.dateToJson(self.scheduledEndTime)+"\",\n"
+        string += "\"schedule_lastCompletionTime\" : \""+utils.dateToJson(self.scheduleInfo_lastCompletionTime)+"\",\n"
         arr = ""
         for i in range(0,7):
             #calc from back of val in case of int32, int64, etc. 0s at beginning
@@ -302,7 +303,7 @@ class Schedule:
                 PQLog.debug("============= LOADED =============\n" + repr(sch) + "\n                AS                \n" + schList[-1].toJson() + "\n==================================")
             schFile.close()
         except Exception as e:
-            print("Failed to finish loading schedules!")
+            #print("Failed to finish loading schedules!")
             PQLog.critical(str(e))
         
         ThreadUtils.releaseLock(fileLock,"fileLock")
@@ -311,16 +312,16 @@ class Schedule:
     def tryStarting(self) -> Quest:
         actualEndTime = self.startTime + (self.scheduledEndTime - self.scheduledStartTime)
 
-        print("    Starts at "+self.startTime.__str__())
+        #print("    Starts at "+self.startTime.__str__())
         PQLog.debug("Checking if "+self.scheduleName+" should have started ("+self.startTime.__str__()+" - "+actualEndTime.__str__()+")")
 
         if self.startTime <= datetime.now():
-            logger.printAndLog(PQLog,"    Starting " + self.scheduleName)
+            PQLog.debug("    Starting " + self.scheduleName)
             self.questInProgress = True
             self.saveToFile()
             return Quest("{\n\"questUUID\":\""+self.questUUID.__str__()+"\"\n}")
         else:
-            logger.printAndLog(PQLog,"    Not time.")
+            PQLog.debug("    Not time.")
             return None
 
 schedules: list[Schedule] = []
@@ -336,11 +337,11 @@ class MyServer(SimpleHTTPRequestHandler):
 
     def do_POST(self):
         global PQLog, keysLock, schedules
-        logger.printAndLog(PQLog,"Received data for " +self.path)
+        PQLog.debug("Received data for " +self.path)
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
         message = post_data.decode('utf-8')
-        logger.printAndLog(PQLog,"Received: \n"+ repr(message))
+        PQLog.debug("Received: \n"+ repr(message))
         message = message.replace('\r','')      
 
         if(self.path == "/synchronise/schedules"):
@@ -366,7 +367,7 @@ class MyServer(SimpleHTTPRequestHandler):
     def synchroniseSchedules(self, schJsons: str):
         global PQLog, keysLock, fileLock, schedules, syncLock
         syncLock = False
-        logger.printAndLog(PQLog,"Releasing SyncLock")
+        PQLog.debug("Releasing SyncLock")
         #post load comes in split by \r\n\r\n
         schList = schJsons.split("\n\n")
         PQLog.debug("Received schedules:\n")
@@ -382,7 +383,7 @@ class MyServer(SimpleHTTPRequestHandler):
 
         #overwrite global PQLog, schedules list
         try:
-            logger.printAndLog(PQLog,"Synchronising...") 
+            PQLog.debug("Synchronising...") 
             ThreadUtils.acquireLock(schedulesLock, "Schedules Lock")
             schedules = []
             for sch in schList:
@@ -391,7 +392,7 @@ class MyServer(SimpleHTTPRequestHandler):
                 schedules.append(schedule)
             self.send_response(200)
         except Exception as e:
-            print("Synchronisation failed!")
+            #print("Synchronisation failed!")
             PQLog.critical("ERROR SYNCHRONISING "+str(e))
             self.send_response(500)
 
@@ -406,7 +407,7 @@ class MyServer(SimpleHTTPRequestHandler):
         try:
             schedule = Schedule(schJson)
             schedule.saveToFile()
-            logger.printAndLog(PQLog,schedule.toJson())
+            PQLog.debug(schedule.toJson())
 
             updateForExistingSchedule = False
             ThreadUtils.acquireLock(schedulesLock, "SchedulesLock")
@@ -419,7 +420,7 @@ class MyServer(SimpleHTTPRequestHandler):
                 schedules.append(schedule)
             ThreadUtils.releaseLock(schedulesLock, "SchedulesLock")
         except Exception as e:
-            logger.printAndLog(PQLog,"     FAILED to decode json: "+e)  
+            PQLog.debug("     FAILED to decode json: "+e)  
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
@@ -433,13 +434,13 @@ class MyServer(SimpleHTTPRequestHandler):
         q.saveToFile()
         
         ThreadUtils.acquireLock(questLock, "Quest Lock")
-        logger.printAndLog(PQLog,"Added key for some active quest")
+        PQLog.debug("Added key for some active quest")
         activeQuests.append(q)
         ThreadUtils.releaseLock(questLock, "Quest Lock")
 
     def addKey(self, reward):
         global PQLog, keysLock, received_keys
-        logger.printAndLog(PQLog,"appending to keys")
+        PQLog.debug("appending to keys")
 
         data = json.loads(reward)
         key = data['questUUID'] + "_" + data['completedOnTime']
@@ -447,7 +448,7 @@ class MyServer(SimpleHTTPRequestHandler):
         ThreadUtils.acquireLock(keysLock, "Key Lock")
         received_keys.append(key)
         ThreadUtils.releaseLock(keysLock, "Key Lock")
-        logger.printAndLog(PQLog,"finished appending to keys")
+        PQLog.debug("finished appending to keys")
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
@@ -502,10 +503,11 @@ def pollConnection():
     while(True):
         try:
             PQLog.debug(pollThreadPadding+"Scanning networks...")
-            wifi = subprocess.check_output(['netsh', 'WLAN', 'show', 'interfaces'])
-        except:
+            wifi = subprocess.check_output(['netsh', 'WLAN', 'show', 'interfaces'], creationflags=subprocess.CREATE_NO_WINDOW)
+        except Exception as e:
             PQLog.debug(pollThreadPadding+"Failed to scan networks")
             connected = False
+            PQLog.critical(str(e))
             continue
         data = wifi.decode('utf-8')
         if "WillPhone" in data:
@@ -534,10 +536,10 @@ def checkForSchKey(schedule: Schedule) -> bool:
                 keyFound = True
                 finishedOnTime = key.split('_')[1]
                 if finishedOnTime == "True":
-                    logger.printAndLog(PQLog,"   "+schedule.scheduleName + " completed on time!")
+                    PQLog.debug("   "+schedule.scheduleName + " completed on time!")
                     break
                 else:
-                    logger.printAndLog(PQLog,"   "+schedule.scheduleName + " failed.")
+                    PQLog.debug("   "+schedule.scheduleName + " failed.")
                     break
     
     if keyFound:
@@ -558,16 +560,16 @@ def checkForQKey(quest: Quest) -> bool:
                 keyFound = True
                 finishedOnTime = key.split('_')[1]
                 if finishedOnTime == "True":
-                    logger.printAndLog(PQLog,"   Quest Complete!")
+                    PQLog.debug("   Quest Complete!")
                     break
                 else:
-                    logger.printAndLog(PQLog,"   Quest Failed.")
+                    PQLog.debug("   Quest Failed.")
                     break
     if keyFound:
         quest.isActive = False
         quest.saveToFile()
     else:
-        logger.printAndLog(PQLog,"   Key not found.")
+        PQLog.debug("   Key not found.")
     return keyFound
 
 def controlLoop():
@@ -582,16 +584,16 @@ def controlLoop():
         keylist = ""
         for key in received_keys:
             keylist+="  -> "+key+"\n"
-        logger.printAndLog(PQLog,"Current keys:\n"+keylist)
+        PQLog.debug("Current keys:\n"+keylist)
         ThreadUtils.acquireLock(questLock, "Quest Lock")
         #if quests are active, attempt to connect to network
 
         #check for keys
-        logger.printAndLog(PQLog,f'Checking keys for {len(activeQuests)} active quests')
+        PQLog.debug(f'Checking keys for {len(activeQuests)} active quests')
         for quest in activeQuests:
             if not checkForQKey(quest):
                 questsInProgress = True
-        print()
+        #print()
 
         #remove now-inactive quests
         delCount = 0
@@ -604,12 +606,12 @@ def controlLoop():
         #check if quest scheduled to start
         ThreadUtils.acquireLock(schedulesLock, "Schedules Lock")
         for schedule in schedules:
-            logger.printAndLog(PQLog,schedule.scheduleName)
+            PQLog.debug(schedule.scheduleName)
             #if quest currently active 
             #   -> key received? endQuest()
             #   -> not received? questsInProgress = True
             if schedule.questInProgress:
-                logger.printAndLog(PQLog,f"    In progress.")
+                PQLog.debug(f"    In progress.")
                 #if no key provided, quest still in progress and lockdown still in effect
                 if not checkForSchKey(schedule):
                     questsInProgress = True
@@ -621,8 +623,8 @@ def controlLoop():
                 if quest != None:
                     questsInProgress = True
             else:
-                logger.printAndLog(PQLog,"----Not active.")
-        print()
+                PQLog.debug("----Not active.")
+        #print()
         ThreadUtils.releaseLock(schedulesLock, "Schedules Lock")
 
         #all keys have been checked and used, so clear them
@@ -631,8 +633,8 @@ def controlLoop():
 
         #check computer lock status
         if (questsInProgress or syncLock):
-            logger.printAndLog(PQLog,f"Quests in progress: {questsInProgress} | SyncLock active: {syncLock}")
-            logger.printAndLog(PQLog,"=====================================================COMPUTER LOCKED=====================================================")
+            PQLog.debug(f"Quests in progress: {questsInProgress} | SyncLock active: {syncLock}")
+            PQLog.debug("=====================================================COMPUTER LOCKED=====================================================")
             #if quest in progress then the only thing the pc should be doing is trying to allow the user to unlock the pc
             PQLog.debug("connected: "+str(connected)+" | attempting connection: "+str(attemptingConnection))
             if not connected and not attemptingConnection:
@@ -641,12 +643,13 @@ def controlLoop():
             ComputerControl.blockInput()
             computerLocked = True
             try:
-                win = gw.getWindowsWithTitle('PasswordQuest')[0] 
-                win.activate()
-            except:
-                logger.printAndLog(PQLog,"Failed to bring window to front")
+                win: gw.Win32Window = gw.getWindowsWithTitle('PasswordQuest')[0]         
+                win.minimize()
+                win.maximize()
+            except Exception as e:
+                PQLog.debug("Failed to bring window to front"+str(e))
         else:
-            logger.printAndLog(PQLog,"++++++++++++++++++++++++++++++++++++++++++++++++++++COMPUTER UNLOCKED++++++++++++++++++++++++++++++++++++++++++++++++++++")
+            PQLog.debug("++++++++++++++++++++++++++++++++++++++++++++++++++++COMPUTER UNLOCKED++++++++++++++++++++++++++++++++++++++++++++++++++++")
             ComputerControl.unblockInput()
             computerLocked = False
         time.sleep(5)
@@ -658,42 +661,42 @@ def newMain():
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         sock.sendto(b"alive", ("127.0.0.1", 1617))
         sock.close()
-                             
+        ###dsa                     
         PQLog = logger.set_debug_logger("root")
-        logger.printAndLog(PQLog,"Locking during init")
+        PQLog.debug("Locking during init")
         ComputerControl.blockInput()
-        logger.printAndLog(PQLog,"=====================================================COMPUTER LOCKED=====================================================")
+        PQLog.debug("=====================================================COMPUTER LOCKED=====================================================")
         #---Create a deadmans switch that shuts down computer if either this program or the switch program is closed
-        logger.printAndLog(PQLog,"Creating deadmans switch two-way")
-        deadmansThread = deadmansSwitch.createTwoWaySwitchV2("PasswordQuest.py")
-        deadmansThread.start()
+        PQLog.debug("Creating deadmans switch two-way")
+        #deadmansThread = deadmansSwitch.createTwoWaySwitchV2("PasswordQuest.py")
+        #deadmansThread.start()
 
-        logger.printAndLog(PQLog,"loading schedules")
+        PQLog.debug("loading schedules")
         schedules = Schedule.readListFromFile(scheduleFileDir)
 
-        logger.printAndLog(PQLog,"Loading active quests")
+        PQLog.debug("Loading active quests")
         activeQuests = Quest.readQuestsFromFile(questFileDir)
 
-        logger.printAndLog(PQLog,"creating server thread")
+        PQLog.debug("creating server thread")
         serverThread = threading.Thread(target=hostServer)
         serverThread.start()
 
-        logger.printAndLog(PQLog,"creating phone connection poller")
+        PQLog.debug("creating phone connection poller")
         connectionThread = threading.Thread(target=pollConnection)
         connectionThread.start()
 
-        logger.printAndLog(PQLog,"Init finished... Unlocking and starting now")
+        PQLog.debug("Init finished... Unlocking and starting now")
         ComputerControl.unblockInput()
         
         controlLoop()
 
     except Exception as e:
-        logger.printAndLog(PQLog,"Main loop escaped!")
+        PQLog.debug("Main loop escaped!")
 
         #external program stops sending/receiving || this means the thread in this program will timeout and shut down pc
        # deadmansSwitch.stopSwitch()
         deadmansSwitch.stopAllSwitches()
-        logger.printAndLog(PQLog,f"{e}")
+        PQLog.debug(f"{e}")
         ComputerControl.unblockInput()
         input()
 

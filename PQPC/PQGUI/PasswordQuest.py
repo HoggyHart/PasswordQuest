@@ -29,10 +29,12 @@ class PQWindow(tk.Tk):
 
         #Header
         self.headerFrame = tk.Frame(self.coreFrame)
-        self.headerFrame.grid(row=0, column=0, sticky='NSEW')
+        self.headerFrame.grid(row=0, column=0, sticky='N')
         self.headerFrame.columnconfigure(0,weight=1)
         self.headerFrame.columnconfigure(1,weight=1)
         self.headerFrame.rowconfigure(0,weight=1)
+        self.headerFrame.rowconfigure(1,weight=1)
+        self.headerFrame.rowconfigure(2,weight=1)
         self.loadHeaderContent()
 
         #Main Content
@@ -48,16 +50,19 @@ class PQWindow(tk.Tk):
 
     def loadHeaderContent(self):
         #title
-        label = tk.Label(self.headerFrame, text="PQ", font=('Consolas',18))
+        label = tk.Label(self.headerFrame, text="PasswordQuest", font=('Consolas',18))
         label.grid(row=0, column=0, sticky='N')
         
+        #status
+        self.statusLabel = tk.Label(self.headerFrame, text="Locked (SyncLock)",  font=('Consolas',14), fg="red")
+        self.statusLabel.grid(row=1,column=0, sticky='N')
         #buttons
         buttonFrame = tk.Frame(self.headerFrame)
         buttonFrame.columnconfigure(0,weight=1)
         buttonFrame.columnconfigure(1,weight=1)
         buttonFrame.columnconfigure(2,weight=1)
         buttonFrame.rowconfigure(0,weight=1)
-        buttonFrame.grid(row=1,column=0, sticky='NSW')
+        buttonFrame.grid(row=2,column=0, sticky='N')
         
         schButton = tk.Button(buttonFrame, text= "Schedules",command=self.loadSchedulesFrame)
         schButton.grid(row=0,column=0)
@@ -102,7 +107,7 @@ class PQWindow(tk.Tk):
         for sch in iOS_PQPrototypeWaiter.schedules:
             newOutput += sch.scheduleName+"\n"
             if sch.questInProgress:
-                newOutput += "In Progress\n"
+                newOutput += "--->In Progress<---\n"
             elif sch.isActive:
                 newOutput += "Starts at "+sch.startTime.__str__()+"\n"
             else:
@@ -111,6 +116,12 @@ class PQWindow(tk.Tk):
 
         self.scheduleOutput.config(text=newOutput)
 
+        if not iOS_PQPrototypeWaiter.syncLock:
+            if iOS_PQPrototypeWaiter.computerLocked:
+                self.statusLabel.config(text="Locked",fg="red")
+            else:
+                self.statusLabel.config(text="Unlocked", fg="green")
+        
     def startAndOutputConsole(self):
         self.mainProcessingThread = threading.Thread(target = iOS_PQPrototypeWaiter.newMain)
         self.mainProcessingThread.start()

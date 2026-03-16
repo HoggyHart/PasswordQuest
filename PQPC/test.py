@@ -7,10 +7,6 @@ from datetime import datetime, timedelta
 import time
 import DeadMansSwitch
 import psutil
+import pygetwindow as gw
 
-def checkIfScriptRUnning(scriptFileName):
-    processes = [p.cmdline() for p in psutil.process_iter() if "python" in p.name().lower()]
-    matchingScripts = [p for p in processes if scriptFileName in p[1]]
-
-    if len(matchingScripts) > 0:
-        print("Running")
+print(gw.getAllTitles())
