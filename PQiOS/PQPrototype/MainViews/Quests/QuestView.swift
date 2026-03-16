@@ -53,7 +53,7 @@ struct QuestView: View {
     
     func startLiveUpdater(){
         self.liveUpdater = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){_ in
-            let bgContext = PersistenceController.shared.container.newBackgroundContext()
+            let bgContext = PersistenceController.preview.container.newBackgroundContext()
             bgContext.perform {
                 do{
                     let quest = bgContext.object(with: quest.objectID) as! Quest

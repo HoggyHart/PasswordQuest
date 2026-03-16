@@ -10,12 +10,15 @@ import SwiftUI
 struct StagedButton: View {
     @Environment(\.editMode) private var editMode
     
-    private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
+    @State var choice: Int? = nil
+    
     
     var body: some View{
-        Rectangle()
-            .foregroundColor(editing ? .green : .red)
-        EditButton()
+        Picker("choice", selection: $choice){
+            ForEach(0..<5){v in
+                Text("\(v)").tag(v as Int?)
+            }
+        }
     }
     
     

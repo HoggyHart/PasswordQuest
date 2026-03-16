@@ -40,21 +40,22 @@ struct ScheduleView: View {
     var body: some View {
         VStack{
             // --EDIT TOOLBAR ==needed since ScheduleView is raised as a form from the bottom of QuestView, it needs its own edit button.
-            if !schedule.quest!.isActive {
+            if !schedule.quest!.isActive && !schedule.nextSchLocked{
                 HStack{
                     Spacer()
                     EditButton()
                 }
             }
-            HStack{
-                TextField("Quest Name", text: $schedule.scheduleName ?? "Unset Name")
-                    .font(.title)
-                    .disabled(!editing)
-                if editing {Image(systemName:"pencil")}
+            VStack(alignment: .leading, spacing:0){
+                HStack{
+                    TextField("Quest Name", text: $schedule.scheduleName ?? "Unset Name")
+                        .font(.title)
+                        .disabled(!editing)
+                    if editing {Image(systemName:"pencil")}
+                }
+                Text("Scheduled Quest: "+schedule.quest!.questName!)
+                    .font(.footnote)
             }
-            
-            Divider()
-            Text("Scheduled Quest: "+schedule.quest!.questName!)
             Divider()
             
             VStack{
@@ -91,7 +92,7 @@ struct ScheduleView: View {
                                         Image(systemName: schDayArr[i] ?
                                               "circle.fill" : "circle")
                                         .foregroundColor(schDayArr[i] ? .green : .red)
-                                        Text(StringUtils.firstLetterOfString(str: Week.daysOfTheWeek[i])).foregroundColor(.black)
+                                        Text(StringUtils.firstXLettersOfString(str: Week.daysOfTheWeek[i], x: 1)).foregroundColor(.black)
                                     }
                                 }
                                 .disabled(!editing)
@@ -122,25 +123,53 @@ struct ScheduleView: View {
                     .disabled(!editing)
             }
             Divider()
-            
-            // --Activate Schedule **and** Synchronise schedule data with server buttons
-            //only possible during stable state (not editing)
             if !editing{
-                Button(){
-                    toggleScheduleActiveStatus()
-                } label : {
-                    Text(schedule.isActive ? "Stop" : "Start")
-                }
-                Button(){
-                    synchroniseWithServer()
-                } label :{
-                    Text("Synchronise")
+                ZStack{
+                    HStack{
+                        Button(){
+                            toggleScheduleActiveStatus()
+                        } label : {
+                            VStack(spacing:0){
+                                ZStack{
+                                    RoundedRectangle(cornerRadius: 50, style: .circular)
+                                        .foregroundColor(schedule.isActive ? .green : .red)
+                                    Image(systemName: schedule.isActive ? "checkmark" : "xmark")
+                                        .foregroundColor(schedule.isActive ? .black : .white)
+                                        .font(.title2)
+                                }
+                                .frame(width: 50, height: 50)
+                                Text(schedule.isActive ? "Active" : "Inactive")
+                            }
+                        }
+                        if schedule.isActive{
+                            Button(){
+                                context.perform{
+                                    schedule.nextSchLocked.toggle()
+                                    do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+                                }
+                            } label :{
+                                VStack(spacing:0){
+                                    ZStack{
+                                        RoundedRectangle(cornerRadius: 50, style: .circular)
+                                            .foregroundColor(schedule.nextSchLocked ? .red : .green)
+                                        Image(systemName: schedule.nextSchLocked ? "lock.fill" : "lock.open.fill")
+                                            .foregroundColor(schedule.nextSchLocked ? .black : .white)
+                                            .font(.title2)
+                                    }
+                                    .frame(width: 50, height: 50)
+                                    Text(schedule.nextSchLocked ? "Locked" : "Unlocked")
+                                }
+                            }
+                        }
+                    }
+                    if schedule.isActive && schedule.nextSchLocked{
+                        ZStack{
+                            Image(systemName:"lock.fill" ).resizable().foregroundColor(.cyan).frame(width: 150, height: 75)
+                            Text(schedule.nxtDateTxt())
+                        }
+                    }
                 }
             }
-            
-        }
-        .toolbar(){
-            EditButton()
         }
         .onAppear(perform: loadData)
         .onChange(of: editing) { nowEditing in
@@ -158,6 +187,7 @@ struct ScheduleView: View {
     func deactivateSchedule(){
         context.perform{
             schedule.isActive = false
+            schedule.nextSchLocked = false
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
     }
@@ -172,6 +202,8 @@ struct ScheduleView: View {
             //if schedule has not ended yet
             if schedule.scheduledPeriodRelativity() > -1 {
                 schedule.isActive.toggle()
+                //ensure if *activating* schedule, it does not auto-lock (only occurs as a bug)
+                if schedule.isActive {schedule.nextSchLocked = false}
             }
             //else if schedule has already passed, it cannot be activated.
             //  update start time to next opportunity
@@ -245,8 +277,6 @@ struct ScheduleView: View {
     q.lateInit(name: "Preview Quest")
     let sch = Schedule(context: PersistenceController.preview.container.viewContext)
     sch.lateInit(quest: q)
-    return
-    ScheduleView(
-        scheduleToLoad: sch)
-    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    return ScheduleView(
+        scheduleToLoad: sch).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

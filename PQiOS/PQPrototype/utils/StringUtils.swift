@@ -8,7 +8,8 @@
 import Foundation
 
 struct StringUtils{
-    static func firstLetterOfString(str: String) -> Substring{
-        return str[..<str.index(str.startIndex, offsetBy: 1)]
+    static func firstXLettersOfString(str: String, x: Int, trailingEllipse: Bool = false) -> Substring{
+        if str.count<x{ return str[..<str.endIndex] }
+        return str[..<str.index(str.startIndex, offsetBy: x)] + (trailingEllipse ? "..." : "")
     }
 }

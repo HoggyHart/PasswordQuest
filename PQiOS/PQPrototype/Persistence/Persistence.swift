@@ -24,13 +24,10 @@ struct PersistenceController {
             if i%2 == 0{
                 let task = LocationOccupationQuestTask(context: viewContext)
                 task.lateInit(
-                    locName: "Unnamed Location",
+                    locName: "Location "+String(i),
                     taskArea: CLCircularRegion(
-                        center: CLLocationCoordinate2D(
-                            latitude: 0,
-                            longitude: 0
-                        ),
-                        radius: 0,
+                        center: LocationServices.generateRandomLocation(origin: CLLocationCoordinate2D(latitude: 0, longitude: 0), minRange: 0, maxRange: 500),
+                        radius: 50,
                         identifier: "newLocTask"),
                     questDuration: 1
                 )

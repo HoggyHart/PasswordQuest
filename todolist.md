@@ -4,11 +4,8 @@
 - change so that when schedules start their quest the quest is tracked in activequests.txt instead of the schedule object
 
 # PQiOS
-- add double-locking mechanism to schedules so 
-- A) quest is locked as soon as schedule starts it
-- B) A + schedule cannot be changed
-- improve schedule locking mechanism to prevent un-locking/schedule changes when locked
-- also fix UI in schedule screen. forgot to set size of lock button properly. Start/stop and synchronise buttons need to be amended too.
+- add a better way to manage Location entities (i.e. enable deleting them, allow editing without having to set it as the location for a task)
+    - maybe a big map view where it shows all marked locations at the same time (with the ability to hide them) and you can tap on one to read/update/delete, and a + symbol somewhere to create new ones. Should have a list button to see all locations in a list for easy editing (either a sheet or a new view)
 - finish implementing Delay mechanism. manually editing start/end times for schedules is tedious
 - add tracking for incomplete quests, where the time tracked toward quest completion can be saved and used up for following instances of that quest to incentivise doing them even if the required amount of time cannot be achieved within the time limit.
 - add notifications for when scheduled quests start and quests are complete.
