@@ -141,12 +141,14 @@ class PQWindow(tk.Tk):
         else:
             self.connectionStatusLabel.config(text="Not Connected To Phone",fg="red")
 
-        status = requests.get('http://172.20.10.5:1617')
-        if status.status_code == 200:
-            self.serverStatusLabel.config(text="|Server Online - Checks: "+str(self.mainProcess.pingCounter),fg="green")
-        else:
+        try:
+            status = requests.get('http://172.20.10.5:1617')
+            if status.status_code == 200:
+                self.serverStatusLabel.config(text="|Server Online - Checks: "+str(self.mainProcess.pingCounter),fg="green")
+            else:
+                self.serverStatusLabel.config(text="|Server Offline - Checks: "+str(self.mainProcess.pingCounter),fg="red")
+        except:
             self.serverStatusLabel.config(text="|Server Offline - Checks: "+str(self.mainProcess.pingCounter),fg="red")
-
 
         
         

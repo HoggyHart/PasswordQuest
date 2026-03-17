@@ -18,18 +18,11 @@ import pygetwindow as gw
 from datetime import datetime, timedelta
 import json
 import subprocess
-#import re
 from DeadMansSwitch import DeadmansSwitch
 from http.server import HTTPServer, SimpleHTTPRequestHandler
-import logger
-import logging
 import WifiUtils
 import socket
-
-PQLOG: logging.Logger
-SCHFLDIR = "C:/Users/willi/Desktop/code/PasswordQuest/PQPC/schedules.txt"
-QSTFLDIR = "C:/Users/willi/Desktop/code/PasswordQuest/PQPC/activequests.txt"
-LOGFLDIR = "C:/Users/willi/Desktop/code/PasswordQuest/PQPC/logs"
+from PQCONSTS import PQLOG, SCHFLDIR, QSTFLDIR, DEBUGMODE, SHUTDOWNDELAY
 
 class utils:
     def dateFromJson(txt: str):
@@ -199,6 +192,7 @@ class PQRequestHandler(SimpleHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
+        self.wfile.write(bytes("wazzup"))
 
     def do_POST(self):
         self.mainProgram: PasswordQuestServer = self.server.mainProgram
@@ -236,7 +230,7 @@ class PQRequestHandler(SimpleHTTPRequestHandler):
         PQLOG.debug("Releasing SyncLock")
         #post load comes in split by \r\n\r\n
         schList = schJsons.split("\n\n")
-        PQLOG.debug("Received schedules:\n")
+        PQLOG.debug("Received schedules:")
         for s in schList:
             PQLOG.debug("Received:\n"+repr(s))
 
@@ -262,7 +256,10 @@ class PQRequestHandler(SimpleHTTPRequestHandler):
         except Exception as e:
             #PQLog.debug("Synchronisation failed!")
             PQLOG.critical("ERROR SYNCHRONISING "+str(e))
-            self.send_response(500)
+            try:
+                self.send_response(500)
+            except:
+                PQLOG.critical(str(e))
         self.mainProgram.threadUtil.releaseLock("ScheduleLock")
         self.send_header('Content-type', 'text/html')
         self.end_headers()
@@ -405,8 +402,6 @@ class PasswordQuestServer:
 
         self.pingCounter = 0
         try:
-            #misc                 
-            PQLOG = logger.set_debug_logger("root")
             self.threadUtil = ThreadUtils.ThreadUtility()
 
             #base data
@@ -424,18 +419,18 @@ class PasswordQuestServer:
 
             #setting up threads
             PQLOG.debug("Locking during init")
-            ComputerControl.blockInput()
+            if not DEBUGMODE:{ComputerControl.blockInput()}
 
             #---Create a deadmans switch that shuts down computer if either this program or the switch program is closed
             PQLOG.debug("Creating deadmans switch two-way")
-            self.deadmansThread = self.deadmansSwitch.createTwoWaySwitchV2("PasswordQuest.py")
+            self.deadmansThread = self.deadmansSwitch.createTwoWaySwitchV2("PasswordQuest.py",SHUTDOWNDELAY)
             self.deadmansThread.start()
 
             PQLOG.debug("loading schedules")
             self.schedules = self.loadSchedules(SCHFLDIR)
 
             PQLOG.debug("Loading active quests")
-            self.loadQuests(QSTFLDIR)
+            self.activeQuests = self.loadQuests(QSTFLDIR)
 
             PQLOG.debug("creating server thread")
             serverThread = threading.Thread(target=self.hostServer)
@@ -519,7 +514,7 @@ class PasswordQuestServer:
         i = 0
         for sch in writtenSchedules:
             if schedule.questUUID == sch.questUUID:
-                writtenSchedules[i] = self
+                writtenSchedules[i] = schedule
                 updateForExistingSchedule = True
                 break
             i+=1
@@ -624,7 +619,7 @@ class PasswordQuestServer:
                 if not self.connectedToNetwork and not self.attemptingNetworkConnection:
                     #connecting to the network will make the hostServer thread start attempting to host the server
                     threading.Thread(target=self.connectToPrivateNetwork).start()
-                ComputerControl.blockInput()
+                if not DEBUGMODE:{ComputerControl.blockInput()}
                 self.computerLocked = True
                 try:
                     win: gw.Win32Window = gw.getWindowsWithTitle('PasswordQuest')[0]         
@@ -680,11 +675,14 @@ class PasswordQuestServer:
             PQLOG.critical(str(e))
         
         self.threadUtil.releaseLock("FileLock")
-        self.activeQuests = qstList
+        return qstList
+
 if __name__ == "__main__":
     pq = PasswordQuestServer()
-    pq.run()
-    input()
+    try:
+        pq.run()
+    except Exception as e:
+        print(str(e))
 
 #PROGRAM FLOW
 # 

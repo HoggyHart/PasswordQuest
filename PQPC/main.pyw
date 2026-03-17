@@ -1,8 +1,8 @@
 import subprocess
 import os
-from DeadMansSwitch import DeadmansSwitch
 import socket
 import logger
+import PQCONSTS
 def ensureProgramStarted():
     #actual program sends ping to this socket when started. wait for ping to ensure program has started/hasnt been clsoed before actually starting
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
         if not ensureProgramStarted():
             log.critical("Program was not found to have started properly. Shutting down.")
-            os.system('shutdown /s /t 300 /c "Deadman\'s switch activated.\nNO CHEATING!"')
+            os.system('shutdown /s /t '+str(PQCONSTS.SHUTDOWNDELAY)+' /c "Deadman\'s switch activated.\nNO CHEATING!"')
 
     except Exception as e:
         print(e)
