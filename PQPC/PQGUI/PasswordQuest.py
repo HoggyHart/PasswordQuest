@@ -4,6 +4,8 @@ sys.path.insert(1, 'C:\\Users\\willi\\Desktop\\code\\PasswordQuest\\PQPC')
 import iOS_PQPrototypeWaiter
 import threading
 import time
+import ThreadUtils    
+import requests
 
 class PQWindow(tk.Tk):
 
@@ -11,6 +13,7 @@ class PQWindow(tk.Tk):
         super().__init__()
         self.title("PasswordQuest")
         self.geometry("190x2560")
+        self.mainProcess = iOS_PQPrototypeWaiter.PasswordQuestServer()
 
     def initLayout(self):
         self.children.clear()
@@ -54,8 +57,17 @@ class PQWindow(tk.Tk):
         label.grid(row=0, column=0, sticky='N')
         
         #status
-        self.statusLabel = tk.Label(self.headerFrame, text="Locked (SyncLock)",  font=('Consolas',14), fg="red")
-        self.statusLabel.grid(row=1,column=0, sticky='N')
+        self.statusFrame = tk.Frame(self.headerFrame)
+        self.statusFrame.grid(row=1,column=0,sticky='N')
+
+        self.statusLabel = tk.Label(self.statusFrame, text="Locked (SyncLock)",  font=('Consolas',14), fg="red")
+        self.statusLabel.grid(row=0,column=0, sticky='N')
+
+        self.connectionStatusLabel = tk.Label(self.statusFrame, text="Connection Status", font = ('Consolas',14), fg='red')
+        self.connectionStatusLabel.grid(row=0,column=1,stick='N')
+
+        self.serverStatusLabel = tk.Label(self.statusFrame, text="Server Status", font = ('Consolas',14), fg='red')
+        self.serverStatusLabel.grid(row=0,column=2,stick='N')
         #buttons
         buttonFrame = tk.Frame(self.headerFrame)
         buttonFrame.columnconfigure(0,weight=1)
@@ -103,8 +115,8 @@ class PQWindow(tk.Tk):
 
     def updateOutput(self):
         newOutput = ""
-        
-        for sch in iOS_PQPrototypeWaiter.schedules:
+        schs = self.mainProcess.schedules.copy()
+        for sch in schs:
             newOutput += sch.scheduleName+"\n"
             if sch.questInProgress:
                 newOutput += "--->In Progress<---\n"
@@ -116,16 +128,32 @@ class PQWindow(tk.Tk):
 
         self.scheduleOutput.config(text=newOutput)
 
-        if not iOS_PQPrototypeWaiter.syncLock:
-            if iOS_PQPrototypeWaiter.computerLocked:
-                self.statusLabel.config(text="Locked",fg="red")
+        if not self.mainProcess.syncLock:
+            if self.mainProcess.computerLocked:
+                self.statusLabel.config(text="Locked|",fg="red")
             else:
-                self.statusLabel.config(text="Unlocked", fg="green")
+                self.statusLabel.config(text="Unlocked|", fg="green")
+
+        if self.mainProcess.connectedToNetwork:
+            self.connectionStatusLabel.config(text="Connected To Phone",fg="green")
+        elif self.mainProcess.attemptingNetworkConnection:
+            self.connectionStatusLabel.config(text="Attempting Connection To Phone",fg="yellow")
+        else:
+            self.connectionStatusLabel.config(text="Not Connected To Phone",fg="red")
+
+        status = requests.get('http://172.20.10.5:1617')
+        if status.status_code == 200:
+            self.serverStatusLabel.config(text="|Server Online - Checks: "+str(self.mainProcess.pingCounter),fg="green")
+        else:
+            self.serverStatusLabel.config(text="|Server Offline - Checks: "+str(self.mainProcess.pingCounter),fg="red")
+
+
+        
         
     def startAndOutputConsole(self):
-        self.mainProcessingThread = threading.Thread(target = iOS_PQPrototypeWaiter.newMain)
+        self.mainProcessingThread = threading.Thread(target = self.mainProcess.run)
         self.mainProcessingThread.start()
-
+        time.sleep(5)
         self.outputThread = threading.Thread(target = self.outputLoop)
         self.outputThread.start()
 

@@ -9,4 +9,14 @@ import DeadMansSwitch
 import psutil
 import pygetwindow as gw
 
-print(gw.getAllTitles())
+import ThreadUtils
+
+
+myUtil = ThreadUtils.ThreadUtility()
+
+myUtil.acquireLock("firstLock")
+myUtil.acquireLock("secondLock")
+myUtil.releaseLock("firstLock")
+myUtil.acquireLock("firstLock")
+
+print("escaped")
