@@ -53,7 +53,7 @@ struct QuestView: View {
     
     func startLiveUpdater(){
         self.liveUpdater = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){_ in
-            let bgContext = PersistenceController.preview.container.newBackgroundContext()
+            let bgContext = PersistenceController.shared.container.newBackgroundContext()
             bgContext.perform {
                 do{
                     let quest = bgContext.object(with: quest.objectID) as! Quest
@@ -193,7 +193,7 @@ struct QuestView: View {
                         Text(startEndResetButtonText()).foregroundColor(.white)
                     }
                 }
-                .disabled(quest.locked ? true : false)
+                .disabled(quest.locked)
             }.frame(width: 250, height: 50)
         }
         .padding(EdgeInsets(top: 0.0, leading: 30.0, bottom: 0.0, trailing: 30.0))

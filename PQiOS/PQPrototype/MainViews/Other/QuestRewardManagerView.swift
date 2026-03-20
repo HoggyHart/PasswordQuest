@@ -26,7 +26,7 @@ struct QuestRewardManagerView: View {
                         HStack{
                             Image(systemName: reward.completedOnTime ? "checkmark.circle.fill" : "x.circle.fill")
                                 .foregroundColor(reward.completedOnTime ? .green : .red)
-                            Text("\(reward.quest!.questName!)(\(reward.obtainmentDate!.formatted(date: .numeric, time: .shortened)))")
+                            Text("\(reward.quest?.questName! ?? "Deleted Quest")(\(reward.obtainmentDate!.formatted(date: .numeric, time: .shortened)))")
                             Spacer()
                         }
                     }
