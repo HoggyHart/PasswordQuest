@@ -20,7 +20,8 @@ struct LocationManagerView: View {
     @State var location: Location?
     
     @StateObject var viewModel = LocationManagerModel()
-
+    
+    let h = 45
     
     @State var showList = true
     @State var areasDrawn: [Bool] = []
@@ -36,56 +37,65 @@ struct LocationManagerView: View {
                 ZStack(){
                     VStack{
                         ZStack{
-                            //background paper
-                            RoundedRectangle(cornerRadius: 22.5)
-                                .foregroundColor(MyColors.parchment)
-                                .frame(
-                                    height: CGFloat.minimum(CGFloat(45+45*locations.count), UIScreen.main.bounds.height*0.5))
-                            //background headere
-                            RoundedRectangle(cornerRadius: 0)
-                                .foregroundColor(MyColors.leather)
-                                .frame(
-                                    height: 45)
-                                .offset(y:-CGFloat.minimum(CGFloat(45+45*locations.count), UIScreen.main.bounds.height*0.5)/2+22.5)
-                            //locations
-                            ScrollView{
-                                VStack(spacing:0){
-                                    ForEach(locations) { loc in
-                                        HStack(spacing:20){
-                                            Button(){
-                                                toggleLocation(loc)
-                                            } label: {
-                                                Circle().foregroundColor(
-                                                    areasDrawn.count > 0
-                                                    && areasDrawn[locations.firstIndex(of: loc)!] ? .black : .white)
-                                            }
-                                            .frame(width: 30, height: 30)
-                                            Button(){
-                                                showLocation(location: loc)
-                                            } label: {
-                                                Text(loc.name!)
-                                            }
-                                            Spacer()
-                                            if editing && loc.tasks?.count == 0{
-                                                Button(){
-                                                    deleteLocation(loc)
-                                                } label:{
-                                                    Image(systemName:"xmark").foregroundColor(.red)
-                                                }
-                                            }
-                                        }.frame(height: 45)
-                                    }
-                                    .listRowBackground(Color.clear)
+                            //notepad
+                            ZStack{
+                                VStack{
+                                    //background paper
+                                    RoundedRectangle(cornerRadius: 22.5)
+                                        .foregroundColor(MyColors.parchment)
+                                        .frame(
+                                            height: CGFloat.minimum(CGFloat(35*locations.count)+45,UIScreen.main.bounds.height*0.5))
+                                    Spacer()
+                                }
+                                VStack{
+                                    //background header
+                                    RoundedRectangle(cornerRadius: 0)
+                                        .foregroundColor(MyColors.leather)
+                                        .frame(
+                                            height: 45)
+                                    Spacer()
                                 }
                             }
-                            .frame(
-                                height: CGFloat.minimum(CGFloat(45*locations.count), UIScreen.main.bounds.height*0.5)-45)
-                            .offset(y:22.5)
-                            .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0))
-                                
+                            //locations
+                            VStack{ZStack{
+                                ScrollView(){
+                                    VStack(spacing:5){
+                                        ForEach(locations) { loc in
+                                            HStack(spacing:20){
+                                                Button(){
+                                                    toggleLocation(loc)
+                                                } label: {
+                                                    Circle().foregroundColor(
+                                                        areasDrawn.count > 0
+                                                        && areasDrawn[locations.firstIndex(of: loc)!] ? .black : .white)
+                                                }
+                                                .frame(width:30,height:30)
+                                                Button(){
+                                                    showLocation(location: loc)
+                                                } label: {
+                                                    Text(loc.name!)
+                                                }
+                                                Spacer()
+                                                if editing && loc.tasks?.count == 0{
+                                                    Button(){
+                                                        deleteLocation(loc)
+                                                    } label:{
+                                                        Image(systemName:"xmark").foregroundColor(.red)
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                .offset(y:45)
+                                .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
+                                .frame(height: CGFloat.minimum(CGFloat(35*locations.count),UIScreen.main.bounds.height*0.5-45))
+                            }
+                                Spacer()
+                            }
+                            
                         }.opacity(showList ? 1 : 0)
                             .disabled(showList ? false : true)
-                        Spacer()
                     }
                     //Main UI buttons
                     VStack{

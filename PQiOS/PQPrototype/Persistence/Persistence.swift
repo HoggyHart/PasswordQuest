@@ -13,7 +13,7 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for i in 0..<20 {
+        for i in 0..<6 {
             let newQuest = Quest(context: viewContext)
             newQuest.lateInit(name: "Test Quest \(i+1)")
             
