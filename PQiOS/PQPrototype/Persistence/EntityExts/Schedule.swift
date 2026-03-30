@@ -216,18 +216,19 @@ extension Schedule {
     
     func toJson() -> String{
         var data = "{\n"
-        data.append("\"isActive\" : \"" + (self.isActive ? "True" : "False") + "\",\n")
-        data.append("\"questInProgress\" : \"" + (self.quest!.isActive ? "True" : "False") + "\",\n")
-        data.append("\"schedule_everyXDays\" : \"" + (self.everyXDays ? "True" : "False") + "\",\n")
-        data.append("\"scheduleName\" : \"" + self.scheduleName! + "\",\n")
-        data.append("\"scheduleUUID\" : \"" + self.scheduleUUID!.uuidString + "\",\n")
-        data.append("\"questUUID\" : \"" + self.quest!.questUUID!.uuidString + "\",\n")
-        data.append("\"schedule_XDayDelay\" : \"" + String(self.xDayDelay) + "\",\n")
-        data.append("\"startTime\" : \"" + self.startTime!.formatted(date: .numeric, time: .standard) + "\",\n")
-        data.append("\"scheduledStartTime\" : \"" + self.scheduledStartTime!.formatted(date: .numeric, time: .standard) + "\",\n")
-        data.append("\"scheduledEndTime\" : \"" + self.scheduledEndTime!.formatted(date: .numeric, time: .standard) + "\",\n")
-        data.append("\"schedule_lastCompletionTime\" : \"" + (self.lastEndDate?.formatted(date: .numeric, time: .standard) ?? "nil") + "\",\n")
-        data.append("\"schedule_scheduledDays\" : \"" + self.scheduledDays!.week.toBitSetString() + "\"\n}")
+        data.append("    \"isActive\" : " + (self.isActive ? "true" : "false") + ",\n")
+        data.append("    \"questInProgress\" : " + (self.quest!.isActive ? "true" : "false") + ",\n")
+        data.append("    \"schedule_everyXDays\" : " + (self.everyXDays ? "true" : "false") + ",\n")
+        data.append("    \"scheduleName\" : \"" + self.scheduleName! + "\",\n")
+        data.append("    \"scheduleUUID\" : \"" + self.scheduleUUID!.uuidString + "\",\n")
+        data.append("    \"quest\":" + quest!.toJson() + ",\n")
+        data.append("    \"schedule_XDayDelay\" : \"" + String(self.xDayDelay) + "\",\n")
+        data.append("    \"startTime\" : \"" + self.startTime!.formatted(date: .numeric, time: .standard) + "\",\n")
+        data.append("    \"scheduledStartTime\" : \"" + self.scheduledStartTime!.formatted(date: .numeric, time: .standard) + "\",\n")
+        data.append("    \"scheduledEndTime\" : \"" + self.scheduledEndTime!.formatted(date: .numeric, time: .standard) + "\",\n")
+        data.append("    \"schedule_lastCompletionTime\" : \"" + (self.lastEndDate?.formatted(date: .numeric, time: .standard) ?? "nil") + "\",\n")
+        data.append("    \"schedule_scheduledDays\" : \"" + self.scheduledDays!.week.toBitSetString() + "\"\n}")
+        print(data)
         return data
     }
     
@@ -242,7 +243,7 @@ extension Schedule {
             let task = URLSession.shared.uploadTask(with: request, from: newData){ data, response, error in
                 if let error = error {
                     // Handle the error
-                    print("Error: \(error.localizedDescription)")
+                    //print("Error: \(error.localizedDescription)")
                 } else if let response = (response as? HTTPURLResponse){
                     // Process the data
                     if response.statusCode == 200{

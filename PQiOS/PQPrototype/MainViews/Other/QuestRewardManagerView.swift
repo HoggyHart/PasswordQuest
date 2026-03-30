@@ -50,13 +50,13 @@ struct QuestRewardManagerView: View {
             
             let newData = Data(key.utf8)
             let task = URLSession.shared.uploadTask(with: request, from: newData){ data, response, error in
-                print("sent")
+                //print("sent")
                 if let error = error {
                     // Handle the error
-                    print("Error: \(error.localizedDescription)")
+                    //print("Error: \(error.localizedDescription)")
                 } else if let response = (response as? HTTPURLResponse){
                     // Process the data
-                    print(response.statusCode)
+                    //print(response.statusCode)
                     if response.statusCode == 200{
                         deleteRewardNotification(offsets: [rewards.firstIndex(of: result)!])
                     }

@@ -85,20 +85,25 @@ struct MainView: View {
     
     @Environment(\.managedObjectContext) static public var viewContext
     var body: some View {
-        VStack{
-            if menu == 0{
-                QuestManagerView()
-            }
-            else if menu == 1{
-                ScheduleManagerView()
-            }
-            else if menu == 2{
-                QuestRewardManagerView()
-            }
-            else if menu == 3{
-                LocationManagerView()
-            }
+        NavigationView{
+            VStack{
+                if menu == 0{
+                    QuestManagerView()
+                }
+                else if menu == 1{
+                    ScheduleManagerView()
+                }
+                else if menu == 2{
+                    QuestRewardManagerView()
+                }
+                else if menu == 3{
+                    LocationManagerView()
+                }
+            }.navigationTitle("PasswordQuest")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarBackButtonHidden()
         }
+        
         HStack(spacing: 1){
             ForEach(0..<views,id:\.self){i in
                 Button(){

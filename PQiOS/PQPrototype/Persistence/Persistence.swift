@@ -13,7 +13,7 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for i in 0..<4 {
+        for i in 0..<20 {
             let newQuest = Quest(context: viewContext)
             newQuest.lateInit(name: "Test Quest \(i+1)")
             
@@ -41,6 +41,10 @@ struct PersistenceController {
             if i%3 == 0{
                 let newSchedule = Schedule(context: viewContext)
                 newSchedule.lateInit(quest: newQuest)
+                newSchedule.startTime?.addTimeInterval(Double(-i*2 + 4))
+                if i%2 == 0{
+                    newSchedule.isActive.toggle()
+                }
             }
             
             let newReward = QuestReward(context: viewContext)

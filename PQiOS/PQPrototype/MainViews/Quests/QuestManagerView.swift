@@ -11,33 +11,34 @@ import CoreData
 struct QuestManagerView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Quest.objectID, ascending: true)],animation: .default)
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Quest.isActive, ascending: false),NSSortDescriptor(keyPath: \Quest.questName, ascending: true)],animation: .default)
     private var quests: FetchedResults<Quest>
     
     var body: some View {
-        ZStack{
-            VStack{
-                Text("Quest Manager")
-                NavigationView {
-                    List {
-                        ForEach(quests) { quest in
+        VStack{
+            Form{
+                Section(header: Text("Active Quests")){
+                    ForEach(quests) { quest in
+                        if quest.isActive{ NavigationLink {
+                            QuestView(quest: quest)
+                        } label: {
+                            Text("\(quest.questName!)")
+                        }
+                        }
+                    }
+                    .onDelete(perform: deleteQuests)
+                }
+                
+                Section(header:Text("Inactive Quests")){
+                    ForEach(quests) { quest in
+                        if !quest.isActive{
                             NavigationLink {
                                 QuestView(quest: quest)
                             } label: {
                                 Text("\(quest.questName!)")
                             }
                         }
-                        .onDelete(perform: deleteQuests)
-                    }
-                    .toolbar {
-                        HStack{
-                            Button(action: addQuest) {
-                                Label("Add Item", systemImage: "plus")
-                            }
-                            EditButton()
-                        }
-                    }
-                    Text("Select a quest")
+                    }.onDelete(perform: deleteQuests)
                 }
             }
         }

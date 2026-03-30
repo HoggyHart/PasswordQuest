@@ -36,16 +36,18 @@ struct LocationManagerView: View {
                 ZStack(){
                     VStack{
                         ZStack{
+                            //background paper
                             RoundedRectangle(cornerRadius: 22.5)
-                                .foregroundColor(Color(red: 0.98, green: 0.95, blue: 0.78))
+                                .foregroundColor(MyColors.parchment)
                                 .frame(
                                     height: CGFloat.minimum(CGFloat(45+45*locations.count), UIScreen.main.bounds.height*0.5))
+                            //background headere
                             RoundedRectangle(cornerRadius: 0)
-                                .foregroundColor(Color(red: 0.3, green: 0.15, blue: 0))
+                                .foregroundColor(MyColors.leather)
                                 .frame(
                                     height: 45)
                                 .offset(y:-CGFloat.minimum(CGFloat(45+45*locations.count), UIScreen.main.bounds.height*0.5)/2+22.5)
-                            
+                            //locations
                             ScrollView{
                                 VStack(spacing:0){
                                     ForEach(locations) { loc in
@@ -77,9 +79,9 @@ struct LocationManagerView: View {
                                 }
                             }
                             .frame(
-                                height: CGFloat.minimum(CGFloat(45*locations.count), UIScreen.main.bounds.height*0.5))
+                                height: CGFloat.minimum(CGFloat(45*locations.count), UIScreen.main.bounds.height*0.5)-45)
                             .offset(y:22.5)
-                            .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
+                            .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0))
                                 
                         }.opacity(showList ? 1 : 0)
                             .disabled(showList ? false : true)
@@ -91,12 +93,14 @@ struct LocationManagerView: View {
                         HStack{
                             EditButton()
                                 .foregroundColor(.white)
+                                .opacity(showList ? 1 : 0)
+                                    .disabled(showList ? false : true)
                             Spacer()
                             Button(){
                                 showList.toggle()
                             } label :{
                                 ZStack{
-                                    Circle().foregroundColor(Color(red: 0.3, green: 0.15, blue: 0))
+                                    Circle().foregroundColor(MyColors.leather)
                                     Image(systemName:"list.bullet")
                                         .foregroundColor(.white)
                                 }
@@ -130,6 +134,7 @@ struct LocationManagerView: View {
         .toolbar(){
             EditButton()
         }
+        
     }
     
     func deleteLocation(_ loc: Location){

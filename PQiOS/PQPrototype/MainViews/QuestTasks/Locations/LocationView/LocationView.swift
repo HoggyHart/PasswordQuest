@@ -139,7 +139,7 @@ struct LocationView: View {
     }
     
     func loadData(){
-        print("Location: \(location)")
+        //print("Location: \(location)")
         editedName = location.name!
         editedLatitude = String(location.latitude)
         editedLongitude = String(location.longitude)

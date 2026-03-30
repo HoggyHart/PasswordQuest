@@ -22,8 +22,11 @@ extension Quest{
     
     func toJson() -> String{
         var string = "{\n"
-        string += "    \"questUUID\" : \"" + self.questUUID!.uuidString + "\"\n"
+        string += "    \"questName\" : \""+self.questName!+"\",\n"
+        string += "    \"questUUID\" : \"" + self.questUUID!.uuidString + "\",\n"
+        string += "    \"expiryDate\" : \"" + (self.getCurrentScheduler()?.scheduledEndTime ?? (self.questStartTime ?? Date.now).addingTimeInterval(maxQuestDuration)).formatted(date: .numeric, time: .standard) + "\"\n"
         string +=   "}"
+        print(string)
         return string
     }
     func sendStartQuestSignal(){
@@ -37,15 +40,15 @@ extension Quest{
             
             let newData = Data(questKey.utf8)
             let task = URLSession.shared.uploadTask(with: request, from: newData){ data, response, error in
-                print("sent")
+                //print("sent")
                 if let error = error {
                     // Handle the error
-                    print("Error: \(error.localizedDescription)")
+                    //print("Error: \(error.localizedDescription)")
                 } else if let response = (response as? HTTPURLResponse){
                     // Process the data
-                    print(response.statusCode)
+                    //print(response.statusCode)
                     if response.statusCode == 200{
-                        print("Success")
+                        //print("Success")
                     }
                 }
             }

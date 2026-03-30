@@ -26,6 +26,7 @@
         <relationship name="schedulers" toMany="YES" deletionRule="Cascade" destinationEntity="Schedule" inverseName="quest" inverseEntity="Schedule"/>
         <relationship name="tasks" toMany="YES" deletionRule="Cascade" destinationEntity="QuestTask" inverseName="quest" inverseEntity="QuestTask"/>
     </entity>
+    <entity name="QuestKey" representedClassName="QuestKey" syncable="YES" codeGenerationType="class"/>
     <entity name="QuestReward" representedClassName="QuestReward" syncable="YES">
         <attribute name="completedOnTime" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="key" attributeType="UUID" usesScalarValueType="NO"/>

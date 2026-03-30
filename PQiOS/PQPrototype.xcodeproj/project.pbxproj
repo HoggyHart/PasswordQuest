@@ -20,6 +20,7 @@
 		6B331EF52F64882E00DBECA4 /* LocationManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B331EF42F64882E00DBECA4 /* LocationManagerView.swift */; };
 		6B331EF72F64889D00DBECA4 /* LocationManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B331EF62F64889D00DBECA4 /* LocationManagerModel.swift */; };
 		6B331EF92F649F2500DBECA4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B331EF82F649F2500DBECA4 /* Colors.swift */; };
+		6B331EFB2F7A73BE00DBECA4 /* ScheduleInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B331EFA2F7A73BE00DBECA4 /* ScheduleInfoView.swift */; };
 		6B7386AF2F1E53510076E77F /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7386AE2F1E53510076E77F /* Quest.swift */; };
 		6B7386B22F1E539C0076E77F /* QuestReward+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7386B02F1E539C0076E77F /* QuestReward+CoreDataClass.swift */; };
 		6B7386B32F1E539C0076E77F /* QuestReward+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7386B12F1E539C0076E77F /* QuestReward+CoreDataProperties.swift */; };
@@ -92,6 +93,7 @@
 		6B331EF42F64882E00DBECA4 /* LocationManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerView.swift; sourceTree = "<group>"; };
 		6B331EF62F64889D00DBECA4 /* LocationManagerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerModel.swift; sourceTree = "<group>"; };
 		6B331EF82F649F2500DBECA4 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		6B331EFA2F7A73BE00DBECA4 /* ScheduleInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleInfoView.swift; sourceTree = "<group>"; };
 		6B7386AE2F1E53510076E77F /* Quest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = "<group>"; };
 		6B7386B02F1E539C0076E77F /* QuestReward+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QuestReward+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6B7386B12F1E539C0076E77F /* QuestReward+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QuestReward+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 			children = (
 				6B2152DD2EEB31FE00188D31 /* ScheduleManagerView.swift */,
 				6B21533F2EECEC0900188D31 /* ScheduleView.swift */,
+				6B331EFA2F7A73BE00DBECA4 /* ScheduleInfoView.swift */,
 			);
 			path = Schedules;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 				6B24FE3D2F1E59E9002B3042 /* QuestRewardManagerView.swift in Sources */,
 				6B7A48CA2F019263002102FE /* Checkbox.swift in Sources */,
 				6B21533C2EECBFF100188D31 /* Schedule+CoreDataProperties.swift in Sources */,
+				6B331EFB2F7A73BE00DBECA4 /* ScheduleInfoView.swift in Sources */,
 				6B331EF72F64889D00DBECA4 /* LocationManagerModel.swift in Sources */,
 				6B331EF52F64882E00DBECA4 /* LocationManagerView.swift in Sources */,
 				6BA5CD662F2D974000D07596 /* DateCompare.swift in Sources */,
