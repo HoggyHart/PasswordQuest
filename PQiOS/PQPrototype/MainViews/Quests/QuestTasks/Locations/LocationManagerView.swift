@@ -21,8 +21,6 @@ struct LocationManagerView: View {
     
     @StateObject var viewModel = LocationManagerModel()
     
-    let h = 45
-    
     @State var showList = true
     @State var areasDrawn: [Bool] = []
     

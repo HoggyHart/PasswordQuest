@@ -192,7 +192,7 @@ extension Schedule {
                 //add quest "rewards"
                 if padQuestFailures{
                     let reward = QuestReward(context: self.managedObjectContext!)
-                    reward.completedOnTime = false
+                    reward.questComplete = false
                     reward.key = self.quest!.questUUID!
                     reward.scheduled = true
                     reward.obtainmentDate = self.scheduledEndTime!
@@ -216,9 +216,9 @@ extension Schedule {
     
     func toJson() -> String{
         var data = "{\n"
-        data.append("    \"isActive\" : " + (self.isActive ? "true" : "false") + ",\n")
-        data.append("    \"questInProgress\" : " + (self.quest!.isActive ? "true" : "false") + ",\n")
-        data.append("    \"schedule_everyXDays\" : " + (self.everyXDays ? "true" : "false") + ",\n")
+        data.append("    \"isActive\" : " + MyJson.toJson(self.isActive) + ",\n")
+        data.append("    \"questInProgress\" : " + MyJson.toJson(self.quest!.isActive) + ",\n")
+        data.append("    \"schedule_everyXDays\" : " + MyJson.toJson(self.everyXDays) + ",\n")
         data.append("    \"scheduleName\" : \"" + self.scheduleName! + "\",\n")
         data.append("    \"scheduleUUID\" : \"" + self.scheduleUUID!.uuidString + "\",\n")
         data.append("    \"quest\":" + quest!.toJson() + ",\n")

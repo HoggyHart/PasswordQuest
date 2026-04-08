@@ -151,7 +151,7 @@ extension Quest{
             
             //create quest reward (key)
             let reward = QuestReward(context: self.managedObjectContext!)
-                        reward.completedOnTime = tasksComplete()
+                        reward.questComplete = tasksComplete()
                         reward.key = self.questUUID!
             reward.obtainmentDate = Date.now
             reward.scheduled = getCurrentScheduler() != nil

@@ -87,6 +87,7 @@ struct QuestView: View {
     
     var body: some View {
         VStack{
+            //title
             HStack{
                 TextField("Quest Name", text: $quest.questName ?? "Unset")
                     .font(.title)
@@ -94,6 +95,8 @@ struct QuestView: View {
                 if editing {Image(systemName:"pencil")}
             }
             Divider()
+            
+            //task list
             HStack{
                 Text("Tasks: ")
                 Spacer()
@@ -122,6 +125,7 @@ struct QuestView: View {
             }
             .listStyle(PlainListStyle())
             
+            //schedule list
             HStack{
                 Text("Schedules")
                 Spacer()
@@ -158,7 +162,10 @@ struct QuestView: View {
                 .onDelete(perform: deleteSchedules)
             }
             .listStyle(PlainListStyle())
+            
+            //start/end/lock buttons
             HStack{
+                //lock/unlock button
                 if quest.isActive {
                     Button(){
                         context.perform{
@@ -177,6 +184,7 @@ struct QuestView: View {
                     }
                     .disabled(quest.locked ? true : false)
                 }
+                //start/end button
                 Button(){
                     startEndResetButtonFunc()
                 } label : {

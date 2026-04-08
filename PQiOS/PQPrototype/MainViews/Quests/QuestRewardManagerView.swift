@@ -21,11 +21,11 @@ struct QuestRewardManagerView: View {
             List{
                 ForEach(rewards){ reward in
                     Button(){
-                        redeemReward(result: reward)
+                        submitKey(result: reward)
                     } label: {
                         HStack{
-                            Image(systemName: reward.completedOnTime ? "checkmark.circle.fill" : "x.circle.fill")
-                                .foregroundColor(reward.completedOnTime ? .green : .red)
+                            Image(systemName: reward.questComplete ? "checkmark.circle.fill" : "x.circle.fill")
+                                .foregroundColor(reward.questComplete ? .green : .red)
                             Text("\(reward.quest?.questName! ?? "Deleted Quest")(\(reward.obtainmentDate!.formatted(date: .numeric, time: .shortened)))")
                             Spacer()
                         }
@@ -35,8 +35,8 @@ struct QuestRewardManagerView: View {
         }
     }
     
-    func redeemReward(result: QuestReward){
-        if result.completedOnTime == false{
+    func submitKey(result: QuestReward){
+        if result.questComplete == false{
             deleteRewardNotification(offsets: [rewards.firstIndex(of: result)!])
             return
         }
