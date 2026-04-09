@@ -38,7 +38,7 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
     }
     func initLocationManager(){
         locationManager.delegate = self //! forces optional to be considered as object
-        print("LocationServices: delegate set")
+        ////print("LocationServices: delegate set")
         locationManager.activityType = CLActivityType.fitness //not sure what this does. I guess delay between updates maybe? might just be stat-tracking
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.pausesLocationUpdatesAutomatically = false
@@ -46,7 +46,7 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
     }
     
     func verifyAppLocationPerms() {
-        print("location perms: \(locationManager.authorizationStatus)")
+       // //print("location perms: \(locationManager.authorizationStatus)")
         switch locationManager.authorizationStatus {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
@@ -118,20 +118,20 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
     
     //i think this gets called automatically when the func's name occurs
     @objc func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        print("changed location manager auth")
+       // //print("changed location manager auth")
         verifyAppLocationPerms()
         initLocationManager()
     }
     
     @objc func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("__Updating Locations__")
+       // //print("__Updating Locations__")
         guard let loc = locations.last else { return }
         latestLocation = loc
-        print("__Updated Locations__")
+      //  //print("__Updated Locations__")
     }
     
     @objc func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Failed to get location: \(error.localizedDescription)")
+        //print("Failed to get location: \(error.localizedDescription)")
     }
     
     
@@ -155,7 +155,7 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
         _ manager: CLLocationManager,
         didEnterRegion region: CLRegion
     ){
-        print("entered region at \(Date.now)")
+        //print("entered region at \(Date.now)")
         guard let task = taskFor(region: region) else { return }
         task.occupiedAtLastUpdate = true
         task.lastUpdate = Date.now
@@ -166,7 +166,7 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
         _ manager: CLLocationManager,
         didExitRegion region: CLRegion
     ){
-        print("left region at \(Date.now)")
+        //print("left region at \(Date.now)")
         guard let task = taskFor(region: region) else { return }
         task.updateRecordedTime()
         task.occupiedAtLastUpdate = false

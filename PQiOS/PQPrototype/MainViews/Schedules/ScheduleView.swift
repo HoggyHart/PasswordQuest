@@ -123,6 +123,8 @@ struct ScheduleView: View {
                     .disabled(!editing)
             }
             Divider()
+            
+            //activate/lock
             if !editing{
                 ZStack{
                     HStack{
@@ -162,6 +164,7 @@ struct ScheduleView: View {
                             }
                         }
                     }
+                    //lock to block buttons
                     if schedule.isActive && schedule.nextSchLocked{
                         ZStack{
                             Image(systemName:"lock.fill" ).resizable().foregroundColor(.cyan).frame(width: 150, height: 75)

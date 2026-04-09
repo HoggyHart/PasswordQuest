@@ -53,14 +53,14 @@ struct QuestView: View {
     
     func startLiveUpdater(){
         self.liveUpdater = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){_ in
-            let bgContext = PersistenceController.preview.container.newBackgroundContext()
+            let bgContext = PersistenceController.shared.container.newBackgroundContext()
             bgContext.perform {
                 do{
                     let quest = bgContext.object(with: quest.objectID) as! Quest
                     if !quest.isActive { return; }
                     
                     quest.updateProgress()
-                    print("updated")
+                    //print("updated")
                     //if now completed
                     if !quest.isActive{
                         //check if there are any other quests still in progress
@@ -78,7 +78,7 @@ struct QuestView: View {
                     
                     try bgContext.save()
                 }catch{
-                    print("FAILED QUEST UPDATING")
+                    //print("FAILED QUEST UPDATING")
                     //mark flag to indicate failure to update
                 }
             }
@@ -87,6 +87,7 @@ struct QuestView: View {
     
     var body: some View {
         VStack{
+            //title
             HStack{
                 TextField("Quest Name", text: $quest.questName ?? "Unset")
                     .font(.title)
@@ -94,6 +95,8 @@ struct QuestView: View {
                 if editing {Image(systemName:"pencil")}
             }
             Divider()
+            
+            //task list
             HStack{
                 Text("Tasks: ")
                 Spacer()
@@ -122,6 +125,7 @@ struct QuestView: View {
             }
             .listStyle(PlainListStyle())
             
+            //schedule list
             HStack{
                 Text("Schedules")
                 Spacer()
@@ -150,14 +154,7 @@ struct QuestView: View {
                                     || schedule.getState() == 2 {//schButtonFlip.toggle()
                                 }
                             } label : {
-                                ZStack{
-                                    RoundedRectangle(cornerRadius: 1000, style: .circular)
-                                        .foregroundColor(schBtnClr(schedule: schedule, dateOnly: schButtonFlip))
-                                        .shadow(color: .black, radius: 1)
-                                    schBtnText(schedule: schedule, dateOnly: schButtonFlip)
-                                        .foregroundColor(.black)
-                                }
-                                .frame(width: schBtnWidth(schedule: schedule, dateOnly: schButtonFlip), height: 40)
+                                ScheduleInfoView(schedule: schedule)
                             }
                         }
                     }
@@ -165,7 +162,10 @@ struct QuestView: View {
                 .onDelete(perform: deleteSchedules)
             }
             .listStyle(PlainListStyle())
+            
+            //start/end/lock buttons
             HStack{
+                //lock/unlock button
                 if quest.isActive {
                     Button(){
                         context.perform{
@@ -184,6 +184,7 @@ struct QuestView: View {
                     }
                     .disabled(quest.locked ? true : false)
                 }
+                //start/end button
                 Button(){
                     startEndResetButtonFunc()
                 } label : {
@@ -193,7 +194,7 @@ struct QuestView: View {
                         Text(startEndResetButtonText()).foregroundColor(.white)
                     }
                 }
-                .disabled(quest.locked ? true : false)
+                .disabled(quest.locked)
             }.frame(width: 250, height: 50)
         }
         .padding(EdgeInsets(top: 0.0, leading: 30.0, bottom: 0.0, trailing: 30.0))
@@ -259,6 +260,7 @@ struct QuestView: View {
                 quest.end()
             default: // also for -2: inactive + no quests
                 //do nothing, unknown status
+                
                 print("no tasks/unknown quest state")
             }
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
@@ -301,78 +303,6 @@ struct QuestView: View {
         default:
             return .yellow
         }
-    }
-    
-    func schBtnText(schedule: Schedule, dateOnly: Bool = false) -> Text{
-        ///-2: inactive
-        ///-1: not started yet
-        ///0: in progress
-        ///1: failed
-        ///2: succeeded
-        var text: Text
-        switch(dateOnly ? -1 : schedule.getState()){
-        case -2:
-            text = Text("Inactive \(Image(systemName:"x.circle.fill"))")
-        case -1:
-            text = Text("\(Image(systemName: "timer")) ") + Text(!Calendar.current.isDateInToday(schedule.startTime!) ? schedule.startTime!.formatted(date: .abbreviated, time: .omitted)
-                :
-                schedule.startTime!.formatted(date: .omitted, time: .shortened))
-        case 0:
-            text = Text("\(Image(systemName: "timer")) In Progress ")
-        case 1:
-            text = Text("\(Image(systemName: "x.circle.fill")) Failed")
-        case 2:
-            text = Text("\(Image(systemName: "checkmark.circle.fill")) Success")
-        default:
-            text = Text("Error")
-        }
-        return text
-    }
-    func schBtnClr(schedule: Schedule, dateOnly: Bool = false) -> Color{
-        ///-2: inactive
-        ///-1: not started yet
-        ///0: in progress
-        ///1: failed
-        ///2: succeeded
-        var btnColor: Color
-        switch(dateOnly ? -1 : schedule.getState()){
-        case -2:
-            btnColor = .gray
-        case -1:
-            btnColor = .white
-        case 0:
-            btnColor = .yellow
-        case 1:
-            btnColor = .red
-        case 2:
-            btnColor = .green
-        default:
-            btnColor = .purple
-        }
-        return btnColor
-    }
-    func schBtnWidth(schedule: Schedule, dateOnly: Bool = false) -> CGFloat{
-        ///-2: inactive
-        ///-1: not started yet
-        ///0: in progress
-        ///1: failed
-        ///2: succeeded
-        var btnWidth: CGFloat
-        switch(dateOnly ? -1 : schedule.getState()){
-        case -2:
-            btnWidth = 105
-        case -1:
-            btnWidth = !Calendar.current.isDateInToday(schedule.startTime!) ? 150 : 105
-        case 0:
-            btnWidth = 130
-        case 1:
-            btnWidth = 100
-        case 2:
-            btnWidth = 115
-        default:
-            btnWidth = 75
-        }
-        return btnWidth
     }
     
     func addTask(){

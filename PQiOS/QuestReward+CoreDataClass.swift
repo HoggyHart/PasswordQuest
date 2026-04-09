@@ -1,8 +1,8 @@
 //
-//  QuestResult+CoreDataClass.swift
+//  QuestReward+CoreDataClass.swift
 //  PQPrototype
 //
-//  Created by William Hart on 19/01/2026.
+//  Created by William Hart on 07/04/2026.
 //
 //
 

@@ -20,7 +20,6 @@ struct LocationManagerView: View {
     @State var location: Location?
     
     @StateObject var viewModel = LocationManagerModel()
-
     
     @State var showList = true
     @State var areasDrawn: [Bool] = []
@@ -36,54 +35,65 @@ struct LocationManagerView: View {
                 ZStack(){
                     VStack{
                         ZStack{
-                            RoundedRectangle(cornerRadius: 22.5)
-                                .foregroundColor(Color(red: 0.98, green: 0.95, blue: 0.78))
-                                .frame(
-                                    height: CGFloat.minimum(CGFloat(45+45*locations.count), UIScreen.main.bounds.height*0.5))
-                            RoundedRectangle(cornerRadius: 0)
-                                .foregroundColor(Color(red: 0.3, green: 0.15, blue: 0))
-                                .frame(
-                                    height: 45)
-                                .offset(y:-CGFloat.minimum(CGFloat(45+45*locations.count), UIScreen.main.bounds.height*0.5)/2+22.5)
-                            
-                            ScrollView{
-                                VStack(spacing:0){
-                                    ForEach(locations) { loc in
-                                        HStack(spacing:20){
-                                            Button(){
-                                                toggleLocation(loc)
-                                            } label: {
-                                                Circle().foregroundColor(
-                                                    areasDrawn.count > 0
-                                                    && areasDrawn[locations.firstIndex(of: loc)!] ? .black : .white)
-                                            }
-                                            .frame(width: 30, height: 30)
-                                            Button(){
-                                                showLocation(location: loc)
-                                            } label: {
-                                                Text(loc.name!)
-                                            }
-                                            Spacer()
-                                            if editing && loc.tasks?.count == 0{
-                                                Button(){
-                                                    deleteLocation(loc)
-                                                } label:{
-                                                    Image(systemName:"xmark").foregroundColor(.red)
-                                                }
-                                            }
-                                        }.frame(height: 45)
-                                    }
-                                    .listRowBackground(Color.clear)
+                            //notepad
+                            ZStack{
+                                VStack{
+                                    //background paper
+                                    RoundedRectangle(cornerRadius: 22.5)
+                                        .foregroundColor(MyColors.parchment)
+                                        .frame(
+                                            height: CGFloat.minimum(CGFloat(35*locations.count)+45,UIScreen.main.bounds.height*0.5))
+                                    Spacer()
+                                }
+                                VStack{
+                                    //background header
+                                    RoundedRectangle(cornerRadius: 0)
+                                        .foregroundColor(MyColors.leather)
+                                        .frame(
+                                            height: 45)
+                                    Spacer()
                                 }
                             }
-                            .frame(
-                                height: CGFloat.minimum(CGFloat(45*locations.count), UIScreen.main.bounds.height*0.5))
-                            .offset(y:22.5)
-                            .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
-                                
+                            //locations
+                            VStack{ZStack{
+                                ScrollView(){
+                                    VStack(spacing:5){
+                                        ForEach(locations) { loc in
+                                            HStack(spacing:20){
+                                                Button(){
+                                                    toggleLocation(loc)
+                                                } label: {
+                                                    Circle().foregroundColor(
+                                                        areasDrawn.count > 0
+                                                        && areasDrawn[locations.firstIndex(of: loc)!] ? .black : .white)
+                                                }
+                                                .frame(width:30,height:30)
+                                                Button(){
+                                                    showLocation(location: loc)
+                                                } label: {
+                                                    Text(loc.name!)
+                                                }
+                                                Spacer()
+                                                if editing && loc.tasks?.count == 0{
+                                                    Button(){
+                                                        deleteLocation(loc)
+                                                    } label:{
+                                                        Image(systemName:"xmark").foregroundColor(.red)
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                .offset(y:45)
+                                .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
+                                .frame(height: CGFloat.minimum(CGFloat(35*locations.count),UIScreen.main.bounds.height*0.5-45))
+                            }
+                                Spacer()
+                            }
+                            
                         }.opacity(showList ? 1 : 0)
                             .disabled(showList ? false : true)
-                        Spacer()
                     }
                     //Main UI buttons
                     VStack{
@@ -91,12 +101,14 @@ struct LocationManagerView: View {
                         HStack{
                             EditButton()
                                 .foregroundColor(.white)
+                                .opacity(showList ? 1 : 0)
+                                    .disabled(showList ? false : true)
                             Spacer()
                             Button(){
                                 showList.toggle()
                             } label :{
                                 ZStack{
-                                    Circle().foregroundColor(Color(red: 0.3, green: 0.15, blue: 0))
+                                    Circle().foregroundColor(MyColors.leather)
                                     Image(systemName:"list.bullet")
                                         .foregroundColor(.white)
                                 }
@@ -130,6 +142,7 @@ struct LocationManagerView: View {
         .toolbar(){
             EditButton()
         }
+        
     }
     
     func deleteLocation(_ loc: Location){

@@ -20,16 +20,6 @@ struct PQPrototypeApp: App {
     }
 }
 
-//BUG STEPS:
-//CREATE QUEST
-//  CREATE TASK
-//  CREATE SCH -> 1 DAY DELAY -> CLOSE SCH
-// WAIT
-//COMPLETE QUEST
-//CLOSE APP
-//REOPEN
-
-
 import Foundation
 import SystemConfiguration
 import Network

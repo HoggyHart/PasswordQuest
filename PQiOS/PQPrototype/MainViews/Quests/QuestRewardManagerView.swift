@@ -21,12 +21,12 @@ struct QuestRewardManagerView: View {
             List{
                 ForEach(rewards){ reward in
                     Button(){
-                        redeemReward(result: reward)
+                        submitKey(result: reward)
                     } label: {
                         HStack{
-                            Image(systemName: reward.completedOnTime ? "checkmark.circle.fill" : "x.circle.fill")
-                                .foregroundColor(reward.completedOnTime ? .green : .red)
-                            Text("\(reward.quest!.questName!)(\(reward.obtainmentDate!.formatted(date: .numeric, time: .shortened)))")
+                            Image(systemName: reward.questComplete ? "checkmark.circle.fill" : "x.circle.fill")
+                                .foregroundColor(reward.questComplete ? .green : .red)
+                            Text("\(reward.quest?.questName! ?? "Deleted Quest")(\(reward.obtainmentDate!.formatted(date: .numeric, time: .shortened)))")
                             Spacer()
                         }
                     }
@@ -35,8 +35,8 @@ struct QuestRewardManagerView: View {
         }
     }
     
-    func redeemReward(result: QuestReward){
-        if result.completedOnTime == false{
+    func submitKey(result: QuestReward){
+        if result.questComplete == false{
             deleteRewardNotification(offsets: [rewards.firstIndex(of: result)!])
             return
         }
@@ -50,13 +50,13 @@ struct QuestRewardManagerView: View {
             
             let newData = Data(key.utf8)
             let task = URLSession.shared.uploadTask(with: request, from: newData){ data, response, error in
-                print("sent")
+                //print("sent")
                 if let error = error {
                     // Handle the error
-                    print("Error: \(error.localizedDescription)")
+                    //print("Error: \(error.localizedDescription)")
                 } else if let response = (response as? HTTPURLResponse){
                     // Process the data
-                    print(response.statusCode)
+                    //print(response.statusCode)
                     if response.statusCode == 200{
                         deleteRewardNotification(offsets: [rewards.firstIndex(of: result)!])
                     }
