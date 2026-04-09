@@ -6,7 +6,7 @@ def set_debug_logger(name):
         fmt="%(asctime)s - %(levelname)s - %(module)s - %(message)s"
     )
 
-    fileHandler = logging.FileHandler("C:/Users/willi/Desktop/code/PasswordQuest/PQPC/logs/"+datetime.datetime.now().__str__().split(':')[0].replace(' ','_')+".log")
+    fileHandler = logging.FileHandler("C:/Users/willi/Desktop/code/PasswordQuest/PQPC/logs/"+datetime.datetime.now().__str__().split('.')[0].replace(' ','_').replace(':','-')+".log")
     fileHandler.setFormatter(formatter)
 
     #printHandler = logging.StreamHandler()
