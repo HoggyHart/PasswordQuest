@@ -1,89 +1,130 @@
 {
-"isActive" : "False",
-"questInProgress" : "False",
-"schedule_everyXDays" : "False",
-"scheduleName" : "CampusQuest - Morning",
-"scheduleUUID" : "A46114D1-14A5-4C2C-A7B7-B72F15F3CA18",
-"questUUID" : "62E74230-01DA-4E84-AB25-78AD385A3E69",
-"schedule_XDayDelay" : "1",
-"startTime" : "17/03/2026, 11:30:00",
-"scheduledStartTime" : "17/03/2026, 11:30:00",
-"scheduledEndTime" : "17/03/2026, 14:00:05",
-"schedule_lastCompletionTime" : "16/03/2026, 10:08:58",
-"schedule_scheduledDays" : "0110101"
-}
-
-{
-"isActive" : "False",
-"questInProgress" : "False",
-"schedule_everyXDays" : "True",
-"scheduleName" : "The usual",
-"scheduleUUID" : "0EAFEBF4-C79F-4A13-82E2-51B1862973EE",
-"questUUID" : "65AA33C6-BDE5-4CAF-B55E-A6EDBFCA5593",
-"schedule_XDayDelay" : "5",
-"startTime" : "01/03/2026, 14:15:00",
-"scheduledStartTime" : "01/03/2026, 14:15:00",
-"scheduledEndTime" : "02/03/2026, 0:00:05",
-"schedule_lastCompletionTime" : "24/02/2026, 15:09:44",
-"schedule_scheduledDays" : "0010101"
-}
-
-{
-"isActive" : "True",
-"questInProgress" : "False",
-"schedule_everyXDays" : "True",
-"scheduleName" : "CampusQuest - Afternoon",
-"scheduleUUID" : "55B99049-3F1A-42FD-9395-88EAE0F88B96",
-"questUUID" : "62E74230-01DA-4E84-AB25-78AD385A3E69",
-"schedule_XDayDelay" : "1",
-"startTime" : "18/03/2026, 14:00:00",
-"scheduledStartTime" : "18/03/2026, 14:00:00",
-"scheduledEndTime" : "18/03/2026, 18:00:05",
-"schedule_lastCompletionTime" : "17/03/2026, 18:00:05",
-"schedule_scheduledDays" : "1111100"
-}
-
-{
-"isActive" : "False",
-"questInProgress" : "False",
-"schedule_everyXDays" : "False",
-"scheduleName" : "NEED milk ASAP",
-"scheduleUUID" : "525D0C06-3957-4CB8-B94A-FF64DB76EF38",
-"questUUID" : "65AA33C6-BDE5-4CAF-B55E-A6EDBFCA5593",
-"schedule_XDayDelay" : "1",
-"startTime" : "17/03/2026, 0:00:00",
-"scheduledStartTime" : "17/03/2026, 0:00:00",
-"scheduledEndTime" : "17/03/2026, 23:59:05",
-"schedule_lastCompletionTime" : "17/03/2026, 16:44:29",
-"schedule_scheduledDays" : "0000000"
-}
-
-{
-"isActive" : "False",
-"questInProgress" : "False",
-"schedule_everyXDays" : "False",
-"scheduleName" : "Gym2 Schedule",
-"scheduleUUID" : "B742BEC7-F78B-4449-B21C-5980890C3C3D",
-"questUUID" : "82FC182B-186B-410E-9654-7A7CD1F49392",
-"schedule_XDayDelay" : "1",
-"startTime" : "17/03/2026, 10:00:00",
-"scheduledStartTime" : "17/03/2026, 10:00:00",
-"scheduledEndTime" : "17/03/2026, 12:00:05",
-"schedule_lastCompletionTime" : "17/03/2026, 15:29:30",
-"schedule_scheduledDays" : "0000000"
-}
-
-{
-"isActive" : "True",
-"questInProgress" : "False",
-"schedule_everyXDays" : "True",
-"scheduleName" : "Bedtime Schedule",
-"scheduleUUID" : "87C9E22B-B606-440B-97ED-37C2E5BB0705",
-"questUUID" : "9D437BCE-DF6E-43E6-99CD-C1272C73A732",
-"schedule_XDayDelay" : "1",
-"startTime" : "18/03/2026, 22:45:00",
-"scheduledStartTime" : "18/03/2026, 22:45:00",
-"scheduledEndTime" : "19/03/2026, 7:00:05",
-"schedule_lastCompletionTime" : "17/03/2026, 23:35:08",
-"schedule_scheduledDays" : "1111110"
+    "scheduleList": [
+        {
+            "isActive": true,
+            "schedule_everyXDays": false,
+            "scheduleName": "GymSchedule",
+            "quest": {
+                "questName": "GymQuest",
+                "questUUID": "3DF01F23-D030-45D7-BAAA-6DB52C26AEF2",
+                "expiryDate": "10/4/2026, 8:15:27"
+            },
+            "schedule_XDayDelay": 1,
+            "scheduledStartTime": "9/4/2026, 9:30:0",
+            "scheduledEndTime": "9/4/2026, 23:59:5",
+            "schedule_scheduledDays": "1001010"
+        },
+        {
+            "isActive": true,
+            "schedule_everyXDays": true,
+            "scheduleName": "Meal B",
+            "quest": {
+                "questName": "Cooking + Cleaning",
+                "questUUID": "A96B2E4A-C16A-43FA-8248-48D442A25763",
+                "expiryDate": "10/4/2026, 8:15:27"
+            },
+            "schedule_XDayDelay": 5,
+            "scheduledStartTime": "9/4/2026, 11:0:0",
+            "scheduledEndTime": "10/4/2026, 0:0:5",
+            "schedule_scheduledDays": "0000000"
+        },
+        {
+            "isActive": true,
+            "schedule_everyXDays": true,
+            "scheduleName": "Bedtime Schedule",
+            "quest": {
+                "questName": "Bedtime",
+                "questUUID": "9D437BCE-DF6E-43E6-99CD-C1272C73A732",
+                "expiryDate": "10/4/2026, 8:15:27"
+            },
+            "schedule_XDayDelay": 1,
+            "scheduledStartTime": "9/4/2026, 21:30:0",
+            "scheduledEndTime": "10/4/2026, 7:30:5",
+            "schedule_scheduledDays": "1111110"
+        },
+        {
+            "isActive": true,
+            "schedule_everyXDays": true,
+            "scheduleName": "The usual",
+            "quest": {
+                "questName": "Shopping",
+                "questUUID": "65AA33C6-BDE5-4CAF-B55E-A6EDBFCA5593",
+                "expiryDate": "10/4/2026, 8:15:27"
+            },
+            "schedule_XDayDelay": 5,
+            "scheduledStartTime": "11/4/2026, 9:30:0",
+            "scheduledEndTime": "12/4/2026, 0:0:5",
+            "schedule_scheduledDays": "0010101"
+        },
+        {
+            "isActive": true,
+            "schedule_everyXDays": true,
+            "scheduleName": "Meal A",
+            "quest": {
+                "questName": "Cooking + Cleaning",
+                "questUUID": "A96B2E4A-C16A-43FA-8248-48D442A25763",
+                "expiryDate": "10/4/2026, 8:15:27"
+            },
+            "schedule_XDayDelay": 5,
+            "scheduledStartTime": "12/4/2026, 14:0:0",
+            "scheduledEndTime": "13/4/2026, 0:0:5",
+            "schedule_scheduledDays": "0000000"
+        },
+        {
+            "isActive": false,
+            "schedule_everyXDays": false,
+            "scheduleName": "NEED milk ASAP",
+            "quest": {
+                "questName": "Shopping",
+                "questUUID": "65AA33C6-BDE5-4CAF-B55E-A6EDBFCA5593",
+                "expiryDate": "10/4/2026, 8:15:27"
+            },
+            "schedule_XDayDelay": 1,
+            "scheduledStartTime": "23/3/2026, 8:0:0",
+            "scheduledEndTime": "23/3/2026, 9:0:5",
+            "schedule_scheduledDays": "0000000"
+        },
+        {
+            "isActive": false,
+            "schedule_everyXDays": true,
+            "scheduleName": "CampusQuest - Afternoon",
+            "quest": {
+                "questName": "CampusQuest",
+                "questUUID": "62E74230-01DA-4E84-AB25-78AD385A3E69",
+                "expiryDate": "10/4/2026, 8:15:27"
+            },
+            "schedule_XDayDelay": 1,
+            "scheduledStartTime": "31/3/2026, 15:0:0",
+            "scheduledEndTime": "31/3/2026, 18:0:5",
+            "schedule_scheduledDays": "1111100"
+        },
+        {
+            "isActive": false,
+            "schedule_everyXDays": true,
+            "scheduleName": "CampusQuest - Morning",
+            "quest": {
+                "questName": "CampusQuest",
+                "questUUID": "62E74230-01DA-4E84-AB25-78AD385A3E69",
+                "expiryDate": "10/4/2026, 8:15:27"
+            },
+            "schedule_XDayDelay": 1,
+            "scheduledStartTime": "1/4/2026, 11:0:0",
+            "scheduledEndTime": "1/4/2026, 14:0:5",
+            "schedule_scheduledDays": "0000000"
+        },
+        {
+            "isActive": false,
+            "schedule_everyXDays": false,
+            "scheduleName": "Campus Full Day",
+            "quest": {
+                "questName": "CampusQuest",
+                "questUUID": "62E74230-01DA-4E84-AB25-78AD385A3E69",
+                "expiryDate": "10/4/2026, 8:15:27"
+            },
+            "schedule_XDayDelay": 1,
+            "scheduledStartTime": "1/4/2026, 13:0:0",
+            "scheduledEndTime": "1/4/2026, 23:59:5",
+            "schedule_scheduledDays": "0000000"
+        }
+    ]
 }
