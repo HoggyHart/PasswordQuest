@@ -11,5 +11,5 @@ import CoreData
 
 @objc(QuestReward)
 public class QuestReward: NSManagedObject {
-
+    
 }

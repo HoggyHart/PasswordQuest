@@ -191,9 +191,8 @@ extension Schedule {
             while self.scheduledStartTime! < toNextStartFrom{
                 //add quest "rewards"
                 if padQuestFailures{
-                    let reward = QuestReward(context: self.managedObjectContext!)
+                    let reward = QuestReward.generateStandardKey(quest: self.quest!)
                     reward.questComplete = false
-                    reward.key = self.quest!.questUUID!
                     reward.scheduled = true
                     reward.obtainmentDate = self.scheduledEndTime!
                     self.quest!.addToRewards(reward)

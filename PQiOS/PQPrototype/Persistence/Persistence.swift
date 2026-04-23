@@ -52,7 +52,7 @@ struct PersistenceController {
             newReward.key = newQuest.questUUID!
             newReward.obtainmentDate = Date.now + TimeInterval(i*60)
             newReward.questComplete = i%2 == 0
-            newReward.type = NSQuestKeyType(keyType: QuestKeyType.defaulT)
+            newReward.keyType = newReward.questComplete ? QuestKeyType.complete : QuestKeyType.failed
         }
         do {
             try viewContext.save()

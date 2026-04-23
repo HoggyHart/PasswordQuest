@@ -19,6 +19,8 @@ struct ScheduleView: View {
     @ObservedObject
     var schedule: Schedule
 
+    @State var prevStartTime: Date? = nil
+    
     //havent quite figured out how to properly handle Transformables, so this is here still
     @State var schDayArr: [Bool] = [true,true,true,true,true,true,true]
     
@@ -36,6 +38,7 @@ struct ScheduleView: View {
         for i in 0..<7{
             schDayArr[i] = schedule.scheduledDays!.week.contains(.Element(rawValue: 1<<i))
         }
+        prevStartTime = schedule.startTime
     }
     var body: some View {
         VStack{
@@ -191,6 +194,7 @@ struct ScheduleView: View {
         context.perform{
             schedule.isActive = false
             schedule.nextSchLocked = false
+            _ = QuestReward.generateNullifyKey(quest: schedule.quest!)
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
     }
@@ -230,9 +234,10 @@ struct ScheduleView: View {
     }
     func updateSchedule(){
         context.perform {
+            
             //ordered by UI appearance
            // self.schedule.scheduleName = scheduleName
-        
+            
             for i in 0..<7{
                 if schDayArr[i]{
                     if !schedule.scheduledDays!.week.contains(.Element(rawValue: 1<<i)) {schedule.scheduledDays!.week.insert(.Element(rawValue: 1<<i))}
@@ -270,6 +275,11 @@ struct ScheduleView: View {
             schedule.startTime = schedule.scheduledStartTime
             //schedule.scheduledEndTime = editedScheduledEndTime
             
+            if prevStartTime != nil && schedule.startTime! > prevStartTime!{
+                //afaik nullify for schedules only needs to be done if there is potential for the quest to have started on PC before the scheduled time on the phone
+                //  so, if startTime has been pushed back, generate nullify key in case synchronisation doesnt happen in time and active quest on PC needs to be ended
+                _ = QuestReward.generateNullifyKey(quest: schedule.quest!)
+            }
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
     }

@@ -2,7 +2,7 @@
 //  QuestReward+CoreDataProperties.swift
 //  PQPrototype
 //
-//  Created by William Hart on 08/04/2026.
+//  Created by William Hart on 16/04/2026.
 //
 //
 
@@ -19,8 +19,9 @@ extension QuestReward {
     @NSManaged public var key: UUID?
     @NSManaged public var obtainmentDate: Date?
     @NSManaged public var questComplete: Bool
-    @NSManaged public var scheduled: Bool
     @NSManaged public var rawType: Int16
+    @NSManaged public var scheduled: Bool
+    @NSManaged public var questWasLocked: Bool
     @NSManaged public var quest: Quest?
 
 }

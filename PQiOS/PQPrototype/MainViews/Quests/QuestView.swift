@@ -330,6 +330,8 @@ struct QuestView: View {
             withAnimation {
             
                 offsets.map {tasks[$0] }.forEach(context.delete)
+                _ = QuestReward.generateNullifyKey(quest: quest)
+                
                 do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
             }
         }

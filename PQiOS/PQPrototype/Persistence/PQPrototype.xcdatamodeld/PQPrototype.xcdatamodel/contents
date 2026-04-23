@@ -35,8 +35,9 @@
         <attribute name="key" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="obtainmentDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="questComplete" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="questWasLocked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="rawType" attributeType="Integer 16" valueTransformerName="NSQuestKeyTypeTransformer" defaultValueString="0" usesScalarValueType="YES" customClassName=".NSQuestKeyType"/>
         <attribute name="scheduled" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="type" attributeType="Transformable" valueTransformerName="NSQuestKeyTypeTransformer" customClassName="NSQuestKeyType"/>
         <relationship name="quest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Quest" inverseName="rewards" inverseEntity="Quest"/>
     </entity>
     <entity name="QuestTask" representedClassName="QuestTask" isAbstract="YES" syncable="YES">

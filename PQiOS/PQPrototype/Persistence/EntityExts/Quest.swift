@@ -18,6 +18,9 @@ extension Quest{
             (t as! QuestTask).start()
         }
         sendStartQuestSignal()
+        
+        //initial update to track task current states (i.e. location set for LocationTask)
+        self.updateProgress()
     }
     
     func toJson() -> String{
@@ -150,11 +153,7 @@ extension Quest{
         if self.isActive{
             
             //create quest reward (key)
-            let reward = QuestReward(context: self.managedObjectContext!)
-                        reward.questComplete = tasksComplete()
-                        reward.key = self.questUUID!
-            reward.obtainmentDate = Date.now
-            reward.scheduled = getCurrentScheduler() != nil
+            let reward = QuestReward.generateStandardKey(quest: self)
             self.addToRewards(reward)
             
             //end scheduler
