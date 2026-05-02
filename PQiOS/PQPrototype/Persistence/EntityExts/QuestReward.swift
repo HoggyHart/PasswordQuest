@@ -49,7 +49,7 @@ extension QuestReward{
         data.append("\"completedOnTime\" : \"" + MyJson.toJson(self.questComplete) + "\",\n")
         data.append("\"obtainmentDate\" : \"" + self.obtainmentDate!.formatted(date: .numeric, time: .standard) + "\",\n")
         data.append("\"scheduled\" : \"" + MyJson.toJson(self.scheduled) + "\",\n")
-        data.append("\"type\" : \"" + self.keyType.name + "\"\n") //Not yet implemented. type could be nullify (in case of quest deletion / uuid change
+        data.append("\"type\" : \"" + self.keyType.name + "\",\n") //Not yet implemented. type could be nullify (in case of quest deletion / uuid change
         data.append("\"questLocked\" : \"" +  MyJson.toJson(self.questWasLocked) + "\"\n")
         data.append("}")
         return data

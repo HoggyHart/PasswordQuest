@@ -36,10 +36,88 @@ struct ScheduleView: View {
     
     func loadData(){
         for i in 0..<7{
-            schDayArr[i] = schedule.scheduledDays!.week.contains(.Element(rawValue: 1<<i))
+            schDayArr[i] = schedule.scheduledDays.contains(.Element(rawValue: 1<<i))
         }
         prevStartTime = schedule.startTime
     }
+    
+    // UI Elements
+    var activeToggleButton: some View {
+        Button(){
+            toggleScheduleActiveStatus()
+        } label : {
+            VStack(spacing:0){
+                ZStack{
+                    RoundedRectangle(cornerRadius: 50, style: .circular)
+                        .foregroundColor(schedule.isActive ? .green : .red)
+                    Image(systemName: schedule.isActive ? "checkmark" : "xmark")
+                        .foregroundColor(schedule.isActive ? .black : .white)
+                        .font(.title2)
+                }
+                .frame(width: 50, height: 50)
+                Text(schedule.isActive ? "Active" : "Inactive")
+            }
+        }
+    }
+    
+    var inputScheduledInterval: some View {
+        HStack(spacing: 0){
+            Text("Schedule every \(schedule.xDayDelay) days")
+            if editing {
+                Spacer()
+                Stepper(label: {},
+                        onIncrement: {schedule.xDayDelay+=1},
+                        onDecrement: {
+                            schedule.xDayDelay-=1;
+                            if schedule.xDayDelay<=0 {
+                                schedule.xDayDelay = 1}}
+                ).disabled(!editing)
+                    .frame(alignment: .trailing)
+                    .labelsHidden()
+            }
+        }
+    }
+    
+    var inputPatternedSchedule: some View {
+        HStack{
+            Text("Schedule every")
+            Spacer()
+            ForEach(0..<7) { i in
+                Button(){
+                    schDayArr[i].toggle()
+                } label: {
+                    ZStack{
+                        Image(systemName: schDayArr[i] ? "circle.fill" : "circle")
+                        .foregroundColor(schDayArr[i] ? .green : .red)
+                        Text(StringUtils.firstXLettersOfString(str: Week.daysOfTheWeek[i], x: 1)).foregroundColor(.black)
+                    }
+                }
+                .disabled(!editing)
+            }
+        }
+    }
+    
+    var scheduleLockBtn: some View {
+        Button(){
+            context.perform{
+                schedule.nextSchLocked.toggle()
+                do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+            }
+        } label :{
+            VStack(spacing:0){
+                ZStack{
+                    RoundedRectangle(cornerRadius: 50, style: .circular)
+                        .foregroundColor(schedule.nextSchLocked ? .red : .green)
+                    Image(systemName: schedule.nextSchLocked ? "lock.fill" : "lock.open.fill")
+                        .foregroundColor(schedule.nextSchLocked ? .black : .white)
+                        .font(.title2)
+                }
+                .frame(width: 50, height: 50)
+                Text(schedule.nextSchLocked ? "Locked" : "Unlocked")
+            }
+        }
+    }
+    
     var body: some View {
         VStack{
             // --EDIT TOOLBAR ==needed since ScheduleView is raised as a form from the bottom of QuestView, it needs its own edit button.
@@ -68,39 +146,9 @@ struct ScheduleView: View {
                             .labelsHidden()
                     }
                     if schedule.everyXDays{
-                        HStack(spacing: 0){
-                            Text("Schedule every \(schedule.xDayDelay) days")
-                            if editing {
-                                Spacer()
-                                Stepper(label: {}, 
-                                        onIncrement: {schedule.xDayDelay+=1},
-                                        onDecrement: {
-                                            schedule.xDayDelay-=1;
-                                            if schedule.xDayDelay<=0 {
-                                                schedule.xDayDelay = 1}}
-                                ).disabled(!editing)
-                                    .frame(alignment: .trailing)
-                                    .labelsHidden()
-                            }
-                        }
+                        inputScheduledInterval
                     }else{
-                        HStack{
-                            Text("Schedule every")
-                            Spacer()
-                            ForEach(0..<7) { i in
-                                Button(){
-                                    schDayArr[i].toggle()
-                                } label: {
-                                    ZStack{
-                                        Image(systemName: schDayArr[i] ?
-                                              "circle.fill" : "circle")
-                                        .foregroundColor(schDayArr[i] ? .green : .red)
-                                        Text(StringUtils.firstXLettersOfString(str: Week.daysOfTheWeek[i], x: 1)).foregroundColor(.black)
-                                    }
-                                }
-                                .disabled(!editing)
-                            }
-                        }
+                        inputPatternedSchedule
                     }
                 }
             }
@@ -114,7 +162,7 @@ struct ScheduleView: View {
                     .labelsHidden()
                     .disabled(!editing)
                 //if end time hour+min is before start time hour+min
-                if endBeforeStart(){
+                if isEndBeforeStart(){
                     Text("next day")
                 }
                 Spacer()
@@ -127,94 +175,83 @@ struct ScheduleView: View {
             }
             Divider()
             
-            //activate/lock
+            //toggle active + toggle lock buttons
             if !editing{
                 ZStack{
                     HStack{
-                        Button(){
-                            toggleScheduleActiveStatus()
-                        } label : {
-                            VStack(spacing:0){
-                                ZStack{
-                                    RoundedRectangle(cornerRadius: 50, style: .circular)
-                                        .foregroundColor(schedule.isActive ? .green : .red)
-                                    Image(systemName: schedule.isActive ? "checkmark" : "xmark")
-                                        .foregroundColor(schedule.isActive ? .black : .white)
-                                        .font(.title2)
-                                }
-                                .frame(width: 50, height: 50)
-                                Text(schedule.isActive ? "Active" : "Inactive")
-                            }
-                        }
+                        
+                        activeToggleButton
+                        
                         if schedule.isActive{
-                            Button(){
-                                context.perform{
-                                    schedule.nextSchLocked.toggle()
-                                    do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-                                }
-                            } label :{
-                                VStack(spacing:0){
-                                    ZStack{
-                                        RoundedRectangle(cornerRadius: 50, style: .circular)
-                                            .foregroundColor(schedule.nextSchLocked ? .red : .green)
-                                        Image(systemName: schedule.nextSchLocked ? "lock.fill" : "lock.open.fill")
-                                            .foregroundColor(schedule.nextSchLocked ? .black : .white)
-                                            .font(.title2)
-                                    }
-                                    .frame(width: 50, height: 50)
-                                    Text(schedule.nextSchLocked ? "Locked" : "Unlocked")
-                                }
-                            }
+                            scheduleLockBtn
                         }
                     }
                     //lock to block buttons
                     if schedule.isActive && schedule.nextSchLocked{
                         ZStack{
-                            Image(systemName:"lock.fill" ).resizable().foregroundColor(.cyan).frame(width: 150, height: 75)
+                            Image(systemName:"lock.fill").resizable().foregroundColor(.cyan).frame(width: 150, height: 75)
                             Text(schedule.nxtDateTxt())
                         }
                     }
                 }
+                //start early button, to speed up locked quests
+                Button(){
+                    startScheduleEarly()
+                } label: {
+                    Text("Start Early")
+                }
             }
         }
         .onAppear(perform: loadData)
-        .onChange(of: editing) { nowEditing in
-            if nowEditing == true{
-                deactivateSchedule()
-            }else{
-                updateSchedule()
-            }
-        }
-        .onDisappear {
-            undoUnsavedChanges()
-        }
+        .onChange(of: editing, perform: onEditChange)
+        .onDisappear(perform: undoChanges)
     }
     
-    func deactivateSchedule(){
-        context.perform{
-            schedule.isActive = false
-            schedule.nextSchLocked = false
-            _ = QuestReward.generateNullifyKey(quest: schedule.quest!)
+    func startScheduleEarly(){
+        context.perform {
+            schedule.startTime = Date.now
+            schedule.quest!.start(withSchedule: schedule)
+            
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
     }
-    func undoUnsavedChanges(){
+    func onEditChange(nowEditing: Bool){
+        context.perform {
+            if nowEditing && schedule.isActive{
+                schedule.toggleActive()
+            }else{
+                applyChanges()
+            }
+            do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+        }
+    }
+    
+    func undoChanges(){
         context.perform{
             context.rollback()
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
     }
-    func toggleScheduleActiveStatus(){
+    
+    //try to active/deactivate schedule
+    func toggleScheduleActiveStatus(areYouSure: Bool = false){
         context.perform {
-            //if schedule has not ended yet
-            if schedule.scheduledPeriodRelativity() > -1 {
-                schedule.isActive.toggle()
-                //ensure if *activating* schedule, it does not auto-lock (only occurs as a bug)
-                if schedule.isActive {schedule.nextSchLocked = false}
+            
+            var scheduleOnTimeline = schedule.scheduledPeriodRelativity()
+            //if scheduled period has passed, move scheduled period to now/future (whichever fits the scheduled pattern)
+            if scheduleOnTimeline == -1{
+                _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now)
+                //FIX: and add a popup to say (couldnt activate, moved schedule forward to feasible time)
             }
-            //else if schedule has already passed, it cannot be activated.
-            //  update start time to next opportunity
-            else { _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now) }
+            //if scheduled period is not in the past
+            else {
+                if scheduleOnTimeline == 0 && !areYouSure{
+                    //FIX: add popup "scheduled period is right now, are you sure?"
+                    return
+                }
+                //if scheduled period is in future or force start, go ahead and toggle active status
+                schedule.toggleActive()
+            }
             
             //try saving this attribute change
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
@@ -222,17 +259,11 @@ struct ScheduleView: View {
         }
     }
     
-    func synchroniseWithServer(){
-        context.perform {
-            schedule.synchronise()
-            do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-        }
-    }
-    
-    func endBeforeStart() -> Bool{
+    func isEndBeforeStart() -> Bool{
         return schedule.scheduledStartTime! > Calendar.current.date(  bySettingHour: Calendar.current.component(.hour, from: schedule.scheduledEndTime!), minute: Calendar.current.component(.minute, from: schedule.scheduledEndTime!), second: Calendar.current.component(.second, from: schedule.scheduledEndTime!), of: schedule.scheduledStartTime!)!
     }
-    func updateSchedule(){
+    
+    func applyChanges(){
         context.perform {
             
             //ordered by UI appearance
@@ -240,10 +271,10 @@ struct ScheduleView: View {
             
             for i in 0..<7{
                 if schDayArr[i]{
-                    if !schedule.scheduledDays!.week.contains(.Element(rawValue: 1<<i)) {schedule.scheduledDays!.week.insert(.Element(rawValue: 1<<i))}
+                    if !schedule.scheduledDays.contains(.Element(rawValue: 1<<i)) {schedule.scheduledDays.insert(.Element(rawValue: 1<<i))}
                 }else{
-                    if schedule.scheduledDays!.week.contains(.Element(rawValue: 1<<i))
-                    {schedule.scheduledDays!.week.remove(.Element(rawValue: 1<<i))}
+                    if schedule.scheduledDays.contains(.Element(rawValue: 1<<i))
+                    {schedule.scheduledDays.remove(.Element(rawValue: 1<<i))}
                 }
             }
             

@@ -43,7 +43,7 @@ struct PersistenceController {
                 newSchedule.lateInit(quest: newQuest)
                 newSchedule.startTime?.addTimeInterval(Double(-i*2 + 4))
                 if i%2 == 0{
-                    newSchedule.isActive.toggle()
+                    newSchedule.toggleActive()
                 }
             }
             

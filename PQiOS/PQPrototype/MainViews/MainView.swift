@@ -21,6 +21,16 @@ struct MainView: View {
     let locMan = LocationServices.service
     
     init(){
+        Task {
+                let center = UNUserNotificationCenter.current()
+
+
+                do {
+                    try await center.requestAuthorization(options: [.alert, .sound, .badge])
+                } catch {
+                    // Handle the error here.
+                }
+        }
         // QuestManager.createdQuestsArr = QuestManager.createdQuests.dropLast()
         if MainView.scheduleAndQuestUpdater == nil{
             MainView.scheduleAndQuestUpdater = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){_ in
@@ -54,8 +64,10 @@ struct MainView: View {
                                 }
                             }
                             
-                            //  ensures Date.now is < end time
+                            // if scheduled period has already passed, 'miss' scheduled periods until updated schedule period hasn't passed yet
                             if Date.now > schedule.getActualEndTime(){
+                                
+                                schedule.nextSchLocked = false
                                 _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now,padQuestFailures: true)
                             }
                             //starting scheduled quest
@@ -66,12 +78,7 @@ struct MainView: View {
                             //if past time to start (and < end thx to prev check)
                             //start!
                             else{
-                                quest.start(intendedStartTime: schedule.startTime!)
-                                if schedule.nextSchLocked{
-                                    quest.locked = true
-                                    schedule.nextSchLocked = false
-                                }
-                                schedule.lastScheduleCompletedOnTime = false
+                                quest.start(withSchedule: schedule)
                             }
                         }
                         try bgContext.save()

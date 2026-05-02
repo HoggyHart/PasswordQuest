@@ -8,19 +8,28 @@ extension Quest{
         self.questName = name
         self.questUUID = UUID()
     }
-    //start time usually is Date.now, but care must be taken to sync it with a scheduler if appropriate, so pass in the exact Date object
-    public func start(intendedStartTime: Date){
-        if tasks!.allObjects.isEmpty { return }
-        reset()
+    
+    public func start(withSchedule sch: Schedule? = nil){
+        if tasks!.allObjects.isEmpty { return } //if no tasks, nothing to start
+        
+        self.reset()
         self.isActive = true
-        self.questStartTime = intendedStartTime
+        self.questStartTime = sch?.startTime ?? Date.now
+        self.sendStartQuestSignal()
+        
+        //start task progress tracking
         for t in tasks!{
             (t as! QuestTask).start()
         }
-        sendStartQuestSignal()
-        
-        //initial update to track task current states (i.e. location set for LocationTask)
         self.updateProgress()
+        
+        //if scheduled start, check schedule data that impacts quest
+        guard let sch = sch else {return}
+        if sch.nextSchLocked{
+            self.locked = true
+            sch.nextSchLocked = false
+        }
+        sch.lastScheduleCompletedOnTime = false
     }
     
     func toJson() -> String{
@@ -139,6 +148,7 @@ extension Quest{
         }
     }
     
+    //set progress to 0 and deactivate
     public func reset(){
         for qTask in self.tasks!{
             (qTask as! QuestTask).reset()
@@ -169,5 +179,9 @@ extension Quest{
     public func fail(){
         //just end, as proper failure mechanics are not yet implemented
         end()
+    }
+    
+    public func delay(){
+        //https://developer.apple.com/documentation/usernotifications/untimeintervalnotificationtrigger
     }
 }

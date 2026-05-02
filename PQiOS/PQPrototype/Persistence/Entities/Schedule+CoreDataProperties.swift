@@ -21,15 +21,14 @@ extension Schedule {
     @NSManaged public var nextSchLocked: Bool
     @NSManaged public var lastEndDate: Date?
     @NSManaged public var lastScheduleCompletedOnTime: Bool
-    @NSManaged public var scheduledDays: NSWeek?
+    @NSManaged public var rawScheduledDays: Int16
     @NSManaged public var scheduledEndTime: Date?
     @NSManaged public var scheduledStartTime: Date?
     @NSManaged public var scheduleName: String?
     @NSManaged public var scheduleUUID: UUID?
     @NSManaged public var startTime: Date?
-    @NSManaged public var synchronised: Bool
+    @NSManaged public var notificationIDs: String?
     @NSManaged public var xDayDelay: Int32
-    @NSManaged public var scheduledDaysInt: Int16
     @NSManaged public var quest: Quest?
 
 }

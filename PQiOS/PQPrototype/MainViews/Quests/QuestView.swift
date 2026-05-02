@@ -254,7 +254,7 @@ struct QuestView: View {
                 quest.reset()
                 //inactive
             case 0:
-                quest.start(intendedStartTime: Date.now)
+                quest.start()
                 //active
             case 1:
                 quest.end()

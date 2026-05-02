@@ -51,13 +51,13 @@
         <attribute name="lastEndDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="lastScheduleCompletedOnTime" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="nextSchLocked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="scheduledDays" attributeType="Transformable" valueTransformerName="NSWeekTransformer" customClassName=".NSWeek"/>
+        <attribute name="notificationIDs" attributeType="String" defaultValueString=""/>
+        <attribute name="rawScheduledDays" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="scheduledEndTime" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="scheduledStartTime" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="scheduleName" attributeType="String"/>
         <attribute name="scheduleUUID" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="startTime" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="synchronised" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="xDayDelay" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES"/>
         <relationship name="quest" maxCount="1" deletionRule="Nullify" destinationEntity="Quest" inverseName="schedulers" inverseEntity="Quest"/>
     </entity>
