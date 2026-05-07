@@ -84,6 +84,16 @@ extension LocationOccupationQuestTask: MKMapViewDelegate {
         return (nf.string(for:  prcnt) ?? "?")+"% of \(requiredOccupationDuration/magnitude) \(unit) spent at \(self.taskArea!.name!)"
     }
     
+    override func currentStatus() -> String {
+        if !self.quest!.isActive { return "" }
+        let prcnt = recordedOccupationTime/requiredOccupationDuration * 100.0
+        let nf = NumberFormatter()
+        nf.roundingMode = .up
+        nf.minimumFractionDigits = 0
+        nf.maximumFractionDigits = 3
+        return nf.string(for:  prcnt)! + "%"
+    }
+    
     @MainActor
     public func mapView(_ mapView: MKMapView, rendererFor overlay: any MKOverlay) -> MKOverlayRenderer{
         if overlay is MKCircle{

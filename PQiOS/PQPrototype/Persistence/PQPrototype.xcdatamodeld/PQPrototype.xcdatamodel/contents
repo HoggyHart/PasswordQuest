@@ -37,7 +37,7 @@
         <attribute name="questComplete" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="questWasLocked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="rawType" attributeType="Integer 16" valueTransformerName="NSQuestKeyTypeTransformer" defaultValueString="0" usesScalarValueType="YES" customClassName=".NSQuestKeyType"/>
-        <attribute name="scheduled" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="scheduled" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="quest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Quest" inverseName="rewards" inverseEntity="Quest"/>
     </entity>
     <entity name="QuestTask" representedClassName="QuestTask" isAbstract="YES" syncable="YES">

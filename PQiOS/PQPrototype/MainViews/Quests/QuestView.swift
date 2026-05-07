@@ -113,10 +113,11 @@ struct QuestView: View {
                     Button(){
                         inspectedTaskID = qtask.objectID
                     } label:{
-                        HStack{
+                        HStack(){
                             Image(systemName: "circle.fill")
                                 .foregroundColor( taskStatusColor(task: qtask) )
-                            Text(qtask.toString())
+                                .shadow(color:.black, radius: 1)
+                            Text(qtask.currentStatus() + " - " + qtask.name!)
                             Spacer()
                         }
                     }

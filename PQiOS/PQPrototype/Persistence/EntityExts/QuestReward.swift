@@ -25,7 +25,7 @@ extension QuestReward{
         key.key = quest.questUUID!
         key.questComplete = quest.tasksComplete()
         key.obtainmentDate = Date.now
-        key.scheduled = quest.getCurrentScheduler() != nil
+        key.scheduled = quest.getCurrentScheduler()?.scheduleUUID
         key.keyType = key.questComplete ? QuestKeyType.complete : QuestKeyType.failed
         key.questWasLocked = quest.locked
         quest.addToRewards(key)
@@ -36,7 +36,7 @@ extension QuestReward{
         key.key = quest.questUUID!
         key.questComplete = quest.tasksComplete() //relevant to ignore obtainmentDate, if the quest was complete when deleted then theres no reason to assume foul play -> do not punish user when nullify key is redeemed
         key.obtainmentDate = Date.now //used to determine if the quest was edited pre-schedule (fine) or during schedule (cheating)
-        key.scheduled = quest.getCurrentScheduler() != nil //same as last one //not sure if necessary? this info can be inferred by obtainmentDate
+        key.scheduled = quest.getCurrentScheduler()?.scheduleUUID //same as last one //not sure if necessary? this info can be inferred by obtainmentDate
         key.keyType = QuestKeyType.nullify
         key.questWasLocked = quest.locked
         quest.addToRewards(key)
@@ -48,7 +48,7 @@ extension QuestReward{
         data.append("\"questUUID\" : \"" + key!.uuidString + "\",\n")
         data.append("\"completedOnTime\" : \"" + MyJson.toJson(self.questComplete) + "\",\n")
         data.append("\"obtainmentDate\" : \"" + self.obtainmentDate!.formatted(date: .numeric, time: .standard) + "\",\n")
-        data.append("\"scheduled\" : \"" + MyJson.toJson(self.scheduled) + "\",\n")
+        data.append("\"scheduled\" : \"" + (self.scheduled?.uuidString ?? "0") + "\",\n")
         data.append("\"type\" : \"" + self.keyType.name + "\",\n") //Not yet implemented. type could be nullify (in case of quest deletion / uuid change
         data.append("\"questLocked\" : \"" +  MyJson.toJson(self.questWasLocked) + "\"\n")
         data.append("}")

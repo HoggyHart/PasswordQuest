@@ -20,7 +20,7 @@ extension QuestReward {
     @NSManaged public var obtainmentDate: Date?
     @NSManaged public var questComplete: Bool
     @NSManaged public var rawType: Int16
-    @NSManaged public var scheduled: Bool
+    @NSManaged public var scheduled: UUID?
     @NSManaged public var questWasLocked: Bool
     @NSManaged public var quest: Quest?
 

@@ -220,7 +220,7 @@ extension Schedule {
                 if padQuestFailures{
                     let reward = QuestReward.generateStandardKey(quest: self.quest!)
                     reward.questComplete = false
-                    reward.scheduled = true
+                    reward.scheduled = self.scheduleUUID
                     reward.obtainmentDate = self.scheduledEndTime!
                     self.quest!.addToRewards(reward)
                 }
