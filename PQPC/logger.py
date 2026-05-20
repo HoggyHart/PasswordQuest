@@ -20,7 +20,3 @@ def set_debug_logger(name):
     logger.addHandler(fileHandler)
    #logger.addHandler(printHandler)
     return logger
-
-def printAndLog(logger, msg):
-    print(msg)
-    logger.debug(msg)

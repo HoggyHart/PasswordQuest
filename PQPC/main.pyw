@@ -25,8 +25,7 @@ if __name__ == "__main__":
             ComputerControl.blockInput() #input is unblocked in main program
         subprocess.Popen(
             ["C:/Python314/python.exe", "C:/Users/willi/Desktop/code/PasswordQuest/PQPC/PQGUI/PasswordQuest.py"],
-                creationflags=( subprocess.DETACHED_PROCESS |
-                        subprocess.CREATE_NEW_PROCESS_GROUP),
+                creationflags= (subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP),
                         stdout=subprocess.DEVNULL,
                         stderr=subprocess.DEVNULL
                 )
