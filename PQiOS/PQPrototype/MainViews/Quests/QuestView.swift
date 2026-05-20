@@ -113,10 +113,11 @@ struct QuestView: View {
                     Button(){
                         inspectedTaskID = qtask.objectID
                     } label:{
-                        HStack{
+                        HStack(){
                             Image(systemName: "circle.fill")
                                 .foregroundColor( taskStatusColor(task: qtask) )
-                            Text(qtask.toString())
+                                .shadow(color:.black, radius: 1)
+                            Text(qtask.currentStatus() + " - " + qtask.name!)
                             Spacer()
                         }
                     }
@@ -254,7 +255,7 @@ struct QuestView: View {
                 quest.reset()
                 //inactive
             case 0:
-                quest.start(intendedStartTime: Date.now)
+                quest.start()
                 //active
             case 1:
                 quest.end()
@@ -330,6 +331,8 @@ struct QuestView: View {
             withAnimation {
             
                 offsets.map {tasks[$0] }.forEach(context.delete)
+                _ = QuestReward.generateNullifyKey(quest: quest)
+                
                 do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
             }
         }

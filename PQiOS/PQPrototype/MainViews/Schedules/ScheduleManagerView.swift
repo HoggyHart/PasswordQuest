@@ -70,9 +70,6 @@ struct ScheduleManagerView: View {
                     // Process the data
                     //print("response: \(response.statusCode)")
                     if response.statusCode == 200{
-                        for schedule in schedules{
-                            schedule.synchronised = true
-                        }
                     }
                 }
             }

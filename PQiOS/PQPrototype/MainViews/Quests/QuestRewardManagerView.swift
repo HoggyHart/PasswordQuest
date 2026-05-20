@@ -36,10 +36,10 @@ struct QuestRewardManagerView: View {
     }
     
     func submitKey(result: QuestReward){
-        if result.questComplete == false{
-            deleteRewardNotification(offsets: [rewards.firstIndex(of: result)!])
-            return
-        }
+       // if result.questComplete == false{
+       //     deleteRewardNotification(offsets: [rewards.firstIndex(of: result)!])
+       //     return
+       // }
         if let url = URL(string:"http://172.20.10.5:1617/redeem") {
             var request = URLRequest(url: url)
             

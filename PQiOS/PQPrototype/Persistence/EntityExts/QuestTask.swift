@@ -36,4 +36,9 @@ extension QuestTask{
         return "No Task Completion Requirement"
     }
     
+    @objc
+    func currentStatus() -> String{
+        return "CorruptedTask"
+    }
+    
 }
