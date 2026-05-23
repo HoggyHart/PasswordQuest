@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="22H625" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Location" representedClassName="Location" syncable="YES">
+    <entity name="GlobalQuestLoot" representedClassName=".GlobalQuestLoot" syncable="YES">
+        <attribute name="timeInABottle" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="Location" representedClassName=".Location" syncable="YES">
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" defaultValueString="Unnamed Location"/>
         <attribute name="radius" attributeType="Double" defaultValueString="100" usesScalarValueType="YES"/>
         <relationship name="tasks" toMany="YES" deletionRule="Nullify" destinationEntity="LocationOccupationQuestTask" inverseName="taskArea" inverseEntity="LocationOccupationQuestTask"/>
     </entity>
-    <entity name="LocationOccupationQuestTask" representedClassName="LocationOccupationQuestTask" parentEntity="QuestTask" syncable="YES">
+    <entity name="LocationOccupationQuestTask" representedClassName=".LocationOccupationQuestTask" parentEntity="QuestTask" syncable="YES">
         <attribute name="lastUpdate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="occupiedAtLastUpdate" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="occupiedAtLastUpdate" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="recordedOccupationTime" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="requiredOccupationDuration" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="taskArea" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="tasks" inverseEntity="Location"/>
     </entity>
-    <entity name="Quest" representedClassName="Quest" syncable="YES">
+    <entity name="Quest" representedClassName=".Quest" syncable="YES">
         <attribute name="isActive" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="locked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="maxQuestDuration" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -22,30 +25,25 @@
         <attribute name="questStartTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="questUUID" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="restrictedDeviceIPs" attributeType="String"/>
-        <relationship name="rewards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QuestReward" inverseName="quest" inverseEntity="QuestReward"/>
+        <relationship name="rewards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QuestKey" inverseName="quest" inverseEntity="QuestKey"/>
         <relationship name="schedulers" toMany="YES" deletionRule="Cascade" destinationEntity="Schedule" inverseName="quest" inverseEntity="Schedule"/>
         <relationship name="tasks" toMany="YES" deletionRule="Cascade" destinationEntity="QuestTask" inverseName="quest" inverseEntity="QuestTask"/>
     </entity>
-    <entity name="QuestKey" representedClassName="QuestKey" syncable="YES">
-        <attribute name="acquisitionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="questUUID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="type" optional="YES" attributeType="String"/>
-    </entity>
-    <entity name="QuestReward" representedClassName="QuestReward" syncable="YES">
+    <entity name="QuestKey" representedClassName=".QuestKey" syncable="YES">
+        <attribute name="hidden" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO"/>
         <attribute name="key" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="obtainmentDate" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="questComplete" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="questWasLocked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="rawType" attributeType="Integer 16" valueTransformerName="NSQuestKeyTypeTransformer" defaultValueString="0" usesScalarValueType="YES" customClassName=".NSQuestKeyType"/>
         <attribute name="scheduled" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="quest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Quest" inverseName="rewards" inverseEntity="Quest"/>
     </entity>
-    <entity name="QuestTask" representedClassName="QuestTask" isAbstract="YES" syncable="YES">
+    <entity name="QuestTask" representedClassName=".QuestTask" isAbstract="YES" syncable="YES">
         <attribute name="completed" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="quest" maxCount="1" deletionRule="Nullify" destinationEntity="Quest" inverseName="tasks" inverseEntity="Quest"/>
     </entity>
-    <entity name="Schedule" representedClassName="Schedule" syncable="YES">
+    <entity name="Schedule" representedClassName=".Schedule" syncable="YES">
         <attribute name="everyXDays" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isActive" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lastEndDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>

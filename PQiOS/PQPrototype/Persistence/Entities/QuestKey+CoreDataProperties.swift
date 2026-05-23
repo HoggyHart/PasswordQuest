@@ -2,7 +2,7 @@
 //  QuestKey+CoreDataProperties.swift
 //  PQPrototype
 //
-//  Created by William Hart on 06/04/2026.
+//  Created by William Hart on 21/05/2026.
 //
 //
 
@@ -16,9 +16,13 @@ extension QuestKey {
         return NSFetchRequest<QuestKey>(entityName: "QuestKey")
     }
 
-    @NSManaged public var questUUID: UUID?
-    @NSManaged public var acquisitionDate: Date?
-    @NSManaged public var type: String?
+    @NSManaged public var hidden: NSNumber?
+    @NSManaged public var key: UUID?
+    @NSManaged public var obtainmentDate: Date?
+    @NSManaged public var questWasLocked: Bool
+    @NSManaged public var rawType: Int16
+    @NSManaged public var scheduled: UUID?
+    @NSManaged public var quest: Quest?
 
 }
 

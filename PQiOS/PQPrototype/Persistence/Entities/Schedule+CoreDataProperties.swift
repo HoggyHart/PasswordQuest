@@ -2,7 +2,7 @@
 //  Schedule+CoreDataProperties.swift
 //  PQPrototype
 //
-//  Created by William Hart on 01/02/2026.
+//  Created by William Hart on 21/05/2026.
 //
 //
 
@@ -18,16 +18,16 @@ extension Schedule {
 
     @NSManaged public var everyXDays: Bool
     @NSManaged public var isActive: Bool
-    @NSManaged public var nextSchLocked: Bool
     @NSManaged public var lastEndDate: Date?
     @NSManaged public var lastScheduleCompletedOnTime: Bool
+    @NSManaged public var nextSchLocked: Bool
+    @NSManaged public var notificationIDs: String?
     @NSManaged public var rawScheduledDays: Int16
     @NSManaged public var scheduledEndTime: Date?
     @NSManaged public var scheduledStartTime: Date?
     @NSManaged public var scheduleName: String?
     @NSManaged public var scheduleUUID: UUID?
     @NSManaged public var startTime: Date?
-    @NSManaged public var notificationIDs: String?
     @NSManaged public var xDayDelay: Int32
     @NSManaged public var quest: Quest?
 

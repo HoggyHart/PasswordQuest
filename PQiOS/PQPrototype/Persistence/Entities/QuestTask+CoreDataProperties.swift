@@ -2,12 +2,13 @@
 //  QuestTask+CoreDataProperties.swift
 //  PQPrototype
 //
-//  Created by William Hart on 27/12/2025.
+//  Created by William Hart on 21/05/2026.
 //
 //
 
 import Foundation
 import CoreData
+
 
 extension QuestTask {
 
@@ -21,6 +22,6 @@ extension QuestTask {
 
 }
 
-extension QuestTask: Identifiable {
-    
+extension QuestTask : Identifiable {
+
 }

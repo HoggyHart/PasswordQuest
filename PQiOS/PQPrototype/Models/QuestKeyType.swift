@@ -12,7 +12,9 @@ public enum QuestKeyType: Int16, Identifiable, CaseIterable, Codable{
     
     case complete
     case failed
-    case nullify //when received, checked against obtainmentDate and scheduled time to determine if edited to cheat at all
+    case edited
+    case cancelled //for delays + legitimate early ends
+    case deleted //for legit and illegitimate deletions, calculated using obtainment date //Fate TBD, could be replaced with cancelled and may be pointless if I find a way to prevent active quests from being deleted
     case admin
     
     case none

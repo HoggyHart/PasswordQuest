@@ -10,6 +10,11 @@ import CoreLocation
 @main
 
 struct PQPrototypeApp: App {
+    
+    static var isPreview: Bool {
+        return ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
+    }
+    
     let persistenceController = PersistenceController.shared
 
     var body: some Scene {

@@ -7,8 +7,19 @@
 
 import Foundation
 import CoreLocation
+import CoreData
 
 extension Location{
+    
+    convenience init(context: NSManagedObjectContext, name: String, area: CLCircularRegion){
+        self.init(context: context)
+        self.name = name
+        self.latitude = area.center.latitude
+        self.longitude = area.center.longitude
+        self.radius = area.radius
+        
+    }
+    
     func asRegion(questUUID: UUID) -> CLCircularRegion{
         return CLCircularRegion.init(center: self.center(), radius: self.radius, identifier: self.identifier(questUUID: questUUID))
     }

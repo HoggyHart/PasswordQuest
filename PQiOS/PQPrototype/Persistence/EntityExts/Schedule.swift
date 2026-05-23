@@ -6,8 +6,16 @@
 //
 import Foundation
 import UserNotifications
+import CoreData
 
-//cpomputed property
+//TODO: add distinctions between CUTOFF end times and TIME LIMIT end times in schedule creation (i.e. "needs to be done by 6pm" vs "give me 2 hours to complete it"
+//I.E.: if its start time, an the user needs 30 minutes more, should that 30 minutes extend to the end time? or should the end time be treated as a hard cutoff for the schedule?
+//  perhaps this should be included in the hypothetical delay system
+//  --> "Delay reason, how much time delay do you need, should this affect the end time, etc."
+
+
+
+//computed properties
 extension Schedule {
     var scheduledDays: Week{
         get {
@@ -20,27 +28,28 @@ extension Schedule {
     
     var notificationUUIDs: [String]{
         get {
-            return self.notificationIDs?.split(separator: ",") as! [String]
+            return self.notificationIDs?.split(separator: ",").map({ ss in
+                return String(ss)
+            }) ?? []
         }
         set{
             self.notificationIDs = newValue.joined(separator: ",")
         }
     }
+    
+    ///to alter the duration, set the scheduledStart and scheduledEnd properties
+    var duration: Double{
+        get{
+            return scheduledEndTime!.timeIntervalSince(scheduledStartTime!)
+        }
+    }
 }
 
 extension Schedule {
-    
-    func setSchedule(scheduledDays: Week){
-        self.everyXDays = false
-        self.scheduledDays = scheduledDays
-    }
 
-    func setSchedule(frequency: Int32){
-        everyXDays = true
-        self.xDayDelay = frequency
-    }
-    
-    public func lateInit(quest: Quest){
+//init stuff
+    convenience init(context: NSManagedObjectContext, quest: Quest){
+        self.init(context: context)
         isActive = false
         let d = Date.now.addingTimeInterval(10)
         scheduledStartTime = d
@@ -54,19 +63,22 @@ extension Schedule {
         self.quest = quest
     }
     
-    func nxtDateTxt() -> String{
-            return !Calendar.current.isDateInToday(self.startTime!) ? self.startTime!.formatted(date: .abbreviated, time: .omitted)
-                        :
-                        self.startTime!.formatted(date: .omitted, time: .shortened)
+    func setSchedule(scheduledDays: Week){
+        self.everyXDays = false
+        self.scheduledDays = scheduledDays
     }
-    
+
+    func setSchedule(frequency: Int32){
+        everyXDays = true
+        self.xDayDelay = frequency
+    }
+
+//Info Funcs
     func isOneTime() -> Bool{
         //if days of the week schedule with no scheduled days of the week
         return !self.everyXDays && self.rawScheduledDays == 0
     }
-    func getDuration() -> TimeInterval{
-        return scheduledEndTime!.timeIntervalSince(scheduledStartTime!)
-    }
+    
     func getActualEndTime() -> Date{
          return startTime!
             .addingTimeInterval(
@@ -80,7 +92,7 @@ extension Schedule {
     ///1: failed
     ///2: succeeded
     func getState() -> Int{
-        // lastEndTime < startTime < endTime
+        //logic assumes lastEndTime < startTime < endTime
         
         //if sch not active, say that
         if(!self.isActive){ // -2
@@ -134,7 +146,7 @@ extension Schedule {
                 break
             }
         }
-        if gap < 0{
+        if gap <= 0{
             gap += 7
         }
         let startHour = Calendar.current.component(.hour, from: scheduledStartTime!)
@@ -189,51 +201,58 @@ extension Schedule {
         else if self.startTime! <= toDate { return 0 }
         else { return 1 }
     }
-    ///Used to move the scheduled start/end dates forward to make it possible for the scheduled quest to start automatically
-    ///Can pad with QuestRewards to pretend it was doing schedules the whole time
+    ///Used to move the scheduled start/end dates forward to make it possible for the scheduled quest to start automatically again
+    ///Can pad with QuestKeys to pretend it was doing schedules the whole time
     ///return value indicates whether start time was moved forward, backward, or stayed the same
-    func amendNextScheduledPeriod(toNextStartFrom: Date, padQuestFailures: Bool = false) -> Int{
-
+    ///
+    ///safe: indicates whether the shift could result in 'now' being between the start and end time, true = now will be before a start, false = could be between
+    func amendNextScheduledPeriod(toNextStartFrom givenTime: Date, safe: Bool = true, padQuestFailures: Bool = false) -> Int{
         if self.isOneTime(){
             self.deactivateSchedule()
             return 0
         }
         
-        let dur = self.getDuration()
-        
         //if start time is already ahead of the given date
-        if toNextStartFrom < self.startTime! {
+        if self.startTime! > givenTime {
             //just make sure it's the IMMEDIATE next possible start
-            let nextScheduledStartTime = getNextStartTime(fromDate: toNextStartFrom)
-            
-            if !nextScheduledStartTime.equals(date2: self.scheduledStartTime!){
-                scheduledStartTime = nextScheduledStartTime
+            let soonestStart = getNextStartTime(fromDate: givenTime)
+            //if self.startTime is too far ahead, move it backwards
+            if !soonestStart.equals(date2: self.scheduledStartTime!){
+                scheduledStartTime = soonestStart
                 startTime = scheduledStartTime
-                scheduledEndTime = scheduledStartTime!.addingTimeInterval(dur)
+                scheduledEndTime = scheduledStartTime!.addingTimeInterval(self.duration)
             }
         }
+        //if startTime is behind
         else{
-            //while current scheduled start is earlier than the given date
-            
-            while self.scheduledStartTime! < toNextStartFrom{
-                //add quest "rewards"
+            let moveAlongOne = { [self] in
+                //add quest fails
                 if padQuestFailures{
-                    let reward = QuestReward.generateStandardKey(quest: self.quest!)
-                    reward.questComplete = false
+                    let reward = QuestKey.generateKey(quest: self.quest!)
+                    reward.keyType = QuestKeyType.failed
                     reward.scheduled = self.scheduleUUID
                     reward.obtainmentDate = self.scheduledEndTime!
                     self.quest!.addToRewards(reward)
                 }
                 //move schedule ahead
                 scheduledStartTime = getNextStartTime(fromDate: scheduledStartTime!)
-                scheduledEndTime = scheduledStartTime!.addingTimeInterval(dur)
+                scheduledEndTime = scheduledStartTime!.addingTimeInterval(self.duration)
             }
+            //while current scheduled end is earlier than the given date
+            while self.scheduledEndTime! < givenTime{
+                moveAlongOne()
+            }
+            //then, move again if between start/end and safe is true
+            if safe == true && self.scheduledStartTime! < givenTime{
+                moveAlongOne()
+            }
+            
             //finalise start time
             startTime = scheduledStartTime
         }
         
         //doesnt reeally matter as this result isnt used anywhere atm.
-        return toNextStartFrom.timeIntervalSince(startTime!) < 0 ? -1 : toNextStartFrom.equals(date2: startTime!) ? 0 : 1
+        return givenTime.timeIntervalSince(startTime!) < 0 ? -1 : givenTime.equals(date2: startTime!) ? 0 : 1
     }
     
     public func toggleActive(){
@@ -259,7 +278,8 @@ extension Schedule {
         let notcen = UNUserNotificationCenter.current()
         notcen.removePendingNotificationRequests(withIdentifiers: self.notificationUUIDs)
         //generate key in case of PC quest start on cancelled schedule due to desync between devices
-        _ = QuestReward.generateNullifyKey(quest: self.quest!)
+        let key = QuestKey.generateKey(quest: self.quest!)
+        key.keyType = .cancelled
         
     }
     
@@ -281,32 +301,9 @@ extension Schedule {
         data.append("    \"scheduledStartTime\" : \"" + self.scheduledStartTime!.formatted(date: .numeric, time: .standard) + "\",\n")
         data.append("    \"scheduledEndTime\" : \"" + self.scheduledEndTime!.formatted(date: .numeric, time: .standard) + "\",\n")
         data.append("    \"schedule_lastCompletionTime\" : \"" + (self.lastEndDate?.formatted(date: .numeric, time: .standard) ?? "nil") + "\",\n")
-        data.append("    \"schedule_scheduledDays\" : \"" + String(self.rawScheduledDays,radix: 2) + "\"\n}")
+        data.append("    \"schedule_scheduledDays\" : \"" + self.scheduledDays.toBitSetString() + "\"\n}")
         print(data)
         return data
-    }
-    
-    func synchronise(){
-        if let url = URL(string:"http://172.20.10.5:1617") {
-            var request = URLRequest(url: url)
-            
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpMethod = "POST"
-            let data = self.toJson()
-            let newData = Data(data.utf8)
-            let task = URLSession.shared.uploadTask(with: request, from: newData){ data, response, error in
-                if let error = error {
-                    // Handle the error
-                    //print("Error: \(error.localizedDescription)")
-                } else if let response = (response as? HTTPURLResponse){
-                    // Process the data
-                    if response.statusCode == 200{
-                        
-                    }
-                }
-            }
-            task.resume()
-        }
     }
 }
 
@@ -347,7 +344,7 @@ extension Schedule {
                 // Schedule the request with the system.
                 let notificationCenter = UNUserNotificationCenter.current()
                 notificationCenter.add(request)
-                self.notificationUUIDs.append(uuidString)
+                self.notificationIDs?.append(","+uuidString)
             }
         }
     }

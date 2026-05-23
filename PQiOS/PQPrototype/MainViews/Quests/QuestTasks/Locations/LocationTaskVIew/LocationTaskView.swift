@@ -111,16 +111,7 @@ struct LocationTaskView: View {
     do{
         quest = try PersistenceController.preview.container.viewContext.fetch(Quest.fetchRequest())[0]
     }catch{quest = Quest(context: PersistenceController.preview.container.viewContext)}
-    let task = LocationOccupationQuestTask(context: PersistenceController.preview.container.viewContext)
-    task.lateInit(
-        locName: "Unnamed Location",
-        taskArea: CLCircularRegion(
-            center: CLLocationCoordinate2D(
-                latitude: 0,
-                longitude: 0
-            ),
-            radius: 0,
-            identifier: "newLocTask"),
+    let task = LocationOccupationQuestTask(context: PersistenceController.preview.container.viewContext, location: nil,
         questDuration: 1
     )
     quest.addToTasks(task)

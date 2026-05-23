@@ -1,5 +1,5 @@
 //
-//  QuestRewardManagerView.swift
+//  QuestKeyManagerView.swift
 //  PQPrototype
 //
 //  Created by William Hart on 19/01/2026.
@@ -8,12 +8,12 @@
 import SwiftUI
 import CoreData
 
-struct QuestRewardManagerView: View {
+struct QuestKeyManagerView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \QuestReward.obtainmentDate, ascending: false)],animation: .default)
-    private var rewards: FetchedResults<QuestReward>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \QuestKey.obtainmentDate, ascending: false)],animation: .default)
+    private var rewards: FetchedResults<QuestKey>
     
     var body: some View {
         VStack{
@@ -24,8 +24,8 @@ struct QuestRewardManagerView: View {
                         submitKey(result: reward)
                     } label: {
                         HStack{
-                            Image(systemName: reward.questComplete ? "checkmark.circle.fill" : "x.circle.fill")
-                                .foregroundColor(reward.questComplete ? .green : .red)
+                            Image(systemName: iconForKeyType(type: reward.keyType))
+                                .foregroundColor(colourForKeyType(type: reward.keyType))
                             Text("\(reward.quest?.questName! ?? "Deleted Quest")(\(reward.obtainmentDate!.formatted(date: .numeric, time: .shortened)))")
                             Spacer()
                         }
@@ -35,7 +35,13 @@ struct QuestRewardManagerView: View {
         }
     }
     
-    func submitKey(result: QuestReward){
+    func iconForKeyType(type: QuestKeyType) -> String{
+        return type == QuestKeyType.complete ? "checkmark.circle.fill" : "x.circle.fill"
+    }
+    func colourForKeyType(type: QuestKeyType) -> Color{
+        return type == QuestKeyType.complete ? .green : .red
+    }
+    func submitKey(result: QuestKey){
        // if result.questComplete == false{
        //     deleteRewardNotification(offsets: [rewards.firstIndex(of: result)!])
        //     return
@@ -77,5 +83,5 @@ struct QuestRewardManagerView: View {
 }
 
 #Preview {
-    QuestRewardManagerView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    QuestKeyManagerView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

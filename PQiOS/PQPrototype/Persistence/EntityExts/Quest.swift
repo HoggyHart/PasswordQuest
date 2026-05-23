@@ -1,7 +1,9 @@
 import Foundation
+import CoreData
 extension Quest{
     
-    public func lateInit(name: String){
+    convenience init(context: NSManagedObjectContext, name: String){
+        self.init(context: context)
         self.isActive = false
         self.maxQuestDuration = 86400
         self.restrictedDeviceIPs = ""
@@ -9,18 +11,19 @@ extension Quest{
         self.questUUID = UUID()
     }
     
+//Start, Update, End, Reset
+    
     public func start(withSchedule sch: Schedule? = nil){
         if tasks!.allObjects.isEmpty { return } //if no tasks, nothing to start
-        
         self.reset()
+        
         self.isActive = true
         self.questStartTime = sch?.startTime ?? Date.now
-        self.sendStartQuestSignal()
         
-        //start task progress tracking
         for t in tasks!{
             (t as! QuestTask).start()
         }
+        //populate with initial task data
         self.updateProgress()
         
         //if scheduled start, check schedule data that impacts quest
@@ -30,42 +33,6 @@ extension Quest{
             sch.nextSchLocked = false
         }
         sch.lastScheduleCompletedOnTime = false
-    }
-    
-    func toJson() -> String{
-        var string = "{\n"
-        string += "    \"questName\" : \""+self.questName!+"\",\n"
-        string += "    \"questUUID\" : \"" + self.questUUID!.uuidString + "\",\n"
-        string += "    \"expiryDate\" : \"" + (self.getCurrentScheduler()?.scheduledEndTime ?? (self.questStartTime ?? Date.now).addingTimeInterval(maxQuestDuration)).formatted(date: .numeric, time: .standard) + "\"\n"
-        string +=   "}"
-        print(string)
-        return string
-    }
-    func sendStartQuestSignal(){
-        if let url = URL(string:"http://172.20.10.5:1617/synchronise/activequest") {
-            var request = URLRequest(url: url)
-            
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpMethod = "POST"
-            
-            let questKey = self.toJson()
-            
-            let newData = Data(questKey.utf8)
-            let task = URLSession.shared.uploadTask(with: request, from: newData){ data, response, error in
-                //print("sent")
-                if let error = error {
-                    // Handle the error
-                    //print("Error: \(error.localizedDescription)")
-                } else if let response = (response as? HTTPURLResponse){
-                    // Process the data
-                    //print(response.statusCode)
-                    if response.statusCode == 200{
-                        //print("Success")
-                    }
-                }
-            }
-            task.resume()
-        }
     }
     
     public func updateProgress(){
@@ -92,15 +59,47 @@ extension Quest{
             }
             //alternatively, if quest not finished BUT time has run out
             else if self.questStartTime!.timeIntervalSinceNow > self.maxQuestDuration{
-                self.fail()
+                self.end()
             }//or via schedule end if it is active due to a scheduler
             else if let sch = self.getCurrentScheduler(){
                 if Date.now > sch.getActualEndTime(){
-                    self.fail()
+                    self.end()
                 }
             }
         }
     }
+    
+    public func end(){
+        if self.isActive{
+            
+            //create quest reward (key)
+            let reward = QuestKey.generateKey(quest: self)
+            self.addToRewards(reward)
+            
+            //end scheduler
+            endCurrentSchduler()
+            
+            //leave task progress and questStartTime alone to indicate quest status as completed or failed
+            //these are changed in reset()
+            
+            self.isActive = false
+            self.locked = false
+        }
+    }
+    
+    //set progress to 0 and deactivate
+    public func reset(){
+        for qTask in self.tasks!{
+            (qTask as! QuestTask).reset()
+        }
+        
+        endCurrentSchduler()
+        
+        self.isActive = false
+        self.questStartTime = nil
+    }
+    
+//Status Checking
     ///-2: inactive, no quests
     ///-1: inactive, failed
     ///0: inactive, not started
@@ -122,8 +121,9 @@ extension Quest{
     }
     public func tasksComplete() -> Bool{
         //optionals used here because when deleting a quest that just been QuestView'd the app crashes (not tested if it is based on not having added any tasks or not)
-        if self.tasks?.allObjects.isEmpty ?? false { return false }
-        for qTask in self.tasks ?? [] {
+        //if no tasks -> return false (this is so QuestView doesnt let you turn in an empty quest
+        if self.tasks?.allObjects.isEmpty ?? true { return false }
+        for qTask in self.tasks!{
             if !(qTask as! QuestTask).completed{
                 return false
             }
@@ -148,40 +148,48 @@ extension Quest{
         }
     }
     
-    //set progress to 0 and deactivate
-    public func reset(){
-        for qTask in self.tasks!{
-            (qTask as! QuestTask).reset()
-        }
-        
-        endCurrentSchduler()
-        
-        self.isActive = false
-        self.questStartTime = nil
-    }
-    public func end(){
-        if self.isActive{
-            
-            //create quest reward (key)
-            let reward = QuestReward.generateStandardKey(quest: self)
-            self.addToRewards(reward)
-            
-            //end scheduler
-            endCurrentSchduler()
-            
-            //leave task progress and questStartTime alone to indicate quest status as completed or failed
-            //these are changed in reset()
-            
-            self.isActive = false
-            self.locked = false
-        }
-    }
-    public func fail(){
-        //just end, as proper failure mechanics are not yet implemented
-        end()
-    }
-    
     public func delay(){
         //https://developer.apple.com/documentation/usernotifications/untimeintervalnotificationtrigger
+    }
+}
+
+//Portability stuff
+extension Quest{
+    
+    func toJson() -> String{
+        var string = "{\n"
+        string += "    \"questName\" : \""+self.questName!+"\",\n"
+        string += "    \"questUUID\" : \"" + self.questUUID!.uuidString + "\",\n"
+        string += "    \"expiryDate\" : \"" + (self.getCurrentScheduler()?.scheduledEndTime ?? (self.questStartTime ?? Date.now).addingTimeInterval(maxQuestDuration)).formatted(date: .numeric, time: .standard) + "\"\n"
+        string +=   "}"
+        print(string)
+        return string
+    }
+    
+    func sendStartQuestSignal(){
+        if let url = URL(string:"http://172.20.10.5:1617/synchronise/activequest") {
+            var request = URLRequest(url: url)
+            
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = "POST"
+            
+            let questKey = self.toJson()
+            
+            let newData = Data(questKey.utf8)
+            let task = URLSession.shared.uploadTask(with: request, from: newData){ data, response, error in
+                //print("sent")
+                if let error = error {
+                    // Handle the error
+                    //print("Error: \(error.localizedDescription)")
+                } else if let response = (response as? HTTPURLResponse){
+                    // Process the data
+                    //print(response.statusCode)
+                    if response.statusCode == 200{
+                        //print("Success")
+                    }
+                }
+            }
+            task.resume()
+        }
     }
 }

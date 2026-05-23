@@ -8,9 +8,6 @@
 import SwiftUI
 import CoreLocation
 
-///CONTINUE HERE: changing this from a copy of ScheduleView to a ScheduleView
-
-
 struct ScheduleView: View {
     @Environment(\.editMode) private var editMode
     private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
@@ -32,13 +29,6 @@ struct ScheduleView: View {
     
     init(scheduleToLoad: Schedule){
         self.schedule = scheduleToLoad
-    }
-    
-    func loadData(){
-        for i in 0..<7{
-            schDayArr[i] = schedule.scheduledDays.contains(.Element(rawValue: 1<<i))
-        }
-        prevStartTime = schedule.startTime
     }
     
     // UI Elements
@@ -190,7 +180,9 @@ struct ScheduleView: View {
                     if schedule.isActive && schedule.nextSchLocked{
                         ZStack{
                             Image(systemName:"lock.fill").resizable().foregroundColor(.cyan).frame(width: 150, height: 75)
-                            Text(schedule.nxtDateTxt())
+                            Text(!Calendar.current.isDateInToday(schedule.startTime!) ? schedule.startTime!.formatted(date: .abbreviated, time: .omitted)
+                                 :
+                                 schedule.startTime!.formatted(date: .omitted, time: .shortened))
                         }
                     }
                 }
@@ -205,6 +197,14 @@ struct ScheduleView: View {
         .onAppear(perform: loadData)
         .onChange(of: editing, perform: onEditChange)
         .onDisappear(perform: undoChanges)
+    }
+    
+    func loadData(){
+        for i in 0..<7{
+            schDayArr[i] = schedule.scheduledDays.contains(.Element(rawValue: 1<<i))
+        }
+        prevStartTime = schedule.startTime
+        
     }
     
     func startScheduleEarly(){
@@ -237,7 +237,7 @@ struct ScheduleView: View {
     func toggleScheduleActiveStatus(areYouSure: Bool = false){
         context.perform {
             
-            var scheduleOnTimeline = schedule.scheduledPeriodRelativity()
+            let scheduleOnTimeline = schedule.scheduledPeriodRelativity()
             //if scheduled period has passed, move scheduled period to now/future (whichever fits the scheduled pattern)
             if scheduleOnTimeline == -1{
                 _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now)
@@ -263,12 +263,34 @@ struct ScheduleView: View {
         return schedule.scheduledStartTime! > Calendar.current.date(  bySettingHour: Calendar.current.component(.hour, from: schedule.scheduledEndTime!), minute: Calendar.current.component(.minute, from: schedule.scheduledEndTime!), second: Calendar.current.component(.second, from: schedule.scheduledEndTime!), of: schedule.scheduledStartTime!)!
     }
     
+    func fixEndTime(){
+        //get hour and min of end time, and set it to later time in start day or next day if endhour < starthour
+        let hour = Calendar.current.component(.hour, from: schedule.scheduledEndTime!)
+        let minute = Calendar.current.component(.minute, from: schedule.scheduledEndTime!)
+        schedule.scheduledEndTime = Calendar.current.date(bySettingHour: hour, minute: minute, second: 5, of: schedule.scheduledStartTime!)!
+        //then push it ahead if needed (i.e. 22:00 start - 8:00 end --> move end to next day)
+        while schedule.scheduledEndTime! < schedule.scheduledStartTime!{
+            schedule.scheduledEndTime!.addTimeInterval(86400)
+        }
+    }
+    
+    //similar to schedule.amendNextScheduledPeriod BUT it doesn't abide by the schedule, just makes sure end > now
+    ///return cases:
+    ///0: scheduled period is NOW
+    ///1: scheduled period is LATER
+    func ensureAutoStartIsPossible(){
+        //makes it so end time lines up with start time (i.e. 10:00-12:00 is same day and 22:00-8:00 is day X to X+1)
+        fixEndTime()
+        while schedule.scheduledEndTime! < Date.now{
+            schedule.scheduledStartTime!.addTimeInterval(86400)
+            schedule.scheduledEndTime!.addTimeInterval(86400)
+        }
+        schedule.startTime = schedule.scheduledStartTime
+    }
+    
     func applyChanges(){
         context.perform {
-            
-            //ordered by UI appearance
-           // self.schedule.scheduleName = scheduleName
-            
+            //save scheduledDays data
             for i in 0..<7{
                 if schDayArr[i]{
                     if !schedule.scheduledDays.contains(.Element(rawValue: 1<<i)) {schedule.scheduledDays.insert(.Element(rawValue: 1<<i))}
@@ -277,39 +299,16 @@ struct ScheduleView: View {
                     {schedule.scheduledDays.remove(.Element(rawValue: 1<<i))}
                 }
             }
+            //validate changes so scheduling is still possible with given startTime
+            ensureAutoStartIsPossible()
             
-            //IMPROVEMENT: add distinctions between CUTOFF end times and TIME LIMIT end times in schedule creation (i.e. "needs to be done by 6pm" vs "give me 2 hours to complete it"
-            //I.E.: if its start time, an the user needs 30 minutes more, should that 30 minutes extend to the end time? or should the end time be treated as a hard cutoff for the schedule?
-            //  perhaps this should be included in the hypothetical delay system
-            //  --> "Delay reason, how much time delay do you need, should this affect the end time, etc."
-            
-        //---validate scheduled time to ensure it hasnt already passed
-            //set it to start date
-            let hour = Calendar.current.component(.hour, from: schedule.scheduledEndTime!)
-            let minute = Calendar.current.component(.minute, from: schedule.scheduledEndTime!)
-            schedule.scheduledEndTime = Calendar.current.date(bySettingHour: hour, minute: minute, second: 5, of: schedule.scheduledStartTime!)!
-            //then push it ahead if needed (i.e. 22:00 start - 8:00 end --> move end to next day)
-            while schedule.scheduledEndTime! < schedule.scheduledStartTime!{
-                schedule.scheduledEndTime!.addTimeInterval(86400)
-            }
-            //then check that it cannot have already ended, moving the start time to the next day if it needs to
-            if schedule.scheduledEndTime! < Date.now{
-                //if it is before then skip to starting tomorrow (next possible time that fits schedulede time period)
-                schedule.scheduledStartTime = schedule.scheduledStartTime!.addingTimeInterval(86400)
-            }
-            //and move the end time to keep up
-            while schedule.scheduledEndTime! < schedule.scheduledStartTime!{
-                schedule.scheduledEndTime!.addTimeInterval(86400)
-            }
-            //then set the times
-            //schedule.scheduledStartTime = editedStartTime
-            schedule.startTime = schedule.scheduledStartTime
-            //schedule.scheduledEndTime = editedScheduledEndTime
-            
+            //generate key to amend unsynchronised behaviour on PC app
             if prevStartTime != nil && schedule.startTime! > prevStartTime!{
-                //afaik nullify for schedules only needs to be done if there is potential for the quest to have started on PC before the scheduled time on the phone
-                //  so, if startTime has been pushed back, generate nullify key in case synchronisation doesnt happen in time and active quest on PC needs to be ended
-                _ = QuestReward.generateNullifyKey(quest: schedule.quest!)
+                //if startTime has been pushed back, generate nullify key in case synchronisation doesnt happen in time and active quest on PC needs to be ended
+                //key stores date of creation, so on PC it can check quest start time against key creation date to see "does this key cancel *this* quest?"
+                //i.e. if quest.startTime <= key.creationDate: endQuest()
+                let key = QuestKey.generateKey(quest: schedule.quest!)
+                key.keyType = .cancelled
             }
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
@@ -317,10 +316,8 @@ struct ScheduleView: View {
 }
 
 #Preview {
-    let q = Quest(context: PersistenceController.preview.container.viewContext)
-    q.lateInit(name: "Preview Quest")
-    let sch = Schedule(context: PersistenceController.preview.container.viewContext)
-    sch.lateInit(quest: q)
+    let q = Quest(context: PersistenceController.preview.container.viewContext, name: "Preview Quest")
+    let sch = Schedule(context: PersistenceController.preview.container.viewContext, quest: q)
     return ScheduleView(
         scheduleToLoad: sch).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

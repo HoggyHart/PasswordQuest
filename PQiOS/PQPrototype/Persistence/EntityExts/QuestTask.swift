@@ -6,14 +6,15 @@
 //
 
 import Foundation
-
+import CoreData
 
 extension QuestTask{
 
-    @objc
-    func lateInit(name: String){
+    convenience init(context: NSManagedObjectContext, name: String) {
+        self.init(context: context)
         self.name = name
         self.completed = false
+        
     }
     
     @objc

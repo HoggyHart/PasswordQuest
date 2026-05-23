@@ -12,8 +12,8 @@ struct QuestManagerView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @State
-    private var quests: [Quest] = [] //done to prevent FetchRequest causing view backtracking when activating quests (changing attributes)
-    
+    private var questfs: [Quest] = [] //done to prevent FetchRequest causing view backtracking when activating quests (changing attributes)
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Quest.isActive, ascending: false),NSSortDescriptor(keyPath: \Quest.questName, ascending: true)]) private var quests: FetchedResults<Quest>
     
     var body: some View {
         VStack{
@@ -63,7 +63,7 @@ struct QuestManagerView: View {
         fr.entity = Quest.entity()
         fr.sortDescriptors = [NSSortDescriptor(keyPath: \Quest.isActive, ascending: false),NSSortDescriptor(keyPath: \Quest.questName, ascending: true)]
         do{
-            try self.quests = viewContext.fetch(fr)
+            try self.questfs = viewContext.fetch(fr)
         }catch{
             return
         }
@@ -71,8 +71,7 @@ struct QuestManagerView: View {
     }
     private func addQuest() {
         withAnimation {
-            let newItem = Quest(context: viewContext)
-            newItem.lateInit(name: "New Quest")
+            let newItem = Quest(context: viewContext, name: "New Quest")
 
             do {
                 try viewContext.save()
@@ -90,7 +89,8 @@ struct QuestManagerView: View {
         viewContext.perform {
             withAnimation {
                 offsets.map {quests[$0] }.forEach { q in
-                    let nullifyKey = QuestReward.generateNullifyKey(quest: q)
+                    let nullifyKey = QuestKey.generateKey(quest: q)
+                    nullifyKey.keyType = .deleted
                     viewContext.delete(q)
                 }
                 do{try viewContext.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
@@ -101,5 +101,7 @@ struct QuestManagerView: View {
 }
 
 #Preview {
-    QuestManagerView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    NavigationView{
+        QuestManagerView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }
 }

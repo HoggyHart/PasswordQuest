@@ -2,7 +2,7 @@
 //  Location+CoreDataProperties.swift
 //  PQPrototype
 //
-//  Created by William Hart on 18/02/2026.
+//  Created by William Hart on 21/05/2026.
 //
 //
 
@@ -18,8 +18,8 @@ extension Location {
 
     @NSManaged public var latitude: Double
     @NSManaged public var longitude: Double
-    @NSManaged public var radius: Double
     @NSManaged public var name: String?
+    @NSManaged public var radius: Double
     @NSManaged public var tasks: NSSet?
 
 }

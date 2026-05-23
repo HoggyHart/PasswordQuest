@@ -44,4 +44,12 @@ public class Week: OptionSet{
     static let everyday: Week = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
     static let weekdays: Week = [.monday, .tuesday, .wednesday, .thursday, .friday]
     static let weekends: Week = [.saturday, .sunday]
+    
+    func toBitSetString() -> String{
+        var str = ""
+        for i in 0..<7{
+            str.append(self.contains(.Element(rawValue: 1<<i)) ? "1" : "0")
+        }
+        return str
+    }
 }

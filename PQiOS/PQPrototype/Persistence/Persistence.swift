@@ -14,21 +14,19 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         for i in 0..<6 {
-            let newQuest = Quest(context: viewContext)
-            newQuest.lateInit(name: "Test Quest \(i+1)")
+            let newQuest = Quest(context: viewContext, name: "Test Quest \(i+1)")
             
             //0%2 == T
             //1%2 == F
             //2%2 == T
             //3%2 == F
             if i%2 == 0{
-                let task = LocationOccupationQuestTask(context: viewContext)
-                task.lateInit(
-                    locName: "Location "+String(i),
-                    taskArea: CLCircularRegion(
+                let task = LocationOccupationQuestTask(
+                    context: viewContext,
+                    location: Location(context: viewContext, name: "Location "+String(i), area: CLCircularRegion(
                         center: LocationServices.generateRandomLocation(origin: CLLocationCoordinate2D(latitude: 0, longitude: 0), minRange: 0, maxRange: 500),
                         radius: 50,
-                        identifier: "newLocTask"),
+                        identifier: "newLocTask")),
                     questDuration: 1
                 )
                 newQuest.addToTasks(task)
@@ -39,20 +37,18 @@ struct PersistenceController {
             //2%3 == F
             //1%3 == T
             if i%3 == 0{
-                let newSchedule = Schedule(context: viewContext)
-                newSchedule.lateInit(quest: newQuest)
+                let newSchedule = Schedule(context: viewContext, quest: newQuest)
                 newSchedule.startTime?.addTimeInterval(Double(-i*2 + 4))
                 if i%2 == 0{
                     newSchedule.toggleActive()
                 }
             }
             
-            let newReward = QuestReward(context: viewContext)
+            let newReward = QuestKey(context: viewContext)
             newReward.quest = newQuest
             newReward.key = newQuest.questUUID!
             newReward.obtainmentDate = Date.now + TimeInterval(i*60)
-            newReward.questComplete = i%2 == 0
-            newReward.keyType = newReward.questComplete ? QuestKeyType.complete : QuestKeyType.failed
+            newReward.keyType = i%2 == 0 ? QuestKeyType.complete : QuestKeyType.failed
         }
         do {
             try viewContext.save()
@@ -68,7 +64,6 @@ struct PersistenceController {
     let container: NSPersistentContainer
 
     init(inMemory: Bool = false) {
-        
         container = NSPersistentContainer(name: "PQPrototype")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")

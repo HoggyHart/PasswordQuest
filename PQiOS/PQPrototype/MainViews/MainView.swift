@@ -43,41 +43,19 @@ struct MainView: View {
                         
                         //for each scheduled quest
                         for schedule in createdSchedules {
+                            //if schedule isnt active or has already started: skip this one
+                            if !schedule.isActive || schedule.getState() == 0 { continue }
+                            let quest = schedule.quest! //shorten syntax for convenience
+                            if quest.isActive { continue }
                             
-                            //if schedule isnt active skip this one
-                            if !schedule.isActive { continue }
-                            
-                            let quest = schedule.quest!
-                            //if in progress, skip as it has already started
-                            if schedule.getState() == 0
-                            { continue }
-                            //else if NOT in progress but quest is active (i.e. started manually/by another scheduler
-                            else if quest.isActive{
-                                //if quest active because of another scheduler, ignore and check next scheduler
-                                if quest.getCurrentScheduler() != nil{
-                                    continue
-                                }
-                                //else: quest not scheduled but is active during scheduled time -> assume it has been started early and update schedule startTime to make this quest contribute to the schedule's completion
-                                else{
-                                    schedule.startTime = quest.questStartTime
-                                    continue
-                                }
-                            }
-                            
-                            // if scheduled period has already passed, 'miss' scheduled periods until updated schedule period hasn't passed yet
+                            // if scheduled period has already passed, fail quests until schedule has caught up to now
                             if Date.now > schedule.getActualEndTime(){
-                                
                                 schedule.nextSchLocked = false
-                                _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now,padQuestFailures: true)
+                                _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now, safe: false, padQuestFailures: true)
                             }
-                            //starting scheduled quest
-                            //if not time, go next
-                            if Date.now < schedule.startTime!{
-                                continue
-                            }
-                            //if past time to start (and < end thx to prev check)
-                            //start!
-                            else{
+                            
+                            //if past start time (and before end time), start
+                            if Date.now > schedule.startTime!{
                                 quest.start(withSchedule: schedule)
                             }
                         }
@@ -90,10 +68,11 @@ struct MainView: View {
     }
     
     
-    @Environment(\.managedObjectContext) static public var viewContext
+    @Environment(\.managedObjectContext) public var viewContext
     var body: some View {
         NavigationView{
             VStack{
+                
                 if menu == 0{
                     QuestManagerView()
                 }
@@ -101,7 +80,7 @@ struct MainView: View {
                     ScheduleManagerView()
                 }
                 else if menu == 2{
-                    QuestRewardManagerView()
+                    QuestKeyManagerView()
                 }
                 else if menu == 3{
                     LocationManagerView()

@@ -2,7 +2,7 @@
 //  Quest+CoreDataProperties.swift
 //  PQPrototype
 //
-//  Created by William Hart on 19/01/2026.
+//  Created by William Hart on 21/05/2026.
 //
 //
 
@@ -17,15 +17,32 @@ extension Quest {
     }
 
     @NSManaged public var isActive: Bool
+    @NSManaged public var locked: Bool
     @NSManaged public var maxQuestDuration: Double
     @NSManaged public var questName: String?
     @NSManaged public var questStartTime: Date?
     @NSManaged public var questUUID: UUID?
     @NSManaged public var restrictedDeviceIPs: String?
-    @NSManaged public var locked: Bool
+    @NSManaged public var rewards: NSSet?
     @NSManaged public var schedulers: NSSet?
     @NSManaged public var tasks: NSSet?
-    @NSManaged public var rewards: NSSet?
+
+}
+
+// MARK: Generated accessors for rewards
+extension Quest {
+
+    @objc(addRewardsObject:)
+    @NSManaged public func addToRewards(_ value: QuestKey)
+
+    @objc(removeRewardsObject:)
+    @NSManaged public func removeFromRewards(_ value: QuestKey)
+
+    @objc(addRewards:)
+    @NSManaged public func addToRewards(_ values: NSSet)
+
+    @objc(removeRewards:)
+    @NSManaged public func removeFromRewards(_ values: NSSet)
 
 }
 
@@ -63,23 +80,6 @@ extension Quest {
 
 }
 
-// MARK: Generated accessors for rewards
-extension Quest {
+extension Quest : Identifiable {
 
-    @objc(addRewardsObject:)
-    @NSManaged public func addToRewards(_ value: QuestReward)
-
-    @objc(removeRewardsObject:)
-    @NSManaged public func removeFromRewards(_ value: QuestReward)
-
-    @objc(addRewards:)
-    @NSManaged public func addToRewards(_ values: NSSet)
-
-    @objc(removeRewards:)
-    @NSManaged public func removeFromRewards(_ values: NSSet)
-
-}
-
-extension Quest: Identifiable{
-    
 }

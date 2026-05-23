@@ -110,9 +110,7 @@ struct ScheduleInfoView: View {
             ScheduleInfoView(schedule: sch)
         }
     }
-    let qst = Quest(entity: Quest.entity(), insertInto: nil)
-    qst.lateInit(name: "PreviewQuest")
-    let sch = Schedule(entity: Schedule.entity(), insertInto: nil)
-    sch.lateInit(quest: qst)
+    let qst = Quest(context: PersistenceController.preview.container.viewContext, name: "PreviewQuest")
+    let sch = Schedule(context: PersistenceController.preview.container.viewContext, quest: qst)
     return previewWrapper(sc:sch).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

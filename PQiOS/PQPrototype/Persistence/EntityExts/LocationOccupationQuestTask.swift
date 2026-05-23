@@ -7,22 +7,23 @@
 
 import Foundation
 import MapKit
+import CoreData
 
 extension LocationOccupationQuestTask: MKMapViewDelegate {
     
-    func lateInit(locName: String, taskArea: CLCircularRegion, questDuration: TimeInterval) {
-        let newArea = Location(context: self.managedObjectContext!)
-        newArea.name = locName
-        newArea.latitude = taskArea.center.latitude
-        newArea.longitude = taskArea.center.longitude
-        newArea.radius = taskArea.radius
-        newArea.addToTasks(self)
+    convenience init(context: NSManagedObjectContext, location: Location?, questDuration: TimeInterval){
+        let loc = location ?? Location(context: context,
+                                       name: "Unnamed Location",
+                                       area: CLCircularRegion(center: LocationServices.service.getLocation(), radius: 25, identifier: UUID().uuidString))
+        self.init(context: context, name: "Spend time at " + loc.name!)
+        loc.addToTasks(self)
         self.recordedOccupationTime = 0
         self.requiredOccupationDuration = questDuration
         if self.requiredOccupationDuration == 0 {self.requiredOccupationDuration = 1}
         self.occupiedAtLastUpdate = false
-        super.lateInit(name: "Task: Spend time at "+newArea.name!)
+        
     }
+    
     override func start() {
         reset()
         lastUpdate = Date.now
