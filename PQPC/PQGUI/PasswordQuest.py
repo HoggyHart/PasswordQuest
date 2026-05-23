@@ -8,8 +8,18 @@ import threading
 import time
 import ThreadUtils    
 import requests
+import pygetwindow as gw
 from datetime import datetime, timedelta
 import logging
+
+def fullscreenWindow():
+    try:
+        win: gw.Win32Window = gw.getWindowsWithTitle('PasswordQuest')[0]         
+        win.minimize()
+        win.maximize()
+    except Exception as e:
+        PQLOG.debug("Failed to bring window to front"+str(e))
+
 class PQWindow(tk.Tk):
 
     def __init__(self):
@@ -18,7 +28,6 @@ class PQWindow(tk.Tk):
         self.title("PasswordQuest")
         self.geometry("190x2560")
         self.mainProcess = iOS_PQPrototypeWaiter.PasswordQuestServer()
-        self.wip = PQWIP()
 
     def initLayout(self):
         self.children.clear()
@@ -127,7 +136,7 @@ class PQWindow(tk.Tk):
                     self.scheduleOutput.config(text="ERROR: "+str(e))
                 except:
                     pass #scheudleoutput is not on frame currently
-            time.sleep(2)
+            time.sleep(3)
 
     def updateOutput(self):
         newOutput = ""
@@ -155,10 +164,14 @@ class PQWindow(tk.Tk):
 
         #lock status
         if not self.mainProcess.syncLock:
-            if self.mainProcess.computerLocked or self.wip.locked:
+            if self.mainProcess.computerLocked:
                 self.statusLabel.config(text="Locked |",fg="red")
+                fullscreenWindow()
             else:
                 self.statusLabel.config(text="Unlocked |", fg="green")
+        else:
+            fullscreenWindow()
+
         if self.mainProcess.connectedToNetwork:
             self.connectionStatusLabel.config(text=" Connected To Phone ",fg="green")
         elif self.mainProcess.attemptingNetworkConnection:
@@ -191,7 +204,10 @@ class PQWindow(tk.Tk):
 
     def startLockout(self):
         try:
-            threading.Thread(target=self.wip.timedLockout(float(self.lockoutTimeEntryBox.get()))).start()
+            self.mainProcess.threadUtil.acquireLock("QuestLock")
+            tempQuest = iOS_PQPrototypeWaiter.Quest("TempLockDown",'nil',datetime.now() + timedelta(seconds=float(self.lockoutTimeEntryBox.get())))
+            self.mainProcess.activeQuests.append(tempQuest)
+            self.mainProcess.threadUtil.releaseLock("QuestLock")
             self.lockoutButton.config(text=(datetime.now() + timedelta(seconds=int(self.lockoutTimeEntryBox.get()))).__str__())
         except Exception as e:
             PQLOG.warning(str(e))
@@ -204,17 +220,6 @@ class PQWindow(tk.Tk):
         time.sleep(5)
         self.outputThread = threading.Thread(target = self.outputLoop)
         self.outputThread.start()
-
-class PQWIP:
-    def __init__(self):
-        self.locked = False
-    def timedLockout(self, duration):
-        if duration is float:
-            ComputerControl.blockInput()
-            self.locked=True
-            time.sleep(duration)
-            ComputerControl.unblockInput() #for smoothness, should send 'unblock' signal to main event queue instead so it doesnt temp release during quest lockdown
-            self.locked=False
 
 root = PQWindow()
 root.initLayout()
