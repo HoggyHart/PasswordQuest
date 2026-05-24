@@ -36,7 +36,29 @@ struct PQPrototypeApp: App {
             let bgContext = PQPrototypeApp.isPreview ?  PersistenceController.preview.container.newBackgroundContext() : PersistenceController.shared.container.newBackgroundContext()
             //try to start scheduled quests
             bgContext.perform {
+                
                 do{
+                    
+                    let quests = try bgContext.fetch(Quest.fetchRequest())
+                    for quest in quests{
+                        if !quest.isActive { continue; }
+                        
+                        quest.updateProgress()
+                        
+                        //if now completed
+                        if !quest.isActive{
+                            //check if there are any other quests still in progress
+                            let allQuests = try bgContext.fetch(Quest.fetchRequest())
+                            var anyActive = false
+                            for individualQuest in allQuests{
+                                if individualQuest.isActive{
+                                    anyActive = true
+                                }
+                            }
+                            //if this was the only active quest, stop updating location
+                            if !anyActive {LocationServices.service.locationManager.stopUpdatingLocation() }
+                        }
+                    }
     //SCHEDULES
                     //load schedules
                     let createdSchedules = try bgContext.fetch(Schedule.fetchRequest())
@@ -57,27 +79,6 @@ struct PQPrototypeApp: App {
                         //if past start time (and before end time), start
                         if Date.now > schedule.startTime!{
                             quest.start(withSchedule: schedule)
-                        }
-                    }
-    //QUESTS
-                    let quests = try bgContext.fetch(Quest.fetchRequest())
-                    for quest in quests{
-                        if !quest.isActive { return; }
-                        
-                        quest.updateProgress()
-                        
-                        //if now completed
-                        if !quest.isActive{
-                            //check if there are any other quests still in progress
-                            let allQuests = try bgContext.fetch(Quest.fetchRequest())
-                            var anyActive = false
-                            for individualQuest in allQuests{
-                                if individualQuest.isActive{
-                                    anyActive = true
-                                }
-                            }
-                            //if this was the only active quest, stop updating location
-                            if !anyActive {LocationServices.service.locationManager.stopUpdatingLocation() }
                         }
                     }
                     
