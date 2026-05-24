@@ -227,6 +227,7 @@ extension Schedule {
         else{
             let moveAlongOne = { [self] in
                 //add quest fails
+                var duration = scheduledEndTime!.timeIntervalSince(scheduledStartTime!)
                 if padQuestFailures{
                     let reward = QuestKey.generateKey(quest: self.quest!)
                     reward.keyType = QuestKeyType.failed
@@ -236,7 +237,7 @@ extension Schedule {
                 }
                 //move schedule ahead
                 scheduledStartTime = getNextStartTime(fromDate: scheduledStartTime!)
-                scheduledEndTime = scheduledStartTime!.addingTimeInterval(self.duration)
+                scheduledEndTime = scheduledStartTime!.addingTimeInterval(duration)
             }
             //while current scheduled end is earlier than the given date
             while self.scheduledEndTime! < givenTime{

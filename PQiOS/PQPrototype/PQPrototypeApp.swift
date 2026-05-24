@@ -15,12 +15,84 @@ struct PQPrototypeApp: App {
         return ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
     }
     
-    let persistenceController = PersistenceController.shared
-
+    static public var updatingThreadActive = false
+    
+    static private var scheduleAndQuestUpdater: Timer?
+    
+    init(){
+        Task {
+            let center = UNUserNotificationCenter.current()
+            
+            do {
+                try await center.requestAuthorization(options: [.alert, .sound, .badge])
+            } catch {
+                // Handle the error here.
+            }
+        }
+        PQPrototypeApp.scheduleAndQuestUpdater = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){_ in
+            if PQPrototypeApp.updatingThreadActive == true{return}
+            PQPrototypeApp.updatingThreadActive = true
+            
+            let bgContext = PQPrototypeApp.isPreview ?  PersistenceController.preview.container.newBackgroundContext() : PersistenceController.shared.container.newBackgroundContext()
+            //try to start scheduled quests
+            bgContext.perform {
+                do{
+    //SCHEDULES
+                    //load schedules
+                    let createdSchedules = try bgContext.fetch(Schedule.fetchRequest())
+                    
+                    //for each scheduled quest
+                    for schedule in createdSchedules {
+                        //if schedule isnt active or has already started: skip this one
+                        if !schedule.isActive || schedule.getState() == 0 { continue }
+                        let quest = schedule.quest! //shorten syntax for convenience
+                        if quest.isActive { continue }
+                        
+                        // if scheduled period has already passed, fail quests until schedule has caught up to now
+                        if Date.now > schedule.getActualEndTime(){
+                            schedule.nextSchLocked = false
+                            _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now, safe: false, padQuestFailures: true)
+                        }
+                        
+                        //if past start time (and before end time), start
+                        if Date.now > schedule.startTime!{
+                            quest.start(withSchedule: schedule)
+                        }
+                    }
+    //QUESTS
+                    let quests = try bgContext.fetch(Quest.fetchRequest())
+                    for quest in quests{
+                        if !quest.isActive { return; }
+                        
+                        quest.updateProgress()
+                        
+                        //if now completed
+                        if !quest.isActive{
+                            //check if there are any other quests still in progress
+                            let allQuests = try bgContext.fetch(Quest.fetchRequest())
+                            var anyActive = false
+                            for individualQuest in allQuests{
+                                if individualQuest.isActive{
+                                    anyActive = true
+                                }
+                            }
+                            //if this was the only active quest, stop updating location
+                            if !anyActive {LocationServices.service.locationManager.stopUpdatingLocation() }
+                        }
+                    }
+                    
+                    try bgContext.save()
+                }catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+            }
+            
+            PQPrototypeApp.updatingThreadActive = false
+        }
+    }
+    
     var body: some Scene {
         WindowGroup {
             MainView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
         }
     }
 }

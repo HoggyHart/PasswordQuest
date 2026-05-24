@@ -58,7 +58,8 @@ extension Quest{
                 self.end()
             }
             //alternatively, if quest not finished BUT time has run out
-            else if self.questStartTime!.timeIntervalSinceNow > self.maxQuestDuration{
+            //TODO: change to now.timeintervalsincestarttime for easier compreehension
+            else if -self.questStartTime!.timeIntervalSinceNow > self.maxQuestDuration{
                 self.end()
             }//or via schedule end if it is active due to a scheduler
             else if let sch = self.getCurrentScheduler(){

@@ -22,45 +22,8 @@ struct QuestView: View {
 
     // -- View state stuff
     
-    
-    @State private var liveUpdater: Timer?
-    
     init(quest: Quest){
         self.quest = quest
-    }
-    
-    func startLiveUpdater(){
-        self.liveUpdater = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){_ in
-            let bgContext = PQPrototypeApp.isPreview ?  PersistenceController.preview.container.newBackgroundContext() : PersistenceController.shared.container.newBackgroundContext()
-            bgContext.perform {
-                do{
-                    let quest = bgContext.object(with: quest.objectID) as! Quest
-                    if !quest.isActive { return; }
-                    
-                    quest.updateProgress()
-                    
-                    //if now completed
-                    if !quest.isActive{
-                        //check if there are any other quests still in progress
-                        let allQuests = try bgContext.fetch(Quest.fetchRequest())
-                        var anyActive = false
-                        for individualQuest in allQuests{
-                            if individualQuest.isActive{
-                                anyActive = true
-                            }
-                        }
-                        //if this was the only active quest, stop updating location
-                        if !anyActive {LocationServices.service.locationManager.stopUpdatingLocation() }
-                    }
-                    
-                    try bgContext.save()
-                }catch{
-                    //when debugging, a merge error arises due to (i think) the timer spawning new background things while debugging has the program paused.
-                    // It is low risk, but this should probably be investigated so it doesnt happen in actual deeployment.
-                    let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")
-                }
-            }
-        }
     }
     
     var body: some View {
@@ -125,13 +88,6 @@ struct QuestView: View {
                     do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
                 }
             }
-        }
-        .onAppear(){
-            startLiveUpdater()
-        }
-        .onDisappear {
-            liveUpdater?.invalidate()
-            liveUpdater = nil
         }
     }
 
