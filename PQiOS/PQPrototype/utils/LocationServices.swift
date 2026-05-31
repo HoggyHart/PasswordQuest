@@ -143,7 +143,7 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
             let tasks = try context.fetch(LocationOccupationQuestTask.fetchRequest())
             for t in tasks{
                 
-                if t.taskArea!.identifier(questUUID: t.quest!.questUUID!) == region.identifier{
+                if t.location!.identifier(questUUID: t.quest!.questUUID!) == region.identifier{
                     return t
                 }
             }

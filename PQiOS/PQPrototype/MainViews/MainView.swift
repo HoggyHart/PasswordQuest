@@ -32,7 +32,7 @@ struct MainView: View {
                 }
             }.navigationTitle("PasswordQuest")
                 .navigationBarTitleDisplayMode(.inline)
-                .navigationBarBackButtonHidden()
+                .navigationViewStyle(.stack)
         }
         
         HStack(spacing: 1){

@@ -88,6 +88,7 @@ struct PQPrototypeApp: App {
             
             PQPrototypeApp.updatingThreadActive = false
         }
+
     }
     
     var body: some Scene {

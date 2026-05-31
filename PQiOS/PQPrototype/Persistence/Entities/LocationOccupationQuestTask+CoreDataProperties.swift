@@ -20,6 +20,4 @@ extension LocationOccupationQuestTask {
     @NSManaged public var occupiedAtLastUpdate: Bool
     @NSManaged public var recordedOccupationTime: Double
     @NSManaged public var requiredOccupationDuration: Double
-    @NSManaged public var taskArea: Location?
-
 }

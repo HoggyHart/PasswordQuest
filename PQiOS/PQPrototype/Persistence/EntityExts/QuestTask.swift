@@ -7,15 +7,9 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 extension QuestTask{
-
-    convenience init(context: NSManagedObjectContext, name: String) {
-        self.init(context: context)
-        self.name = name
-        self.completed = false
-        
-    }
     
     @objc
     func start() {
@@ -34,12 +28,12 @@ extension QuestTask{
     
     @objc
     func toString() -> String{
-        return "No Task Completion Requirement"
+        return "toString()"
     }
     
     @objc
     func currentStatus() -> String{
-        return "CorruptedTask"
+        return "currentStatus()"
     }
     
 }

@@ -10,6 +10,6 @@ import Foundation
 import CoreData
 
 
-public class LocationOccupationQuestTask: QuestTask {
+public class LocationOccupationQuestTask: LocationTask {
 
 }

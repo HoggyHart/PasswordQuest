@@ -113,7 +113,7 @@ extension Quest{
         //if inactive and tasks are complete, that means successfully finished and pending submission
         else if tasksComplete(){ return 2 }
         //if no quests to be completed, indicate there is nothing to start
-        else if self.tasks!.allObjects.isEmpty { return -2 }
+        else if self.tasks?.allObjects.isEmpty ?? true { return -2 }
         //if inactive and questStartTime == nil, that means the quest has been officially ended and is waiting for next start
         else if questStartTime == nil { return 0 }
         //only option left is inactive with incomplete quests - failed

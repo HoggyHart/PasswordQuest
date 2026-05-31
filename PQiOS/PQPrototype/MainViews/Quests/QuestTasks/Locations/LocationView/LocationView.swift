@@ -20,52 +20,51 @@ struct LocationView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Location.name, ascending: true)],animation: .default)
     private var locations: FetchedResults<Location>
    
-    @State var editedSize: String = ""
-    
-    @State var nameIsValidV = true
-    @State var radIsValidV = true
-    
-    @StateObject var viewModel = LocationMapModel()
+    @StateObject var viewModel = LocationViewModel()
     
     init(loc: Location){
         location = loc
     }
     
-    
     var body: some View {
         VStack{
-        VStack{
-            HStack{
-                TextField("Location Name: ", text: $location.name ?? "Unnamed Location").font(.title).disabled(!editing)
-                if !nameIsValidV{ Image(systemName: "exclamationmark.circle.fill")
-                        .foregroundColor(.red)
-                    .frame(alignment: .trailing) }
-                if editing {Image(systemName:"pencil")}
-            }.frame(height:40) //needs set height, the pencil image causes this to get shorter (???) which resizes the map and causes lag
-            
-            Divider()
-            
-            // -- map center controls
-            HStack{
-                Button(){
-                    viewModel.map.setCenter(LocationServices.service.getLocation(), animated: true)
-                } label :{
-                    ZStack{
-                        Circle().foregroundColor(.red)
-                        Image(systemName: "person.fill.questionmark").foregroundColor(.white)
-                    }
-                }.frame(width:40, height:40)
+            VStack{
+                HStack{
+                    TextField("Location Name: ", text: $location.name ?? "Unnamed Location").font(.title)
+                    Image(systemName:"pencil")
+                }.frame(height:40) //needs set height, the pencil image causes this to get shorter (???) which resizes the map and causes lag
                 
-                Button(){
-                    viewModel.map.setCenter(location.center(), animated: true)
-                } label :{
-                    ZStack{
-                        Circle().foregroundColor(.red)
-                        Image(systemName: "mappin.and.ellipse").foregroundColor(.white)
+                Divider()
+                
+                // -- map center controls
+                HStack(spacing:5){
+                    Button(){
+                        viewModel.map.setCenter(LocationServices.service.getLocation(), animated: true)
+                    } label :{
+                        ZStack{
+                            Circle().foregroundColor(.red)
+                            Image(systemName: "person.fill.questionmark").foregroundColor(.white)
+                        }
                     }
-                }.frame(width:40, height:40)
-            }
-        }.padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
+                    
+                    Button(){
+                        viewModel.refreshMarkers()
+                    } label :{
+                        ZStack{
+                            Circle().foregroundColor(.red)
+                            Image(systemName: "arrow.counterclockwise").foregroundColor(.white)
+                        }
+                    }
+                    Button(){
+                        viewModel.map.setCenter(location.center(), animated: true)
+                    } label :{
+                        ZStack{
+                            Circle().foregroundColor(.red)
+                            Image(systemName: "mappin.and.ellipse").foregroundColor(.white)
+                        }
+                    }
+                }.frame(width: 40*3 + 5*2, height: 40)
+            }.padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
         
         // -- MAP + Overlay attribute controls
             ZStack{
@@ -79,17 +78,13 @@ struct LocationView: View {
                             VStack(spacing:0){
                                 Text("Radius:")
                                 Slider(value: $location.radius,in: 10...1000,step:1) { _ in
-                                    viewModel.updateMarker()
+                                    viewModel.refreshMarkers()
                                 }
                             }.padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
                         }.frame(height: 70)
                     }
                 }
             }
-    }
-        
-        .toolbar(){
-            EditButton()
         }
         .onChange(of: editing) { nowEditing in
             viewModel.editing = nowEditing
@@ -107,14 +102,13 @@ struct LocationView: View {
     }
     
     func loadData(){
+        viewModel.areas = [location]
         viewModel.markArea(area: location)
     }
     
     private func save() -> Bool{
         context.perform {
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-            
-            viewModel.updateMarker()
         }
         return true
     }
@@ -122,3 +116,6 @@ struct LocationView: View {
 }
 
 
+#Preview {
+    LocationView(loc: Location(context: PersistenceController.preview.container.viewContext, name: "Location", area: CLCircularRegion(center: CLLocationCoordinate2D(latitude: 65, longitude: 70), radius: 50, identifier: "h")))
+}

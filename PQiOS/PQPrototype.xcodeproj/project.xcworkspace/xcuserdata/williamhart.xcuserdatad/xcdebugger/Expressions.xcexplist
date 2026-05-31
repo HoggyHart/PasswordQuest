@@ -58,9 +58,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "QuestView.body.getter:QuestView.swift">
-      </ContextState>
-      <ContextState
          contextName = "ScheduleTypeInfo.encode(with:):ScheduleTypeInfo.swift">
          <PersistentStrings>
             <PersistentString
@@ -88,16 +85,19 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "QuestView.body.getter:QuestView.swift">
+      </ContextState>
+      <ContextState
          contextName = "Schedule.getState():Schedule.swift">
       </ContextState>
       <ContextState
          contextName = "Week.init(rawValue:):ScheduleTypeInfo.swift">
          <PersistentStrings>
             <PersistentString
-               value = "Week.monday">
+               value = "self.toBitSetString()">
             </PersistentString>
             <PersistentString
-               value = "self.toBitSetString()">
+               value = "Week.monday">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -136,6 +136,14 @@
          <PersistentStrings>
             <PersistentString
                value = "self.questStartTime!.timeIntervalSinceNow">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LocationTaskViewModel.updateQuestMarkers():LocationTaskViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "mapModel">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

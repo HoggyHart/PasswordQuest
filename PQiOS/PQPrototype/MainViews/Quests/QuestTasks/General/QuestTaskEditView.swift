@@ -21,6 +21,6 @@ struct QuestTaskEditView: View {
 }
 
 #Preview {
-    let task = QuestTask(context: PersistenceController.preview.container.viewContext, name: "New Task")
+    let task = QuestTask(context: PersistenceController.preview.container.viewContext)
     return QuestTaskEditView(task: task).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

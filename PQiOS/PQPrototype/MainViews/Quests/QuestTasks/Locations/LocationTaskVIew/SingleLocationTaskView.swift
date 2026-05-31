@@ -9,7 +9,7 @@ import SwiftUI
 import CoreLocation
 import MapKit
 
-struct LocationTaskView: View {
+struct SingleLocationTaskView: View {
     @Environment(\.editMode) private var editMode
     private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
     
@@ -28,7 +28,7 @@ struct LocationTaskView: View {
     // --
 
     //var locationView: LocationView = LocationView()
-    @StateObject var viewModel = LocationTaskViewModel()
+    @StateObject var viewModel = SingleLocationTaskViewModel()
     
     init(locationTask: LocationOccupationQuestTask){
         self.task = locationTask
@@ -47,21 +47,23 @@ struct LocationTaskView: View {
                         EditButton()
                     }
                 }
+                
                 TextField("Task Name", text: $task.name ?? "Task Name")
                     .font(.title)
                     .disabled(!editing)
                 HStack{
                     HStack{
                         Text("Location: ").frame(width: UIScreen.main.bounds.width/4 - 10)
-                        Picker("whass",selection: $task.taskArea){
+                        Picker("ThisDoesn'tMatterAFAIK",selection: $task.location){
                             ForEach(locations){loc in
                                 let loc = loc as Location
                                 Text(StringUtils.firstXLettersOfString(str: loc.name!, x: 7, trailingEllipse: true)).tag(loc as Location?)
                             }
-                            (Text(Image(systemName: "plus")) + Text("New")).foregroundColor(.blue).tag(nil as Location?)
-                        }.onChange(of: task.taskArea, perform: { value in
+                            (Text(Image(systemName: "plus")) + Text("New"))
+                                .foregroundColor(.blue).tag(nil as Location?)
+                        }.onChange(of: task.location, perform: { value in
                             if value == nil{
-                                task.taskArea = Location(context: context)
+                                task.location = Location(context: context)
                             }
                         })
                         .frame(width: UIScreen.main.bounds.width/4 - 10)
@@ -74,10 +76,9 @@ struct LocationTaskView: View {
                         .disabled(!editing)
                 }
             }.padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
-            if let area = task.taskArea{
-                LocationView(loc: area)
-                    .id(area.objectID)
-            }
+            
+            LocationView(loc: task.location!)
+                .id(task.location!.objectID)
         }
         .toolbar(){
             EditButton()
@@ -111,10 +112,8 @@ struct LocationTaskView: View {
     do{
         quest = try PersistenceController.preview.container.viewContext.fetch(Quest.fetchRequest())[0]
     }catch{quest = Quest(context: PersistenceController.preview.container.viewContext)}
-    let task = LocationOccupationQuestTask(context: PersistenceController.preview.container.viewContext, location: nil,
-        questDuration: 1
-    )
+    let task = LocationOccupationQuestTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
     quest.addToTasks(task)
-    return LocationTaskView(locationTask: task).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    return SingleLocationTaskView(locationTask: task).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
 

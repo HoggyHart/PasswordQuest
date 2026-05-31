@@ -14,7 +14,7 @@ struct LocationManagerView: View {
     private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
     @Environment(\.managedObjectContext) private var context
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Location.name, ascending: true)],animation: .default)
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Location.name, ascending: true)], animation: .default)
     private var locations: FetchedResults<Location>
    
     @State var location: Location?
@@ -74,7 +74,7 @@ struct LocationManagerView: View {
                                                     Text(loc.name!)
                                                 }
                                                 Spacer()
-                                                if editing && loc.tasks?.count == 0{
+                                                if editing && loc.tasks!.count == 0{
                                                     Button(){
                                                         deleteLocation(loc)
                                                     } label:{

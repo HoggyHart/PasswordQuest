@@ -9,14 +9,13 @@ import SwiftUI
 import CoreData
 import CoreLocation
 struct QuestView: View {
-    @Environment(\.editMode) private var editMode
-    private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
     @Environment(\.managedObjectContext) private var context
     
     
     // -- CoreData
     @ObservedObject
     var quest: Quest
+    @FetchRequest private var tasks: FetchedResults<LocationOccupationQuestTask>
     
     //needs to be QuestTask realistically, but using that makes it crash "fetch request must have an entity"
 
@@ -24,6 +23,14 @@ struct QuestView: View {
     
     init(quest: Quest){
         self.quest = quest
+        
+        
+        _tasks = FetchRequest(
+                sortDescriptors: [
+                    NSSortDescriptor(keyPath: \QuestTask.objectID, ascending: true)
+                ],
+                predicate: NSPredicate(format: "quest == %@", quest)
+            )
     }
     
     var body: some View {
@@ -33,13 +40,25 @@ struct QuestView: View {
             HStack{
                 TextField("Quest Name", text: $quest.questName ?? "Unset")
                     .font(.title)
-                    .disabled(!editing)
-                if editing {Image(systemName:"pencil")}
+                Image(systemName:"pencil")
             }
             Divider()
             
             //task list
-            QuestTaskList(quest: quest)
+            ZStack{
+                
+                QuestTaskList(quest: quest)
+                VStack{
+                    NavigationLink{
+                        QuestTaskList(quest: quest)
+                    } label: {
+                        VStack{
+                            Rectangle().opacity(0)
+                        }
+                    }.frame(height: 30)
+                    Spacer()
+                }
+            }
             
             //schedule list
             ScheduleList(quest: quest)
@@ -79,16 +98,6 @@ struct QuestView: View {
             }.frame(width: 250, height: 50)
         }
         .padding(EdgeInsets(top: 0.0, leading: 30.0, bottom: 0.0, trailing: 30.0))
-        .toolbar(){
-            if !quest.isActive { EditButton() }
-        }
-        .onChange(of: editing) { v in
-            if v == false{
-                context.perform {
-                    do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-                }
-            }
-        }
     }
 
     func startEndResetButtonFunc(){
@@ -153,7 +162,7 @@ struct QuestView: View {
 
 #Preview {
     let stdQuest = Quest(context: PersistenceController.preview.container.viewContext, name: "New Quest")
-    let task = LocationOccupationQuestTask(context: PersistenceController.preview.container.viewContext, location: nil, questDuration: 5400)
+    let task = LocationOccupationQuestTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
     stdQuest.addToTasks(task)
     let schedule = Schedule(context: PersistenceController.preview.container.viewContext, quest: stdQuest)
     

@@ -11,40 +11,40 @@ import CoreData
 struct QuestManagerView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @State
-    private var questfs: [Quest] = [] //done to prevent FetchRequest causing view backtracking when activating quests (changing attributes)
+    @State private var questfs: [Quest] = [] //done to prevent FetchRequest causing view backtracking when activating quests (changing attributes)
+    
+    
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Quest.isActive, ascending: false),NSSortDescriptor(keyPath: \Quest.questName, ascending: true)]) private var quests: FetchedResults<Quest>
     
     var body: some View {
-        VStack{
             Form{
                 Section(header: Text("Active Quests")){
-                    ForEach(quests) { quest in
-                        if quest.isActive{ NavigationLink {
-                            QuestView(quest: quest)
-                        } label: {
-                            Text("\(quest.questName!)")
-                        }
+                    ForEach(questfs) { quest in
+                        if quest.isActive{
+                            NavigationLink (
+                                destination: QuestView(quest: quest)
+                                    .id(quest.objectID)
+                            ) {
+                                Text("\(quest.questName!)")
+                            }
                         }
                     }
-                    .onDelete(perform: deleteQuests)
+                    .onDelete(perform:deleteQuests)
+                    
                 }
-                
+               // Text(String(quests.allSatisfy({ v in return v.isActive })))
                 Section(header:Text("Inactive Quests")){
-                    ForEach(quests) { quest in
+                    ForEach(questfs) { quest in
                         if !quest.isActive{
                             NavigationLink {
                                 QuestView(quest: quest)
+                                    .id(quest.objectID)
                             } label: {
                                 Text("\(quest.questName!)")
                             }
                         }
-                    }.onDelete { o in
-                        print("Hi")
-                        deleteQuests(offsets: o)
-                    }
+                    }.onDelete(perform:deleteQuests)
                 }
-            }
         }.toolbar(){
             HStack{
                 Button(action:addQuest){
@@ -54,28 +54,30 @@ struct QuestManagerView: View {
             }
         }
         .onAppear {
-            refreshQuests()
+            refreshQuests(context: viewContext)
         }
+        .navigationViewStyle(.stack)
     }
     
-    private func refreshQuests(){
+    private func refreshQuests(context: NSManagedObjectContext){
         let fr = NSFetchRequest<Quest>()
         fr.entity = Quest.entity()
-        fr.sortDescriptors = [NSSortDescriptor(keyPath: \Quest.isActive, ascending: false),NSSortDescriptor(keyPath: \Quest.questName, ascending: true)]
+        fr.sortDescriptors = [NSSortDescriptor(keyPath: \Quest.questName, ascending: true)]
         do{
-            try self.questfs = viewContext.fetch(fr)
+            try questfs = context.fetch(fr)
         }catch{
             return
         }
-        
     }
+    
+    
     private func addQuest() {
         withAnimation {
-            let newItem = Quest(context: viewContext, name: "New Quest")
+            _ = Quest(context: viewContext, name: "New Quest")
 
             do {
                 try viewContext.save()
-                refreshQuests()
+                refreshQuests(context: viewContext)
             } catch {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -94,7 +96,7 @@ struct QuestManagerView: View {
                     viewContext.delete(q)
                 }
                 do{try viewContext.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-                refreshQuests()
+                refreshQuests(context: viewContext)
             }
         }
     }

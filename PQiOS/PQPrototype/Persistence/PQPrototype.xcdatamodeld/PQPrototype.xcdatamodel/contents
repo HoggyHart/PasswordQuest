@@ -8,14 +8,17 @@
         <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" defaultValueString="Unnamed Location"/>
         <attribute name="radius" attributeType="Double" defaultValueString="100" usesScalarValueType="YES"/>
-        <relationship name="tasks" toMany="YES" deletionRule="Nullify" destinationEntity="LocationOccupationQuestTask" inverseName="taskArea" inverseEntity="LocationOccupationQuestTask"/>
+        <attribute name="temporary" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <relationship name="tasks" toMany="YES" deletionRule="Nullify" destinationEntity="LocationTask" inverseName="location" inverseEntity="LocationTask"/>
     </entity>
-    <entity name="LocationOccupationQuestTask" representedClassName=".LocationOccupationQuestTask" parentEntity="QuestTask" syncable="YES">
+    <entity name="LocationOccupationQuestTask" representedClassName=".LocationOccupationQuestTask" parentEntity="LocationTask" syncable="YES">
         <attribute name="lastUpdate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="occupiedAtLastUpdate" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="recordedOccupationTime" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="requiredOccupationDuration" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="taskArea" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="tasks" inverseEntity="Location"/>
+    </entity>
+    <entity name="LocationTask" representedClassName="LocationTask" isAbstract="YES" parentEntity="QuestTask" syncable="YES">
+        <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="tasks" inverseEntity="Location"/>
     </entity>
     <entity name="Quest" representedClassName=".Quest" syncable="YES">
         <attribute name="isActive" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -39,9 +42,16 @@
         <relationship name="quest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Quest" inverseName="rewards" inverseEntity="Quest"/>
     </entity>
     <entity name="QuestTask" representedClassName=".QuestTask" isAbstract="YES" syncable="YES">
-        <attribute name="completed" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="name" attributeType="String"/>
+        <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String" defaultValueString="&quot;Unnamed Task"/>
+        <attribute name="partialCompletionReward" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <relationship name="quest" maxCount="1" deletionRule="Nullify" destinationEntity="Quest" inverseName="tasks" inverseEntity="Quest"/>
+    </entity>
+    <entity name="RandomLocationQuestTask" representedClassName=".RandomLocationQuestTask" parentEntity="LocationTask" syncable="YES">
+        <attribute name="minGenerationRange" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="minimumLocationsForCompletion" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="numberOfGeneratedLocations" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
+        <relationship name="randomLocations" toMany="YES" deletionRule="Cascade" destinationEntity="Location"/>
     </entity>
     <entity name="Schedule" representedClassName=".Schedule" syncable="YES">
         <attribute name="everyXDays" attributeType="Boolean" usesScalarValueType="YES"/>

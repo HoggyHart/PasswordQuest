@@ -1,5 +1,5 @@
 //
-//  Location+CoreDataClass.swift
+//  LocationTask+CoreDataClass.swift
 //  PQPrototype
 //
 //  Created by William Hart on 30/05/2026.
@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-
-public class Location: NSManagedObject {
+@objc(LocationTask)
+public class LocationTask: QuestTask {
 
 }

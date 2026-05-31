@@ -2,7 +2,7 @@
 //  Location+CoreDataProperties.swift
 //  PQPrototype
 //
-//  Created by William Hart on 21/05/2026.
+//  Created by William Hart on 30/05/2026.
 //
 //
 
@@ -21,6 +21,7 @@ extension Location {
     @NSManaged public var name: String?
     @NSManaged public var radius: Double
     @NSManaged public var tasks: NSSet?
+    @NSManaged public var temporary: Bool
 
 }
 
@@ -28,10 +29,10 @@ extension Location {
 extension Location {
 
     @objc(addTasksObject:)
-    @NSManaged public func addToTasks(_ value: LocationOccupationQuestTask)
+    @NSManaged public func addToTasks(_ value: LocationTask)
 
     @objc(removeTasksObject:)
-    @NSManaged public func removeFromTasks(_ value: LocationOccupationQuestTask)
+    @NSManaged public func removeFromTasks(_ value: LocationTask)
 
     @objc(addTasks:)
     @NSManaged public func addToTasks(_ values: NSSet)

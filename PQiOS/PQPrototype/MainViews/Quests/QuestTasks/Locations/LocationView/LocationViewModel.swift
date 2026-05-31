@@ -8,56 +8,66 @@
 import Foundation
 import MapKit
 import CoreLocation
+import CoreData
 
-class LocationMapModel : NSObject, ObservableObject, MKMapViewDelegate{
+class LocationViewModel : NSObject, ObservableObject, MKMapViewDelegate{
     
-    var area: Location? = nil
+    var areas: [Location] = []
+    var selectedLocation: Location? = nil
     var editing: Bool = false
     var map: MKMapView = MKMapView()
-    var markerRenderer: MKCircleRenderer? = nil
+    
+    var markers: Dictionary<NSManagedObjectID, Dictionary<MKCircleRenderer,MKAnnotation>> = [:]
     
   //  var mapMarkerUpdater: Timer? = nil
     override init(){
         //init map
         super.init()
-        map.setRegion(MKCoordinateRegion(center:
-                                            LocationServices.service.getLocation(),
-                                           span: MKCoordinateSpan(
-                                            latitudeDelta: 0.005519282850478646,
-                                            longitudeDelta: 0.0040233132599780674)),
-                      animated: true)
+        map.setRegion(
+            MKCoordinateRegion(
+                center:
+                    LocationServices.service.getLocation(),
+                    span: MKCoordinateSpan(
+                        latitudeDelta: 0.005519282850478646,
+                        longitudeDelta: 0.0040233132599780674
+                    )
+            ),
+            animated: true
+        )
         map.showsUserLocation=true
         map.isZoomEnabled = true
         map.delegate = self
         
         //init interaction
-        let gr = UITapGestureRecognizer(target: self, action: #selector(LocationMapModel.clickToSetLocation))
+        let gr = UITapGestureRecognizer(target: self, action: #selector(LocationViewModel.clickToSetLocation))
         map.addGestureRecognizer(gr)
         
     }
     
     @objc public func clickToSetLocation(recognizer: UIGestureRecognizer){
         if !editing { return }
+        guard let selectedLocation = selectedLocation else {return}
         
         let displayTapCoords = recognizer.location(in: map)
         let coords = map.convert(displayTapCoords, toCoordinateFrom: map)
         
-        area?.latitude = coords.latitude
-        area?.longitude = coords.longitude
+        selectedLocation.latitude = coords.latitude
+        selectedLocation.longitude = coords.longitude
         
-        self.updateMarker()
+        self.refreshMarkerFor(area: selectedLocation)
     }
     
     func markArea(area: Location){
-        //center map on location
-        self.area = area
+        //add to list
+        if selectedLocation == nil {
+            selectedLocation = area
+        }
         
         //add a central pin to mark the quest (to be replaced with a quest-related png (i.e. goblin tower png)
         //this makes it easily visible when zoomed out
         let questPin = MKPointAnnotation()
         questPin.title = area.name
         questPin.coordinate = area.center()
-        
         //create circle to be drawn
         let questCircle = MKCircle(center: area.center(), radius: area.radius)
         
@@ -65,21 +75,34 @@ class LocationMapModel : NSObject, ObservableObject, MKMapViewDelegate{
         self.map.addAnnotation(questPin)
         //draw the circular area
         self.map.addOverlay(questCircle, level:.aboveRoads)
+        let renderer = self.map.renderer(for: questCircle) as! MKCircleRenderer
         //get overlay renderer we just created with .addOverlay in case we want to alter it
-        self.markerRenderer = self.map.renderer(for: questCircle) as! MKCircleRenderer?
+        
+        self.markers.updateValue([renderer:questPin], forKey: area.objectID)
         
     }
     
-    func updateMarker(){
+    func refreshMarkers(){
         //annotation stuff is get-only, so delete them, create new ones, and re-draw
         clearMap()
         //and re-draw
-        guard let area = area else {return}
-        self.markArea(area: area)
+        for area in areas {
+            self.markArea(area: area)
+        }
     }
     func clearMap(){
+        self.markers = [:]
         map.removeAnnotations(map.annotations)
         map.removeOverlays(map.overlays)
+    }
+    func removeMarkerFor(area: Location){
+        let pair = self.markers.removeValue(forKey: area.objectID)
+        map.removeOverlay(pair!.first!.key.circle)
+        map.removeAnnotation(pair!.first!.value)
+    }
+    func refreshMarkerFor(area: Location){
+        removeMarkerFor(area: area)
+        markArea(area: area)
     }
     
     // -- Drawing the overlay delegate method

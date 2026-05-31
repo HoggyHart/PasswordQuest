@@ -13,16 +13,17 @@ struct QuestTaskList: View {
     private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
     @Environment(\.managedObjectContext) private var context
     
-    @FetchRequest private var tasks: FetchedResults<LocationOccupationQuestTask>
+    @FetchRequest private var tasks: FetchedResults<QuestTask>
     
     var quest: Quest
     
     @State private var inspectedTaskID: NSManagedObjectID? = nil
     private var isTaskSheetPresented: Binding<Bool> { Binding(get: { inspectedTaskID != nil }, set: { if !$0 { inspectedTaskID = nil } }) }
     
+    @State private var taskTypeSheetActive: Bool = false
+    
     init(quest: Quest){
         self.quest = quest
-        
         _tasks = FetchRequest(
                 sortDescriptors: [
                     NSSortDescriptor(keyPath: \QuestTask.objectID, ascending: true)
@@ -36,42 +37,80 @@ struct QuestTaskList: View {
             HStack{
                 Text("Tasks: ")
                 Spacer()
-                if editing {
-                    Button(){
-                        addTask()
+                Button(){
+                        taskTypeSheetActive = true
+                     //   addTask()
                     } label: {
                         Label("Add Task", systemImage: "plus")
                     }
-                }
             }
             List{
                 ForEach(tasks){qtask in
                     Button(){
                         inspectedTaskID = qtask.objectID
                     } label:{
-                        HStack(){
-                            Image(systemName: "circle.fill")
-                                .foregroundColor( taskStatusColor(task: qtask) )
-                                .shadow(color:.black, radius: 1)
-                            Text(qtask.currentStatus() + " - " + qtask.name!)
-                            Spacer()
+                        VStack{
+                            HStack(){
+                                Image(systemName: "circle.fill")
+                                    .foregroundColor( QuestTaskList.taskStatusColor(task: qtask) )
+                                    .shadow(color:.black, radius: 1)
+                                Text(qtask.currentStatus() + " - " + qtask.name!)
+                                Spacer()
+                            }
+                            if editing{ QuestTaskConfigView(task: qtask) }
                         }
-                    }
+                    }.disabled(editing)
                 }
                 .onDelete(perform: deleteTasks)
             }
             .listStyle(PlainListStyle())
         }.sheet(isPresented: isTaskSheetPresented){
             if let id = inspectedTaskID {
-                let localTask = context.object(with: id) as! LocationOccupationQuestTask
-                LocationTaskView(locationTask: localTask) }
+                let localTask = context.object(with: id) as! QuestTask
+                getView(task: localTask)
+            }
+        }.sheet(isPresented: $taskTypeSheetActive){
+            ZStack{
+                ScrollView{
+                    LazyVGrid(columns: [GridItem(), GridItem()]) {
+                        // for each task type:
+                        Button(){
+                            addTask(task:LocationOccupationQuestTask(context: context, dummyVar: true))
+                            taskTypeSheetActive = false
+                        } label:{
+                            Image("SingleLocationTaskIcon")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
+                        }
+                        Button(){
+                            addTask(task:RandomLocationQuestTask(context: context, dummyVar: true))
+                            taskTypeSheetActive = false
+                        } label:{
+                            Image("RandomLocationTaskIcon")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
+                        }
+                    }
+                }
+            }
+        }
+        .toolbar(){
+            if !quest.isActive { EditButton() }
+        }
+        .onChange(of: editing) { v in
+            if v == false{
+                context.perform {
+                    do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+                }
+            }
         }
     }
     
-    func addTask(){
+    func addTask(task: QuestTask){
         context.perform {
         withAnimation {
-                let task = LocationOccupationQuestTask(context: context, location: nil, questDuration: 3)
                 quest.addToTasks(task)
                 do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
             }
@@ -88,13 +127,13 @@ struct QuestTaskList: View {
             }
         }
     }
-    func taskStatusColor(task: QuestTask) -> Color{
+    static func taskStatusColor(task: QuestTask) -> Color{
         ///-2: inactive, no tasks -> doesnt matter what colour - take default
         ///-1: inactive, failed
         ///0: inactive, not started
         ///1: active
         ///2: inactive, completed successfully
-        switch(quest.questStatus()){
+        switch(task.quest!.questStatus()){
         case -1:
             return .red
         case 0:
@@ -108,12 +147,25 @@ struct QuestTaskList: View {
             return .purple
         }
     }
+    
+    @ViewBuilder
+    func getView(task: QuestTask) -> some View{
+        if task is LocationOccupationQuestTask{
+            SingleLocationTaskView(locationTask: task as! LocationOccupationQuestTask)
+        }
+        else if task is RandomLocationQuestTask{
+            RandomLocationQuestTaskView(locationTask: task as! RandomLocationQuestTask)
+        }
+        else{
+            EmptyView()
+        }
+    }
 }
 
 #Preview {
 
         let q = Quest(context: PersistenceController.preview.container.viewContext, name: "New Quest")
-        let task = LocationOccupationQuestTask(context: PersistenceController.preview.container.viewContext, location: nil, questDuration: 5400)
+        let task = LocationOccupationQuestTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
         q.addToTasks(task)
         return QuestTaskList(quest: q).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 

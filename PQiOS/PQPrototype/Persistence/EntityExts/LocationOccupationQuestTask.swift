@@ -10,25 +10,23 @@ import MapKit
 import CoreData
 
 extension LocationOccupationQuestTask: MKMapViewDelegate {
-    
-    convenience init(context: NSManagedObjectContext, location: Location?, questDuration: TimeInterval){
-        let loc = location ?? Location(context: context,
+    convenience init(context: NSManagedObjectContext, dummyVar: Bool = false){
+        self.init(context: context)
+        self.name = "Unnamed Location Task"
+        let loc = Location(context: context,
                                        name: "Unnamed Location",
                                        area: CLCircularRegion(center: LocationServices.service.getLocation(), radius: 25, identifier: UUID().uuidString))
-        self.init(context: context, name: "Spend time at " + loc.name!)
         loc.addToTasks(self)
         self.recordedOccupationTime = 0
-        self.requiredOccupationDuration = questDuration
-        if self.requiredOccupationDuration == 0 {self.requiredOccupationDuration = 1}
+        self.requiredOccupationDuration = 1 //TODO: make rod able to be 0 for instant compltes upon entering area
         self.occupiedAtLastUpdate = false
-        
     }
     
     override func start() {
         reset()
         lastUpdate = Date.now
         LocationServices.service.verifyAppLocationPerms()
-        LocationServices.service.locationManager.startMonitoring(for: taskArea!.asRegion(questUUID: self.quest!.questUUID!))
+        LocationServices.service.locationManager.startMonitoring(for: location!.asRegion(questUUID: self.quest!.questUUID!))
     }
     
     //lastUpdate is set after this method in update() and in LocationManager.onRegionEnter/Exit
@@ -48,7 +46,7 @@ extension LocationOccupationQuestTask: MKMapViewDelegate {
     override func update() {
         if completed {return}
         
-        let taskArea = taskArea!
+        let taskArea = location!
         
         guard let curPos = LocationServices.service.locationManager.location?.coordinate else {return}
         
@@ -66,7 +64,7 @@ extension LocationOccupationQuestTask: MKMapViewDelegate {
         lastUpdate = nil
         occupiedAtLastUpdate = false
         recordedOccupationTime = 0
-        LocationServices.service.locationManager.stopMonitoring(for: taskArea!.asRegion(questUUID: self.quest!.questUUID!))
+        LocationServices.service.locationManager.stopMonitoring(for: location!.asRegion(questUUID: self.quest!.questUUID!))
     
     }
     
@@ -82,7 +80,7 @@ extension LocationOccupationQuestTask: MKMapViewDelegate {
         nf.roundingMode = .up
         nf.minimumFractionDigits = 0
         nf.maximumFractionDigits = 3
-        return (nf.string(for:  prcnt) ?? "?")+"% of \(requiredOccupationDuration/magnitude) \(unit) spent at \(self.taskArea!.name!)"
+        return (nf.string(for:  prcnt) ?? "?")+"% of \(requiredOccupationDuration/magnitude) \(unit) spent at \(self.location!.name!)"
     }
     
     override func currentStatus() -> String {
