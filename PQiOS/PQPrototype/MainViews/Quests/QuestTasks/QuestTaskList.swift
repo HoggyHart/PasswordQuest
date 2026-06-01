@@ -75,7 +75,7 @@ struct QuestTaskList: View {
                     LazyVGrid(columns: [GridItem(), GridItem()]) {
                         // for each task type:
                         Button(){
-                            addTask(task:LocationOccupationQuestTask(context: context, dummyVar: true))
+                            addTask(task:SingleLocationTask(context: context, dummyVar: true))
                             taskTypeSheetActive = false
                         } label:{
                             Image("SingleLocationTaskIcon")
@@ -84,7 +84,7 @@ struct QuestTaskList: View {
                                 .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
                         }
                         Button(){
-                            addTask(task:RandomLocationQuestTask(context: context, dummyVar: true))
+                            addTask(task:RNGLocationTask(context: context, dummyVar: true))
                             taskTypeSheetActive = false
                         } label:{
                             Image("RandomLocationTaskIcon")
@@ -150,11 +150,11 @@ struct QuestTaskList: View {
     
     @ViewBuilder
     func getView(task: QuestTask) -> some View{
-        if task is LocationOccupationQuestTask{
-            SingleLocationTaskView(locationTask: task as! LocationOccupationQuestTask)
+        if task is SingleLocationTask{
+            SingleLocationTaskView(locationTask: task as! SingleLocationTask)
         }
-        else if task is RandomLocationQuestTask{
-            RandomLocationQuestTaskView(locationTask: task as! RandomLocationQuestTask)
+        else if task is RNGLocationTask{
+            RNGLTaskView(locationTask: task as! RNGLocationTask)
         }
         else{
             EmptyView()
@@ -165,7 +165,7 @@ struct QuestTaskList: View {
 #Preview {
 
         let q = Quest(context: PersistenceController.preview.container.viewContext, name: "New Quest")
-        let task = LocationOccupationQuestTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
+        let task = SingleLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
         q.addToTasks(task)
         return QuestTaskList(quest: q).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 

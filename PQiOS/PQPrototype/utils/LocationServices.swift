@@ -138,9 +138,9 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
     let context: NSManagedObjectContext
     
     ///return the task that owns this region
-    func taskFor(region: CLRegion) -> LocationOccupationQuestTask?{
+    func taskFor(region: CLRegion) -> SingleLocationTask?{
         do{
-            let tasks = try context.fetch(LocationOccupationQuestTask.fetchRequest())
+            let tasks = try context.fetch(SingleLocationTask.fetchRequest())
             for t in tasks{
                 
                 if t.location!.identifier(questUUID: t.quest!.questUUID!) == region.identifier{

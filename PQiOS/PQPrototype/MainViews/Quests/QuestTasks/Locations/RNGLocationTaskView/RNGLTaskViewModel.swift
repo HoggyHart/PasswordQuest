@@ -8,12 +8,12 @@
 import Foundation
 import MapKit
 
-class RandomLocationQuestTaskViewModel: LocationViewModel {
+class RNGLTaskViewModel: LocationViewModel {
     //optional to allow creation of model, but is treated as non-optional
-    var task: RandomLocationQuestTask? = nil
+    var task: RNGLocationTask? = nil
     var mapMarkerUpdater: Timer?
     
-    func loadTaskData(task: RandomLocationQuestTask){
+    func loadTaskData(task: RNGLocationTask){
         self.task = task
         mapMarkerUpdater = mapMarkerUpdater ?? Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
               self.updateQuestMarkers()

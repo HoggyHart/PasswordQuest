@@ -9,14 +9,12 @@ import Foundation
 import MapKit
 import CoreData
 
-extension LocationOccupationQuestTask: MKMapViewDelegate {
+extension SingleLocationTask: MKMapViewDelegate {
     convenience init(context: NSManagedObjectContext, dummyVar: Bool = false){
         self.init(context: context)
         self.name = "Unnamed Location Task"
-        let loc = Location(context: context,
-                                       name: "Unnamed Location",
-                                       area: CLCircularRegion(center: LocationServices.service.getLocation(), radius: 25, identifier: UUID().uuidString))
-        loc.addToTasks(self)
+       // let loc = Location(context: context,name: "Unnamed Location",area: CLCircularRegion(center: LocationServices.service.getLocation(), radius: 25, identifier: UUID().uuidString))
+      //  loc.addToTasks(self)
         self.recordedOccupationTime = 0
         self.requiredOccupationDuration = 1 //TODO: make rod able to be 0 for instant compltes upon entering area
         self.occupiedAtLastUpdate = false

@@ -21,7 +21,7 @@ struct PersistenceController {
             //2%2 == T
             //3%2 == F
             if i%2 == 0{
-                let task = LocationOccupationQuestTask(context: viewContext, dummyVar: true)
+                let task = SingleLocationTask(context: viewContext, dummyVar: true)
                 task.location = Location(context: viewContext, name: "Location "+String(i), area: CLCircularRegion(
                         center: LocationServices.generateRandomLocation(origin: CLLocationCoordinate2D(latitude: 0, longitude: 0), minRange: 0, maxRange: 500),
                         radius: 50,

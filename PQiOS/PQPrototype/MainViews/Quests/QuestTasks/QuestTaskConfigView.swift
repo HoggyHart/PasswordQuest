@@ -52,7 +52,7 @@ struct QuestTaskConfigView: View {
 
 #Preview {
     let stdQuest = Quest(context: PersistenceController.preview.container.viewContext, name: "New Quest")
-    let task = LocationOccupationQuestTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
+    let task = SingleLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
     stdQuest.addToTasks(task)
     return QuestTaskConfigView(task: task)
 }

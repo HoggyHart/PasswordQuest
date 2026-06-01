@@ -14,7 +14,7 @@ struct LocationManagerView: View {
     private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
     @Environment(\.managedObjectContext) private var context
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Location.name, ascending: true)], animation: .default)
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Location.name, ascending: true),NSSortDescriptor(keyPath: \Location.objectID, ascending: true)], animation: .default)
     private var locations: FetchedResults<Location>
    
     @State var location: Location?
@@ -22,7 +22,7 @@ struct LocationManagerView: View {
     @StateObject var viewModel = LocationManagerModel()
     
     @State var showList = true
-    @State var areasDrawn: [Bool] = []
+    @State var areasDrawn: Dictionary<NSManagedObjectID,Bool> = [:]
     
     var body: some View {
         ZStack{
@@ -31,7 +31,7 @@ struct LocationManagerView: View {
                 UIViewToViewWrapper(view: viewModel.map)
                     .frame(width: UIScreen.main.bounds.width)
             
-                //notepad content
+                //notepad background/content
                 ZStack(){
                     VStack{
                         ZStack{
@@ -58,29 +58,29 @@ struct LocationManagerView: View {
                             VStack{ZStack{
                                 ScrollView(){
                                     VStack(spacing:5){
-                                        ForEach(locations) { loc in
-                                            HStack(spacing:20){
-                                                Button(){
-                                                    toggleLocation(loc)
-                                                } label: {
-                                                    Circle().foregroundColor(
-                                                        areasDrawn.count > 0
-                                                        && areasDrawn[locations.firstIndex(of: loc)!] ? .black : .white)
-                                                }
-                                                .frame(width:30,height:30)
-                                                Button(){
-                                                    showLocation(location: loc)
-                                                } label: {
-                                                    Text(loc.name!)
-                                                }
-                                                Spacer()
-                                                if editing && loc.tasks!.count == 0{
+                                            ForEach(locations) { loc in
+                                                HStack(spacing:20){
                                                     Button(){
-                                                        deleteLocation(loc)
-                                                    } label:{
-                                                        Image(systemName:"xmark").foregroundColor(.red)
+                                                        toggleLocation(loc)
+                                                    } label: {
+                                                        Circle().foregroundColor(
+                                                            areasDrawn.count > 0
+                                                            && areasDrawn[loc.objectID] ?? false ? .black : .white)
                                                     }
-                                                }
+                                                    .frame(width:30,height:30)
+                                                    Button(){
+                                                        showLocation(location: loc)
+                                                    } label: {
+                                                        Text(loc.name!)
+                                                    }
+                                                    Spacer()
+                                                    if editing && loc.tasks!.count == 0{
+                                                        Button(){
+                                                            deleteLocation(loc)
+                                                        } label:{
+                                                            Image(systemName:"xmark").foregroundColor(.red)
+                                                        }
+                                                    }
                                             }
                                         }
                                     }
@@ -95,7 +95,7 @@ struct LocationManagerView: View {
                         }.opacity(showList ? 1 : 0)
                             .disabled(showList ? false : true)
                     }
-                    //Main UI buttons
+                    //Main UI overlay buttons
                     VStack{
                         //header
                         HStack{
@@ -103,6 +103,11 @@ struct LocationManagerView: View {
                                 .foregroundColor(.white)
                                 .opacity(showList ? 1 : 0)
                                     .disabled(showList ? false : true)
+                            Button(){
+                                addLocation()
+                            } label:{
+                                Image(systemName: "plus")
+                            }
                             Spacer()
                             Button(){
                                 showList.toggle()
@@ -135,7 +140,7 @@ struct LocationManagerView: View {
         }
         .onAppear(){
             locations.forEach { loc in
-                areasDrawn.append(true)
+                areasDrawn.updateValue(true, forKey: loc.objectID)
                 viewModel.registerLocation(loc: loc)
             }
         }
@@ -145,25 +150,40 @@ struct LocationManagerView: View {
         
     }
     
+    private func addLocation() {
+        withAnimation {
+            
+            let loc = Location(context: context, name: "New Location", area: CLCircularRegion(center: viewModel.map.centerCoordinate, radius: 50, identifier: UUID().uuidString))
+            do {
+                try context.save()
+                viewModel.registerLocation(loc: loc)
+                areasDrawn.updateValue(true, forKey: loc.objectID)
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
     func deleteLocation(_ loc: Location){
         context.perform {
-                let i = locations.firstIndex(of: loc)!
-                context.delete(loc)
-                viewModel.unregisterLocation(areaIndex: i)
-                areasDrawn.remove(at: i)
+            context.delete(loc)
+            viewModel.unregisterLocation(areaID: loc.objectID)
+            areasDrawn.removeValue(forKey: loc.objectID)
                 do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
     }
     func toggleLocation(_ loc: Location){
-        let i = locations.firstIndex(of: loc)!
-        areasDrawn[i].toggle()
-        if areasDrawn[i]{
-            viewModel.showArea(areaIndex: i)
+        areasDrawn[loc.objectID]?.toggle()
+        if areasDrawn[loc.objectID]!{
+            viewModel.showArea(areaID: loc.objectID)
             viewModel.centerOn(loc)
         } else {
-            viewModel.hideArea(areaIndex: i)
+            viewModel.hideArea(areaID: loc.objectID)
         }
     }
+    
     func showLocation(location: Location){
         viewModel.centerOn(location)
     }

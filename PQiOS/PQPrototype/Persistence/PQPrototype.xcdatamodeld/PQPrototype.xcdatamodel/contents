@@ -11,12 +11,6 @@
         <attribute name="temporary" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <relationship name="tasks" toMany="YES" deletionRule="Nullify" destinationEntity="LocationTask" inverseName="location" inverseEntity="LocationTask"/>
     </entity>
-    <entity name="LocationOccupationQuestTask" representedClassName=".LocationOccupationQuestTask" parentEntity="LocationTask" syncable="YES">
-        <attribute name="lastUpdate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="occupiedAtLastUpdate" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="recordedOccupationTime" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="requiredOccupationDuration" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-    </entity>
     <entity name="LocationTask" representedClassName="LocationTask" isAbstract="YES" parentEntity="QuestTask" syncable="YES">
         <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="tasks" inverseEntity="Location"/>
     </entity>
@@ -47,7 +41,7 @@
         <attribute name="partialCompletionReward" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <relationship name="quest" maxCount="1" deletionRule="Nullify" destinationEntity="Quest" inverseName="tasks" inverseEntity="Quest"/>
     </entity>
-    <entity name="RandomLocationQuestTask" representedClassName=".RandomLocationQuestTask" parentEntity="LocationTask" syncable="YES">
+    <entity name="RNGLocationTask" representedClassName=".RNGLocationTask" parentEntity="LocationTask" syncable="YES">
         <attribute name="minGenerationRange" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="minimumLocationsForCompletion" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="numberOfGeneratedLocations" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
@@ -68,5 +62,11 @@
         <attribute name="startTime" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="xDayDelay" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES"/>
         <relationship name="quest" maxCount="1" deletionRule="Nullify" destinationEntity="Quest" inverseName="schedulers" inverseEntity="Quest"/>
+    </entity>
+    <entity name="SingleLocationTask" representedClassName=".SingleLocationTask" parentEntity="LocationTask" syncable="YES">
+        <attribute name="lastUpdate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="occupiedAtLastUpdate" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="recordedOccupationTime" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="requiredOccupationDuration" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
 </model>

@@ -9,6 +9,6 @@
 import Foundation
 import CoreData
 
-public class RandomLocationQuestTask: LocationTask {
+public class RNGLocationTask: LocationTask {
 
 }

@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 import CoreLocation
 
-extension RandomLocationQuestTask{
+extension RNGLocationTask{
     //completion can be calculated, no DB/entity attribute needed
     var completedAreas: Int16{
         get{
@@ -17,7 +17,7 @@ extension RandomLocationQuestTask{
         }
     }
 }
-extension RandomLocationQuestTask{
+extension RNGLocationTask{
     convenience init(context: NSManagedObjectContext, dummyVar: Bool){
         self.init(context: context)
         self.name = "Visit 1/1 Locations"

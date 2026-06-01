@@ -16,7 +16,7 @@ struct SingleLocationTaskView: View {
     @Environment(\.managedObjectContext) public var context
     
     @ObservedObject
-    var task: LocationOccupationQuestTask
+    var task: SingleLocationTask
     
     // -- Editable attributes
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Location.name, ascending: true)],animation: .default)
@@ -30,7 +30,7 @@ struct SingleLocationTaskView: View {
     //var locationView: LocationView = LocationView()
     @StateObject var viewModel = SingleLocationTaskViewModel()
     
-    init(locationTask: LocationOccupationQuestTask){
+    init(locationTask: SingleLocationTask){
         self.task = locationTask
         //self.locationView = LocationView(location: locationTask.taskArea!)
     }
@@ -52,6 +52,7 @@ struct SingleLocationTaskView: View {
                     .font(.title)
                     .disabled(!editing)
                 HStack{
+                    //Location Picker
                     HStack{
                         Text("Location: ").frame(width: UIScreen.main.bounds.width/4 - 10)
                         Picker("ThisDoesn'tMatterAFAIK",selection: $task.location){
@@ -59,16 +60,12 @@ struct SingleLocationTaskView: View {
                                 let loc = loc as Location
                                 Text(StringUtils.firstXLettersOfString(str: loc.name!, x: 7, trailingEllipse: true)).tag(loc as Location?)
                             }
-                            (Text(Image(systemName: "plus")) + Text("New"))
-                                .foregroundColor(.blue).tag(nil as Location?)
-                        }.onChange(of: task.location, perform: { value in
-                            if value == nil{
-                                task.location = Location(context: context)
-                            }
-                        })
+                        }
                         .frame(width: UIScreen.main.bounds.width/4 - 10)
                         .disabled(!editing)
                     }.frame(height: 35)
+                    
+                    //duration editor
                     DatePicker(selection: $editedDuration, displayedComponents:.hourAndMinute, label: {Text("Duration:")})
                         .environment(\.locale, Locale(identifier: "en_UK"))
                         .datePickerStyle(GraphicalDatePickerStyle())
@@ -77,8 +74,14 @@ struct SingleLocationTaskView: View {
                 }
             }.padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
             
-            LocationView(loc: task.location!)
-                .id(task.location!.objectID)
+            if task.location != nil{
+                LocationView(loc: task.location!)
+                    .id(task.location!.objectID)
+            }else{
+                Rectangle().foregroundColor(.gray)
+                //TODO: add prompt to create Location (redirect to LocationView with new dummy location created
+                //TODO: make it appear on view load instead as a big pop up: "You have no registered locations, would you like to make one? (redirect)"
+            }
         }
         .toolbar(){
             EditButton()
@@ -112,7 +115,7 @@ struct SingleLocationTaskView: View {
     do{
         quest = try PersistenceController.preview.container.viewContext.fetch(Quest.fetchRequest())[0]
     }catch{quest = Quest(context: PersistenceController.preview.container.viewContext)}
-    let task = LocationOccupationQuestTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
+    let task = SingleLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
     quest.addToTasks(task)
     return SingleLocationTaskView(locationTask: task).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

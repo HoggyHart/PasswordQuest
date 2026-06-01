@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-
+@objc(QuestTask) 
 public class QuestTask: NSManagedObject {
 
 }

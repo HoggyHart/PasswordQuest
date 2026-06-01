@@ -15,7 +15,7 @@ struct QuestView: View {
     // -- CoreData
     @ObservedObject
     var quest: Quest
-    @FetchRequest private var tasks: FetchedResults<LocationOccupationQuestTask>
+    @FetchRequest private var tasks: FetchedResults<SingleLocationTask>
     
     //needs to be QuestTask realistically, but using that makes it crash "fetch request must have an entity"
 
@@ -162,7 +162,7 @@ struct QuestView: View {
 
 #Preview {
     let stdQuest = Quest(context: PersistenceController.preview.container.viewContext, name: "New Quest")
-    let task = LocationOccupationQuestTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
+    let task = SingleLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
     stdQuest.addToTasks(task)
     let schedule = Schedule(context: PersistenceController.preview.container.viewContext, quest: stdQuest)
     

@@ -3,32 +3,13 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "closure #2 in closure #1 in closure #3 in closure #1 in closure #3 in closure #1 in ScheduleView.body.getter:ScheduleView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.schedule.scheduledDays!.toBitSetString()">
-            </PersistentString>
-            <PersistentString
-               value = "1&lt;&lt;i">
-            </PersistentString>
-            <PersistentString
-               value = "schedule.scheduledDays!.contains(Week.Element(rawValue:1&lt;&lt;i))">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "Schedule.getState():Schedule.swift">
       </ContextState>
       <ContextState
-         contextName = "Schedule.lateInit(quest:):Schedule.swift">
+         contextName = "LocationTaskViewModel.updateQuestMarkers():LocationTaskViewModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.scheduledDays!.week.toBitSetString()">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in PQPrototypeApp.init():PQPrototypeApp.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "PQPrototypeApp.updatingThreadActive">
+               value = "mapModel">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -36,24 +17,10 @@
          contextName = "Schedule.amendNextScheduledPeriod(toNextStartFrom:padQuestFailures:):Schedule.swift">
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #2 in closure #1 in closure #3 in closure #1 in closure #3 in closure #1 in ScheduleView.body.getter:ScheduleView.swift">
+         contextName = "LocationOccupationQuestTask.updateRecordedTime():LocationOccupationQuestTask.swift">
          <PersistentStrings>
             <PersistentString
-               value = "1&lt;&lt;i">
-            </PersistentString>
-            <PersistentString
-               value = "self.schedule.scheduledDays!.week">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "LocationOccupationQuestTask.update():LocationOccupationQuestTask.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "taskArea.radius">
-            </PersistentString>
-            <PersistentString
-               value = "LocationServices.calcDistance(p1: curPos, p2: taskArea.center())">
+               value = "recordedOccupationTime">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -66,49 +33,30 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "implicit closure #1 in closure #1 in closure #2 in closure #1 in closure #3 in closure #1 in closure #3 in closure #1 in ScheduleView.body.getter:ScheduleView.swift">
+         contextName = "Week.init(rawValue:):ScheduleTypeInfo.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.schedule.scheduledDays">
+               value = "Week.monday">
+            </PersistentString>
+            <PersistentString
+               value = "self.toBitSetString()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #2 in PQPrototypeApp.init():PQPrototypeApp.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #1 in closure #3 in closure #1 in closure #3 in closure #1 in ScheduleView.body.getter:ScheduleView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.schedule.scheduledDays!.toBitSetString()">
             </PersistentString>
             <PersistentString
                value = "1&lt;&lt;i">
             </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "LocationOccupationQuestTask.updateRecordedTime():LocationOccupationQuestTask.swift">
-         <PersistentStrings>
             <PersistentString
-               value = "recordedOccupationTime">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "QuestView.body.getter:QuestView.swift">
-      </ContextState>
-      <ContextState
-         contextName = "Schedule.getState():Schedule.swift">
-      </ContextState>
-      <ContextState
-         contextName = "Week.init(rawValue:):ScheduleTypeInfo.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.toBitSetString()">
-            </PersistentString>
-            <PersistentString
-               value = "Week.monday">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "Quest.getCurrentScheduler():Quest.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "schedule.startTime!">
-            </PersistentString>
-            <PersistentString
-               value = "questStartTime!">
+               value = "schedule.scheduledDays!.contains(Week.Element(rawValue:1&lt;&lt;i))">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -129,7 +77,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #2 in PQPrototypeApp.init():PQPrototypeApp.swift">
+         contextName = "LocationManagerView.toggleLocation(_:):LocationManagerView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "areasDrawn">
+            </PersistentString>
+            <PersistentString
+               value = "loc.objectID">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "Quest.updateProgress():Quest.swift">
@@ -140,12 +96,78 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LocationTaskViewModel.updateQuestMarkers():LocationTaskViewModel.swift">
+         contextName = "closure #1 in LocationManagerView.addLocation():LocationManagerView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "mapModel">
+               value = "loc.objectID">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "QuestView.body.getter:QuestView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "LocationOccupationQuestTask.update():LocationOccupationQuestTask.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "taskArea.radius">
+            </PersistentString>
+            <PersistentString
+               value = "LocationServices.calcDistance(p1: curPos, p2: taskArea.center())">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Quest.getCurrentScheduler():Quest.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "schedule.startTime!">
+            </PersistentString>
+            <PersistentString
+               value = "questStartTime!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Schedule.lateInit(quest:):Schedule.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.scheduledDays!.week.toBitSetString()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in PQPrototypeApp.init():PQPrototypeApp.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "PQPrototypeApp.updatingThreadActive">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #2 in closure #1 in closure #3 in closure #1 in closure #3 in closure #1 in ScheduleView.body.getter:ScheduleView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "1&lt;&lt;i">
+            </PersistentString>
+            <PersistentString
+               value = "self.schedule.scheduledDays!.week">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "implicit closure #1 in closure #1 in closure #2 in closure #1 in closure #3 in closure #1 in closure #3 in closure #1 in ScheduleView.body.getter:ScheduleView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.schedule.scheduledDays">
+            </PersistentString>
+            <PersistentString
+               value = "1&lt;&lt;i">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "main:PQPrototypeApp.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

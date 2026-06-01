@@ -8,13 +8,12 @@
 import Foundation
 import MapKit
 import CoreLocation
+import CoreData
 
 class LocationManagerModel : NSObject, ObservableObject, MKMapViewDelegate{
     
     var map: MKMapView = MKMapView()
-    
-    var locationCircles: [MKOverlay] = []
-    var locationPins: [MKAnnotation] = []
+    var markers: Dictionary<NSManagedObjectID, Dictionary<MKCircle,MKAnnotation>> = [:]
     
     
   //  var mapMarkerUpdater: Timer? = nil
@@ -33,51 +32,43 @@ class LocationManagerModel : NSObject, ObservableObject, MKMapViewDelegate{
     }
     
     func registerLocation(loc: Location){
-        //add a central pin to mark the quest (to be replaced with a quest-related png (i.e. goblin tower png)
-        //this makes it easily visible when zoomed out
         let questPin = MKPointAnnotation()
         questPin.title = loc.name
         questPin.coordinate = loc.center()
-        
         //create circle to be drawn
         let questCircle = MKCircle(center: loc.center(), radius: loc.radius)
         
-        //get overlay renderer we just created with .addOverlay in case we want to alter it
-        self.locationPins.append(questPin)
-        self.locationCircles.append(questCircle)
+        self.markers.updateValue([questCircle:questPin], forKey: loc.objectID)
         
-        self.showArea(areaIndex: self.locationPins.count-1)
+        self.showArea(areaID: loc.objectID)
     }
-    func unregisterLocation(areaIndex: Int){
-        hideArea(areaIndex: areaIndex)
-        locationCircles.remove(at: areaIndex)
-        locationPins.remove(at: areaIndex)
-    }
-    
-    func hideArea(areaIndex: Int){
-        map.removeOverlay(locationCircles[areaIndex])
-        map.removeAnnotation(locationPins[areaIndex])
+    func unregisterLocation(areaID: NSManagedObjectID){
+        hideArea(areaID: areaID)
+        markers.removeValue(forKey: areaID)
     }
     
-    func showArea(areaIndex: Int){
-        map.addOverlay(locationCircles[areaIndex], level:.aboveRoads)
-        map.addAnnotation(locationPins[areaIndex])
+    func showArea(areaID: NSManagedObjectID){
+        guard let pair = markers[areaID]?.first else {return}
+        map.addOverlay(pair.key, level:.aboveRoads)
+        map.addAnnotation(pair.value)
     }
-    
-    
+    func hideArea(areaID: NSManagedObjectID){
+        guard let pair = markers[areaID]?.first else {return}
+        map.removeOverlay(pair.key)
+        map.removeAnnotation(pair.value)
+    }
+    func clearMap(){
+        map.removeAnnotations(map.annotations)
+        map.removeOverlays(map.overlays)
+    }
     
     func centerOn(_ location: Location){
         map.setRegion(MKCoordinateRegion(center:
                                             location.center(),
-                                           span: MKCoordinateSpan(
+                                            span: MKCoordinateSpan(
                                             latitudeDelta: 0.005519282850478646,
                                             longitudeDelta: 0.0040233132599780674)),
                       animated: true)
-    }
-    
-    func clearMap(){
-        map.removeAnnotations(map.annotations)
-        map.removeOverlays(map.overlays)
     }
     
     // -- Drawing the overlay delegate method

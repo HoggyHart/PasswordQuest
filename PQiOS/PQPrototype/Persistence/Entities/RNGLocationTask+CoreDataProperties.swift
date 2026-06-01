@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension RandomLocationQuestTask {
+extension RNGLocationTask {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<RandomLocationQuestTask> {
-        return NSFetchRequest<RandomLocationQuestTask>(entityName: "RandomLocationQuestTask")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<RNGLocationTask> {
+        return NSFetchRequest<RNGLocationTask>(entityName: "RNGLocationTask")
     }
 
     @NSManaged public var minGenerationRange: Double
@@ -24,7 +24,7 @@ extension RandomLocationQuestTask {
 }
 
 // MARK: Generated accessors for randomLocations
-extension RandomLocationQuestTask {
+extension RNGLocationTask {
 
     @objc(addRandomLocationsObject:)
     @NSManaged public func addToRandomLocations(_ value: Location)

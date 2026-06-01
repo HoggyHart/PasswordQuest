@@ -7,7 +7,7 @@
 
 import SwiftUI
 import CoreData
-struct RandomLocationQuestTaskView: View {
+struct RNGLTaskView: View {
     
     @Environment(\.editMode) private var editMode
     private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
@@ -15,23 +15,23 @@ struct RandomLocationQuestTaskView: View {
     @Environment(\.managedObjectContext) public var context
     
     @ObservedObject
-    var task: RandomLocationQuestTask
+    var task: RNGLocationTask
     
     // -- Editable attributes
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Location.name, ascending: true)],animation: .default)
     private var locations: FetchedResults<Location>
     
-    @FetchRequest private var individualLocations: FetchedResults<LocationOccupationQuestTask>
+    @FetchRequest private var individualLocations: FetchedResults<SingleLocationTask>
     // --
 
-    @StateObject var viewModel = RandomLocationQuestTaskViewModel()
+    @StateObject var viewModel = RNGLTaskViewModel()
     
-    init(locationTask: RandomLocationQuestTask){
+    init(locationTask: RNGLocationTask){
         self.task = locationTask
         //self.locationView = LocationView(location: locationTask.taskArea!)
         _individualLocations = FetchRequest(
                 sortDescriptors: [
-                    NSSortDescriptor(keyPath: \LocationOccupationQuestTask.objectID, ascending: true)
+                    NSSortDescriptor(keyPath: \SingleLocationTask.objectID, ascending: true)
                 ],
                 predicate: NSPredicate(format: "quest == %@", locationTask.quest!)
             )
@@ -110,9 +110,9 @@ struct RandomLocationQuestTaskView: View {
     do{
         quest = try PersistenceController.preview.container.viewContext.fetch(Quest.fetchRequest())[0]
     }catch{quest = Quest(context: PersistenceController.preview.container.viewContext)}
-    let task = RandomLocationQuestTask(context: PersistenceController.preview.container.viewContext,dummyVar: true)
+    let task = RNGLocationTask(context: PersistenceController.preview.container.viewContext,dummyVar: true)
     
     quest.addToTasks(task)
-    return RandomLocationQuestTaskView(locationTask: task).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    return RNGLTaskView(locationTask: task).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
    //return Text("HI")
 }

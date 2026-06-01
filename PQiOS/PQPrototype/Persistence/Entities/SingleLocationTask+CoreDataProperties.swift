@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension LocationOccupationQuestTask {
+extension SingleLocationTask {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<LocationOccupationQuestTask> {
-        return NSFetchRequest<LocationOccupationQuestTask>(entityName: "LocationOccupationQuestTask")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<SingleLocationTask> {
+        return NSFetchRequest<SingleLocationTask>(entityName: "SingleLocationTask")
     }
 
     @NSManaged public var lastUpdate: Date?
