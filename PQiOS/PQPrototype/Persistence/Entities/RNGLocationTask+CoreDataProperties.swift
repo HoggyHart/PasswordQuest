@@ -20,6 +20,7 @@ extension RNGLocationTask {
     @NSManaged public var numberOfGeneratedLocations: Int16
     @NSManaged public var minimumLocationsForCompletion: Int16
     @NSManaged public var randomLocations: NSSet?
+  //  @NSManaged public var randomLocationTasks: NSSet?
 
 }
 
@@ -39,3 +40,20 @@ extension RNGLocationTask {
     @NSManaged public func removeFromRandomLocations(_ values: NSSet)
 
 }
+//
+//// MARK: Generated accessors for randomLocationTasks
+//extension RNGLocationTask {
+//
+//    @objc(addRandomLocationTasksObject:)
+//    @NSManaged public func addToRandomLocationTasks(_ value: SingleLocationTask)
+//
+//    @objc(removeRandomLocationTasksObject:)
+//    @NSManaged public func removeFromRandomLocationTasks(_ value: SingleLocationTask)
+//
+//    @objc(addRandomLocationTasks:)
+//    @NSManaged public func addToRandomLocationTasks(_ values: NSSet)
+//
+//    @objc(removeRandomLocationTasks:)
+//    @NSManaged public func removeFromRandomLocationTasks(_ values: NSSet)
+//
+//}

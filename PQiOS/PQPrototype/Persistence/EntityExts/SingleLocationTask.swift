@@ -20,7 +20,11 @@ extension SingleLocationTask: MKMapViewDelegate {
         self.occupiedAtLastUpdate = false
     }
     
-    override func start() {
+    override func start() throws{
+        if self.location == nil{
+            throw InvalidTaskError(task: self.name!, invalidAttribute: "Location is nil")
+        }
+        
         reset()
         lastUpdate = Date.now
         LocationServices.service.verifyAppLocationPerms()
@@ -41,14 +45,14 @@ extension SingleLocationTask: MKMapViewDelegate {
     }
     //func called during liveUpdates
     //calcDistance may not be necessary if the locationmanager automatically handles region entering/exiting
-    override func update() {
+    override func update() throws {
         if completed {return}
         
-        let taskArea = location!
+        guard let taskArea = location else { throw InvalidTaskError(task: self.name!, invalidAttribute: "Location") }
         
         guard let curPos = LocationServices.service.locationManager.location?.coordinate else {return}
         
-        if LocationServices.calcDistance(p1: curPos, p2: taskArea.center()) <= taskArea.radius{
+        if stayInside == (LocationServices.calcDistance(p1: curPos, p2: taskArea.center()) <= taskArea.radius){
             updateRecordedTime()
             occupiedAtLastUpdate = true
         }else{
@@ -62,7 +66,7 @@ extension SingleLocationTask: MKMapViewDelegate {
         lastUpdate = nil
         occupiedAtLastUpdate = false
         recordedOccupationTime = 0
-        LocationServices.service.locationManager.stopMonitoring(for: location!.asRegion(questUUID: self.quest!.questUUID!))
+        if location != nil {LocationServices.service.locationManager.stopMonitoring(for: location!.asRegion(questUUID: self.quest!.questUUID!))}
     
     }
     

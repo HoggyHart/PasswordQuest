@@ -80,9 +80,17 @@ struct RNGLTaskView: View {
                 Text("Generate Example Areas")
             }
             
-            
-            LocationView(loc: task.location!)
-                .id(task.location!.objectID)
+            if task.location != nil{
+                RNGLocationView(loc: task.location!, model: viewModel)
+                    .id(task.location!.objectID)
+            }else{
+                ZStack{
+                    Rectangle().foregroundColor(.gray)
+                    Image(systemName:"x")
+                }
+                //TODO: add prompt to create Location (redirect to LocationView with new dummy location created
+                //TODO: make it appear on view load instead as a big pop up: "You have no registered locations, would you like to make one? (redirect)"
+            }
             
         }.onChange(of: editMode!.wrappedValue.isEditing) { v in
             if v == false{
@@ -94,6 +102,9 @@ struct RNGLTaskView: View {
             }
         }.onAppear{
             viewModel.loadTaskData(task: task)
+        }
+        .onDisappear{
+            viewModel.mapMarkerUpdater?.invalidate()
         }
     }
     

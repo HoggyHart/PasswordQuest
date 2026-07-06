@@ -68,5 +68,6 @@
         <attribute name="occupiedAtLastUpdate" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="recordedOccupationTime" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="requiredOccupationDuration" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="stayInside" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
     </entity>
 </model>

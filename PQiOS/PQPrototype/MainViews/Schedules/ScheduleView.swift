@@ -209,9 +209,17 @@ struct ScheduleView: View {
     
     func startScheduleEarly(){
         context.perform {
+            do{
+                try schedule.quest!.start(withSchedule: schedule)
+            }
+            catch let e as FailedStartError{
+                context.undo()
+                //HIGHLIGHT error on screen
+                
+                return
+            }catch{context.undo()
+                return}
             schedule.startTime = Date.now
-            schedule.quest!.start(withSchedule: schedule)
-            
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
     }

@@ -28,7 +28,7 @@ extension RNGLocationTask{
         self.numberOfGeneratedLocations = 1
     }
     
-    override func start() {
+    override func start() throws{
         reset()
         generateLocations()
     }
@@ -48,7 +48,7 @@ extension RNGLocationTask{
         self.randomLocations = NSSet()
     }
     
-    override func update(){
+    override func update() throws {
         if completed {return}
         
         guard let curPos = LocationServices.service.locationManager.location?.coordinate else {return}

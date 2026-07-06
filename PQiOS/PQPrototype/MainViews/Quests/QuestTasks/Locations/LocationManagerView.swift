@@ -23,6 +23,7 @@ struct LocationManagerView: View {
     
     @State var showList = true
     @State var areasDrawn: Dictionary<NSManagedObjectID,Bool> = [:]
+    @State var areaSelected: Dictionary<NSManagedObjectID, Bool> = [:]
     
     var body: some View {
         ZStack{
@@ -70,8 +71,10 @@ struct LocationManagerView: View {
                                                     .frame(width:30,height:30)
                                                     Button(){
                                                         showLocation(location: loc)
-                                                    } label: {
-                                                        Text(loc.name!)
+                                                    }label: {
+                                                        NavigationLink(destination: LocationView(loc: loc)){
+                                                            Text(loc.name!)
+                                                        }
                                                     }
                                                     Spacer()
                                                     if editing && loc.tasks!.count == 0{
@@ -185,6 +188,7 @@ struct LocationManagerView: View {
     }
     
     func showLocation(location: Location){
+        areasDrawn.updateValue(true, forKey: location.objectID)
         viewModel.centerOn(location)
     }
     

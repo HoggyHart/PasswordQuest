@@ -18,6 +18,7 @@ extension SingleLocationTask {
 
     @NSManaged public var lastUpdate: Date?
     @NSManaged public var occupiedAtLastUpdate: Bool
+    @NSManaged public var stayInside: Bool
     @NSManaged public var recordedOccupationTime: Double
     @NSManaged public var requiredOccupationDuration: Double
 }

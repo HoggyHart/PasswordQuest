@@ -81,6 +81,30 @@ struct PersistenceController {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+        do{
+            var gqls = try container.viewContext.fetch(GlobalQuestLoot.fetchRequest())
+            if gqls.count == 0{
+                let _ = GlobalQuestLoot(context: container.viewContext)
+                try container.viewContext.save()
+            //else iin case of error
+            } else if gqls.count > 1{
+                //tally up all rewards from excess and add to the original
+                var mainGQL = gqls[0]
+                for i in 1..<gqls.count{
+                    mainGQL.timeInABottle += gqls[i].timeInABottle
+                    container.viewContext.delete(gqls[i])
+                }
+                try container.viewContext.save()
+            }
+            
+        }catch{
+            print("huh")
+        }
+      //  if container.viewContext.registeredObjects.contains(where: { obj in
+            
+        //    return obj.clas== GlobalQuestLoot.Type
+        //})
+        
         container.viewContext.automaticallyMergesChangesFromParent = true
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
     }

@@ -45,21 +45,8 @@ struct QuestView: View {
             Divider()
             
             //task list
-            ZStack{
-                
-                QuestTaskList(quest: quest)
-                VStack{
-                    NavigationLink{
-                        QuestTaskList(quest: quest)
-                    } label: {
-                        VStack{
-                            Rectangle().opacity(0)
-                        }
-                    }.frame(height: 30)
-                    Spacer()
-                }
-            }
-            
+            QuestTaskList(quest: quest, full: false)
+
             //schedule list
             ScheduleList(quest: quest)
             
@@ -108,7 +95,12 @@ struct QuestView: View {
                 quest.reset()
                 //inactive
             case 0:
-                quest.start()
+                do{
+                    try quest.start()
+                }catch let e as FailedStartError{
+                    
+                    //highlight problematic task/ pop up with whatever the fail reason was
+                }catch{}
                 //active
             case 1:
                 quest.end()

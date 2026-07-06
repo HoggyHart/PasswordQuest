@@ -32,6 +32,9 @@ class LocationManagerModel : NSObject, ObservableObject, MKMapViewDelegate{
     }
     
     func registerLocation(loc: Location){
+        //if already has loc, ignore
+        if self.markers.keys.contains(where: { id in return id == loc.objectID}){return}
+        
         let questPin = MKPointAnnotation()
         questPin.title = loc.name
         questPin.coordinate = loc.center()

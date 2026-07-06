@@ -17,40 +17,41 @@ struct QuestManagerView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Quest.isActive, ascending: false),NSSortDescriptor(keyPath: \Quest.questName, ascending: true)]) private var quests: FetchedResults<Quest>
     
     var body: some View {
-            Form{
-                Section(header: Text("Active Quests")){
-                    ForEach(questfs) { quest in
-                        if quest.isActive{
-                            NavigationLink (
-                                destination: QuestView(quest: quest)
-                                    .id(quest.objectID)
-                            ) {
-                                Text("\(quest.questName!)")
-                            }
-                        }
-                    }
-                    .onDelete(perform:deleteQuests)
-                    
-                }
-               // Text(String(quests.allSatisfy({ v in return v.isActive })))
-                Section(header:Text("Inactive Quests")){
-                    ForEach(questfs) { quest in
-                        if !quest.isActive{
-                            NavigationLink {
-                                QuestView(quest: quest)
-                                    .id(quest.objectID)
-                            } label: {
-                                Text("\(quest.questName!)")
-                            }
-                        }
-                    }.onDelete(perform:deleteQuests)
-                }
-        }.toolbar(){
+        HStack{
             HStack{
                 Button(action:addQuest){
                     Label("Add Quest", systemImage: "plus")
                 }
                 EditButton()
+            }
+        }
+        Form{
+            Section(header: Text("Active Quests")){
+                ForEach(questfs) { quest in
+                    if quest.isActive{
+                        NavigationLink (
+                            destination: QuestView(quest: quest)
+                                .id(quest.objectID)
+                        ) {
+                            Text("\(quest.questName!)")
+                        }
+                    }
+                }
+                .onDelete(perform:deleteQuests)
+                
+            }
+           // Text(String(quests.allSatisfy({ v in return v.isActive })))
+            Section(header:Text("Inactive Quests")){
+                ForEach(questfs) { quest in
+                    if !quest.isActive{
+                        NavigationLink {
+                            QuestView(quest: quest)
+                                .id(quest.objectID)
+                        } label: {
+                            Text("\(quest.questName!)")
+                        }
+                    }
+                }.onDelete(perform:deleteQuests)
             }
         }
         .onAppear {

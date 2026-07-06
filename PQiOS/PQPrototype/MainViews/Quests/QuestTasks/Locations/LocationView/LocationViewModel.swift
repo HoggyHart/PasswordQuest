@@ -77,9 +77,7 @@ class LocationViewModel : NSObject, ObservableObject, MKMapViewDelegate{
         self.map.addOverlay(questCircle, level:.aboveRoads)
         let renderer = self.map.renderer(for: questCircle) as! MKCircleRenderer
         //get overlay renderer we just created with .addOverlay in case we want to alter it
-        
         self.markers.updateValue([renderer:questPin], forKey: area.objectID)
-        
     }
     
     func refreshMarkers(){
@@ -89,6 +87,7 @@ class LocationViewModel : NSObject, ObservableObject, MKMapViewDelegate{
         for area in areas {
             self.markArea(area: area)
         }
+        self.map.selectAnnotation(self.markers.first!.value.first!.value, animated: true)
     }
     func clearMap(){
         self.markers = [:]

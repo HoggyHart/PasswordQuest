@@ -33,9 +33,11 @@ struct SingleLocationTaskView: View {
     init(locationTask: SingleLocationTask){
         self.task = locationTask
         //self.locationView = LocationView(location: locationTask.taskArea!)
+        
     }
     func loadData(){
         editedDuration = Date(timeIntervalSinceReferenceDate: task.requiredOccupationDuration)
+        self.viewModel.loadTaskData(task: task)
     }
     var body: some View {
         VStack{
@@ -56,6 +58,9 @@ struct SingleLocationTaskView: View {
                     HStack{
                         Text("Location: ").frame(width: UIScreen.main.bounds.width/4 - 10)
                         Picker("ThisDoesn'tMatterAFAIK",selection: $task.location){
+                            if task.location == nil{
+                                Text("Select")
+                            }
                             ForEach(locations){loc in
                                 let loc = loc as Location
                                 Text(StringUtils.firstXLettersOfString(str: loc.name!, x: 7, trailingEllipse: true)).tag(loc as Location?)
@@ -75,10 +80,13 @@ struct SingleLocationTaskView: View {
             }.padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
             
             if task.location != nil{
-                LocationView(loc: task.location!)
+                SingleLocationView(loc: task.location!, model: viewModel)
                     .id(task.location!.objectID)
             }else{
-                Rectangle().foregroundColor(.gray)
+                ZStack{
+                    Rectangle().foregroundColor(.gray)
+                    Image(systemName:"x")
+                }
                 //TODO: add prompt to create Location (redirect to LocationView with new dummy location created
                 //TODO: make it appear on view load instead as a big pop up: "You have no registered locations, would you like to make one? (redirect)"
             }
@@ -96,6 +104,7 @@ struct SingleLocationTaskView: View {
             }
         }
         .onAppear(perform: loadData)
+        .onDisappear(perform: viewModel.mapMarkerUpdater?.invalidate)
     }
     
     func save() -> Bool{

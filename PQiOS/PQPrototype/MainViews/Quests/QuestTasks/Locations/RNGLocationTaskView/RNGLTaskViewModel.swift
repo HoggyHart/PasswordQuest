@@ -24,18 +24,21 @@ class RNGLTaskViewModel: LocationViewModel {
     override func refreshMarkers() {
         //create example random locations
         if !task!.quest!.isActive{
-            task?.start()
+            //.start deletes current locations and generates new ones
+            do{
+                try task?.start()
+            }catch{}
         }
         //and add them to the drawn areas
-        updateQuestMarkers()
+        updateQuestMarkers(forceRefresh: true)
+        super.refreshMarkers()
     }
     
-    func updateQuestMarkers(){
-        //if area has been removed
-        if markers.count != task!.randomLocations!.count+1 {//+1 for the origin location
+    func updateQuestMarkers(forceRefresh: Bool = false){
+        //if number of areas has changed
+        if markers.count != task!.randomLocations!.count+1 || forceRefresh{//+1 for the origin location
             areas = [task!.location!]
             areas.append(contentsOf: task!.randomLocations!.allObjects as! [Location])
-            super.refreshMarkers()
         }
     }
 }

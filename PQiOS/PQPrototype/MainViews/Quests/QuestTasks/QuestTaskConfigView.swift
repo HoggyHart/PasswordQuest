@@ -9,7 +9,8 @@ import SwiftUI
 
 struct QuestTaskConfigView: View {
     
-    let task: QuestTask
+    @ObservedObject
+    var task: QuestTask
     
     @State var b: Bool = false
     @State var tv: Int = 0
@@ -43,10 +44,21 @@ struct QuestTaskConfigView: View {
                     }
                 }
             }
+            uniqueQuestConfigView(questType: task.type)
         }
         .onChange(of: actualStateVar, perform: { value in
             mtv=tv
         })
+    }
+    
+    @ViewBuilder
+    private func uniqueQuestConfigView(questType: String) -> some View{
+        VStack{
+            if questType == "singlelocationtask"{
+                SLTConfigView(task: task as! SingleLocationTask)
+            }
+            EmptyView()
+        }
     }
 }
 

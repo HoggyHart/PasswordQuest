@@ -1,15 +1,15 @@
 //
-//  LocationAttributeEditView.swift
+//  RNGLocationView.swift
 //  PQPrototype
 //
-//  Created by William Hart on 19/02/2026.
+//  Created by William Hart on 21/06/2026.
 //
 
 import SwiftUI
 import CoreData
 import MapKit
 
-struct LocationView: View {
+struct RNGLocationView: View {
     @Environment(\.editMode) private var editMode
     private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
     @Environment(\.managedObjectContext) private var context
@@ -20,10 +20,11 @@ struct LocationView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Location.name, ascending: true)],animation: .default)
     private var locations: FetchedResults<Location>
    
-    @StateObject var viewModel = LocationViewModel()
+    @ObservedObject var viewModel: RNGLTaskViewModel
     
-    init(loc: Location){
+    init(loc: Location, model: RNGLTaskViewModel){
         location = loc
+        viewModel = model
     }
     
     var body: some View {
@@ -73,7 +74,6 @@ struct LocationView: View {
                 if editing{
                     VStack{
                         Spacer()
-                        //Radius controls
                         ZStack{
                             Rectangle().foregroundColor(.white)
                             VStack(spacing:0){

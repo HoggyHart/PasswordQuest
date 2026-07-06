@@ -20,14 +20,16 @@ struct QuestKeyManagerView: View {
             Text("Quest Rewards")
             List{
                 ForEach(rewards){ reward in
-                    Button(){
-                        submitKey(result: reward)
-                    } label: {
-                        HStack{
-                            Image(systemName: iconForKeyType(type: reward.keyType))
-                                .foregroundColor(colourForKeyType(type: reward.keyType))
-                            Text("\(reward.quest?.questName! ?? "Deleted Quest")(\(reward.obtainmentDate!.formatted(date: .numeric, time: .shortened)))")
-                            Spacer()
+                    if reward.keyType == QuestKeyType.complete || reward.keyType == QuestKeyType.failed{
+                        Button(){
+                            submitKey(result: reward)
+                        } label: {
+                            HStack{
+                                Image(systemName: iconForKeyType(type: reward.keyType))
+                                    .foregroundColor(colourForKeyType(type: reward.keyType))
+                                Text("\(reward.quest?.questName! ?? "Deleted Quest")(\(reward.obtainmentDate!.formatted(date: .numeric, time: .shortened)))")
+                                Spacer()
+                            }
                         }
                     }
                 }

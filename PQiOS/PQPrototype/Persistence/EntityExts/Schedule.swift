@@ -355,8 +355,8 @@ extension Schedule {
         print(nextScheduled)
         let content = UNMutableNotificationContent()
         
-        content.title = self.scheduleName!
-        content.body = "desc: time n date n dat"
+        content.title = "Scheduled Quest Start"
+        content.body = self.scheduleName! + " is starting!"
         
         //create notification schedule info
         

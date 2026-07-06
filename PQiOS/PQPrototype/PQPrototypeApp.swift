@@ -37,6 +37,7 @@ struct PQPrototypeApp: App {
             //try to start scheduled quests
             bgContext.perform {
                 
+                //update in-progress quests
                 do{
                     
                     let quests = try bgContext.fetch(Quest.fetchRequest())
@@ -78,11 +79,12 @@ struct PQPrototypeApp: App {
                         
                         //if past start time (and before end time), start
                         if Date.now > schedule.startTime!{
-                            quest.start(withSchedule: schedule)
+                            do{
+                                try quest.start(withSchedule: schedule)
+                            }catch{bgContext.undo(); continue}
                         }
+                        try bgContext.save()
                     }
-                    
-                    try bgContext.save()
                 }catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
             }
             

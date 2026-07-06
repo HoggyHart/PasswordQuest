@@ -16,7 +16,10 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
     public func getLocation() -> CLLocationCoordinate2D{
         //returns current live location, or returns 0,0 if locationManager not inititalised, and 50,50 if just no current location is available
         guard let location = latestLocation?.coordinate else {
-            return CLLocationCoordinate2D(latitude: 0, longitude: 0)
+            guard let location = locationManager.location else{
+                return CLLocationCoordinate2D(latitude: 0, longitude: 0)
+            }
+            return location.coordinate
         }
         return location
     }
@@ -126,7 +129,7 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
     @objc func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
        // //print("__Updating Locations__")
         guard let loc = locations.last else { return }
-        latestLocation = loc
+        self.latestLocation = loc
       //  //print("__Updated Locations__")
     }
     
@@ -157,6 +160,7 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
     ){
         //print("entered region at \(Date.now)")
         guard let task = taskFor(region: region) else { return }
+        task.quest?.updateProgress()
         task.occupiedAtLastUpdate = true
         task.lastUpdate = Date.now
         do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
@@ -168,7 +172,7 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
     ){
         //print("left region at \(Date.now)")
         guard let task = taskFor(region: region) else { return }
-        task.updateRecordedTime()
+        task.quest?.updateProgress()
         task.occupiedAtLastUpdate = false
         task.lastUpdate = Date.now
         do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}

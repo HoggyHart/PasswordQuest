@@ -1,7 +1,16 @@
 import Foundation
+import UserNotifications
 import CoreData
+
+class FailedStartError: Error{
+    let reasons: String
+    init(reasons: String) {
+        self.reasons = reasons
+    }
+}
+
 extension Quest{
-    
+
     convenience init(context: NSManagedObjectContext, name: String){
         self.init(context: context)
         self.isActive = false
@@ -11,18 +20,34 @@ extension Quest{
         self.questUUID = UUID()
     }
     
-//Start, Update, End, Reset
+    var minRewardValue: Int{
+        get{ return 0 }
+    }
     
-    public func start(withSchedule sch: Schedule? = nil){
+    
+//Start, Update, End, Reset
+    //make throw as a result of failed task starts
+    public func start(withSchedule sch: Schedule? = nil) throws{
         if tasks!.allObjects.isEmpty { return } //if no tasks, nothing to start
         self.reset()
+        
+        var errors: String = ""
+        for t in tasks!{
+            do{
+                try (t as! QuestTask).start()
+            }catch let e as InvalidTaskError{
+                errors.append("\(e.task) with invalid \(e.invalidAttribute), ")
+            }
+        }
+        if errors != ""{
+            errors.removeLast(2)
+            self.managedObjectContext!.undo()
+            throw FailedStartError(reasons: errors)
+        }
         
         self.isActive = true
         self.questStartTime = sch?.startTime ?? Date.now
         
-        for t in tasks!{
-            (t as! QuestTask).start()
-        }
         //populate with initial task data
         self.updateProgress()
         
@@ -45,7 +70,13 @@ extension Quest{
                     //did not see any .isUpdatingLocation checks, so just keep starting everytime a task is found to be still active
                     LocationServices.service.locationManager.startUpdatingLocation()
                     //and update progress
-                    qTask.update()
+                    do{
+                        try qTask.update()
+                    }catch let e as InvalidTaskError{
+                        self.end(error:"\(e.task) with invalid \(e.invalidAttribute)")
+                    }catch let e{
+                        fatalError(e.localizedDescription)
+                    }
                     //if still not completed
                     if !qTask.completed{
                         //mark that a task in still in progress
@@ -70,11 +101,23 @@ extension Quest{
         }
     }
     
-    public func end(){
+    public func end(error: String? = nil){
         if self.isActive{
+            
+            //geeenerate notif
+            let notif = UNMutableNotificationContent()
+            notif.title = "Quest Complete!"
+            notif.body = error == nil ? self.questName! + " is now complete!" : self.questName! + " ended due to a goblin hex!"
+            
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: notif, trigger: trigger)
+            let notifCenter = UNUserNotificationCenter.current()
+            notifCenter.add(request)
             
             //create quest reward (key)
             let reward = QuestKey.generateKey(quest: self)
+            if error != nil {reward.keyType = QuestKeyType.cancelled}
+            if error == nil {GlobalQuestLoot.getLoot(context: self.managedObjectContext!).timeInABottle+=30} //TODO: adapt this to scale with task difficulty
             self.addToRewards(reward)
             
             //end scheduler
@@ -82,7 +125,6 @@ extension Quest{
             
             //leave task progress and questStartTime alone to indicate quest status as completed or failed
             //these are changed in reset()
-            
             self.isActive = false
             self.locked = false
         }

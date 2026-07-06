@@ -8,6 +8,45 @@
 import SwiftUI
 import CoreData
 import MapKit
+
+struct MyExpandable<Header: View, Content: View>: View {
+    @Environment(\.editMode) private var editMode
+    private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
+    @State var expanded: Bool = false
+    var expandable: Bool
+    let header: Header
+    let content: Content
+    init(header: Header, content: Content, expandable: Bool){
+        self.content = content
+        self.header = header
+        self.expandable = expandable
+    }
+    
+    var body: some View{
+        VStack{
+            HStack{
+                header
+                Spacer()
+                if editing && expandable{
+                    Button(){
+                        expanded.toggle()
+                    } label:{
+                        if !expanded {
+                            Image(systemName:"chevron.right")
+                        } else{
+                            Image(systemName: "chevron.down")
+                        }
+                    }
+                }
+            }
+            if expanded && editing && expandable{
+                content
+            }
+        }
+    }
+}
+
+
 struct QuestTaskList: View {
     @Environment(\.editMode) private var editMode
     private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
@@ -20,16 +59,39 @@ struct QuestTaskList: View {
     @State private var inspectedTaskID: NSManagedObjectID? = nil
     private var isTaskSheetPresented: Binding<Bool> { Binding(get: { inspectedTaskID != nil }, set: { if !$0 { inspectedTaskID = nil } }) }
     
+    @State private var expandedConfigs: Dictionary<NSManagedObjectID,Bool> = [:]
+    @State private var toggleUpdate = false
+    
     @State private var taskTypeSheetActive: Bool = false
     
-    init(quest: Quest){
+    private var fullView: Bool
+    init(quest: Quest, full: Bool){
         self.quest = quest
+        self.fullView = full
         _tasks = FetchRequest(
                 sortDescriptors: [
                     NSSortDescriptor(keyPath: \QuestTask.objectID, ascending: true)
                 ],
                 predicate: NSPredicate(format: "quest == %@", quest)
             )
+        for task in tasks{
+            expandedConfigs[task.objectID] = false
+        }
+    }
+    
+    struct QuestTaskListEntry: View {
+        let qtask: QuestTask
+        init(qtask: QuestTask) {
+            self.qtask = qtask
+        }
+        var body: some View {
+            HStack(){
+                Image(systemName: "circle.fill")
+                    .foregroundColor( QuestTaskList.taskStatusColor(task: qtask) )
+                    .shadow(color:.black, radius: 1)
+                Text(qtask.currentStatus() + " - " + qtask.name!).foregroundColor(UITraitCollection.current.userInterfaceStyle == .dark ? Color.white : Color.black) //TODO: works when UIS stays the same, but if changed wiht this on screen it doesnt update the text colour
+            }
+        }
     }
     
     var body: some View {
@@ -37,33 +99,46 @@ struct QuestTaskList: View {
             HStack{
                 Text("Tasks: ")
                 Spacer()
-                Button(){
+                if editing{
+                    Button(){
                         taskTypeSheetActive = true
-                     //   addTask()
+                        //   addTask()
                     } label: {
                         Label("Add Task", systemImage: "plus")
                     }
-            }
-            List{
-                ForEach(tasks){qtask in
-                    Button(){
-                        inspectedTaskID = qtask.objectID
-                    } label:{
-                        VStack{
-                            HStack(){
-                                Image(systemName: "circle.fill")
-                                    .foregroundColor( QuestTaskList.taskStatusColor(task: qtask) )
-                                    .shadow(color:.black, radius: 1)
-                                Text(qtask.currentStatus() + " - " + qtask.name!)
-                                Spacer()
-                            }
-                            if editing{ QuestTaskConfigView(task: qtask) }
-                        }
-                    }.disabled(editing)
+                } else if !fullView{
+                    NavigationLink(destination: QuestTaskList(quest: quest, full: true)) {
+                        Image(systemName: "arrow.right")
+                    }
                 }
-                .onDelete(perform: deleteTasks)
             }
+            ScrollView{ //must NOT be list to allow the config to be usable
+                ForEach(tasks){qtask in
+                   // if fullView{
+                        MyExpandable(
+                            header:
+                                Button(){
+                                    inspectedTaskID = qtask.objectID
+                                    //diwn/right arrow to indicate expansion status
+                                } label: {
+                                   QuestTaskListEntry(qtask: qtask)
+                                },
+                            content: VStack{
+                                QuestTaskConfigView(task: qtask )
+                                Button(){
+                                    deleteTask(task: qtask)
+                                } label : {
+                                    Image(systemName:"multiply").foregroundColor(.red)
+                                }
+                            },
+                            expandable: fullView
+                        )
+                    Divider()
+                }
+            }.padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
             .listStyle(PlainListStyle())
+            
+            
         }.sheet(isPresented: isTaskSheetPresented){
             if let id = inspectedTaskID {
                 let localTask = context.object(with: id) as! QuestTask
@@ -73,7 +148,7 @@ struct QuestTaskList: View {
             ZStack{
                 ScrollView{
                     LazyVGrid(columns: [GridItem(), GridItem()]) {
-                        // for each task type:
+                        // for each task type
                         Button(){
                             addTask(task:SingleLocationTask(context: context, dummyVar: true))
                             taskTypeSheetActive = false
@@ -110,17 +185,20 @@ struct QuestTaskList: View {
     
     func addTask(task: QuestTask){
         context.perform {
-        withAnimation {
+            withAnimation {
                 quest.addToTasks(task)
                 do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+                expandedConfigs[task.objectID] = false
             }
         }
     }
-    private func deleteTasks(offsets: IndexSet) {
+    
+    
+    private func deleteTask(task: QuestTask) {
         context.perform {
             withAnimation {
             
-                offsets.map {tasks[$0] }.forEach(context.delete)
+                context.delete(task)
                 var key = QuestKey.generateKey(quest: quest)
                 key.keyType = .edited
                 do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
@@ -167,6 +245,9 @@ struct QuestTaskList: View {
         let q = Quest(context: PersistenceController.preview.container.viewContext, name: "New Quest")
         let task = SingleLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
         q.addToTasks(task)
-        return QuestTaskList(quest: q).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    return VStack{
+        EditButton()
+        QuestTaskList(quest: q, full: true).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }
 
 }

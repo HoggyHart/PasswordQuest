@@ -9,15 +9,30 @@ import Foundation
 import CoreData
 import SwiftUI
 
+
+class InvalidTaskError: Error{
+    let task: String
+    let invalidAttribute: String
+    init(task: String, invalidAttribute: String) {
+        self.task = task
+        self.invalidAttribute = invalidAttribute
+    }
+}
+
 extension QuestTask{
     
     @objc
-    func start() {
+    public var type: String {
+        "\(self.classForCoder)".lowercased()
+    }
+    
+    @objc
+    func start() throws{
         reset()
     }
     
     @objc
-    func update() {
+    func update() throws {
         completed = true
     }
     

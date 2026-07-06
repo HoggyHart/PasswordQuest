@@ -1,15 +1,15 @@
 //
-//  LocationAttributeEditView.swift
+//  SingleeLocationView.swift
 //  PQPrototype
 //
-//  Created by William Hart on 19/02/2026.
+//  Created by William Hart on 21/06/2026.
 //
 
 import SwiftUI
 import CoreData
 import MapKit
 
-struct LocationView: View {
+struct SingleLocationView: View {
     @Environment(\.editMode) private var editMode
     private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
     @Environment(\.managedObjectContext) private var context
@@ -20,22 +20,16 @@ struct LocationView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Location.name, ascending: true)],animation: .default)
     private var locations: FetchedResults<Location>
    
-    @StateObject var viewModel = LocationViewModel()
+    @ObservedObject var viewModel: SingleLocationTaskViewModel
     
-    init(loc: Location){
+    init(loc: Location, model: SingleLocationTaskViewModel){
         location = loc
+        viewModel = model
     }
     
     var body: some View {
         VStack{
             VStack{
-                HStack{
-                    TextField("Location Name: ", text: $location.name ?? "Unnamed Location").font(.title)
-                    Image(systemName:"pencil")
-                }.frame(height:40) //needs set height, the pencil image causes this to get shorter (???) which resizes the map and causes lag
-                
-                Divider()
-                
                 // -- map center controls
                 HStack(spacing:5){
                     Button(){
@@ -73,7 +67,6 @@ struct LocationView: View {
                 if editing{
                     VStack{
                         Spacer()
-                        //Radius controls
                         ZStack{
                             Rectangle().foregroundColor(.white)
                             VStack(spacing:0){
