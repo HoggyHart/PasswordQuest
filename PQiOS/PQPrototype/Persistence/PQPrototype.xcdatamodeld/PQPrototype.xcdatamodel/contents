@@ -46,6 +46,7 @@
         <attribute name="minimumLocationsForCompletion" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="numberOfGeneratedLocations" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
         <relationship name="randomLocations" toMany="YES" deletionRule="Cascade" destinationEntity="Location"/>
+        <relationship name="randomLocationTasks" toMany="YES" deletionRule="Cascade" destinationEntity="SingleLocationTask"/>
     </entity>
     <entity name="Schedule" representedClassName=".Schedule" syncable="YES">
         <attribute name="everyXDays" attributeType="Boolean" usesScalarValueType="YES"/>
