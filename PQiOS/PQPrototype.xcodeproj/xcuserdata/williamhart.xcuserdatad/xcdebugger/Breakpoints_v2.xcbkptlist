@@ -125,8 +125,8 @@
             filePath = "PQPrototype/utils/LocationServices.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -587,8 +587,8 @@
             filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "updateProgress()"
             landmarkType = "7">
          </BreakpointContent>
@@ -966,8 +966,8 @@
             filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
             landmarkName = "getCurrentScheduler()"
             landmarkType = "7">
             <Locations>
@@ -1062,8 +1062,8 @@
             filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "updateProgress()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1078,8 +1078,8 @@
             filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "updateProgress()"
             landmarkType = "7">
             <Locations>
@@ -1126,8 +1126,8 @@
             filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
             landmarkName = "updateProgress()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1142,8 +1142,8 @@
             filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "updateProgress()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1158,8 +1158,8 @@
             filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
             landmarkName = "updateProgress()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1190,8 +1190,8 @@
             filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
             landmarkName = "end(error:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1206,8 +1206,8 @@
             filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "end(error:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1222,8 +1222,8 @@
             filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
             landmarkName = "endCurrentSchduler()"
             landmarkType = "7">
             <Locations>
@@ -1270,8 +1270,8 @@
             filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
             landmarkName = "endCurrentSchduler()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1446,8 +1446,8 @@
             filePath = "PQPrototype/PQPrototypeApp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
             landmarkName = "init()"
             landmarkType = "7">
             <Locations>
@@ -1494,8 +1494,8 @@
             filePath = "PQPrototype/MainViews/Quests/QuestTasks/QuestTaskList.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
+            startingLineNumber = "192"
+            endingLineNumber = "192"
             landmarkName = "addTask(task:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1510,8 +1510,8 @@
             filePath = "PQPrototype/MainViews/Quests/QuestTasks/QuestTaskList.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
             landmarkName = "addTask(task:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2001,8 +2001,8 @@
             filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
             landmarkName = "end(error:)"
             landmarkType = "7">
             <Locations>
@@ -2155,14 +2155,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "4B6D3648-617F-4B7C-AFA4-43DFD267DF62"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PQPrototype/utils/LocationServices.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
             <Locations>
@@ -2224,8 +2224,8 @@
             filePath = "PQPrototype/Persistence/EntityExts/SingleLocationTask.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "update()"
             landmarkType = "7">
             <Locations>

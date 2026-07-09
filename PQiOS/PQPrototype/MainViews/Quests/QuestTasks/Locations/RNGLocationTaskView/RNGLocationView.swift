@@ -40,7 +40,7 @@ struct RNGLocationView: View {
                 // -- map center controls
                 HStack(spacing:5){
                     Button(){
-                        viewModel.map.setCenter(LocationServices.service.getLocation(), animated: true)
+                        viewModel.map.setCenter(LocationServices.shared.getLocation(), animated: true)
                     } label :{
                         ZStack{
                             Circle().foregroundColor(.red)

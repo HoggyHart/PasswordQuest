@@ -44,6 +44,7 @@
 		6B7CB83F2FC619FD00345B18 /* RNGLocationTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7CB83D2FC619FD00345B18 /* RNGLocationTask+CoreDataClass.swift */; };
 		6B7CB8402FC619FD00345B18 /* RNGLocationTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7CB83E2FC619FD00345B18 /* RNGLocationTask+CoreDataProperties.swift */; };
 		6B7CB8422FC61AE800345B18 /* RNGLocationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7CB8412FC61AE800345B18 /* RNGLocationTask.swift */; };
+		6B80D0D82FFE618E00A75888 /* LocationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B80D0D72FFE618E00A75888 /* LocationTask.swift */; };
 		6B83BDC52F856617001472A6 /* MyJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B83BDC42F856617001472A6 /* MyJson.swift */; };
 		6B83BDCD2F85B153001472A6 /* QuestKeyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B83BDCC2F85B153001472A6 /* QuestKeyType.swift */; };
 		6B9E6D482F31789F000C403D /* StagedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9E6D472F31789F000C403D /* StagedButton.swift */; };
@@ -138,6 +139,7 @@
 		6B7CB83D2FC619FD00345B18 /* RNGLocationTask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "RNGLocationTask+CoreDataClass.swift"; path = "../../../RNGLocationTask+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6B7CB83E2FC619FD00345B18 /* RNGLocationTask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RNGLocationTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6B7CB8412FC61AE800345B18 /* RNGLocationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNGLocationTask.swift; sourceTree = "<group>"; };
+		6B80D0D72FFE618E00A75888 /* LocationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTask.swift; sourceTree = "<group>"; };
 		6B83BDC42F856617001472A6 /* MyJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJson.swift; sourceTree = "<group>"; };
 		6B83BDCC2F85B153001472A6 /* QuestKeyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestKeyType.swift; sourceTree = "<group>"; };
 		6B9E6D472F31789F000C403D /* StagedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StagedButton.swift; sourceTree = "<group>"; };
@@ -456,6 +458,7 @@
 				6BA9DDC52F3CEDC500AF1B06 /* QuestKey.swift */,
 				6BA72D7C2F4687E70019649F /* Location.swift */,
 				6B4C64102FEBE62500D5C1E2 /* GlobalQuestLoot.swift */,
+				6B80D0D72FFE618E00A75888 /* LocationTask.swift */,
 			);
 			path = EntityExts;
 			sourceTree = "<group>";
@@ -595,6 +598,7 @@
 				6BF5EF382FBF984100970F59 /* Schedule+CoreDataProperties.swift in Sources */,
 				6B9E6D482F31789F000C403D /* StagedButton.swift in Sources */,
 				6B7CB8332FC618A000345B18 /* RNGLTaskView.swift in Sources */,
+				6B80D0D82FFE618E00A75888 /* LocationTask.swift in Sources */,
 				6B83BDC52F856617001472A6 /* MyJson.swift in Sources */,
 				6B2152DE2EEB31FE00188D31 /* ScheduleManagerView.swift in Sources */,
 				6B4C64112FEBE62500D5C1E2 /* GlobalQuestLoot.swift in Sources */,

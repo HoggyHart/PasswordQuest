@@ -11,9 +11,11 @@ import CoreLocation
 
 extension RNGLocationTask{
     //completion can be calculated, no DB/entity attribute needed
-    var completedAreas: Int16{
+    var completedAreas: Int{ //TODO: can this be removed? whats it used for? (doing smth else rn)
         get{
-            return self.numberOfGeneratedLocations-Int16((self.randomLocations?.count ?? 0))
+            return self.randomLocationTasks!.map({ task in
+                return (task as! SingleLocationTask).completed
+            }).count
         }
     }
 }
@@ -23,7 +25,7 @@ extension RNGLocationTask{
         self.name = "Visit 1/1 Locations"
         self.location  = Location(context: context,
                                        name: "Generation Area",
-                                       area: CLCircularRegion(center: LocationServices.service.getLocation(), radius: 1000, identifier: UUID().uuidString))
+                                       area: CLCircularRegion(center: LocationServices.shared.getLocation(), radius: 1000, identifier: UUID().uuidString))
         self.minimumLocationsForCompletion = 1
         self.numberOfGeneratedLocations = 1
     }
@@ -37,30 +39,26 @@ extension RNGLocationTask{
         for _ in 0..<self.numberOfGeneratedLocations{
             let newLoc = Location(context: self.managedObjectContext!, name: "TempLocation", area: CLCircularRegion(center: LocationServices.generateRandomLocation(origin: location!.center(), minRange: Double(self.minGenerationRange), maxRange: location!.radius), radius: 37.5,identifier: UUID().uuidString))
             newLoc.temporary = true
-            self.addToRandomLocations(newLoc)
+            let slt = SingleLocationTask(context: self.managedObjectContext!)
+            slt.location = newLoc
+            slt.requiredOccupationDuration = 1
+            self.addToRandomLocationTasks(slt)
         }
     }
     
     override func reset(){
-        for entity in self.randomLocations!{
+        for entity in self.randomLocationTasks!{
             self.managedObjectContext?.delete(entity as! NSManagedObject)
         }
-        self.randomLocations = NSSet()
+        self.randomLocationTasks = NSSet()
     }
     
     override func update() throws {
         if completed {return}
         
-        guard let curPos = LocationServices.service.locationManager.location?.coordinate else {return}
-        
-        for area in self.randomLocations!{
-            let area = area as! Location
-            
-            if LocationServices.calcDistance(p1: curPos, p2: area.center()) <= area.radius{
-                
-                area.managedObjectContext!.delete(area)
-                
-            }
+        for task in self.randomLocationTasks!{
+            let task = task as! SingleLocationTask
+            try task.update()
         }
     }
     

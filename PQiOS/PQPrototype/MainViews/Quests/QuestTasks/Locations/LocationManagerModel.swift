@@ -20,7 +20,7 @@ class LocationManagerModel : NSObject, ObservableObject, MKMapViewDelegate{
     override init(){
         super.init()
         map.setRegion(MKCoordinateRegion(center:
-                                            LocationServices.service.getLocation(),
+                                            LocationServices.shared.getLocation(),
                                            span: MKCoordinateSpan(
                                             latitudeDelta: 0.005519282850478646,
                                             longitudeDelta: 0.0040233132599780674)),

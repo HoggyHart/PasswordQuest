@@ -36,9 +36,28 @@ class RNGLTaskViewModel: LocationViewModel {
     
     func updateQuestMarkers(forceRefresh: Bool = false){
         //if number of areas has changed
-        if markers.count != task!.randomLocations!.count+1 || forceRefresh{//+1 for the origin location
+        if markers.count != task!.randomLocationTasks!.count+1 || forceRefresh{//+1 for the origin location
             areas = [task!.location!]
-            areas.append(contentsOf: task!.randomLocations!.allObjects as! [Location])
+            for lTask in task!.randomLocationTasks!.allObjects{
+                guard let location = (lTask as? SingleLocationTask)?.location else {continue} //TODO: make throw
+                areas.append(location)
+            }
+        }
+        //TODO: mutual code with SLTask, makee shared method to call instead
+        for lTask in task!.randomLocationTasks!.allObjects{
+            let lTask = lTask as! SingleLocationTask
+            let location = lTask.location!
+            guard let markerRenderer = markers[location.objectID]?.first!.key else {continue}
+            if lTask.completed{
+                markerRenderer.strokeColor = UIColor.systemGreen
+                markerRenderer.fillColor = UIColor.systemGreen.withAlphaComponent(0.2)
+                markerRenderer.strokeEnd = 0
+            }
+            //else indicate progress
+            else{
+                //doesnt throw an error for dividing by 0 :)
+                markerRenderer.strokeEnd = (lTask.requiredOccupationDuration-lTask.recordedOccupationTime) / lTask.requiredOccupationDuration
+            }
         }
     }
 }

@@ -128,7 +128,7 @@ struct LocationManagerView: View {
                         HStack{
                             //center on user location
                             Button(){
-                                viewModel.map.setCenter(LocationServices.service.getLocation(), animated: true)
+                                viewModel.map.setCenter(LocationServices.shared.getLocation(), animated: true)
                             } label :{
                                 ZStack{
                                     Circle().foregroundColor(.red)

@@ -3,11 +3,13 @@ import CoreLocation
 import CoreData
 
 class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
+    static let shared = LocationServices()
     
-    static let service = LocationServices()
     //---LOCATION MANAGER SETUP/OVERRIDES---
     let locationManager = CLLocationManager() //creating LM calls verify...() automatically via locationManagerDidChangeAuthorization()
     @Published var latestLocation: CLLocation?
+    
+    var regionsTracked: Dictionary<String, Int> = [:]
     
     public func isAuthorized() -> Bool{
         return locationManager.authorizationStatus == .authorizedAlways
@@ -45,6 +47,7 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
         locationManager.activityType = CLActivityType.fitness //not sure what this does. I guess delay between updates maybe? might just be stat-tracking
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.pausesLocationUpdatesAutomatically = false
+        locationManager.showsBackgroundLocationIndicator = true
         //used in View object to display error
     }
     
@@ -132,37 +135,63 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
         self.latestLocation = loc
       //  //print("__Updated Locations__")
     }
+    let context: NSManagedObjectContext
     
     @objc func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         //print("Failed to get location: \(error.localizedDescription)")
     }
+}
+
+//Region Stuff
+extension LocationServices{
     
+    func trackRegion(region: CLRegion){
+        self.locationManager.startMonitoring(for: region)
+        self.regionsTracked.updateValue((self.regionsTracked[region.identifier] ?? 0) + 1, forKey: region.identifier)
+    }
     
-    let context: NSManagedObjectContext
+    func stopTrackingRegion(region: CLRegion){
+        self.regionsTracked.updateValue((self.regionsTracked[region.identifier] ?? 0) - 1, forKey: region.identifier)
+        
+        //if region is no longer being tracked by any tasks
+        if self.regionsTracked[region.identifier]! <= 0{
+            //fuggedaboutit!
+            self.regionsTracked.removeValue(forKey: region.identifier)
+            self.locationManager.stopMonitoring(for: region)
+            //if this now means there are NO regions being tracked
+            if self.regionsTracked.count == 0{
+                //fuggedaboutit!
+                self.locationManager.stopUpdatingLocation()
+            }
+        }
+    }
     
     ///return the task that owns this region
-    func taskFor(region: CLRegion) -> SingleLocationTask?{
+    func tasksFor(region: CLRegion) -> [SingleLocationTask]{
+        var list: [SingleLocationTask] = []
         do{
             let tasks = try context.fetch(SingleLocationTask.fetchRequest())
             for t in tasks{
                 
-                if t.location!.identifier(questUUID: t.quest!.questUUID!) == region.identifier{
-                    return t
+                if t.location!.regionIdentifier == region.identifier{
+                    list.append(t)
                 }
             }
         }catch{}
-        return nil
+        return list
     }
     
     @objc func locationManager(
         _ manager: CLLocationManager,
         didEnterRegion region: CLRegion
     ){
-        //print("entered region at \(Date.now)")
-        guard let task = taskFor(region: region) else { return }
-        task.quest?.updateProgress()
-        task.occupiedAtLastUpdate = true
-        task.lastUpdate = Date.now
+        let tasks = tasksFor(region: region)
+        for task in tasks{
+            task.quest?.updateProgress() //any tasks with no quest will be a child of a quest-bound task
+            //TODO: test if these next lines are already the case, I assume they would be but just in case I set them manually
+            task.occupiedAtLastUpdate = true
+            task.lastUpdate = Date.now
+        }
         do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
     }
     
@@ -171,11 +200,12 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
         didExitRegion region: CLRegion
     ){
         //print("left region at \(Date.now)")
-        guard let task = taskFor(region: region) else { return }
-        task.quest?.updateProgress()
-        task.occupiedAtLastUpdate = false
-        task.lastUpdate = Date.now
+        let tasks = tasksFor(region: region)
+        for task in tasks{
+            task.quest?.updateProgress()
+            task.occupiedAtLastUpdate = false
+            task.lastUpdate = Date.now
+        }
         do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
     }
-    
 }

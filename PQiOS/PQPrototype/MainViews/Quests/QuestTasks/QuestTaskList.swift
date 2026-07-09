@@ -54,6 +54,7 @@ struct QuestTaskList: View {
     
     @FetchRequest private var tasks: FetchedResults<QuestTask>
     
+    @ObservedObject
     var quest: Quest
     
     @State private var inspectedTaskID: NSManagedObjectID? = nil
@@ -80,7 +81,8 @@ struct QuestTaskList: View {
     }
     
     struct QuestTaskListEntry: View {
-        let qtask: QuestTask
+        @ObservedObject
+        var qtask: QuestTask
         init(qtask: QuestTask) {
             self.qtask = qtask
         }

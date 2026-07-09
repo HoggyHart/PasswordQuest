@@ -20,14 +20,12 @@ extension Location{
         
     }
     
-    func asRegion(questUUID: UUID) -> CLCircularRegion{
-        return CLCircularRegion.init(center: self.center(), radius: self.radius, identifier: self.identifier(questUUID: questUUID))
+    func asRegion() -> CLCircularRegion{
+        return CLCircularRegion.init(center: self.center(), radius: self.radius, identifier: self.regionIdentifier)
     }
     
-    //ensure this returns consistent but unique results across different calls.
-    // e.g. Date.now based UUIDs are a no-go since later when identifier comparisons take place this won't return the same thing as before
-    func identifier(questUUID: UUID) -> String{
-        return self.name!+"_"+questUUID.uuidString
+    var regionIdentifier: String{
+        get { return self.objectID.uriRepresentation().absoluteString }
     }
     
     func center() -> CLLocationCoordinate2D{

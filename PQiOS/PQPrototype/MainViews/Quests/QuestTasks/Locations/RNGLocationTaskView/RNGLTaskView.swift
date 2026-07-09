@@ -20,21 +20,13 @@ struct RNGLTaskView: View {
     // -- Editable attributes
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Location.name, ascending: true)],animation: .default)
     private var locations: FetchedResults<Location>
-    
-    @FetchRequest private var individualLocations: FetchedResults<SingleLocationTask>
+
     // --
 
     @StateObject var viewModel = RNGLTaskViewModel()
     
     init(locationTask: RNGLocationTask){
         self.task = locationTask
-        //self.locationView = LocationView(location: locationTask.taskArea!)
-        _individualLocations = FetchRequest(
-                sortDescriptors: [
-                    NSSortDescriptor(keyPath: \SingleLocationTask.objectID, ascending: true)
-                ],
-                predicate: NSPredicate(format: "quest == %@", locationTask.quest!)
-            )
     }
     
     var body: some View {

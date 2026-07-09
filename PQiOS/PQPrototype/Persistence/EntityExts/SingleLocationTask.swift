@@ -21,14 +21,12 @@ extension SingleLocationTask: MKMapViewDelegate {
     }
     
     override func start() throws{
-        if self.location == nil{
+        guard let location = self.location else {
             throw InvalidTaskError(task: self.name!, invalidAttribute: "Location is nil")
         }
-        
-        reset()
+        try super.start()
         lastUpdate = Date.now
-        LocationServices.service.verifyAppLocationPerms()
-        LocationServices.service.locationManager.startMonitoring(for: location!.asRegion(questUUID: self.quest!.questUUID!))
+        LocationServices.shared.trackRegion(region: location.asRegion())
     }
     
     //lastUpdate is set after this method in update() and in LocationManager.onRegionEnter/Exit
@@ -46,11 +44,11 @@ extension SingleLocationTask: MKMapViewDelegate {
     //func called during liveUpdates
     //calcDistance may not be necessary if the locationmanager automatically handles region entering/exiting
     override func update() throws {
-        if completed {return}
+        try super.update()
         
-        guard let taskArea = location else { throw InvalidTaskError(task: self.name!, invalidAttribute: "Location") }
+        guard let taskArea = location else { throw InvalidTaskError(task: self.name!, invalidAttribute: "Location") } //in case it somehow gets deleted mid-quest
         
-        guard let curPos = LocationServices.service.locationManager.location?.coordinate else {return}
+        guard let curPos = LocationServices.shared.locationManager.location?.coordinate else {return} //TODO: throw location error (wont end task)
         
         if stayInside == (LocationServices.calcDistance(p1: curPos, p2: taskArea.center()) <= taskArea.radius){
             updateRecordedTime()
@@ -66,8 +64,7 @@ extension SingleLocationTask: MKMapViewDelegate {
         lastUpdate = nil
         occupiedAtLastUpdate = false
         recordedOccupationTime = 0
-        if location != nil {LocationServices.service.locationManager.stopMonitoring(for: location!.asRegion(questUUID: self.quest!.questUUID!))}
-    
+        if location != nil  {LocationServices.shared.stopTrackingRegion(region: location!.asRegion())}
     }
     
     override func toString() -> String{

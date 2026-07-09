@@ -22,7 +22,7 @@
         <attribute name="questStartTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="questUUID" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="restrictedDeviceIPs" attributeType="String"/>
-        <relationship name="rewards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QuestKey" inverseName="quest" inverseEntity="QuestKey"/>
+        <relationship name="rewards" toMany="YES" deletionRule="Nullify" destinationEntity="QuestKey" inverseName="quest" inverseEntity="QuestKey"/>
         <relationship name="schedulers" toMany="YES" deletionRule="Cascade" destinationEntity="Schedule" inverseName="quest" inverseEntity="Schedule"/>
         <relationship name="tasks" toMany="YES" deletionRule="Cascade" destinationEntity="QuestTask" inverseName="quest" inverseEntity="QuestTask"/>
     </entity>
@@ -39,13 +39,12 @@
         <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" defaultValueString="&quot;Unnamed Task"/>
         <attribute name="partialCompletionReward" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <relationship name="quest" maxCount="1" deletionRule="Nullify" destinationEntity="Quest" inverseName="tasks" inverseEntity="Quest"/>
+        <relationship name="quest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Quest" inverseName="tasks" inverseEntity="Quest"/>
     </entity>
     <entity name="RNGLocationTask" representedClassName=".RNGLocationTask" parentEntity="LocationTask" syncable="YES">
         <attribute name="minGenerationRange" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="minimumLocationsForCompletion" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="numberOfGeneratedLocations" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
-        <relationship name="randomLocations" toMany="YES" deletionRule="Cascade" destinationEntity="Location"/>
         <relationship name="randomLocationTasks" toMany="YES" deletionRule="Cascade" destinationEntity="SingleLocationTask"/>
     </entity>
     <entity name="Schedule" representedClassName=".Schedule" syncable="YES">

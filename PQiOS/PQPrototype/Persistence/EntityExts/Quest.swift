@@ -67,9 +67,6 @@ extension Quest{
             for qTask in self.tasks!{
                 let qTask = qTask as! QuestTask
                 if !qTask.completed{
-                    //did not see any .isUpdatingLocation checks, so just keep starting everytime a task is found to be still active
-                    LocationServices.service.locationManager.startUpdatingLocation()
-                    //and update progress
                     do{
                         try qTask.update()
                     }catch let e as InvalidTaskError{

@@ -32,8 +32,8 @@ extension QuestTask{
     }
     
     @objc
-    func update() throws {
-        completed = true
+    func update() throws {//just for supercalls
+        if completed {return}
     }
     
     @objc

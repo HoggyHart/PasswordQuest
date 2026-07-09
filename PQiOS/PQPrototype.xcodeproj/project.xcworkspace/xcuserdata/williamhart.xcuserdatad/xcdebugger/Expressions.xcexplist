@@ -116,6 +116,9 @@
          contextName = "SingleLocationTask.update():SingleLocationTask.swift">
          <PersistentStrings>
             <PersistentString
+               value = "LocationServices.shared.locationManager.location?.coordinate">
+            </PersistentString>
+            <PersistentString
                value = "LocationServices.calcDistance(p1: curPos, p2: taskArea.center()) &lt;= taskArea.radius">
             </PersistentString>
          </PersistentStrings>
@@ -158,6 +161,20 @@
             </PersistentString>
             <PersistentString
                value = "questStartTime!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Location.asRegion(questUUID:):Location.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.objectID.uriRepresentation().absoluteString">
+            </PersistentString>
+            <PersistentString
+               value = "&quot;\(self.objectID)&quot;">
+            </PersistentString>
+            <PersistentString
+               value = "self.objectID">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
