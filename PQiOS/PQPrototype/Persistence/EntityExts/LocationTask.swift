@@ -9,7 +9,11 @@ import Foundation
 
 extension LocationTask{
     override func start() throws{
-        reset()
+        try super.start()
+    }
+    
+    override func initDependenciesAndTrackers() throws {
+        try super.initDependenciesAndTrackers()
         if true{
             LocationServices.shared.verifyAppLocationPerms()
             LocationServices.shared.locationManager.startUpdatingLocation()
@@ -23,6 +27,7 @@ extension LocationTask{
         if true{
             LocationServices.shared.verifyAppLocationPerms()
             LocationServices.shared.locationManager.startUpdatingLocation()
+            LocationServices.shared.locationManager.requestLocation()
         }
     }
 }

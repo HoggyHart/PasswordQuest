@@ -3,50 +3,6 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "LocationTaskViewModel.updateQuestMarkers():LocationTaskViewModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "mapModel">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "Schedule.getState():Schedule.swift">
-      </ContextState>
-      <ContextState
-         contextName = "Schedule.amendNextScheduledPeriod(toNextStartFrom:padQuestFailures:):Schedule.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ScheduleTypeInfo.encode(with:):ScheduleTypeInfo.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "LocationOccupationQuestTask.updateRecordedTime():LocationOccupationQuestTask.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "recordedOccupationTime">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "Week.init(rawValue:):ScheduleTypeInfo.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.toBitSetString()">
-            </PersistentString>
-            <PersistentString
-               value = "Week.monday">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #2 in PQPrototypeApp.init():PQPrototypeApp.swift">
-      </ContextState>
-      <ContextState
          contextName = "closure #2 in closure #1 in closure #3 in closure #1 in closure #3 in closure #1 in ScheduleView.body.getter:ScheduleView.swift">
          <PersistentStrings>
             <PersistentString
@@ -61,10 +17,40 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #1 in QuestView.addSchedule():QuestView.swift">
+         contextName = "Quest.updateProgress():Quest.swift">
          <PersistentStrings>
             <PersistentString
-               value = "schedule.scheduledDays">
+               value = "self.questStartTime!.timeIntervalSinceNow">
+            </PersistentString>
+            <PersistentString
+               value = "qTask">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #2 in closure #1 in closure #3 in closure #1 in closure #3 in closure #1 in ScheduleView.body.getter:ScheduleView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "1&lt;&lt;i">
+            </PersistentString>
+            <PersistentString
+               value = "self.schedule.scheduledDays!.week">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in PQPrototypeApp.init():PQPrototypeApp.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "PQPrototypeApp.updatingThreadActive">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RNGLocationTask.reset():RNGLocationTask.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.randomLocationTasks">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -77,15 +63,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "SingleLocationView.loadData():SingleLocationView.swift">
-      </ContextState>
-      <ContextState
-         contextName = "Quest.start(withSchedule:):Quest.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.tasks!.allObjects">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "QuestView.body.getter:QuestView.swift">
       </ContextState>
       <ContextState
          contextName = "LocationManagerView.toggleLocation(_:):LocationManagerView.swift">
@@ -99,57 +77,26 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "SingleLocationTaskViewModel.mapView(_:rendererFor:):SingleLocationTaskViewModel.swift">
-      </ContextState>
-      <ContextState
-         contextName = "Quest.updateProgress():Quest.swift">
+         contextName = "LocationOccupationQuestTask.updateRecordedTime():LocationOccupationQuestTask.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.questStartTime!.timeIntervalSinceNow">
-            </PersistentString>
-            <PersistentString
-               value = "qTask">
+               value = "recordedOccupationTime">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "SingleLocationTask.update():SingleLocationTask.swift">
+         contextName = "Schedule.lateInit(quest:):Schedule.swift">
          <PersistentStrings>
             <PersistentString
-               value = "LocationServices.shared.locationManager.location?.coordinate">
-            </PersistentString>
-            <PersistentString
-               value = "LocationServices.calcDistance(p1: curPos, p2: taskArea.center()) &lt;= taskArea.radius">
+               value = "self.scheduledDays!.week.toBitSetString()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "SingleLocationTaskViewModel.updateQuestMarkers():SingleLocationTaskViewModel.swift">
+         contextName = "LocationServices.startTrackingRegion(region:forTask:):LocationServices.swift">
          <PersistentStrings>
             <PersistentString
-               value = "markers">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in LocationManagerView.addLocation():LocationManagerView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "loc.objectID">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "QuestView.body.getter:QuestView.swift">
-      </ContextState>
-      <ContextState
-         contextName = "LocationOccupationQuestTask.update():LocationOccupationQuestTask.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "taskArea.radius">
-            </PersistentString>
-            <PersistentString
-               value = "LocationServices.calcDistance(p1: curPos, p2: taskArea.center())">
+               value = "self.regionsTracked">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -165,43 +112,35 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "SingleLocationTaskViewModel.mapView(_:rendererFor:):SingleLocationTaskViewModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "PersistenceController.init(inMemory:):Persistence.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "container.viewContext.fetch(GlobalQuestLoot.fetchRequest())">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SingleLocationTaskViewModel.updateQuestMarkers():SingleLocationTaskViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "markers">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "Location.asRegion(questUUID:):Location.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.objectID.uriRepresentation().absoluteString">
+               value = "self.objectID">
             </PersistentString>
             <PersistentString
                value = "&quot;\(self.objectID)&quot;">
             </PersistentString>
             <PersistentString
-               value = "self.objectID">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "Schedule.lateInit(quest:):Schedule.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.scheduledDays!.week.toBitSetString()">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in PQPrototypeApp.init():PQPrototypeApp.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "PQPrototypeApp.updatingThreadActive">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #2 in closure #1 in closure #3 in closure #1 in closure #3 in closure #1 in ScheduleView.body.getter:ScheduleView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "1&lt;&lt;i">
-            </PersistentString>
-            <PersistentString
-               value = "self.schedule.scheduledDays!.week">
+               value = "self.objectID.uriRepresentation().absoluteString">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -220,10 +159,51 @@
          contextName = "main:PQPrototypeApp.swift">
       </ContextState>
       <ContextState
-         contextName = "PersistenceController.init(inMemory:):Persistence.swift">
+         contextName = "SingleLocationTask.updateRecordedTime():SingleLocationTask.swift">
+      </ContextState>
+      <ContextState
+         contextName = "LocationTaskViewModel.updateQuestMarkers():LocationTaskViewModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "container.viewContext.fetch(GlobalQuestLoot.fetchRequest())">
+               value = "mapModel">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ScheduleTypeInfo.encode(with:):ScheduleTypeInfo.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Week.init(rawValue:):ScheduleTypeInfo.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Week.monday">
+            </PersistentString>
+            <PersistentString
+               value = "self.toBitSetString()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LocationServices.stopTrackingRegion(region:):LocationServices.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.regionsTracked">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LocationOccupationQuestTask.update():LocationOccupationQuestTask.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "taskArea.radius">
+            </PersistentString>
+            <PersistentString
+               value = "LocationServices.calcDistance(p1: curPos, p2: taskArea.center())">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -236,12 +216,92 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "LocationServices.stopTrackingRegion(regionID:forTask:):LocationServices.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.regionsTracked">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LocationServices.stopTrackingRegion(region:forTask:):LocationServices.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.regionsTracked">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #2 in PQPrototypeApp.init():PQPrototypeApp.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "LocationServices.shared.regionsTracked">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Quest.start(withSchedule:):Quest.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.tasks!.allObjects">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in LocationManagerView.addLocation():LocationManagerView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "loc.objectID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "LocationViewModel.markArea(area:):LocationViewModel.swift">
          <PersistentStrings>
             <PersistentString
                value = "self.map.renderers">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Schedule.amendNextScheduledPeriod(toNextStartFrom:padQuestFailures:):Schedule.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in QuestView.addSchedule():QuestView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "schedule.scheduledDays">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SingleLocationView.loadData():SingleLocationView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SingleLocationTask.update():SingleLocationTask.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "LocationServices.shared.locationManager.location?.coordinate">
+            </PersistentString>
+            <PersistentString
+               value = "location?.latitude">
+            </PersistentString>
+            <PersistentString
+               value = "LocationServices.calcDistance(p1: curPos, p2: taskArea.center())">
+            </PersistentString>
+            <PersistentString
+               value = "LocationServices.calcDistance(p1: curPos, p2: taskArea.center()) &lt;= taskArea.radius">
+            </PersistentString>
+            <PersistentString
+               value = "location?.longitude">
+            </PersistentString>
+            <PersistentString
+               value = "taskArea.radius">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Schedule.getState():Schedule.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

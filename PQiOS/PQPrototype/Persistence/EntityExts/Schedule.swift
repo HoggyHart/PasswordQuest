@@ -267,8 +267,6 @@ extension Schedule {
     
     private func activateSchedule(){
         self.isActive = true
-        
-        self.nextSchLocked = false
         self.scheduleNotifications()
     }
     

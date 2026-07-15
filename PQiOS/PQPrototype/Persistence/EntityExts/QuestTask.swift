@@ -28,7 +28,14 @@ extension QuestTask{
     
     @objc
     func start() throws{
-        reset()
+        
+        try initDependenciesAndTrackers()
+        
+    }
+    
+    @objc
+    func initDependenciesAndTrackers() throws{
+        
     }
     
     @objc

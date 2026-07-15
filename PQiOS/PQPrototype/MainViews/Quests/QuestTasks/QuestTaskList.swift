@@ -91,7 +91,7 @@ struct QuestTaskList: View {
                 Image(systemName: "circle.fill")
                     .foregroundColor( QuestTaskList.taskStatusColor(task: qtask) )
                     .shadow(color:.black, radius: 1)
-                Text(qtask.currentStatus() + " - " + qtask.name!).foregroundColor(UITraitCollection.current.userInterfaceStyle == .dark ? Color.white : Color.black) //TODO: works when UIS stays the same, but if changed wiht this on screen it doesnt update the text colour
+                Text(qtask.currentStatus() + " - " + (qtask.name ?? "Error")).foregroundColor(UITraitCollection.current.userInterfaceStyle == .dark ? Color.white : Color.black) //TODO: works when UIS stays the same, but if changed wiht this on screen it doesnt update the text colour
             }
         }
     }
@@ -213,7 +213,7 @@ struct QuestTaskList: View {
         ///0: inactive, not started
         ///1: active
         ///2: inactive, completed successfully
-        switch(task.quest!.questStatus()){
+        switch(task.quest?.questStatus()){
         case -1:
             return .red
         case 0:

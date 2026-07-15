@@ -24,7 +24,7 @@ struct TimeInABottleDisplay: View{
                     .padding(EdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2))
                 HStack{
                     Image(systemName: "hourglass")
-                    Text("\(gql[0].timeInABottle)")
+                    Text("\(gql[0].timeInABottle!.timeStored)")
                 }.padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 10)).foregroundColor(.black)
             }
             .frame(minWidth: 90, idealWidth: 90, maxWidth: 90, minHeight: 30, idealHeight: 30, maxHeight: 30)

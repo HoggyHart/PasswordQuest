@@ -9,7 +9,8 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
     let locationManager = CLLocationManager() //creating LM calls verify...() automatically via locationManagerDidChangeAuthorization()
     @Published var latestLocation: CLLocation?
     
-    var regionsTracked: Dictionary<String, Int> = [:]
+    //links region to the tasks that want them monitored
+    var regionsTracked: Dictionary<String, [NSManagedObjectID]> = [:]
     
     public func isAuthorized() -> Bool{
         return locationManager.authorizationStatus == .authorizedAlways
@@ -145,19 +146,29 @@ class LocationServices: NSObject, ObservableObject, CLLocationManagerDelegate{
 //Region Stuff
 extension LocationServices{
     
-    func trackRegion(region: CLRegion){
+    func startTrackingRegion(region: CLRegion, forTask: NSManagedObjectID){
+        var trackers = self.regionsTracked[region.identifier] ?? []
+        trackers.append(forTask)
+        self.regionsTracked.updateValue(trackers, forKey: region.identifier)
+        
         self.locationManager.startMonitoring(for: region)
-        self.regionsTracked.updateValue((self.regionsTracked[region.identifier] ?? 0) + 1, forKey: region.identifier)
     }
     
-    func stopTrackingRegion(region: CLRegion){
-        self.regionsTracked.updateValue((self.regionsTracked[region.identifier] ?? 0) - 1, forKey: region.identifier)
+    func stopTrackingRegion(regionID: String, forTask: NSManagedObjectID){
+        guard var trackers = self.regionsTracked[regionID] else {return}
+        guard let index = trackers.firstIndex(of: forTask) else { return }
+        trackers.remove(at: index)
+        self.regionsTracked.updateValue(trackers, forKey: regionID)
         
         //if region is no longer being tracked by any tasks
-        if self.regionsTracked[region.identifier]! <= 0{
+        if self.regionsTracked[regionID]?.count ?? 0 == 0{
             //fuggedaboutit!
-            self.regionsTracked.removeValue(forKey: region.identifier)
-            self.locationManager.stopMonitoring(for: region)
+            self.regionsTracked.removeValue(forKey: regionID)
+            let region =
+                self.locationManager.monitoredRegions.first { reg in
+                    return reg.identifier == regionID
+                }
+            if region != nil {self.locationManager.stopMonitoring(for: region!)}
             //if this now means there are NO regions being tracked
             if self.regionsTracked.count == 0{
                 //fuggedaboutit!
@@ -185,27 +196,30 @@ extension LocationServices{
         _ manager: CLLocationManager,
         didEnterRegion region: CLRegion
     ){
-        let tasks = tasksFor(region: region)
-        for task in tasks{
-            task.quest?.updateProgress() //any tasks with no quest will be a child of a quest-bound task
-            //TODO: test if these next lines are already the case, I assume they would be but just in case I set them manually
-            task.occupiedAtLastUpdate = true
-            task.lastUpdate = Date.now
+        context.perform {
+            let tasks = self.tasksFor(region: region)
+            for task in tasks{
+                task.quest?.updateProgress() //any tasks with no quest will be a child of a quest-bound task
+                //TODO: test if these next lines are already the case, I assume they would be but just in case I set them manually
+                task.occupiedAtLastUpdate = true
+                task.lastUpdate = Date.now
+            }
+            do{try self.context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
-        do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
     }
     
     func locationManager(
         _ manager: CLLocationManager,
         didExitRegion region: CLRegion
     ){
-        //print("left region at \(Date.now)")
-        let tasks = tasksFor(region: region)
-        for task in tasks{
-            task.quest?.updateProgress()
-            task.occupiedAtLastUpdate = false
-            task.lastUpdate = Date.now
+        context.perform {
+            let tasks = self.tasksFor(region: region)
+            for task in tasks{
+                task.quest?.updateProgress()
+                task.occupiedAtLastUpdate = false
+                task.lastUpdate = Date.now
+            }
+            do{try self.context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
-        do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
     }
 }

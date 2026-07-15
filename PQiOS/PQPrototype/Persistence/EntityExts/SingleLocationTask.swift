@@ -21,12 +21,15 @@ extension SingleLocationTask: MKMapViewDelegate {
     }
     
     override func start() throws{
+        try super.start()
+        lastUpdate = Date.now
+    }
+    override func initDependenciesAndTrackers() throws {
+        try super.initDependenciesAndTrackers()
         guard let location = self.location else {
             throw InvalidTaskError(task: self.name!, invalidAttribute: "Location is nil")
         }
-        try super.start()
-        lastUpdate = Date.now
-        LocationServices.shared.trackRegion(region: location.asRegion())
+        LocationServices.shared.startTrackingRegion(region: location.asRegion(),forTask: self.objectID)
     }
     
     //lastUpdate is set after this method in update() and in LocationManager.onRegionEnter/Exit
@@ -38,6 +41,7 @@ extension SingleLocationTask: MKMapViewDelegate {
             if recordedOccupationTime >= requiredOccupationDuration{
                 recordedOccupationTime = requiredOccupationDuration
                 completed = true
+                if location != nil  {LocationServices.shared.stopTrackingRegion(regionID: location!.regionIdentifier,forTask: self.objectID)}
             }
         }
     }
@@ -49,7 +53,7 @@ extension SingleLocationTask: MKMapViewDelegate {
         guard let taskArea = location else { throw InvalidTaskError(task: self.name!, invalidAttribute: "Location") } //in case it somehow gets deleted mid-quest
         
         guard let curPos = LocationServices.shared.locationManager.location?.coordinate else {return} //TODO: throw location error (wont end task)
-        
+        //TODO: check wazzup
         if stayInside == (LocationServices.calcDistance(p1: curPos, p2: taskArea.center()) <= taskArea.radius){
             updateRecordedTime()
             occupiedAtLastUpdate = true
@@ -64,7 +68,7 @@ extension SingleLocationTask: MKMapViewDelegate {
         lastUpdate = nil
         occupiedAtLastUpdate = false
         recordedOccupationTime = 0
-        if location != nil  {LocationServices.shared.stopTrackingRegion(region: location!.asRegion())}
+        if location != nil  {LocationServices.shared.stopTrackingRegion(regionID: location!.regionIdentifier,forTask: self.objectID)}
     }
     
     override func toString() -> String{
@@ -83,7 +87,7 @@ extension SingleLocationTask: MKMapViewDelegate {
     }
     
     override func currentStatus() -> String {
-        if !self.quest!.isActive { return "" }
+        if !(self.quest?.isActive ?? true) { return "" }
         let prcnt = recordedOccupationTime/requiredOccupationDuration * 100.0
         let nf = NumberFormatter()
         nf.roundingMode = .up

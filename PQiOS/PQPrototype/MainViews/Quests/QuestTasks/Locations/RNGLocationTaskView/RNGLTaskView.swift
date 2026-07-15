@@ -66,11 +66,6 @@ struct RNGLTaskView: View {
                     }.disabled(!editing)
                 }.frame(height: 35)
             }
-            Button{
-                viewModel.refreshMarkers()
-            } label: {
-                Text("Generate Example Areas")
-            }
             
             if task.location != nil{
                 RNGLocationView(loc: task.location!, model: viewModel)
@@ -102,6 +97,7 @@ struct RNGLTaskView: View {
     
     private func save() -> Bool{
         context.perform {
+            task.name = task.location != nil ? "Explore "+task.location!.name! : "Unfinished Task"
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
         return true

@@ -178,11 +178,15 @@ struct ScheduleView: View {
                     }
                     //lock to block buttons
                     if schedule.isActive && schedule.nextSchLocked{
-                        ZStack{
-                            Image(systemName:"lock.fill").resizable().foregroundColor(.cyan).frame(width: 150, height: 75)
-                            Text(!Calendar.current.isDateInToday(schedule.startTime!) ? schedule.startTime!.formatted(date: .abbreviated, time: .omitted)
-                                 :
-                                 schedule.startTime!.formatted(date: .omitted, time: .shortened))
+                        Button(){
+                            if GlobalQuestLoot.getLoot(context: context).timeInABottle!.updateStoredTime(amount: -60){
+                                schedule.nextSchLocked = false
+                            }
+                        } label:{
+                            ZStack{
+                                Image(systemName:"lock.fill").resizable().foregroundColor(.cyan).frame(width: 150, height: 75)
+                                HStack(spacing:0){Text("60T"); Image(systemName: "hourglass")}
+                            }
                         }
                     }
                 }
@@ -225,6 +229,7 @@ struct ScheduleView: View {
     }
     func onEditChange(nowEditing: Bool){
         context.perform {
+            //deactivate while editing, not possible while schLocked
             if nowEditing && schedule.isActive{
                 schedule.toggleActive()
             }else{
@@ -254,7 +259,8 @@ struct ScheduleView: View {
             //if scheduled period is not in the past
             else {
                 if scheduleOnTimeline == 0 && !areYouSure{
-                    //FIX: add popup "scheduled period is right now, are you sure?"
+                    //TODO: add popup "scheduled period is right now, are you sure?"
+                    schedule.toggleActive()
                     return
                 }
                 //if scheduled period is in future or force start, go ahead and toggle active status

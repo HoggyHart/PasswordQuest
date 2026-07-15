@@ -29,11 +29,27 @@ struct PQPrototypeApp: App {
                 // Handle the error here.
             }
         }
+        let bgContext = PQPrototypeApp.isPreview ?  PersistenceController.preview.container.viewContext : PersistenceController.shared.container.viewContext
+        do{
+            let tasks = try bgContext.fetch(QuestTask.fetchRequest())
+            for task in tasks{
+                do{
+                    if task.quest?.isActive == true && !task.completed{
+                        try task.initDependenciesAndTrackers()
+                    }
+                }
+                catch{
+                    
+                }
+            }}
+        catch{
+            
+        }
         PQPrototypeApp.scheduleAndQuestUpdater = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){_ in
             if PQPrototypeApp.updatingThreadActive == true{return}
             PQPrototypeApp.updatingThreadActive = true
             
-            let bgContext = PQPrototypeApp.isPreview ?  PersistenceController.preview.container.newBackgroundContext() : PersistenceController.shared.container.newBackgroundContext()
+            let bgContext = PQPrototypeApp.isPreview ?  PersistenceController.preview.container.viewContext : PersistenceController.shared.container.viewContext
             //try to start scheduled quests
             bgContext.perform {
                 
@@ -59,7 +75,6 @@ struct PQPrototypeApp: App {
                         
                         // if scheduled period has already passed, fail quests until schedule has caught up to now
                         if Date.now > schedule.getActualEndTime(){
-                            schedule.nextSchLocked = false
                             _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now, safe: false, padQuestFailures: true)
                         }
                         

@@ -19,16 +19,19 @@ class RNGLTaskViewModel: LocationViewModel {
               self.updateQuestMarkers()
         })
     }
+    
+    func generateExampleLocations(){
+        //create example random locations
+        if !task!.quest!.isActive{
+            task!.reset()
+            task?.generateLocations()
+        }
+    }
 //    var area: LocationOccupationQuestTask
 //    var markerRenderer: MKCircleRenderer?
     override func refreshMarkers() {
         //create example random locations
-        if !task!.quest!.isActive{
-            //.start deletes current locations and generates new ones
-            do{
-                try task?.start()
-            }catch{}
-        }
+        generateExampleLocations()
         //and add them to the drawn areas
         updateQuestMarkers(forceRefresh: true)
         super.refreshMarkers()
@@ -36,10 +39,11 @@ class RNGLTaskViewModel: LocationViewModel {
     
     func updateQuestMarkers(forceRefresh: Bool = false){
         //if number of areas has changed
-        if markers.count != task!.randomLocationTasks!.count+1 || forceRefresh{//+1 for the origin location
+        if markers.count != task!.numberOfGeneratedLocations+1 || forceRefresh{//+1 for the origin location
             areas = [task!.location!]
             for lTask in task!.randomLocationTasks!.allObjects{
-                guard let location = (lTask as? SingleLocationTask)?.location else {continue} //TODO: make throw
+                let lTask = lTask as! SingleLocationTask
+                guard let location = lTask.location else {continue} //TODO: make throw
                 areas.append(location)
             }
         }

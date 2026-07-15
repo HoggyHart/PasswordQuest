@@ -14,7 +14,9 @@ struct LocationManagerView: View {
     private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
     @Environment(\.managedObjectContext) private var context
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Location.name, ascending: true),NSSortDescriptor(keyPath: \Location.objectID, ascending: true)], animation: .default)
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Location.name, ascending: true),NSSortDescriptor(keyPath: \Location.objectID, ascending: true)],
+                  predicate: NSPredicate(format: "temporary == false"),
+                  animation: .default)
     private var locations: FetchedResults<Location>
    
     @State var location: Location?
