@@ -10,15 +10,20 @@ import CoreData
 
 extension GlobalQuestLoot{
     
-    static func getLoot(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) -> GlobalQuestLoot {
+    static func getLoot(_ context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) -> GlobalQuestLoot {
         do{
-            return try context.fetch(GlobalQuestLoot.fetchRequest())[0]
+            return try context.fetch(GlobalQuestLoot.fetchRequest()).first 
+            ?? initLoot(context)
         }catch{
-            let gql = GlobalQuestLoot(context: context)
-            gql.timeInABottle = TimeInABottle(context: context)
-            gql.timeInABottle!.refreshWeeklyLimit()
-            do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-            return gql
+            return initLoot(context)
         }
+    }
+    
+    static private func initLoot(_ context: NSManagedObjectContext) -> GlobalQuestLoot{
+        let gql = GlobalQuestLoot(context: context)
+        gql.timeInABottle = TimeInABottle(context: context)
+        gql.timeInABottle!.initRefreshDate()
+        do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+        return gql
     }
 }

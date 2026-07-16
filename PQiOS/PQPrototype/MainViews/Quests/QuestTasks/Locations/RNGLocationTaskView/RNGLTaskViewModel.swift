@@ -19,14 +19,6 @@ class RNGLTaskViewModel: LocationViewModel {
               self.updateQuestMarkers()
         })
     }
-    
-    func generateExampleLocations(){
-        //create example random locations
-        if !task!.quest!.isActive{
-            task!.reset()
-            task?.generateLocations()
-        }
-    }
 //    var area: LocationOccupationQuestTask
 //    var markerRenderer: MKCircleRenderer?
     override func refreshMarkers() {
@@ -51,7 +43,8 @@ class RNGLTaskViewModel: LocationViewModel {
         for lTask in task!.randomLocationTasks!.allObjects{
             let lTask = lTask as! SingleLocationTask
             let location = lTask.location!
-            guard let markerRenderer = markers[location.objectID]?.first!.key else {continue}
+            guard let marker = markers[location.objectID]?.0 else {continue}
+            guard let markerRenderer = self.map.renderer(for:marker) as? MKCircleRenderer else {continue}
             if lTask.completed{
                 markerRenderer.strokeColor = UIColor.systemGreen
                 markerRenderer.fillColor = UIColor.systemGreen.withAlphaComponent(0.2)
@@ -62,6 +55,14 @@ class RNGLTaskViewModel: LocationViewModel {
                 //doesnt throw an error for dividing by 0 :)
                 markerRenderer.strokeEnd = (lTask.requiredOccupationDuration-lTask.recordedOccupationTime) / lTask.requiredOccupationDuration
             }
+        }
+    }
+    
+    func generateExampleLocations(){
+        //create example random locations
+        if !task!.quest!.isActive{
+            task!.reset()
+            task?.generateLocations()
         }
     }
 }

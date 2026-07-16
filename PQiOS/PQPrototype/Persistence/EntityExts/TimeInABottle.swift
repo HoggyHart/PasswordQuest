@@ -8,7 +8,7 @@
 import Foundation
 
 extension TimeInABottle{
-    private func initRefreshDate(){
+    public func initRefreshDate(){
         if self.weeklyTimeReset == nil {
             var now = Date.now
             now = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: now)!
@@ -27,10 +27,10 @@ extension TimeInABottle{
         }
     }
     public func updateStoredTime(amount: Int, limit: Bool = false) -> Bool{
-        if self.weeklyTimeCollected == self.weeklyTimeLimit{ return false }
         var added = amount
         //if this contributes to the weekly limit
         if (amount>0 && limit){
+            if self.weeklyTimeCollected == self.weeklyTimeLimit{ return false }
             let ogTally = self.weeklyTimeCollected
             self.weeklyTimeCollected = Int16(min(ogTally+Int16(amount), self.weeklyTimeLimit))
             //get capped amoount added

@@ -179,7 +179,7 @@ struct ScheduleView: View {
                     //lock to block buttons
                     if schedule.isActive && schedule.nextSchLocked{
                         Button(){
-                            if GlobalQuestLoot.getLoot(context: context).timeInABottle!.updateStoredTime(amount: -60){
+                            if GlobalQuestLoot.getLoot(context).timeInABottle!.updateStoredTime(amount: -60){
                                 schedule.nextSchLocked = false
                             }
                         } label:{

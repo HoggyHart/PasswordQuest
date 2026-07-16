@@ -113,7 +113,7 @@ extension Quest{
             //create quest reward (key)
             let reward = QuestKey.generateKey(quest: self)
             if error != nil {reward.keyType = QuestKeyType.cancelled}
-            if error == nil {GlobalQuestLoot.getLoot(context: self.managedObjectContext!).timeInABottle?.updateStoredTime(amount: 5, limit: false)} //TODO: adapt this to scale with task difficulty
+            if error == nil {GlobalQuestLoot.getLoot(self.managedObjectContext!).timeInABottle?.updateStoredTime(amount: 5, limit: true)} //TODO: adapt this to scale with task difficulty
             self.addToRewards(reward)
             
             //end scheduler

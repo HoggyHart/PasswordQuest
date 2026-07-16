@@ -17,7 +17,7 @@ class LocationViewModel : NSObject, ObservableObject, MKMapViewDelegate{
     var editing: Bool = false
     var map: MKMapView = MKMapView()
     
-    var markers: Dictionary<NSManagedObjectID, Dictionary<MKCircleRenderer,MKAnnotation>> = [:]
+    var markers: Dictionary<NSManagedObjectID, (MKOverlay,MKAnnotation)> = [:]
     
   //  var mapMarkerUpdater: Timer? = nil
     override init(){
@@ -75,9 +75,8 @@ class LocationViewModel : NSObject, ObservableObject, MKMapViewDelegate{
         self.map.addAnnotation(questPin)
         //draw the circular area
         self.map.addOverlay(questCircle, level:.aboveRoads)
-        let renderer = self.map.renderer(for: questCircle) as! MKCircleRenderer
         //get overlay renderer we just created with .addOverlay in case we want to alter it
-        self.markers.updateValue([renderer:questPin], forKey: area.objectID)
+        self.markers.updateValue((questCircle,questPin), forKey: area.objectID)
     }
     
     func refreshMarkers(){
@@ -87,7 +86,8 @@ class LocationViewModel : NSObject, ObservableObject, MKMapViewDelegate{
         for area in areas {
             self.markArea(area: area)
         }
-        self.map.selectAnnotation(self.markers.first!.value.first!.value, animated: true)
+        guard let frst = self.markers.values.first?.0 else {return}
+        self.map.selectAnnotation(frst, animated: true)
     }
     func clearMap(){
         self.markers = [:]
@@ -95,9 +95,9 @@ class LocationViewModel : NSObject, ObservableObject, MKMapViewDelegate{
         map.removeOverlays(map.overlays)
     }
     func removeMarkerFor(area: Location){
-        let pair = self.markers.removeValue(forKey: area.objectID)
-        map.removeOverlay(pair!.first!.key.circle)
-        map.removeAnnotation(pair!.first!.value)
+        guard let pair = self.markers.removeValue(forKey: area.objectID) else {return}
+        map.removeOverlay(pair.0)
+        map.removeAnnotation(pair.1)
     }
     func refreshMarkerFor(area: Location){
         removeMarkerFor(area: area)

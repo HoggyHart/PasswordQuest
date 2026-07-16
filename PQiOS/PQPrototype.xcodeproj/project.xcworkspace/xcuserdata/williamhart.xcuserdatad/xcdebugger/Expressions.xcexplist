@@ -63,6 +63,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in TimeInABottleDisplay.body.getter:MainView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.gql">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "QuestView.body.getter:QuestView.swift">
       </ContextState>
       <ContextState
@@ -118,7 +126,7 @@
          contextName = "PersistenceController.init(inMemory:):Persistence.swift">
          <PersistentStrings>
             <PersistentString
-               value = "container.viewContext.fetch(GlobalQuestLoot.fetchRequest())">
+               value = "container.viewContext.fetch(TimeInABottle.fetchRequest())[0]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -240,6 +248,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "Quest.end(error:):Quest.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.managedObjectContext!.fetch(GlobalQuestLoot.fetchRequest())">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "Quest.start(withSchedule:):Quest.swift">
          <PersistentStrings>
             <PersistentString
@@ -264,6 +280,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in closure #1 in closure #2 in TimeInABottleDisplay.body.getter:MainView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.gql">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "Schedule.amendNextScheduledPeriod(toNextStartFrom:padQuestFailures:):Schedule.swift">
       </ContextState>
       <ContextState
@@ -276,6 +300,14 @@
       </ContextState>
       <ContextState
          contextName = "SingleLocationView.loadData():SingleLocationView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static GlobalQuestLoot.getLoot(context:):GlobalQuestLoot.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "context.fetch(GlobalQuestLoot.fetchRequest())[0]">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "SingleLocationTask.update():SingleLocationTask.swift">

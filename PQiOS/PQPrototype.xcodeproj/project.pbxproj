@@ -284,11 +284,12 @@
 		6B331EF32F647FAA00DBECA4 /* Locations */ = {
 			isa = PBXGroup;
 			children = (
+				6B80D0DF3009035400A75888 /* LocationTaskView */,
 				6B331EF42F64882E00DBECA4 /* LocationManagerView.swift */,
 				6B331EF62F64889D00DBECA4 /* LocationManagerModel.swift */,
 				6B7CB8342FC618C400345B18 /* RNGLocationTaskView */,
 				6BA72D822F4757F50019649F /* LocationView */,
-				6BA72D832F4758060019649F /* LocationTaskVIew */,
+				6BA72D832F4758060019649F /* SingleLocationTaskVIew */,
 			);
 			path = Locations;
 			sourceTree = "<group>";
@@ -325,6 +326,13 @@
 				6B4C640A2FE80F9B00D5C1E2 /* RNGLocationView.swift */,
 			);
 			path = RNGLocationTaskView;
+			sourceTree = "<group>";
+		};
+		6B80D0DF3009035400A75888 /* LocationTaskView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LocationTaskView;
 			sourceTree = "<group>";
 		};
 		6BA3F85A2ED8BF4F00EBE046 = {
@@ -397,7 +405,7 @@
 			path = LocationView;
 			sourceTree = "<group>";
 		};
-		6BA72D832F4758060019649F /* LocationTaskVIew */ = {
+		6BA72D832F4758060019649F /* SingleLocationTaskVIew */ = {
 			isa = PBXGroup;
 			children = (
 				6B7A48CE2F02E1D3002102FE /* SingleLocationTaskView.swift */,
@@ -405,7 +413,7 @@
 				6B4C640C2FE810CF00D5C1E2 /* SingleLocationView.swift */,
 				6B4C640E2FE81B2A00D5C1E2 /* SLTConfigView.swift */,
 			);
-			path = LocationTaskVIew;
+			path = SingleLocationTaskVIew;
 			sourceTree = "<group>";
 		};
 		6BA9DDBB2F3CE95900AF1B06 /* Persistence */ = {

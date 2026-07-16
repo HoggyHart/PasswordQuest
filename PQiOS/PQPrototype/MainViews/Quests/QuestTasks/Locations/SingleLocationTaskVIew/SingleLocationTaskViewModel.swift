@@ -14,24 +14,17 @@ class SingleLocationTaskViewModel: LocationViewModel{
     
     func loadTaskData(task: SingleLocationTask){
         self.task = task
-        
         mapMarkerUpdater = mapMarkerUpdater ?? Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
               self.updateQuestMarkers()
         })
-        
-        guard let loc = task.location else {return}
-       // self.markArea(area: loc)
     }
     
-    func updateMap(){
-        
-    }
-    
-    func updateQuestMarkers(){
+    func updateQuestMarkerProgressIndicator(){
         guard let task = task else {return}
         guard let location = task.location else {return}
         
-        guard let markerRenderer = markers[location.objectID]?.first!.key else {return}
+        guard let marker = markers[location.objectID]?.0 else {return}
+        guard let markerRenderer = self.map.renderer(for:marker) as? MKCircleRenderer else {return}
         if task.completed{
             markerRenderer.strokeColor = UIColor.systemGreen
             markerRenderer.fillColor = UIColor.systemGreen.withAlphaComponent(0.2)
@@ -42,6 +35,9 @@ class SingleLocationTaskViewModel: LocationViewModel{
             //doesnt throw an error for dividing by 0 :)
             markerRenderer.strokeEnd = (task.requiredOccupationDuration-task.recordedOccupationTime) / task.requiredOccupationDuration
         }
+    }
+    func updateQuestMarkers(){
+        updateQuestMarkerProgressIndicator()
     }
     
     @MainActor
