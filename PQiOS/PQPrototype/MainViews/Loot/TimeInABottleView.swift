@@ -14,9 +14,15 @@ struct LockedView<LockView: View, Content: View>: View{
     var body: some View{
         ZStack{
             content
+                .disabled(!unlockCon())
             if unlockCon() == false{
                 if lockView != nil { lockView }
-                else {Image(systemName: "lock.fill")}
+                else {
+                    ZStack{
+                        Image(systemName: "lock.fill")
+                    }
+                }
+                Rectangle().opacity(0)
             }
         }
     }
@@ -94,30 +100,45 @@ struct TimeInABottleUpgradeView: View{
 //        }
 //    }
     
+    @State var upgradeInfoSheet: Bool = false
+    
     var body: some View{
         VStack{
             HStack{
-                Text("Weekly Limit: \(tiab.weeklyTimeCollected)/\(tiab.weeklySoftCap)")
+                Text("Weekly Limit: \(tiab.weeklyTally)/\(tiab.weeklyCap)").frame(alignment: .center)
                 Spacer()
                 LockedView(
                     unlockCon: {
-                        return tiab.weeklyTimeReset! < Date.now
+                        return tiab.weeklyUpgradeChallengeDate < Date.now
                     },
-                    lockView: Text("\(Int(tiab.weeklyUpgradeChallengeDate.timeIntervalSinceNow) / 86400)/7"), content: Button(){
-                        context.perform {
-                            if tiab.updateStoredTime(amount: -Int(tiab.weeklyTimeLimit)){
-                                tiab.weeklyTimeLimit += Int16(TimeInABottle.weeklyCapIncrease)
+                    lockView: Text("\((86400*7 - Int(tiab.weeklyUpgradeChallengeDate.timeIntervalSinceNow)) / 86400)/7"),
+                    content:
+                        Button(){
+                            context.perform {
+                                if tiab.updateStoredTime(amount: -tiab.weeklyCap){
+                                    tiab.weeklyCap += TimeInABottle.weeklyCapIncrease
+                                }
+                                do{try context.save()}catch{}
                             }
-                            do{try context.save()}catch{}
+                        } label:{
+                            HStack{
+                                Text("Upgrade: \(tiab.weeklyCap) \(Image(systemName: "hourglass"))")
+                            }
                         }
-                    } label:{
-                        HStack{
-                            Text("Upgrade Cost: \(tiab.weeklyTimeLimit)")
-                            Image(systemName: "hourglass")
-                        }
-                    })
+                )
+                if tiab.weeklyUpgradeChallengeDate > Date.now{
+                    Button(){
+                        upgradeInfoSheet = true
+                    } label: {
+                        Image(systemName: "info.circle.fill")
+                    }
+                }
             }.padding(EdgeInsets(top: 0, leading: 40, bottom: 0, trailing: 40))
+                .frame(height: 50)
         }
+        .sheet(isPresented: $upgradeInfoSheet, content: {
+            Text("Go 7 days without spending Time In A Bottle to unlock.")
+        })
     }
 }
 

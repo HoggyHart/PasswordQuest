@@ -286,7 +286,6 @@
 		6B331EF32F647FAA00DBECA4 /* Locations */ = {
 			isa = PBXGroup;
 			children = (
-				6B80D0DF3009035400A75888 /* LocationTaskView */,
 				6B331EF42F64882E00DBECA4 /* LocationManagerView.swift */,
 				6B331EF62F64889D00DBECA4 /* LocationManagerModel.swift */,
 				6B7CB8342FC618C400345B18 /* RNGLocationTaskView */,
@@ -328,13 +327,6 @@
 				6B4C640A2FE80F9B00D5C1E2 /* RNGLocationView.swift */,
 			);
 			path = RNGLocationTaskView;
-			sourceTree = "<group>";
-		};
-		6B80D0DF3009035400A75888 /* LocationTaskView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = LocationTaskView;
 			sourceTree = "<group>";
 		};
 		6B80D0E0300BB6AA00A75888 /* Loot */ = {
