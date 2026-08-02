@@ -28,11 +28,11 @@
     </entity>
     <entity name="QuestKey" representedClassName=".QuestKey" syncable="YES">
         <attribute name="hidden" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO"/>
-        <attribute name="key" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="key" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="obtainmentDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="questWasLocked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="rawType" attributeType="Integer 16" valueTransformerName="NSQuestKeyTypeTransformer" defaultValueString="0" usesScalarValueType="YES" customClassName=".NSQuestKeyType"/>
-        <attribute name="scheduled" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="scheduled" optional="YES" attributeType="UUID" usesScalarValueType="YES"/>
         <relationship name="quest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Quest" inverseName="rewards" inverseEntity="Quest"/>
     </entity>
     <entity name="QuestTask" representedClassName=".QuestTask" isAbstract="YES" syncable="YES">
@@ -72,8 +72,9 @@
     </entity>
     <entity name="TimeInABottle" representedClassName=".TimeInABottle" syncable="YES">
         <attribute name="timeStored" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="weeklyLimitIncreaseDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="weeklyTimeCollected" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="weeklyTimeLimit" attributeType="Integer 16" defaultValueString="120" usesScalarValueType="YES"/>
-        <attribute name="weeklyTimeReset" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="weeklyTimeReset" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
 </model>

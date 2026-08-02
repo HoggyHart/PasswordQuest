@@ -33,6 +33,37 @@ struct QuestView: View {
             )
     }
     
+    var lockButton: some View {
+        Button(){
+            context.perform{
+                quest.locked = true
+                do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+            }
+        } label :{
+            ZStack{
+                RoundedRectangle(cornerRadius: 50, style: .circular)
+                    .foregroundColor(quest.locked ? .gray : .red)
+                Image(systemName: quest.locked ? "lock.fill" : "lock.open.fill")
+                    .foregroundColor(quest.locked ? .black : .white)
+                    .font(.title2)
+            }
+            .frame(width: 50)
+        }
+        .disabled(quest.locked ? true : false)
+    }
+    
+    var questStatusButton: some View{
+        Button(){
+            startEndResetButtonFunc()
+        } label : {
+            ZStack{
+                RoundedRectangle(cornerRadius: 50, style: .circular)
+                    .foregroundColor(statusColor())
+                Text(startEndResetButtonText()).foregroundColor(.white)
+            }
+        }
+    }
+    
     var body: some View {
         
         VStack{
@@ -54,34 +85,26 @@ struct QuestView: View {
             HStack{
                 //lock/unlock button
                 if quest.isActive {
-                    Button(){
-                        context.perform{
-                            quest.locked = true
-                            do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-                        }
-                    } label :{
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 50, style: .circular)
-                                .foregroundColor(quest.locked ? .gray : .red)
-                            Image(systemName: quest.locked ? "lock.fill" : "lock.open.fill")
-                                .foregroundColor(quest.locked ? .black : .white)
-                                .font(.title2)
-                        }
-                        .frame(width: 50)
-                    }
-                    .disabled(quest.locked ? true : false)
+                    lockButton
                 }
                 //start/end button
-                Button(){
-                    startEndResetButtonFunc()
-                } label : {
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 50, style: .circular)
-                            .foregroundColor(statusColor())
-                        Text(startEndResetButtonText()).foregroundColor(.white)
+                ZStack{
+                    questStatusButton
+                    if quest.locked{
+                        Button(){
+                            context.perform {
+                                if GlobalQuestLoot.getLoot().timeInABottle!.updateStoredTime(amount: -quest.maxRewardValue){
+                                    quest.end()
+                                    let k = QuestKey.generateKey(quest: quest)
+                                    k.keyType = .complete
+                                }
+                                do{try context.save()}catch{}
+                            }
+                        } label: {
+                            Rectangle().opacity(0)
+                        }
                     }
                 }
-                .disabled(quest.locked)
             }.frame(width: 250, height: 50)
         }
         .padding(EdgeInsets(top: 0.0, leading: 30.0, bottom: 0.0, trailing: 30.0))
@@ -97,7 +120,7 @@ struct QuestView: View {
             case 0:
                 do{
                     try quest.start()
-                }catch let e as FailedStartError{
+                }catch _ as FailedStartError{
                     
                     //highlight problematic task/ pop up with whatever the fail reason was
                 }catch{}
@@ -124,6 +147,9 @@ struct QuestView: View {
         case 0, -2:
             return "Start"
         case 1:
+            if quest.locked{
+                return "Skip? (\(quest.maxRewardValue))"
+            }
             return "End"
         case 2:
             return "Turn In"

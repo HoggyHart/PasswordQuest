@@ -86,33 +86,41 @@ extension Schedule {
                     .timeIntervalSince(scheduledStartTime!))
     }
     
+    
+    public enum ScheduleState: Int{
+        case inactive = -2
+        case notStarted = -1
+        case inProgress = 0
+        case failed = 1
+        case completed = 2
+    }
     ///-2: inactive
     ///-1: not started yet
     ///0: in progress
     ///1: failed
     ///2: succeeded
-    func getState() -> Int{
+    func getState() -> ScheduleState{
         //logic assumes lastEndTime < startTime < endTime
         
         //if sch not active, say that
         if(!self.isActive){ // -2
-            return -2
+            return .inactive
         }
         //else if going to start today, return not started yet
         else if (Calendar.current.isDateInToday(self.startTime!) && Date.now < self.startTime!){
-            return -1
+            return .notStarted
         }
         //else if after schedule start, and quest is active due to this scheduler, return in progress
         else if quest!.getCurrentScheduler() == self {
-            return 0
+            return .inProgress
         }
         //if sch completed today -> show succeed/fail
         else if (Calendar.current.isDateInToday(self.lastEndDate ?? Date.distantFuture)){ // 1/2
-            if (self.lastScheduleCompletedOnTime == false){ return 1 }
-            return 2
+            if (self.lastScheduleCompletedOnTime == false){ return .failed }
+            return .completed
         }
         //else: not scheduled today, return not started yet
-        else { return -1 }
+        else { return .failed }
     }
     
     func getNext_XDayDelay_StartTime(fromDate: Date) -> Date{

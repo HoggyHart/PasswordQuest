@@ -31,9 +31,16 @@ extension QuestKey{
         return key
     }
     
+    static public func generateAIOKey(context: NSManagedObjectContext) -> QuestKey{
+        let key = QuestKey(context: context)
+        key.obtainmentDate = Date.now
+        key.keyType = QuestKeyType.admin
+        return key
+    }
+    
     func toJson() -> String{
         var data = "{\n"
-        data.append("\"questUUID\" : \"" + key!.uuidString + "\",\n")
+        data.append("\"questUUID\" : \"" + (key?.uuidString ?? "0") + "\",\n")
         data.append("\"obtainmentDate\" : \"" + self.obtainmentDate!.formatted(date: .numeric, time: .standard) + "\",\n")
         data.append("\"scheduler\" : \"" + (self.scheduled?.uuidString ?? "0") + "\",\n")
         data.append("\"type\" : \"" + self.keyType.name + "\",\n") //Not yet implemented. type could be nullify (in case of quest deletion / uuid change

@@ -178,17 +178,19 @@ extension LocationServices{
     }
     
     ///return the task that owns this region
-    func tasksFor(region: CLRegion) -> [SingleLocationTask]{
-        var list: [SingleLocationTask] = []
+    func tasksFor(region: CLRegion) -> [LocationTask]{
+        var list: [LocationTask] = []
         do{
-            let tasks = try context.fetch(SingleLocationTask.fetchRequest())
+            let tasks = try context.fetch(LocationTask.fetchRequest())
             for t in tasks{
                 
-                if t.location!.regionIdentifier == region.identifier{
+                if t.location?.regionIdentifier == region.identifier{
                     list.append(t)
                 }
             }
-        }catch{}
+        }catch{
+            let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")
+        }
         return list
     }
     
@@ -200,9 +202,6 @@ extension LocationServices{
             let tasks = self.tasksFor(region: region)
             for task in tasks{
                 task.quest?.updateProgress() //any tasks with no quest will be a child of a quest-bound task
-                //TODO: test if these next lines are already the case, I assume they would be but just in case I set them manually
-                task.occupiedAtLastUpdate = true
-                task.lastUpdate = Date.now
             }
             do{try self.context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
@@ -216,8 +215,6 @@ extension LocationServices{
             let tasks = self.tasksFor(region: region)
             for task in tasks{
                 task.quest?.updateProgress()
-                task.occupiedAtLastUpdate = false
-                task.lastUpdate = Date.now
             }
             do{try self.context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }

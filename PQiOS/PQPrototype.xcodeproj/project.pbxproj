@@ -48,6 +48,7 @@
 		6B80D0DB3006F7BC00A75888 /* TimeInABottle+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B80D0D93006F7BC00A75888 /* TimeInABottle+CoreDataClass.swift */; };
 		6B80D0DC3006F7BC00A75888 /* TimeInABottle+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B80D0DA3006F7BC00A75888 /* TimeInABottle+CoreDataProperties.swift */; };
 		6B80D0DE30070B0800A75888 /* TimeInABottle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B80D0DD30070B0800A75888 /* TimeInABottle.swift */; };
+		6B80D0E2300BB6E100A75888 /* TimeInABottleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B80D0E1300BB6E100A75888 /* TimeInABottleView.swift */; };
 		6B83BDC52F856617001472A6 /* MyJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B83BDC42F856617001472A6 /* MyJson.swift */; };
 		6B83BDCD2F85B153001472A6 /* QuestKeyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B83BDCC2F85B153001472A6 /* QuestKeyType.swift */; };
 		6B9E6D482F31789F000C403D /* StagedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9E6D472F31789F000C403D /* StagedButton.swift */; };
@@ -146,6 +147,7 @@
 		6B80D0D93006F7BC00A75888 /* TimeInABottle+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInABottle+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6B80D0DA3006F7BC00A75888 /* TimeInABottle+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInABottle+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6B80D0DD30070B0800A75888 /* TimeInABottle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInABottle.swift; sourceTree = "<group>"; };
+		6B80D0E1300BB6E100A75888 /* TimeInABottleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInABottleView.swift; sourceTree = "<group>"; };
 		6B83BDC42F856617001472A6 /* MyJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJson.swift; sourceTree = "<group>"; };
 		6B83BDCC2F85B153001472A6 /* QuestKeyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestKeyType.swift; sourceTree = "<group>"; };
 		6B9E6D472F31789F000C403D /* StagedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StagedButton.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 		6B2153202EEC28E100188D31 /* MainViews */ = {
 			isa = PBXGroup;
 			children = (
+				6B80D0E0300BB6AA00A75888 /* Loot */,
 				6B2152E32EEB3C0900188D31 /* MainView.swift */,
 				6B331EEF2F647F5000DBECA4 /* Schedules */,
 				6B331EEE2F647F4200DBECA4 /* Quests */,
@@ -253,7 +256,6 @@
 			children = (
 				6B2153222EEC2BEB00188D31 /* QuestView.swift */,
 				6B2152DB2EEB31F100188D31 /* QuestManagerView.swift */,
-				6B24FE3C2F1E59E9002B3042 /* QuestRewardManagerView.swift */,
 				6B331EF02F647F6700DBECA4 /* QuestTasks */,
 			);
 			path = Quests;
@@ -333,6 +335,15 @@
 			children = (
 			);
 			path = LocationTaskView;
+			sourceTree = "<group>";
+		};
+		6B80D0E0300BB6AA00A75888 /* Loot */ = {
+			isa = PBXGroup;
+			children = (
+				6B24FE3C2F1E59E9002B3042 /* QuestRewardManagerView.swift */,
+				6B80D0E1300BB6E100A75888 /* TimeInABottleView.swift */,
+			);
+			path = Loot;
 			sourceTree = "<group>";
 		};
 		6BA3F85A2ED8BF4F00EBE046 = {
@@ -673,6 +684,7 @@
 				6BA72D842F475CBF0019649F /* MainView.swift in Sources */,
 				6B80D0DE30070B0800A75888 /* TimeInABottle.swift in Sources */,
 				6B5CF8172FA75CEC00769422 /* PQPrototype.xcdatamodeld in Sources */,
+				6B80D0E2300BB6E100A75888 /* TimeInABottleView.swift in Sources */,
 				6B4C64092FCF0AA900D5C1E2 /* MyAnnotation.swift in Sources */,
 				6BA72D7D2F4687E70019649F /* Location.swift in Sources */,
 				6B5CF8532FAAC5B000769422 /* TwoHeadedSlider.swift in Sources */,

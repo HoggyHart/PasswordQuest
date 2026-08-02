@@ -178,7 +178,7 @@ struct ScheduleView: View {
                     }
                     //lock to block buttons
                     if schedule.isActive && schedule.nextSchLocked{
-                        Button(){
+                        Button(){ //TODO: make price tied to individual schedules (based on frequency + quest difficulty)
                             if GlobalQuestLoot.getLoot(context).timeInABottle!.updateStoredTime(amount: -60){
                                 schedule.nextSchLocked = false
                             }
@@ -186,7 +186,7 @@ struct ScheduleView: View {
                             ZStack{
                                 Image(systemName:"lock.fill").resizable().foregroundColor(.cyan).frame(width: 150, height: 75)
                                 HStack(spacing:0){Text("60T"); Image(systemName: "hourglass")}
-                            }
+                            }.foregroundColor(.white)
                         }
                     }
                 }
@@ -216,7 +216,7 @@ struct ScheduleView: View {
             do{
                 try schedule.quest!.start(withSchedule: schedule)
             }
-            catch let e as FailedStartError{
+            catch let _ as FailedStartError{
                 context.undo()
                 //HIGHLIGHT error on screen
                 

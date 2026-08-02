@@ -7,222 +7,92 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9A0CA2E4-DCF2-4D97-B1F8-D8CC8351122C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/SessionManagerView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "deleteSession(offsets:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "579DF7EA-FF33-4D77-912E-F622A640208E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/IndividualObjectViews/ScheduleEditView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "saveChanges()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "579DF7EA-FF33-4D77-912E-F622A640208E - db74cffa37f967ab"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.ScheduleEditView.saveChanges() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQPrototype/MainViews/IndividualObjectViews/ScheduleEditView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "120"
-                  endingLineNumber = "120"
-                  offsetFromSymbolStart = "341">
-               </Location>
-               <Location
-                  uuid = "579DF7EA-FF33-4D77-912E-F622A640208E - db74cffa37f967ab"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.ScheduleEditView.saveChanges() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQPrototype/MainViews/IndividualObjectViews/ScheduleEditView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "120"
-                  endingLineNumber = "120"
-                  offsetFromSymbolStart = "367">
-               </Location>
-               <Location
-                  uuid = "579DF7EA-FF33-4D77-912E-F622A640208E - db74cffa37f967ab"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.ScheduleEditView.saveChanges() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQPrototype/MainViews/IndividualObjectViews/ScheduleEditView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "120"
-                  endingLineNumber = "120"
-                  offsetFromSymbolStart = "370">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "03C316D8-0946-43FE-9105-7C61C590F383"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/IndividualObjectViews/ScheduleView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "init(scheduleToLoad:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "794DE353-D282-4007-8958-6A1E4BA9951A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "getNext_ScheduledDays_StartTime(fromDate:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E14ABD12-A621-4A4E-99D2-C7695DE2B7AF"
-            shouldBeEnabled = "No"
+            uuid = "1E2447EA-48ED-4968-A040-41B3FC3C681B"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PQPrototype/utils/LocationServices.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
-            landmarkName = "locationManager(_:didUpdateLocations:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "74159DF8-AFF5-450A-A9B0-419A2EFC05A9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/IndividualObjectViews/ScheduleView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
-            landmarkName = "updateSchedule()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "28D031CA-6E90-4D6D-9660-15A1A9124F2D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/IndividualObjectViews/ScheduleView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232"
-            landmarkName = "updateSchedule()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "863D90CA-334A-4ED5-A1B4-BD4824D55E6E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "getState()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4295A7CF-61AB-42C9-A949-3C00AAD28925"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
-            landmarkName = "amendNextScheduledPeriod(toNextStartFrom:padQuestFailures:)"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
+            landmarkName = "locationManager(_:didEnterRegion:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "4295A7CF-61AB-42C9-A949-3C00AAD28925 - f7d568fb73b075cf"
+                  uuid = "1E2447EA-48ED-4968-A040-41B3FC3C681B - 5aa62c609f12913f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Schedule.getActualEndTime() -&gt; Foundation.Date"
+                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didEnterRegion: __C.CLRegion) -&gt; ()"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/Schedule.swift"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "140"
-                  endingLineNumber = "140"
-                  offsetFromSymbolStart = "171">
+                  startingLineNumber = "204"
+                  endingLineNumber = "204"
+                  offsetFromSymbolStart = "391">
                </Location>
                <Location
-                  uuid = "4295A7CF-61AB-42C9-A949-3C00AAD28925 - 58cd53d6f6c3a131"
+                  uuid = "1E2447EA-48ED-4968-A040-41B3FC3C681B - 5aa62c609f12913f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Schedule.amendNextScheduledPeriod(toNextStartFrom: Foundation.Date, padQuestFailures: Swift.Bool) -&gt; Swift.Int"
+                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didEnterRegion: __C.CLRegion) -&gt; ()"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/Schedule.swift"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "140"
-                  endingLineNumber = "140"
-                  offsetFromSymbolStart = "975">
+                  startingLineNumber = "204"
+                  endingLineNumber = "204"
+                  offsetFromSymbolStart = "868">
+               </Location>
+               <Location
+                  uuid = "1E2447EA-48ED-4968-A040-41B3FC3C681B - 5aa62c609f12913f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didEnterRegion: __C.CLRegion) -&gt; ()"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "204"
+                  endingLineNumber = "204"
+                  offsetFromSymbolStart = "961">
+               </Location>
+               <Location
+                  uuid = "1E2447EA-48ED-4968-A040-41B3FC3C681B - 5aa62c609f12913f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didEnterRegion: __C.CLRegion) -&gt; ()"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "204"
+                  endingLineNumber = "204"
+                  offsetFromSymbolStart = "456">
+               </Location>
+               <Location
+                  uuid = "1E2447EA-48ED-4968-A040-41B3FC3C681B - 5aa62c609f12913f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didEnterRegion: __C.CLRegion) -&gt; ()"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "204"
+                  endingLineNumber = "204"
+                  offsetFromSymbolStart = "569">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -230,1398 +100,248 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A2C149C9-C757-474D-9D7A-2C85155114EA"
-            shouldBeEnabled = "No"
+            uuid = "15A0F2C4-BBAD-492E-9C7E-F52476AB250B"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Schedule.swift"
+            filePath = "PQPrototype/utils/LocationServices.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
-            landmarkName = "amendNextScheduledPeriod(toNextStartFrom:padQuestFailures:)"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
+            landmarkName = "locationManager(_:didEnterRegion:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "A2C149C9-C757-474D-9D7A-2C85155114EA - 58cd53d6f6c3a1f3"
+                  uuid = "15A0F2C4-BBAD-492E-9C7E-F52476AB250B - 5aa62c609f1290a2"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Schedule.amendNextScheduledPeriod(toNextStartFrom: Foundation.Date, padQuestFailures: Swift.Bool) -&gt; Swift.Int"
+                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didEnterRegion: __C.CLRegion) -&gt; ()"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/Schedule.swift"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "142"
-                  endingLineNumber = "142"
-                  offsetFromSymbolStart = "1376">
+                  startingLineNumber = "201"
+                  endingLineNumber = "201"
+                  offsetFromSymbolStart = "192">
                </Location>
                <Location
-                  uuid = "A2C149C9-C757-474D-9D7A-2C85155114EA - 58cd53d6f6c3a1f3"
+                  uuid = "15A0F2C4-BBAD-492E-9C7E-F52476AB250B - 5aa62c609f1290a2"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Schedule.amendNextScheduledPeriod(toNextStartFrom: Foundation.Date, padQuestFailures: Swift.Bool) -&gt; Swift.Int"
+                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didEnterRegion: __C.CLRegion) -&gt; ()"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/Schedule.swift"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "142"
-                  endingLineNumber = "142"
-                  offsetFromSymbolStart = "534">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "72B582DE-4361-4A70-A629-8002B555B1D8"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "lateInit(quest:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "70489057-7784-4FAC-8EA5-A8EA455EF902"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Models/ScheduleTypeInfo.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "toggle(obj:day:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "70489057-7784-4FAC-8EA5-A8EA455EF902 - c90876b8d26e3f6d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static PQPrototype.Week.toggle(obj: PQPrototype.Week, day: Swift.Int32) -&gt; PQPrototype.Week"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/PQPrototype/Models/ScheduleTypeInfo.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "148">
+                  startingLineNumber = "201"
+                  endingLineNumber = "201"
+                  offsetFromSymbolStart = "544">
                </Location>
                <Location
-                  uuid = "70489057-7784-4FAC-8EA5-A8EA455EF902 - 9718ade70761199"
+                  uuid = "15A0F2C4-BBAD-492E-9C7E-F52476AB250B - 3a2c912f9ff86c14"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "implicit closure #1 (Swift.Int32) -&gt; PQPrototype.Week in static PQPrototype.Week.toggle(obj: PQPrototype.Week, day: Swift.Int32) -&gt; PQPrototype.Week"
+                  symbolName = "PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didEnterRegion: __C.CLRegion) -&gt; ()"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/PQPrototype/Models/ScheduleTypeInfo.swift"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "23">
-               </Location>
-               <Location
-                  uuid = "70489057-7784-4FAC-8EA5-A8EA455EF902 - c90876b8d26e3f8e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static PQPrototype.Week.toggle(obj: PQPrototype.Week, day: Swift.Int32) -&gt; PQPrototype.Week"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/PQPrototype/Models/ScheduleTypeInfo.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40"
-                  offsetFromSymbolStart = "148">
-               </Location>
-               <Location
-                  uuid = "70489057-7784-4FAC-8EA5-A8EA455EF902 - 9718ade7076117a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "implicit closure #1 (Swift.Int32) -&gt; PQPrototype.Week in static PQPrototype.Week.toggle(obj: PQPrototype.Week, day: Swift.Int32) -&gt; PQPrototype.Week"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/PQPrototype/Models/ScheduleTypeInfo.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40"
-                  offsetFromSymbolStart = "23">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CF1D38DD-B5C1-4113-A109-B6F9586E2DD4"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/IndividualObjectViews/ScheduleView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C154CFF1-50D9-4B82-8FDF-35BDFFEE8095"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "9"
-            endingLineNumber = "9"
-            landmarkName = "Schedule"
-            landmarkType = "21">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "260B4CFB-0BF6-4C1A-92D6-FA623E9AC6D2"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "lateInit(quest:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F08C49F1-0596-42AF-915C-A361F7910550"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "lateInit(quest:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4DFDE016-C875-4B3E-92D4-48D6C2CDFA29"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Models/ScheduleTypeInfo.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "init(rawValue:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "4DFDE016-C875-4B3E-92D4-48D6C2CDFA29 - 8a5b4f04da7847c1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Week.init(rawValue: Swift.Int32) -&gt; PQPrototype.Week"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/PQPrototype/Models/ScheduleTypeInfo.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "25"
-                  endingLineNumber = "25"
-                  offsetFromSymbolStart = "80">
-               </Location>
-               <Location
-                  uuid = "4DFDE016-C875-4B3E-92D4-48D6C2CDFA29 - 8a5b4f04da78440b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Week.init(rawValue: Swift.Int32) -&gt; PQPrototype.Week"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/MSc/XcodeProjects/PQPrototype/PQiOS/PQPrototype/Models/ScheduleTypeInfo.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "15"
-                  endingLineNumber = "15"
-                  offsetFromSymbolStart = "46">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DAD6D367-033F-4272-BEB1-9BB71FB92CAC"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/IndividualObjectViews/ScheduleView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
-            landmarkName = "updateSchedule()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D306A02C-0407-4D29-984F-609380144192"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
-            landmarkName = "endScheduledPeriod()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "48ADB3CB-D007-4299-9234-0463C8A61541"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
-            landmarkName = "end()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2E47E855-EC2D-40F1-A397-9F56A26ED67B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "getNext_XDayDelay_StartTime(fromDate:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0D2EBD85-3C30-4B9B-BBFB-9D69AECD781C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "getNext_XDayDelay_StartTime(fromDate:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4BA9F5B7-597B-4681-A23D-9D34F1E484E0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/LocationOccupationQuestTask.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "update()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A7722289-340E-46E7-AD54-F6458583BF81"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "updateProgress()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E805BD15-81B4-4C21-94BB-9A3739983842"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
-            landmarkName = "endScheduledPeriod()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0E769214-61A1-47DD-A737-32AF2114CCED"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
-            landmarkName = "endScheduledPeriod()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B0E8C8B8-E9CC-4C25-B253-C5B97025B58C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
-            landmarkName = "endScheduledPeriod()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D919C93C-51BA-462C-936E-C565463A5A88"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "isOneTime()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "161D6039-2016-4C6C-9D60-0263DA690214"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
-            landmarkName = "getNext_ScheduledDays_StartTime(fromDate:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "78B3C42B-9EEE-4766-95F2-E622170108C2"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
-            landmarkName = "getNext_ScheduledDays_StartTime(fromDate:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "78B3C42B-9EEE-4766-95F2-E622170108C2 - 1e35a1b9c7a8b972"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Schedule.getNext_ScheduledDays_StartTime(fromDate: Foundation.Date) -&gt; Swift.Optional&lt;Foundation.Date&gt;"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Schedule.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "130"
-                  endingLineNumber = "130"
-                  offsetFromSymbolStart = "1664">
-               </Location>
-               <Location
-                  uuid = "78B3C42B-9EEE-4766-95F2-E622170108C2 - c1c1718848620263"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "implicit closure #1 (Swift.Int16) -&gt; PQPrototype.Week in PQPrototype.Schedule.getNext_ScheduledDays_StartTime(fromDate: Foundation.Date) -&gt; Swift.Optional&lt;Foundation.Date&gt;"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Schedule.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "130"
-                  endingLineNumber = "130"
-                  offsetFromSymbolStart = "32">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3C2C153F-F731-40E7-AAC3-16AFC957B05A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
-            landmarkName = "getNext_ScheduledDays_StartTime(fromDate:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0CE92EAE-BE3B-4D56-B87C-77677C595C99"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Quests/QuestRewardManagerView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A8DAD6F6-7DEF-414C-9B7A-B625FE0223E1"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Quests/QuestRewardManagerView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "submitKey(result:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "A8DAD6F6-7DEF-414C-9B7A-B625FE0223E1 - a9fd7c750da5c651"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in PQPrototype.QuestRewardManagerView.submitKey(result: PQPrototype.QuestReward) -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestRewardManagerView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "60"
-                  endingLineNumber = "60"
-                  offsetFromSymbolStart = "588">
-               </Location>
-               <Location
-                  uuid = "A8DAD6F6-7DEF-414C-9B7A-B625FE0223E1 - a9fd7c750da5c651"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in PQPrototype.QuestRewardManagerView.submitKey(result: PQPrototype.QuestReward) -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestRewardManagerView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "60"
-                  endingLineNumber = "60"
-                  offsetFromSymbolStart = "692">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "77F00030-3E19-4B3A-869B-813662C8AF1C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Quests/QuestRewardManagerView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
-            landmarkName = "submitKey(result:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "77F00030-3E19-4B3A-869B-813662C8AF1C - d0476ecc075dbdc3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in PQPrototype.QuestKeyManagerView.submitKey(result: PQPrototype.QuestKey) -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestRewardManagerView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "63"
-                  endingLineNumber = "63"
-                  offsetFromSymbolStart = "477">
-               </Location>
-               <Location
-                  uuid = "77F00030-3E19-4B3A-869B-813662C8AF1C - d0476ecc075dbdc3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in PQPrototype.QuestKeyManagerView.submitKey(result: PQPrototype.QuestKey) -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestRewardManagerView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "63"
-                  endingLineNumber = "63"
-                  offsetFromSymbolStart = "541">
-               </Location>
-               <Location
-                  uuid = "77F00030-3E19-4B3A-869B-813662C8AF1C - d0476ecc075dbdc3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in PQPrototype.QuestKeyManagerView.submitKey(result: PQPrototype.QuestKey) -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestRewardManagerView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "63"
-                  endingLineNumber = "63"
-                  offsetFromSymbolStart = "727">
-               </Location>
-               <Location
-                  uuid = "77F00030-3E19-4B3A-869B-813662C8AF1C - d0476ecc075dbde0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in PQPrototype.QuestKeyManagerView.submitKey(result: PQPrototype.QuestKey) -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestRewardManagerView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "62"
-                  endingLineNumber = "62"
-                  offsetFromSymbolStart = "588">
-               </Location>
-               <Location
-                  uuid = "77F00030-3E19-4B3A-869B-813662C8AF1C - d0476ecc075dbde0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in PQPrototype.QuestKeyManagerView.submitKey(result: PQPrototype.QuestKey) -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestRewardManagerView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "62"
-                  endingLineNumber = "62"
-                  offsetFromSymbolStart = "692">
-               </Location>
-               <Location
-                  uuid = "77F00030-3E19-4B3A-869B-813662C8AF1C - d0476ecc075dbde0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in PQPrototype.QuestKeyManagerView.submitKey(result: PQPrototype.QuestKey) -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestRewardManagerView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "62"
-                  endingLineNumber = "62"
-                  offsetFromSymbolStart = "442">
-               </Location>
-               <Location
-                  uuid = "77F00030-3E19-4B3A-869B-813662C8AF1C - d0476ecc075dbde0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in PQPrototype.QuestKeyManagerView.submitKey(result: PQPrototype.QuestKey) -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestRewardManagerView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "62"
-                  endingLineNumber = "62"
-                  offsetFromSymbolStart = "523">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AE25B16C-B75D-4242-94F6-5E5DE3B56EF6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
-            landmarkName = "amendNextScheduledPeriod(toNextStartFrom:safe:padQuestFailures:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5E9F8978-C41C-423E-8A0D-A823E8DA04A9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "248"
-            endingLineNumber = "248"
-            landmarkName = "amendNextScheduledPeriod(toNextStartFrom:safe:padQuestFailures:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "89EF62EA-2CF4-46C5-A2A8-76A5EB8F22B1"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
-            landmarkName = "getCurrentScheduler()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "89EF62EA-2CF4-46C5-A2A8-76A5EB8F22B1 - 8089f6a486326e94"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Quest.getCurrentScheduler() -&gt; Swift.Optional&lt;PQPrototype.Schedule&gt;"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Quest.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "137"
-                  endingLineNumber = "137"
-                  offsetFromSymbolStart = "476">
-               </Location>
-               <Location
-                  uuid = "89EF62EA-2CF4-46C5-A2A8-76A5EB8F22B1 - 8089f6a486326e94"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Quest.getCurrentScheduler() -&gt; Swift.Optional&lt;PQPrototype.Schedule&gt;"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Quest.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "137"
-                  endingLineNumber = "137"
-                  offsetFromSymbolStart = "712">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "48C53BCF-AB5B-449A-8DE7-956AD23E229C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/PQPrototypeApp.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "PQPrototypeApp"
-            landmarkType = "14">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0D286F69-A5BE-4E80-93E9-4A8A618D2001"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/PQPrototypeApp.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "init()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "9A6852A8-A400-4628-B259-B2D3DCB1CA0C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/PQPrototypeApp.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "init()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "70D470D8-7676-4DA1-880B-66C3ACE0BE1A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "updateProgress()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4BDAAD1D-18C9-47C7-AEAC-DEF3FA8FF027"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "updateProgress()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "4BDAAD1D-18C9-47C7-AEAC-DEF3FA8FF027 - f4f31b39f37aced1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Quest.updateProgress() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Quest.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "65"
-                  endingLineNumber = "65"
-                  offsetFromSymbolStart = "1732">
-               </Location>
-               <Location
-                  uuid = "4BDAAD1D-18C9-47C7-AEAC-DEF3FA8FF027 - f4f31b39f37aced1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Quest.updateProgress() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Quest.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "65"
-                  endingLineNumber = "65"
-                  offsetFromSymbolStart = "1816">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D5C1D867-3F39-4BAE-831D-8EC915431983"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
-            landmarkName = "updateProgress()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "018AADAC-1FCB-4902-A71D-74B43C1D1D2B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "updateProgress()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6030B36E-C5C6-415F-B03B-A093917DE5D3"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "updateProgress()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DCFFCA06-52E9-4176-AFB8-7E4A4F638909"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "getActualEndTime()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C67D13B1-81B6-47A3-8835-CCF753974E4D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "end(error:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D121B65D-9387-44DD-98B6-375C3AD77A90"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "end(error:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2025D73D-7B5C-4255-AFCD-845EA9A4C013"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
-            landmarkName = "endCurrentSchduler()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2025D73D-7B5C-4255-AFCD-845EA9A4C013 - ff3127ca815741c3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Quest.endCurrentSchduler() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Quest.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "147"
-                  endingLineNumber = "147"
-                  offsetFromSymbolStart = "60">
-               </Location>
-               <Location
-                  uuid = "2025D73D-7B5C-4255-AFCD-845EA9A4C013 - ff3127ca815741c3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Quest.endCurrentSchduler() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Quest.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "147"
-                  endingLineNumber = "147"
-                  offsetFromSymbolStart = "116">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "517DCFC4-1576-4B57-BCBC-DCBAB4FE3F86"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
-            landmarkName = "endCurrentSchduler()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "56FA2C54-FBB5-401C-B622-BAAA94EA9CA9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
-            landmarkName = "endScheduledPeriod()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "17B32C3A-F032-4878-BD7B-B65EF90964F3"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "252"
-            endingLineNumber = "252"
-            landmarkName = "amendNextScheduledPeriod(toNextStartFrom:safe:padQuestFailures:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4052FE04-64FA-48FE-8932-8C29411ACDD5"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "247"
-            endingLineNumber = "247"
-            landmarkName = "amendNextScheduledPeriod(toNextStartFrom:safe:padQuestFailures:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E1058D02-5A04-4DD3-8C14-859CA5683FFC"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
-            landmarkName = "amendNextScheduledPeriod(toNextStartFrom:safe:padQuestFailures:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A09E467E-A4A1-4197-888F-D58B4D43A68D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
-            landmarkName = "amendNextScheduledPeriod(toNextStartFrom:safe:padQuestFailures:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "18266E3A-8B39-41C4-BE41-11ED9C00332A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
-            landmarkName = "amendNextScheduledPeriod(toNextStartFrom:safe:padQuestFailures:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "18266E3A-8B39-41C4-BE41-11ED9C00332A - edf6b6889729ee28"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Schedule.amendNextScheduledPeriod(toNextStartFrom: Foundation.Date, safe: Swift.Bool, padQuestFailures: Swift.Bool) -&gt; Swift.Int"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Schedule.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "228"
-                  endingLineNumber = "228"
-                  offsetFromSymbolStart = "3016">
-               </Location>
-               <Location
-                  uuid = "18266E3A-8B39-41C4-BE41-11ED9C00332A - 14e94598c5d536ea"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in PQPrototype.Schedule.amendNextScheduledPeriod(toNextStartFrom: Foundation.Date, safe: Swift.Bool, padQuestFailures: Swift.Bool) -&gt; Swift.Int"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Schedule.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "228"
-                  endingLineNumber = "228"
-                  offsetFromSymbolStart = "612">
-               </Location>
-               <Location
-                  uuid = "18266E3A-8B39-41C4-BE41-11ED9C00332A - 14e94598c5d536ea"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in PQPrototype.Schedule.amendNextScheduledPeriod(toNextStartFrom: Foundation.Date, safe: Swift.Bool, padQuestFailures: Swift.Bool) -&gt; Swift.Int"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Schedule.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "228"
-                  endingLineNumber = "228"
-                  offsetFromSymbolStart = "744">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E1A4A8E5-BE5F-442D-BBCA-FFFB311D0375"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Schedule.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "243"
-            endingLineNumber = "243"
-            landmarkName = "amendNextScheduledPeriod(toNextStartFrom:safe:padQuestFailures:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2B488E98-EEF6-451E-8502-57FAC13DE5F6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Quests/QuestTasks/QuestTaskList.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
-            landmarkName = "addTask(task:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1A3DAC93-1637-467F-A500-DFFB173E6924"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Quests/QuestTasks/QuestTaskList.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
-            landmarkName = "addTask(task:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E6A3E574-739A-4222-8255-80F495B9CA48"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Quests/QuestTasks/Locations/RandomLocationQuestTask/RandomLocationQuestTaskViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "updateQuestMarkers()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "E6A3E574-739A-4222-8255-80F495B9CA48 - fadf77a53d6266a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.RandomLocationQuestTaskViewModel.updateQuestMarkers() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestTasks/Locations/RandomLocationQuestTask/RandomLocationQuestTaskViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "35"
-                  endingLineNumber = "35"
-                  offsetFromSymbolStart = "574">
-               </Location>
-               <Location
-                  uuid = "E6A3E574-739A-4222-8255-80F495B9CA48 - fadf77a53d6266a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.RandomLocationQuestTaskViewModel.updateQuestMarkers() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestTasks/Locations/RandomLocationQuestTask/RandomLocationQuestTaskViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "35"
-                  endingLineNumber = "35"
+                  startingLineNumber = "201"
+                  endingLineNumber = "201"
                   offsetFromSymbolStart = "64">
                </Location>
+               <Location
+                  uuid = "15A0F2C4-BBAD-492E-9C7E-F52476AB250B - 5aa62c609f1290a2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didEnterRegion: __C.CLRegion) -&gt; ()"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "201"
+                  endingLineNumber = "201"
+                  offsetFromSymbolStart = "152">
+               </Location>
+               <Location
+                  uuid = "15A0F2C4-BBAD-492E-9C7E-F52476AB250B - 3a2c912f9ff86c14"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didEnterRegion: __C.CLRegion) -&gt; ()"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "201"
+                  endingLineNumber = "201"
+                  offsetFromSymbolStart = "65">
+               </Location>
+               <Location
+                  uuid = "15A0F2C4-BBAD-492E-9C7E-F52476AB250B - 5aa62c609f1290a2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didEnterRegion: __C.CLRegion) -&gt; ()"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "201"
+                  endingLineNumber = "201"
+                  offsetFromSymbolStart = "155">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1689E115-3BF2-4667-9969-4A0CDFDB78B8"
-            shouldBeEnabled = "No"
+            uuid = "B163B39B-7692-40A5-8490-EA0F83E8FD24"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Quests/QuestTasks/Locations/RandomLocationQuestTask/RandomLocationQuestTaskViewModel.swift"
+            filePath = "PQPrototype/utils/LocationServices.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "refreshMarkers()"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
+            landmarkName = "locationManager(_:didEnterRegion:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B163B39B-7692-40A5-8490-EA0F83E8FD24 - 5aa62c609f12917d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didEnterRegion: __C.CLRegion) -&gt; ()"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "202"
+                  endingLineNumber = "202"
+                  offsetFromSymbolStart = "569">
+               </Location>
+               <Location
+                  uuid = "B163B39B-7692-40A5-8490-EA0F83E8FD24 - 5aa62c609f12917d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didEnterRegion: __C.CLRegion) -&gt; ()"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "202"
+                  endingLineNumber = "202"
+                  offsetFromSymbolStart = "164">
+               </Location>
+               <Location
+                  uuid = "B163B39B-7692-40A5-8490-EA0F83E8FD24 - 5aa62c609f12917d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didEnterRegion: __C.CLRegion) -&gt; ()"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "202"
+                  endingLineNumber = "202"
+                  offsetFromSymbolStart = "173">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "83EA3D08-101D-4057-A9A4-08E796FA5DEA"
-            shouldBeEnabled = "No"
+            uuid = "F7F938AB-0CA0-4D8B-9800-75F550824348"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Quests/QuestTasks/Locations/LocationTaskVIew/LocationTaskViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "updateQuestMarkers()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8B06F365-BA30-4BC7-8275-10F131734C6A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Quests/QuestTasks/Locations/LocationView/LocationViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "init()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FB353DF1-1D7C-4B15-A1F2-206DE70FC25E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Quests/QuestTasks/Locations/LocationManagerView.swift"
+            filePath = "PQPrototype/utils/LocationServices.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "183"
             endingLineNumber = "183"
-            landmarkName = "toggleLocation(_:)"
+            landmarkName = "tasksFor(region:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "FB353DF1-1D7C-4B15-A1F2-206DE70FC25E - 4f7609688ee16c97"
+                  uuid = "F7F938AB-0CA0-4D8B-9800-75F550824348 - 3bfd3f99c57fa3aa"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.LocationManagerView.toggleLocation(PQPrototype.Location) -&gt; ()"
+                  symbolName = "PQPrototype.LocationServices.tasksFor(region: __C.CLRegion) -&gt; Swift.Array&lt;PQPrototype.SingleLocationTask&gt;"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestTasks/Locations/LocationManagerView.swift"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "175"
-                  endingLineNumber = "175"
-                  offsetFromSymbolStart = "159">
+                  startingLineNumber = "184"
+                  endingLineNumber = "184"
+                  offsetFromSymbolStart = "157">
                </Location>
                <Location
-                  uuid = "FB353DF1-1D7C-4B15-A1F2-206DE70FC25E - 4f7609688ee16cb8"
+                  uuid = "F7F938AB-0CA0-4D8B-9800-75F550824348 - 97421b9ceb7d4b26"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.LocationManagerView.toggleLocation(PQPrototype.Location) -&gt; ()"
+                  symbolName = "PQPrototype.LocationServices.tasksFor(region: __C.CLRegion) -&gt; Swift.Array&lt;PQPrototype.LocationTask&gt;"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestTasks/Locations/LocationManagerView.swift"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "176"
-                  endingLineNumber = "176"
-                  offsetFromSymbolStart = "159">
+                  startingLineNumber = "184"
+                  endingLineNumber = "184"
+                  offsetFromSymbolStart = "157">
                </Location>
                <Location
-                  uuid = "FB353DF1-1D7C-4B15-A1F2-206DE70FC25E - 4f7609688ee16cfa"
+                  uuid = "F7F938AB-0CA0-4D8B-9800-75F550824348 - 97421b9ceb7d4b26"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.LocationManagerView.toggleLocation(PQPrototype.Location) -&gt; ()"
+                  symbolName = "PQPrototype.LocationServices.tasksFor(region: __C.CLRegion) -&gt; Swift.Array&lt;PQPrototype.LocationTask&gt;"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestTasks/Locations/LocationManagerView.swift"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "178"
-                  endingLineNumber = "178"
-                  offsetFromSymbolStart = "159">
+                  startingLineNumber = "184"
+                  endingLineNumber = "184"
+                  offsetFromSymbolStart = "172">
+               </Location>
+               <Location
+                  uuid = "F7F938AB-0CA0-4D8B-9800-75F550824348 - 97421b9ceb7d4b26"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PQPrototype.LocationServices.tasksFor(region: __C.CLRegion) -&gt; Swift.Array&lt;PQPrototype.LocationTask&gt;"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "184"
+                  endingLineNumber = "184"
+                  offsetFromSymbolStart = "168">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1629,47 +349,62 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "34096866-8E02-4A32-9BB7-BF65D19906FC"
-            shouldBeEnabled = "No"
+            uuid = "90F05C0B-F222-48DD-B0FD-8C3049E1F081"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Quests/QuestTasks/Locations/LocationManagerView.swift"
+            filePath = "PQPrototype/utils/LocationServices.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
-            landmarkName = "addLocation()"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
+            landmarkName = "tasksFor(region:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "34096866-8E02-4A32-9BB7-BF65D19906FC - e56ebdc428955821"
+                  uuid = "90F05C0B-F222-48DD-B0FD-8C3049E1F081 - 3a2c912f9ff86cb7"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationManagerView.addLocation() -&gt; ()"
+                  symbolName = "PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didEnterRegion: __C.CLRegion) -&gt; ()"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestTasks/Locations/LocationManagerView.swift"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "155"
-                  endingLineNumber = "155"
-                  offsetFromSymbolStart = "291">
+                  startingLineNumber = "198"
+                  endingLineNumber = "198"
+                  offsetFromSymbolStart = "48">
                </Location>
                <Location
-                  uuid = "34096866-8E02-4A32-9BB7-BF65D19906FC - e56ebdc428955fc6"
+                  uuid = "90F05C0B-F222-48DD-B0FD-8C3049E1F081 - 97421b9ceb7d4a70"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationManagerView.addLocation() -&gt; ()"
+                  symbolName = "PQPrototype.LocationServices.tasksFor(region: __C.CLRegion) -&gt; Swift.Array&lt;PQPrototype.LocationTask&gt;"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestTasks/Locations/LocationManagerView.swift"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "156"
-                  endingLineNumber = "156"
-                  offsetFromSymbolStart = "284">
+                  startingLineNumber = "194"
+                  endingLineNumber = "194"
+                  offsetFromSymbolStart = "1100">
+               </Location>
+               <Location
+                  uuid = "90F05C0B-F222-48DD-B0FD-8C3049E1F081 - 97421b9ceb7d4a70"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PQPrototype.LocationServices.tasksFor(region: __C.CLRegion) -&gt; Swift.Array&lt;PQPrototype.LocationTask&gt;"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "194"
+                  endingLineNumber = "194"
+                  offsetFromSymbolStart = "1457">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1677,47 +412,92 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "AE7550F4-C020-4F86-838C-5D23D494F84E"
-            shouldBeEnabled = "No"
+            uuid = "0CEDEE5B-5952-483E-9CEC-02E60D2B69B2"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Quests/QuestTasks/Locations/LocationManagerView.swift"
+            filePath = "PQPrototype/utils/LocationServices.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
-            landmarkName = "addLocation()"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
+            landmarkName = "locationManager(_:didExitRegion:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "AE7550F4-C020-4F86-838C-5D23D494F84E - e56ebdc428955f84"
+                  uuid = "0CEDEE5B-5952-483E-9CEC-02E60D2B69B2 - 1f56c92ae16dd0c5"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationManagerView.addLocation() -&gt; ()"
+                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didExitRegion: __C.CLRegion) -&gt; ()"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestTasks/Locations/LocationManagerView.swift"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "158"
-                  endingLineNumber = "158"
-                  offsetFromSymbolStart = "1427">
+                  startingLineNumber = "217"
+                  endingLineNumber = "217"
+                  offsetFromSymbolStart = "391">
                </Location>
                <Location
-                  uuid = "AE7550F4-C020-4F86-838C-5D23D494F84E - e56ebdc428955f4a"
+                  uuid = "0CEDEE5B-5952-483E-9CEC-02E60D2B69B2 - 1f56c92ae16dd0c5"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationManagerView.addLocation() -&gt; ()"
+                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didExitRegion: __C.CLRegion) -&gt; ()"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestTasks/Locations/LocationManagerView.swift"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "160"
-                  endingLineNumber = "160"
-                  offsetFromSymbolStart = "2028">
+                  startingLineNumber = "217"
+                  endingLineNumber = "217"
+                  offsetFromSymbolStart = "868">
+               </Location>
+               <Location
+                  uuid = "0CEDEE5B-5952-483E-9CEC-02E60D2B69B2 - 1f56c92ae16dd0c5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didExitRegion: __C.CLRegion) -&gt; ()"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "217"
+                  endingLineNumber = "217"
+                  offsetFromSymbolStart = "961">
+               </Location>
+               <Location
+                  uuid = "0CEDEE5B-5952-483E-9CEC-02E60D2B69B2 - 1f56c92ae16dd0c5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didExitRegion: __C.CLRegion) -&gt; ()"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "217"
+                  endingLineNumber = "217"
+                  offsetFromSymbolStart = "456">
+               </Location>
+               <Location
+                  uuid = "0CEDEE5B-5952-483E-9CEC-02E60D2B69B2 - 1f56c92ae16dd0c5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didExitRegion: __C.CLRegion) -&gt; ()"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "217"
+                  endingLineNumber = "217"
+                  offsetFromSymbolStart = "569">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1725,364 +505,47 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "208D3487-C569-4F8A-B872-AE52C32FB012"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Quests/QuestTasks/Locations/LocationTaskVIew/SingleLocationTaskViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
-            landmarkName = "loadTaskData(task:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "78B4E440-F8D3-4EF2-8BD3-3E13641C00CB"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Quests/QuestTasks/Locations/LocationTaskVIew/SingleLocationView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "loadData()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "78B4E440-F8D3-4EF2-8BD3-3E13641C00CB - e70ec49932f88def"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.SingleLocationView.loadData() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestTasks/Locations/LocationTaskVIew/SingleLocationView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "107"
-                  endingLineNumber = "107"
-                  offsetFromSymbolStart = "102">
-               </Location>
-               <Location
-                  uuid = "78B4E440-F8D3-4EF2-8BD3-3E13641C00CB - e70ec49932f88c0e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.SingleLocationView.loadData() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestTasks/Locations/LocationTaskVIew/SingleLocationView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "108"
-                  endingLineNumber = "108"
-                  offsetFromSymbolStart = "102">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "35CE815E-F1A2-44F2-AD58-8A45AF615AB8"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "start(withSchedule:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "35CE815E-F1A2-44F2-AD58-8A45AF615AB8 - 6367ac5bc15f02b4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Quest.start(withSchedule: Swift.Optional&lt;PQPrototype.Schedule&gt;) -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Quest.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "23"
-                  endingLineNumber = "23"
-                  offsetFromSymbolStart = "744">
-               </Location>
-               <Location
-                  uuid = "35CE815E-F1A2-44F2-AD58-8A45AF615AB8 - 6367ac5bc15f02b4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Quest.start(withSchedule: Swift.Optional&lt;PQPrototype.Schedule&gt;) -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Quest.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "23"
-                  endingLineNumber = "23"
-                  offsetFromSymbolStart = "616">
-               </Location>
-               <Location
-                  uuid = "35CE815E-F1A2-44F2-AD58-8A45AF615AB8 - b6ed83923f90c8f2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Quest.start(withSchedule: Swift.Optional&lt;PQPrototype.Schedule&gt;) throws -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Quest.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "31"
-                  endingLineNumber = "31"
-                  offsetFromSymbolStart = "576">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D6910FD7-3026-4F6B-AD31-86B261468218"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/Quest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "end(error:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "D6910FD7-3026-4F6B-AD31-86B261468218 - 50bb2de6f9a9781a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Quest.end() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Quest.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "1260">
-               </Location>
-               <Location
-                  uuid = "D6910FD7-3026-4F6B-AD31-86B261468218 - 50bb2de6f9a9781a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Quest.end() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Quest.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "1127">
-               </Location>
-               <Location
-                  uuid = "D6910FD7-3026-4F6B-AD31-86B261468218 - c83e23b9a81eeac2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.Quest.end(error: Swift.Optional&lt;Swift.String&gt;) -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Quest.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "116"
-                  endingLineNumber = "116"
-                  offsetFromSymbolStart = "2348">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4A9ACE7E-E5AB-44B2-BC41-E433A6E854E7"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Schedules/ScheduleManagerView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
-            landmarkName = "newSynchroniseWithDesktopApp()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "4A9ACE7E-E5AB-44B2-BC41-E433A6E854E7 - 2392436c1fec2617"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.ScheduleManagerView.newSynchroniseWithDesktopApp() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Schedules/ScheduleManagerView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "115"
-                  endingLineNumber = "115"
-                  offsetFromSymbolStart = "1492">
-               </Location>
-               <Location
-                  uuid = "4A9ACE7E-E5AB-44B2-BC41-E433A6E854E7 - 2392436c1fec230f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.ScheduleManagerView.newSynchroniseWithDesktopApp() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Schedules/ScheduleManagerView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "91"
-                  endingLineNumber = "91"
-                  offsetFromSymbolStart = "1204">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5C14DFDA-6774-461F-9815-9699ED63B6DE"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Schedules/ScheduleManagerView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "newSynchroniseWithDesktopApp()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "5C14DFDA-6774-461F-9815-9699ED63B6DE - 2392436c1fec23d0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.ScheduleManagerView.newSynchroniseWithDesktopApp() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Schedules/ScheduleManagerView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "90"
-                  endingLineNumber = "90"
-                  offsetFromSymbolStart = "1364">
-               </Location>
-               <Location
-                  uuid = "5C14DFDA-6774-461F-9815-9699ED63B6DE - 2392436c1fec23d0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.ScheduleManagerView.newSynchroniseWithDesktopApp() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Schedules/ScheduleManagerView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "90"
-                  endingLineNumber = "90"
-                  offsetFromSymbolStart = "976">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7CC29205-8B95-4646-BB69-0DBCF8DB1DE6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Schedules/ScheduleManagerView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "newSynchroniseWithDesktopApp()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4B6D3648-617F-4B7C-AFA4-43DFD267DF62"
+            uuid = "22D536BB-78B9-403D-9FFC-FD15CFA4C331"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PQPrototype/utils/LocationServices.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
-            landmarkName = "locationManager(_:didUpdateLocations:)"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
+            landmarkName = "tasksFor(region:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "4B6D3648-617F-4B7C-AFA4-43DFD267DF62 - 2e769f3ca3e12e7e"
+                  uuid = "22D536BB-78B9-403D-9FFC-FD15CFA4C331 - 97421b9ceb7d4b47"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didFailWithError: Swift.Error) -&gt; ()"
+                  symbolName = "PQPrototype.LocationServices.tasksFor(region: __C.CLRegion) -&gt; Swift.Array&lt;PQPrototype.LocationTask&gt;"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "133"
-                  endingLineNumber = "133"
-                  offsetFromSymbolStart = "32">
+                  startingLineNumber = "185"
+                  endingLineNumber = "185"
+                  offsetFromSymbolStart = "303">
                </Location>
                <Location
-                  uuid = "4B6D3648-617F-4B7C-AFA4-43DFD267DF62 - 9fe0c4bd616dac5c"
+                  uuid = "22D536BB-78B9-403D-9FFC-FD15CFA4C331 - 97421b9ceb7d4b47"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didUpdateLocations: Swift.Array&lt;__C.CLLocation&gt;) -&gt; ()"
+                  symbolName = "PQPrototype.LocationServices.tasksFor(region: __C.CLRegion) -&gt; Swift.Array&lt;PQPrototype.LocationTask&gt;"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "132"
-                  endingLineNumber = "132"
-                  offsetFromSymbolStart = "208">
-               </Location>
-               <Location
-                  uuid = "4B6D3648-617F-4B7C-AFA4-43DFD267DF62 - 9fe0c4bd616dac5c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.LocationServices.locationManager(_: __C.CLLocationManager, didUpdateLocations: Swift.Array&lt;__C.CLLocation&gt;) -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "132"
-                  endingLineNumber = "132"
-                  offsetFromSymbolStart = "251">
+                  startingLineNumber = "185"
+                  endingLineNumber = "185"
+                  offsetFromSymbolStart = "499">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -2090,494 +553,78 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "857551A4-D5D7-4025-8B76-CDFE07EC8A41"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/SingleLocationTask.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "update()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "857551A4-D5D7-4025-8B76-CDFE07EC8A41 - fa7bae3a6fa71d6d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.SingleLocationTask.update() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/SingleLocationTask.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "51"
-                  endingLineNumber = "51"
-                  offsetFromSymbolStart = "244">
-               </Location>
-               <Location
-                  uuid = "857551A4-D5D7-4025-8B76-CDFE07EC8A41 - 5c866fbee9f9475f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.SingleLocationTask.update() throws -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/SingleLocationTask.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "51"
-                  endingLineNumber = "51"
-                  offsetFromSymbolStart = "284">
-               </Location>
-               <Location
-                  uuid = "857551A4-D5D7-4025-8B76-CDFE07EC8A41 - 5c866fbee9f9475f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.SingleLocationTask.update() throws -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/SingleLocationTask.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "51"
-                  endingLineNumber = "51"
-                  offsetFromSymbolStart = "1676">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "921B8220-B67E-462F-B46E-3D4891442C50"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Quests/QuestTasks/Locations/RNGLocationTaskView/RNGLTaskViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
-            landmarkName = "loadTaskData(task:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "921B8220-B67E-462F-B46E-3D4891442C50 - de31497abfbcb44c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.RNGLTaskViewModel.loadTaskData(task: PQPrototype.RNGLocationTask) -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestTasks/Locations/RNGLocationTaskView/RNGLTaskViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "72">
-               </Location>
-               <Location
-                  uuid = "921B8220-B67E-462F-B46E-3D4891442C50 - de31497abfbcb44c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.RNGLTaskViewModel.loadTaskData(task: PQPrototype.RNGLocationTask) -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/MainViews/Quests/QuestTasks/Locations/RNGLocationTaskView/RNGLTaskViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "83">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "9327ADA3-0D6C-4E26-A644-F617A6652E19"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/Quests/QuestTasks/Locations/LocationView/LocationViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
-            landmarkName = "mapView(_:rendererFor:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CF1A59F6-94F3-406B-9250-C31855FFAC9D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/RNGLocationTask.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "reset()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "CF1A59F6-94F3-406B-9250-C31855FFAC9D - dcfbfb7ed8307004"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.RNGLocationTask.reset() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/RNGLocationTask.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "176">
-               </Location>
-               <Location
-                  uuid = "CF1A59F6-94F3-406B-9250-C31855FFAC9D - dcfbfb7ed8307004"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.RNGLocationTask.reset() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/RNGLocationTask.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "480">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8F4C89CB-AF1B-48B5-9E25-54862297C9E5"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/RNGLocationTask.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "reset()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "8F4C89CB-AF1B-48B5-9E25-54862297C9E5 - dcfbfb7ed83070e5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.RNGLocationTask.reset() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/RNGLocationTask.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "51"
-                  endingLineNumber = "51"
-                  offsetFromSymbolStart = "193">
-               </Location>
-               <Location
-                  uuid = "8F4C89CB-AF1B-48B5-9E25-54862297C9E5 - dcfbfb7ed83070e5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.RNGLocationTask.reset() -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/RNGLocationTask.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "51"
-                  endingLineNumber = "51"
-                  offsetFromSymbolStart = "400">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "705B507B-81C8-4268-B3A1-28EB96835CB1"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/PQPrototypeApp.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "init()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E76A5081-D8E4-413D-BB42-3AB1FF4A1A1D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/RNGLocationTask.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "update()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "E76A5081-D8E4-413D-BB42-3AB1FF4A1A1D - 49dba0feffcacbc8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.RNGLocationTask.update() throws -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/RNGLocationTask.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "63"
-                  endingLineNumber = "63"
-                  offsetFromSymbolStart = "351">
-               </Location>
-               <Location
-                  uuid = "E76A5081-D8E4-413D-BB42-3AB1FF4A1A1D - 49dba0feffcacbc8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.RNGLocationTask.update() throws -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/RNGLocationTask.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "63"
-                  endingLineNumber = "63"
-                  offsetFromSymbolStart = "586">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6BB05931-B687-467E-A97C-64F14914F096"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/RNGLocationTask.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "update()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2F0DCD16-34CF-49B1-9A1E-6F4884963325"
-            shouldBeEnabled = "No"
-            condition = "task.location?.name== &quot;Location 4&quot;"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/RNGLocationTask.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "update()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2F0DCD16-34CF-49B1-9A1E-6F4884963325 - 49dba0feffcacbab"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.RNGLocationTask.update() throws -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/RNGLocationTask.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "66"
-                  endingLineNumber = "66"
-                  offsetFromSymbolStart = "831">
-               </Location>
-               <Location
-                  uuid = "2F0DCD16-34CF-49B1-9A1E-6F4884963325 - 49dba0feffcacbab"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.RNGLocationTask.update() throws -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/RNGLocationTask.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "66"
-                  endingLineNumber = "66"
-                  offsetFromSymbolStart = "724">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "EBDC8CCC-955D-4408-A7FD-FE2AB7E76976"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/SingleLocationTask.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "update()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "416184EE-A50F-4FE8-B962-C442E4AE1CCA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/SingleLocationTask.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "update()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "73A348FC-0606-43F7-9240-468568F7DE8E"
+            uuid = "6B19B6B6-A202-4A1B-9CFC-C58131E59EDD"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PQPrototype/utils/LocationServices.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
-            landmarkName = "stopTrackingRegion(regionID:forTask:)"
+            startingLineNumber = "192"
+            endingLineNumber = "192"
+            landmarkName = "tasksFor(region:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "73A348FC-0606-43F7-9240-468568F7DE8E - 73ccd2d2e581fc81"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.LocationServices.stopTrackingRegion(region: __C.CLRegion, forTask: __C.NSManagedObjectID) -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "157"
-                  endingLineNumber = "157"
-                  offsetFromSymbolStart = "158">
-               </Location>
-               <Location
-                  uuid = "73A348FC-0606-43F7-9240-468568F7DE8E - dec5a90adb7b626e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.LocationServices.stopTrackingRegion(regionID: Swift.String, forTask: __C.NSManagedObjectID) -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "158"
-                  endingLineNumber = "158"
-                  offsetFromSymbolStart = "165">
-               </Location>
-               <Location
-                  uuid = "73A348FC-0606-43F7-9240-468568F7DE8E - dec5a90adb7b626e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.LocationServices.stopTrackingRegion(regionID: Swift.String, forTask: __C.NSManagedObjectID) -&gt; ()"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "158"
-                  endingLineNumber = "158"
-                  offsetFromSymbolStart = "208">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "51BD6E8D-C08F-4284-A2C9-23749E7CAB2D"
-            shouldBeEnabled = "No"
+            uuid = "B8DF8685-1967-4353-B955-EE93C0469749"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PQPrototype/utils/LocationServices.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
-            landmarkName = "startTrackingRegion(region:forTask:)"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
+            landmarkName = "tasksFor(region:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "51BD6E8D-C08F-4284-A2C9-23749E7CAB2D - 900d1ba80f0f4ded"
+                  uuid = "B8DF8685-1967-4353-B955-EE93C0469749 - 97421b9ceb7d4a99"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.LocationServices.startTrackingRegion(region: __C.CLRegion, forTask: __C.NSManagedObjectID) -&gt; ()"
+                  symbolName = "PQPrototype.LocationServices.tasksFor(region: __C.CLRegion) -&gt; Swift.Array&lt;PQPrototype.LocationTask&gt;"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "150"
-                  endingLineNumber = "150"
-                  offsetFromSymbolStart = "142">
+                  startingLineNumber = "187"
+                  endingLineNumber = "187"
+                  offsetFromSymbolStart = "521">
                </Location>
                <Location
-                  uuid = "51BD6E8D-C08F-4284-A2C9-23749E7CAB2D - 900d1ba80f0f4ded"
+                  uuid = "B8DF8685-1967-4353-B955-EE93C0469749 - 97421b9ceb7d4a99"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.LocationServices.startTrackingRegion(region: __C.CLRegion, forTask: __C.NSManagedObjectID) -&gt; ()"
+                  symbolName = "PQPrototype.LocationServices.tasksFor(region: __C.CLRegion) -&gt; Swift.Array&lt;PQPrototype.LocationTask&gt;"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "150"
-                  endingLineNumber = "150"
-                  offsetFromSymbolStart = "84">
+                  startingLineNumber = "187"
+                  endingLineNumber = "187"
+                  offsetFromSymbolStart = "432">
+               </Location>
+               <Location
+                  uuid = "B8DF8685-1967-4353-B955-EE93C0469749 - 97421b9ceb7d4a99"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PQPrototype.LocationServices.tasksFor(region: __C.CLRegion) -&gt; Swift.Array&lt;PQPrototype.LocationTask&gt;"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "187"
+                  endingLineNumber = "187"
+                  offsetFromSymbolStart = "547">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -2585,337 +632,64 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B150FEEB-7449-4159-B6BE-93358FCDF931"
-            shouldBeEnabled = "No"
+            uuid = "74D9798D-887C-432B-BF53-433D9A565DD2"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/GlobalQuestLoot.swift"
+            filePath = "PQPrototype/utils/LocationServices.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "getLoot(_:)"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
+            landmarkName = "tasksFor(region:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "B150FEEB-7449-4159-B6BE-93358FCDF931 - e89304b67bd3d066"
+                  uuid = "74D9798D-887C-432B-BF53-433D9A565DD2 - 97421b9ceb7d4aba"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "static PQPrototype.GlobalQuestLoot.getLoot(context: __C.NSManagedObjectContext) -&gt; PQPrototype.GlobalQuestLoot"
+                  symbolName = "PQPrototype.LocationServices.tasksFor(region: __C.CLRegion) -&gt; Swift.Array&lt;PQPrototype.LocationTask&gt;"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/GlobalQuestLoot.swift"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "388">
+                  startingLineNumber = "188"
+                  endingLineNumber = "188"
+                  offsetFromSymbolStart = "1243">
                </Location>
                <Location
-                  uuid = "B150FEEB-7449-4159-B6BE-93358FCDF931 - c34a1463c44c6cc0"
+                  uuid = "74D9798D-887C-432B-BF53-433D9A565DD2 - 97421b9ceb7d4aba"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "static PQPrototype.GlobalQuestLoot.getLoot(__C.NSManagedObjectContext) -&gt; PQPrototype.GlobalQuestLoot"
+                  symbolName = "PQPrototype.LocationServices.tasksFor(region: __C.CLRegion) -&gt; Swift.Array&lt;PQPrototype.LocationTask&gt;"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/GlobalQuestLoot.swift"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "452">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "9E879C85-2218-4692-8D39-4B861A4F8613"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/Persistence.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "init(inMemory:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "792B6AF5-B9EA-457A-8176-6550DD27F03A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4F2D591C-329A-4785-9801-BD7AEE7E18C0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "TimeInABottleDisplay"
-            landmarkType = "14">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "34AFA495-C10C-4F03-BE22-472617827798"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/MainViews/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "00EAA81C-5FE0-4190-A99C-124E35D74F5C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/GlobalQuestLoot.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "getLoot(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "00EAA81C-5FE0-4190-A99C-124E35D74F5C - c34a1463c44c6d02"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static PQPrototype.GlobalQuestLoot.getLoot(__C.NSManagedObjectContext) -&gt; PQPrototype.GlobalQuestLoot"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/GlobalQuestLoot.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "19"
-                  endingLineNumber = "19"
-                  offsetFromSymbolStart = "376">
-               </Location>
-               <Location
-                  uuid = "00EAA81C-5FE0-4190-A99C-124E35D74F5C - c34a1463c44c6d21"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static PQPrototype.GlobalQuestLoot.getLoot(__C.NSManagedObjectContext) -&gt; PQPrototype.GlobalQuestLoot"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/GlobalQuestLoot.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "452">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "9985A18D-03FB-433D-A60B-A9A7C0ADFF4A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/GlobalQuestLoot.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
-            landmarkName = "getLoot(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DF5D69B5-B529-40F6-B8E4-E51EACA46A63"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/TimeInABottle.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "updateStoredTime(amount:limit:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "DF5D69B5-B529-40F6-B8E4-E51EACA46A63 - c3317d1710e4ed13"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.TimeInABottle.updateStoredTime(amount: Swift.Int, limit: Swift.Bool) -&gt; Swift.Bool"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/TimeInABottle.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40"
-                  offsetFromSymbolStart = "980">
-               </Location>
-               <Location
-                  uuid = "DF5D69B5-B529-40F6-B8E4-E51EACA46A63 - c3317d1710e4ed13"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.TimeInABottle.updateStoredTime(amount: Swift.Int, limit: Swift.Bool) -&gt; Swift.Bool"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/TimeInABottle.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40"
+                  startingLineNumber = "188"
+                  endingLineNumber = "188"
                   offsetFromSymbolStart = "968">
                </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2A58BF6B-594B-4E90-9701-4872C4FD5B00"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/TimeInABottle.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "updateStoredTime(amount:limit:)"
-            landmarkType = "7">
-            <Locations>
                <Location
-                  uuid = "2A58BF6B-594B-4E90-9701-4872C4FD5B00 - c3317d1710e4ee7a"
+                  uuid = "74D9798D-887C-432B-BF53-433D9A565DD2 - 97421b9ceb7d4aba"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.TimeInABottle.updateStoredTime(amount: Swift.Int, limit: Swift.Bool) -&gt; Swift.Bool"
+                  symbolName = "PQPrototype.LocationServices.tasksFor(region: __C.CLRegion) -&gt; Swift.Array&lt;PQPrototype.LocationTask&gt;"
                   moduleName = "PQPrototype"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/TimeInABottle.swift"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/utils/LocationServices.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "31"
-                  endingLineNumber = "31"
-                  offsetFromSymbolStart = "236">
-               </Location>
-               <Location
-                  uuid = "2A58BF6B-594B-4E90-9701-4872C4FD5B00 - c3317d1710e4ee45"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PQPrototype.TimeInABottle.updateStoredTime(amount: Swift.Int, limit: Swift.Bool) -&gt; Swift.Bool"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/TimeInABottle.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "30"
-                  endingLineNumber = "30"
-                  offsetFromSymbolStart = "132">
+                  startingLineNumber = "188"
+                  endingLineNumber = "188"
+                  offsetFromSymbolStart = "1287">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B9C42594-4FB5-4076-BDC0-096C24FCC68F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/GlobalQuestLoot.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
-            landmarkName = "getLoot(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "B9C42594-4FB5-4076-BDC0-096C24FCC68F - c34a1463c44c6ce7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static PQPrototype.GlobalQuestLoot.getLoot(__C.NSManagedObjectContext) -&gt; PQPrototype.GlobalQuestLoot"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/GlobalQuestLoot.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16"
-                  offsetFromSymbolStart = "420">
-               </Location>
-               <Location
-                  uuid = "B9C42594-4FB5-4076-BDC0-096C24FCC68F - c34a1463c44c6ce7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static PQPrototype.GlobalQuestLoot.getLoot(__C.NSManagedObjectContext) -&gt; PQPrototype.GlobalQuestLoot"
-                  moduleName = "PQPrototype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/GlobalQuestLoot.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16"
-                  offsetFromSymbolStart = "272">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "930FE254-35FF-4B92-AE67-C0FDBBAC65BB"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PQPrototype/Persistence/EntityExts/GlobalQuestLoot.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "initLoot(_:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

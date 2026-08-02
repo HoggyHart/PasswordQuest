@@ -93,18 +93,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "Schedule.lateInit(quest:):Schedule.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.scheduledDays!.week.toBitSetString()">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "LocationServices.startTrackingRegion(region:forTask:):LocationServices.swift">
          <PersistentStrings>
             <PersistentString
                value = "self.regionsTracked">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Schedule.lateInit(quest:):Schedule.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.scheduledDays!.week.toBitSetString()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -142,13 +142,13 @@
          contextName = "Location.asRegion(questUUID:):Location.swift">
          <PersistentStrings>
             <PersistentString
+               value = "self.objectID.uriRepresentation().absoluteString">
+            </PersistentString>
+            <PersistentString
                value = "self.objectID">
             </PersistentString>
             <PersistentString
                value = "&quot;\(self.objectID)&quot;">
-            </PersistentString>
-            <PersistentString
-               value = "self.objectID.uriRepresentation().absoluteString">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -189,10 +189,10 @@
          contextName = "Week.init(rawValue:):ScheduleTypeInfo.swift">
          <PersistentStrings>
             <PersistentString
-               value = "Week.monday">
+               value = "self.toBitSetString()">
             </PersistentString>
             <PersistentString
-               value = "self.toBitSetString()">
+               value = "Week.monday">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -201,6 +201,14 @@
          <PersistentStrings>
             <PersistentString
                value = "self.regionsTracked">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RNGLTaskViewModel.refreshMarkers():RNGLTaskViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "task">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -216,18 +224,32 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RNGLTaskViewModel.refreshMarkers():RNGLTaskViewModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "task">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "LocationServices.stopTrackingRegion(regionID:forTask:):LocationServices.swift">
          <PersistentStrings>
             <PersistentString
                value = "self.regionsTracked">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LocationServices.locationManager(_:didEnterRegion:):LocationServices.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "region.identifier">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LocationServices.tasksFor(region:):LocationServices.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "error">
+            </PersistentString>
+            <PersistentString
+               value = "t.location?.regionIdentifier">
+            </PersistentString>
+            <PersistentString
+               value = "region.identifier">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -264,18 +286,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in LocationManagerView.addLocation():LocationManagerView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "loc.objectID">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "LocationViewModel.markArea(area:):LocationViewModel.swift">
          <PersistentStrings>
             <PersistentString
                value = "self.map.renderers">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in LocationManagerView.addLocation():LocationManagerView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "loc.objectID">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -313,7 +335,7 @@
          contextName = "SingleLocationTask.update():SingleLocationTask.swift">
          <PersistentStrings>
             <PersistentString
-               value = "LocationServices.shared.locationManager.location?.coordinate">
+               value = "taskArea.radius">
             </PersistentString>
             <PersistentString
                value = "location?.latitude">
@@ -328,7 +350,7 @@
                value = "location?.longitude">
             </PersistentString>
             <PersistentString
-               value = "taskArea.radius">
+               value = "LocationServices.shared.locationManager.location?.coordinate">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -13,12 +13,16 @@ struct ScheduleInfoView: View {
     @State private var schButtonFlip: Bool = false //unused atm
     
     var body: some View {
-        ZStack{
-            RoundedRectangle(cornerRadius: 1000, style: .circular)
-                .foregroundColor(dynamicColour(schedule: schedule, dateOnly: schButtonFlip))
-                .shadow(color: .black, radius: 1)
-            dynamicText(schedule: schedule, dateOnly: schButtonFlip)
-                .foregroundColor(.black)
+        Button(){
+            schButtonFlip.toggle()
+        } label : {
+            ZStack{
+                RoundedRectangle(cornerRadius: 1000, style: .circular)
+                    .foregroundColor(dynamicColour(schedule: schedule, dateOnly: schButtonFlip))
+                    .shadow(color: .black, radius: 1)
+                dynamicText(schedule: schedule, dateOnly: schButtonFlip)
+                    .foregroundColor(.black)
+            }
         }
         .frame(width: dynamicWidth(schedule: schedule, dateOnly: schButtonFlip), height: 40)
     }
@@ -30,21 +34,19 @@ struct ScheduleInfoView: View {
         ///1: failed
         ///2: succeeded
         var text: Text
-        switch(dateOnly ? -1 : schedule.getState()){
-        case -2:
+        switch(dateOnly ? Schedule.ScheduleState.notStarted : schedule.getState()){
+        case .inactive:
             text = Text("Inactive \(Image(systemName:"x.circle.fill"))")
-        case -1:
+        case .notStarted:
             text = Text("\(Image(systemName: "timer")) ") + Text(!Calendar.current.isDateInToday(schedule.startTime!) ? schedule.startTime!.formatted(date: .abbreviated, time: .omitted)
-                :
-                schedule.startTime!.formatted(date: .omitted, time: .shortened))
-        case 0:
+                                                                 :
+                                                                    schedule.startTime!.formatted(date: .omitted, time: .shortened))
+        case .inProgress:
             text = Text("\(Image(systemName: "timer")) In Progress ")
-        case 1:
+        case .failed:
             text = Text("\(Image(systemName: "x.circle.fill")) Failed")
-        case 2:
+        case .completed:
             text = Text("\(Image(systemName: "checkmark.circle.fill")) Success")
-        default:
-            text = Text("Error")
         }
         return text
     }
@@ -57,19 +59,17 @@ struct ScheduleInfoView: View {
         ///1: failed
         ///2: succeeded
         var btnColor: Color
-        switch(dateOnly ? -1 : schedule.getState()){
-        case -2:
+        switch(dateOnly ? Schedule.ScheduleState.notStarted : schedule.getState()){
+        case .inactive:
             btnColor = .gray
-        case -1:
+        case .notStarted:
             btnColor = .white
-        case 0:
+        case .inProgress:
             btnColor = .yellow
-        case 1:
+        case .failed:
             btnColor = .red
-        case 2:
+        case .completed:
             btnColor = .green
-        default:
-            btnColor = .purple
         }
         return btnColor
     }
@@ -81,19 +81,17 @@ struct ScheduleInfoView: View {
         ///1: failed
         ///2: succeeded
         var btnWidth: CGFloat
-        switch(dateOnly ? -1 : schedule.getState()){
-        case -2:
-            btnWidth = 105
-        case -1:
-            btnWidth = !Calendar.current.isDateInToday(schedule.startTime!) ? 150 : 105
-        case 0:
-            btnWidth = 130
-        case 1:
-            btnWidth = 100
-        case 2:
-            btnWidth = 115
-        default:
-            btnWidth = 75
+        switch(dateOnly ? Schedule.ScheduleState.notStarted : schedule.getState()){
+            case .inactive:
+                btnWidth = 105
+            case .notStarted:
+                btnWidth = !Calendar.current.isDateInToday(schedule.startTime!) ? 150 : 105
+            case .inProgress:
+                btnWidth = 130
+            case .failed:
+                btnWidth = 100
+            case .completed:
+                btnWidth = 115
         }
         return btnWidth
     }

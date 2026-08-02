@@ -11,12 +11,25 @@ import CoreLocation
 
 extension RNGLocationTask{
     //completion % can be calculated, no DB/entity attribute needed
-    var completedAreas: Int{ //TODO: usee this in currentStatus()
+    var completedAreas: Int{
         get{
             return self.randomLocationTasks?.filter({ task in
                 return (task as! SingleLocationTask).completed
             }).count ?? 0
         }
+    }
+    override public var currentReward: Int{
+        get {
+            if completed { return maxReward }
+            else { return max(5,Int(Double(self.completedAreas)*rangeMult)) }
+        }
+    }
+    private var rangeMult: Double{
+        // 100% +10% value per 100 meters range
+        get {return 1.0 + (self.location?.radius ?? 0.0)*0.1/100.0}
+    }
+    override public var maxReward: Int{
+        get{ return max(5,Int(Double(self.numberOfGeneratedLocations) * rangeMult)) }
     }
 }
 extension RNGLocationTask{
@@ -44,13 +57,18 @@ extension RNGLocationTask{
         }
     }
     
+    override func endDependenciesAndTrackers() {
+        for t in self.randomLocationTasks!{
+            (t as! SingleLocationTask).endDependenciesAndTrackers()
+        }
+    }
+    
     func generateLocations(){
         for i in 0..<self.numberOfGeneratedLocations{
             let newLoc = Location(context: self.managedObjectContext!, name: "Location \(i+1)", area: CLCircularRegion(center: LocationServices.generateRandomLocation(origin: location!.center(), minRange: Double(self.minGenerationRange), maxRange: location!.radius), radius: 37.5,identifier: UUID().uuidString))
             newLoc.temporary = true
             let slt = SingleLocationTask(context: self.managedObjectContext!)
             slt.location = newLoc
-            slt.requiredOccupationDuration = 1
             self.addToRandomLocationTasks(slt)
         }
     }

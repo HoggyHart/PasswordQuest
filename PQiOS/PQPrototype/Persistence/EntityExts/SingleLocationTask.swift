@@ -10,13 +10,19 @@ import MapKit
 import CoreData
 
 extension SingleLocationTask: MKMapViewDelegate {
+    
+    override public var currentReward: Int{
+        get { if completed { return maxReward} else {return Int(self.recordedOccupationTime/60*0.1)}}
+    }
+    override public var maxReward: Int{
+        get { return max(Int(self.requiredOccupationDuration/60*0.5),5)}
+    }
+    
     convenience init(context: NSManagedObjectContext, dummyVar: Bool = false){
         self.init(context: context)
         self.name = "Unnamed Location Task"
        // let loc = Location(context: context,name: "Unnamed Location",area: CLCircularRegion(center: LocationServices.service.getLocation(), radius: 25, identifier: UUID().uuidString))
       //  loc.addToTasks(self)
-        self.recordedOccupationTime = 0
-        self.requiredOccupationDuration = 1 //TODO: make rod able to be 0 for instant compltes upon entering area
         self.occupiedAtLastUpdate = false
     }
     
@@ -30,6 +36,12 @@ extension SingleLocationTask: MKMapViewDelegate {
             throw InvalidTaskError(task: self.name!, invalidAttribute: "Location is nil")
         }
         LocationServices.shared.startTrackingRegion(region: location.asRegion(),forTask: self.objectID)
+    }
+    
+    override func endDependenciesAndTrackers() {
+        guard let location = self.location else {
+            return }
+        LocationServices.shared.stopTrackingRegion(regionID: location.regionIdentifier, forTask: self.objectID)
     }
     
     //lastUpdate is set after this method in update() and in LocationManager.onRegionEnter/Exit
@@ -71,6 +83,9 @@ extension SingleLocationTask: MKMapViewDelegate {
         if location != nil  {LocationServices.shared.stopTrackingRegion(regionID: location!.regionIdentifier,forTask: self.objectID)}
     }
     
+    var completionPercent: Double{
+        get{return recordedOccupationTime/(requiredOccupationDuration == 0 ? 1 : requiredOccupationDuration) * 100.0}
+    }
     override func toString() -> String{
         var magnitude: Double
         var unit: String
@@ -78,22 +93,20 @@ extension SingleLocationTask: MKMapViewDelegate {
         else if requiredOccupationDuration < 3600 { magnitude = 60; unit = "minutes"}
         else { magnitude = 3600; unit = "hours" }
         
-        let prcnt = recordedOccupationTime/requiredOccupationDuration * 100.0
         let nf = NumberFormatter()
         nf.roundingMode = .up
         nf.minimumFractionDigits = 0
         nf.maximumFractionDigits = 3
-        return (nf.string(for:  prcnt) ?? "?")+"% of \(requiredOccupationDuration/magnitude) \(unit) spent at \(self.location!.name!)"
+        return (nf.string(for:  self.completionPercent) ?? "?")+"% of \(requiredOccupationDuration/magnitude) \(unit) spent at \(self.location!.name!)"
     }
     
     override func currentStatus() -> String {
         if !(self.quest?.isActive ?? true) { return "" }
-        let prcnt = recordedOccupationTime/requiredOccupationDuration * 100.0
         let nf = NumberFormatter()
         nf.roundingMode = .up
         nf.minimumFractionDigits = 0
         nf.maximumFractionDigits = 3
-        return nf.string(for:  prcnt)! + "%"
+        return nf.string(for:  self.completionPercent)! + "%"
     }
     
     @MainActor

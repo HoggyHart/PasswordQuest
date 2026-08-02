@@ -22,7 +22,6 @@ extension GlobalQuestLoot{
     static private func initLoot(_ context: NSManagedObjectContext) -> GlobalQuestLoot{
         let gql = GlobalQuestLoot(context: context)
         gql.timeInABottle = TimeInABottle(context: context)
-        gql.timeInABottle!.initRefreshDate()
         do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         return gql
     }

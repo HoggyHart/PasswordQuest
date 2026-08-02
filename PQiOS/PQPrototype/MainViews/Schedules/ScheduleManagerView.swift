@@ -90,6 +90,7 @@ struct ScheduleManagerView: View {
                 keyfetch.sortDescriptors = [NSSortDescriptor(keyPath: \QuestKey.obtainmentDate, ascending: true)]
                 var keys = try keyfetch.execute()
                 for key in keys{ //TODO: copied from QuestReewardManager. just make method for both to use or smth
+                    if key.keyType == .admin { continue }
                     let keyd = key.toJson()
                     
                     let newData = Data(keyd.utf8)

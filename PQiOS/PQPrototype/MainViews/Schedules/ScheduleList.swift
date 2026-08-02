@@ -52,8 +52,8 @@ struct ScheduleList: View {
                             ///-2 -> inactive, no start date
                             ///-1 -> already displaying start date
                             ///0 -> in progress
-                            if schedule.getState() == 1
-                                || schedule.getState() == 2 {//schButtonFlip.toggle()
+                            if schedule.getState().rawValue == 1
+                                || schedule.getState().rawValue == 2 {//schButtonFlip.toggle()
                             }
                         } label : {
                             ScheduleInfoView(schedule: schedule)

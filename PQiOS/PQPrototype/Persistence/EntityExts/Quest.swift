@@ -24,6 +24,16 @@ extension Quest{
         get{ return 0 }
     }
     
+    var maxRewardValue: Int{
+        get{
+            var tot = 0
+            for t in tasks!.allObjects as! [QuestTask]{
+                tot += t.maxReward
+            }
+            return tot
+        }
+    }
+    
     
 //Start, Update, End, Reset
     //make throw as a result of failed task starts
@@ -85,8 +95,7 @@ extension Quest{
                 self.end()
             }
             //alternatively, if quest not finished BUT time has run out
-            //TODO: change to now.timeintervalsincestarttime for easier compreehension
-            else if -self.questStartTime!.timeIntervalSinceNow > self.maxQuestDuration{
+            else if Date.now.timeIntervalSince(self.questStartTime!) > self.maxQuestDuration{
                 self.end()
             }//or via schedule end if it is active due to a scheduler
             else if let sch = self.getCurrentScheduler(){
@@ -100,6 +109,9 @@ extension Quest{
     public func end(error: String? = nil){
         if self.isActive{
             
+            for t in tasks!{
+                (t as! QuestTask).endDependenciesAndTrackers()
+            }
             //geeenerate notif
             let notif = UNMutableNotificationContent()
             notif.title = "Quest Complete!"
@@ -113,7 +125,12 @@ extension Quest{
             //create quest reward (key)
             let reward = QuestKey.generateKey(quest: self)
             if error != nil {reward.keyType = QuestKeyType.cancelled}
-            if error == nil {GlobalQuestLoot.getLoot(self.managedObjectContext!).timeInABottle?.updateStoredTime(amount: 5, limit: true)} //TODO: adapt this to scale with task difficulty
+            var rewardT: Int = 5
+            for t in tasks!.allObjects{
+                let t = t as! QuestTask
+                rewardT += t.currentReward
+            }
+            if error == nil {_ = GlobalQuestLoot.getLoot(self.managedObjectContext!).timeInABottle?.updateStoredTime(amount: rewardT, limit: true)} //TODO: adapt this to scale with task difficulty
             self.addToRewards(reward)
             
             //end scheduler
