@@ -14,7 +14,7 @@ struct QuestManagerView: View {
     @State private var questfs: [Quest] = [] //done to prevent FetchRequest causing view backtracking when activating quests (changing attributes)
     
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Quest.isActive, ascending: false),NSSortDescriptor(keyPath: \Quest.questName, ascending: true)]) private var quests: FetchedResults<Quest>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Quest.isActive, ascending: false),NSSortDescriptor(keyPath: \Quest.rawQuestName, ascending: true)]) private var quests: FetchedResults<Quest>
     
     var body: some View {
         HStack{
@@ -33,7 +33,7 @@ struct QuestManagerView: View {
                             destination: QuestView(quest: quest)
                                 .id(quest.objectID)
                         ) {
-                            Text("\(quest.questName!)")
+                            Text("\(quest.questName)")
                         }
                     }
                 }
@@ -48,7 +48,7 @@ struct QuestManagerView: View {
                             QuestView(quest: quest)
                                 .id(quest.objectID)
                         } label: {
-                            Text("\(quest.questName!)")
+                            Text("\(quest.questName)")
                         }
                     }
                 }.onDelete(perform:deleteQuests)
@@ -63,7 +63,7 @@ struct QuestManagerView: View {
     private func refreshQuests(context: NSManagedObjectContext){
         let fr = NSFetchRequest<Quest>()
         fr.entity = Quest.entity()
-        fr.sortDescriptors = [NSSortDescriptor(keyPath: \Quest.questName, ascending: true)]
+        fr.sortDescriptors = [NSSortDescriptor(keyPath: \Quest.rawQuestName, ascending: true)]
         do{
             try questfs = context.fetch(fr)
         }catch{

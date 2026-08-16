@@ -19,7 +19,16 @@ extension Quest {
     @NSManaged public var isActive: Bool
     @NSManaged public var locked: Bool
     @NSManaged public var maxQuestDuration: Double
-    @NSManaged public var questName: String?
+    
+    @NSManaged public var rawQuestName: String?
+    public var questName: String {
+        get { return rawQuestName ?? {
+            rawQuestName = "Unnamed Quest"
+            return rawQuestName!
+        }()}
+        set{rawQuestName = newValue}
+    }
+    
     @NSManaged public var questStartTime: Date?
     @NSManaged public var questUUID: UUID?
     @NSManaged public var restrictedDeviceIPs: String?

@@ -27,7 +27,7 @@ struct QuestKeyManagerView: View {
                             HStack{
                                 Image(systemName: iconForKeyType(type: reward.keyType))
                                     .foregroundColor(colourForKeyType(type: reward.keyType))
-                                Text("\(reward.quest?.questName! ?? "All In One Key")(\(reward.obtainmentDate!.formatted(date: .numeric, time: .shortened)))")
+                                Text("\(reward.quest?.questName ?? "All In One Key")(\(reward.obtainmentDate!.formatted(date: .numeric, time: .shortened)))")
                                 Spacer()
                             }
                         }

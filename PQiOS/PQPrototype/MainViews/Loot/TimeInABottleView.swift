@@ -22,7 +22,7 @@ struct LockedView<LockView: View, Content: View>: View{
                         Image(systemName: "lock.fill")
                     }
                 }
-                Rectangle().opacity(0)
+                Rectangle().opacity(0.1)
             }
         }
     }
@@ -69,6 +69,8 @@ struct TimeInABottleUpgradeView: View{
     
     init(_ tiab: TimeInABottle){
         self.tiab = tiab
+        //trigger update to ensure weekly reset date is visibly updated
+        _ = tiab.updateStoredTime(amount: 0)
     }
     
 //    struct WeeklyCapacityUpgradeView: View {
@@ -105,7 +107,10 @@ struct TimeInABottleUpgradeView: View{
     var body: some View{
         VStack{
             HStack{
-                Text("Weekly Limit: \(tiab.weeklyTally)/\(tiab.weeklyCap)").frame(alignment: .center)
+                VStack{
+                    Text("Weekly Limit: \(tiab.weeklyTally)/\(tiab.weeklyCap)").frame(alignment: .center)
+                    Text("Resets: \(tiab.weeklyTallyResetDate.formatted(date: .abbreviated, time: .omitted))")
+                }
                 Spacer()
                 LockedView(
                     unlockCon: {
@@ -115,7 +120,7 @@ struct TimeInABottleUpgradeView: View{
                     content:
                         Button(){
                             context.perform {
-                                if tiab.updateStoredTime(amount: -tiab.weeklyCap){
+                                if tiab.updateStoredTime(amount: -tiab.weeklyCap) != 0{
                                     tiab.weeklyCap += TimeInABottle.weeklyCapIncrease
                                 }
                                 do{try context.save()}catch{}
@@ -133,11 +138,11 @@ struct TimeInABottleUpgradeView: View{
                         Image(systemName: "info.circle.fill")
                     }
                 }
-            }.padding(EdgeInsets(top: 0, leading: 40, bottom: 0, trailing: 40))
-                .frame(height: 50)
+            }
+                .frame(height: 75)
         }
         .sheet(isPresented: $upgradeInfoSheet, content: {
-            Text("Go 7 days without spending Time In A Bottle to unlock.")
+            Text("Go 7 days without skipping quests to unlock.")
         })
     }
 }
@@ -146,7 +151,7 @@ struct TimeInABottleShopView: View{
     @Environment(\.managedObjectContext) private var context
     
     @ObservedObject var tiab: TimeInABottle
-    var adminKeyCost = 100
+    var adminKeyCost = -100
     init(_ tiab: TimeInABottle){
         self.tiab = tiab
     }
@@ -157,10 +162,9 @@ struct TimeInABottleShopView: View{
             Text("Buy All-In-One Key x1 (\(adminKeyCost))")
         }
     }
-    //TODO: make this price reasonable
     func buyAdminKey(){
         context.perform {
-            if tiab.updateStoredTime(amount: -adminKeyCost){
+            if tiab.updateStoredTime(amount: -adminKeyCost) != 0{
                 _ = QuestKey.generateAIOKey(context: context)
             }
             

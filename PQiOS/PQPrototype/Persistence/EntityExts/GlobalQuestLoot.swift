@@ -10,19 +10,38 @@ import CoreData
 
 extension GlobalQuestLoot{
     
-    static func getLoot(_ context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) -> GlobalQuestLoot {
-        do{
-            return try context.fetch(GlobalQuestLoot.fetchRequest()).first 
-            ?? initLoot(context)
-        }catch{
-            return initLoot(context)
+    static var shared: GlobalQuestLoot {
+        get {
+            do{
+                return try PQPrototypeApp.mainContext.fetch(GlobalQuestLoot.fetchRequest()).first ?? {
+                    let gql = GlobalQuestLoot(context: PQPrototypeApp.mainContext)
+                    try PQPrototypeApp.mainContext.save()
+                    return gql
+                }()
+            }catch{
+                let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")
+            }
         }
     }
     
-    static private func initLoot(_ context: NSManagedObjectContext) -> GlobalQuestLoot{
-        let gql = GlobalQuestLoot(context: context)
-        gql.timeInABottle = TimeInABottle(context: context)
-        do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-        return gql
+    var timeInABottle: TimeInABottle {
+        get{ return self.rawTimeInABottle ??
+            {
+                do{
+                    self.rawTimeInABottle = TimeInABottle(context: self.managedObjectContext!)
+                    try self.managedObjectContext!.save()
+                }catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+                
+                return self.rawTimeInABottle!
+            }()}
+    }
+    
+    static func getLoot(_ context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) -> GlobalQuestLoot {
+        do{
+            return try context.fetch(GlobalQuestLoot.fetchRequest()).first
+            ?? GlobalQuestLoot(context: context)
+        }catch{
+            let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")
+        }
     }
 }

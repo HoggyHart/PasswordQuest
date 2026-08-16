@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="22H625" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="GlobalQuestLoot" representedClassName=".GlobalQuestLoot" syncable="YES">
-        <relationship name="timeInABottle" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="TimeInABottle"/>
+        <relationship name="rawTimeInABottle" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="TimeInABottle"/>
     </entity>
     <entity name="Location" representedClassName=".Location" syncable="YES">
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -18,9 +18,9 @@
         <attribute name="isActive" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="locked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="maxQuestDuration" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="questName" attributeType="String"/>
         <attribute name="questStartTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="questUUID" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="rawQuestName" optional="YES" attributeType="String"/>
         <attribute name="restrictedDeviceIPs" attributeType="String"/>
         <relationship name="rewards" toMany="YES" deletionRule="Nullify" destinationEntity="QuestKey" inverseName="quest" inverseEntity="QuestKey"/>
         <relationship name="schedulers" toMany="YES" deletionRule="Cascade" destinationEntity="Schedule" inverseName="quest" inverseEntity="Schedule"/>
@@ -76,5 +76,8 @@
         <attribute name="weeklyTimeCollected" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="weeklyTimeLimit" attributeType="Integer 16" defaultValueString="120" usesScalarValueType="YES"/>
         <attribute name="weeklyTimeReset" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="TrainingQuestTask" representedClassName=".TrainingQuestTask" parentEntity="QuestTask" syncable="YES">
+        <attribute name="duration" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
 </model>

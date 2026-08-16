@@ -54,7 +54,7 @@ extension Schedule {
         let d = Date.now.addingTimeInterval(10)
         scheduledStartTime = d
         scheduledEndTime = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: Date.now)
-        scheduleName = quest.questName!+" Schedule"
+        scheduleName = quest.questName+" Schedule"
         scheduleUUID = UUID()
         startTime = scheduledStartTime
         setSchedule(scheduledDays: .weekdays)
@@ -85,7 +85,6 @@ extension Schedule {
                 scheduledEndTime!
                     .timeIntervalSince(scheduledStartTime!))
     }
-    
     
     public enum ScheduleState: Int{
         case inactive = -2
@@ -123,6 +122,26 @@ extension Schedule {
         else { return .failed }
     }
     
+    func delay(duration: Double) -> Void{
+        if (GlobalQuestLoot.getLoot(self.managedObjectContext!).timeInABottle.updateStoredTime(amount: -Int(duration)/60) == 0) {
+            return
+        }
+        if self.scheduledPeriodRelativity() == .now{
+            self.startTime = Date.now.addingTimeInterval(duration)
+            self.quest?.isActive = false
+            self.quest?.questStartTime = self.startTime
+        }
+        else{
+            self.startTime?.addTimeInterval(duration)
+        }
+        /*
+         let delayImpactsSchedule = true //FIX: Not yet fully implemented / may also affect hour/minute depending on frequency of schedule if I improve schedule versatility to sub-day intervals
+         if delayImpactsSchedule{
+             scheduledStartTime!.addTimeInterval(delay)
+             scheduledEndTime!.addTimeInterval(delay)
+         }
+         */
+    }
     func getNext_XDayDelay_StartTime(fromDate: Date) -> Date{
         
         let startHour = Calendar.current.component(.hour, from: scheduledStartTime!)
@@ -173,24 +192,6 @@ extension Schedule {
         return nextStart
     }
     
-    ///delay schedule start (in seconds)
-    func delayStart(delay: Double){
-        startTime!.addTimeInterval(delay)
-        
-        //FIX: make user toggleable
-        //  i.e. if scheduled for every 3 days, and I delay for 1 day, should the next start be on that 3rd day still?
-        //      or should the delay be carried on from that new start date
-        //FIX: Also to add - to what degree should the delay impact? should it go down to minutes? or just days?
-        //  if I delay by 22 hours, should the next schedule still be scheduled for 2 hours later?
-        //  when delaying prhaps have a "impact schedule?" with a Before -> After comparison
-        let delayImpactsSchedule = true //FIX: Not yet fully implemented / may also affect hour/minute depending on frequency of schedule if I improve schedule versatility to sub-day intervals
-        if delayImpactsSchedule{
-            scheduledStartTime!.addTimeInterval(delay)
-            scheduledEndTime!.addTimeInterval(delay)
-        }
-        return
-    }
-    
     ///Called when scheduled quest finishes
     func endScheduledPeriod(){
         //finish period
@@ -198,16 +199,21 @@ extension Schedule {
         self.lastScheduleCompletedOnTime = self.quest!.tasksComplete()
         
         //set next start/end times
-        _ = amendNextScheduledPeriod(toNextStartFrom: Date.now) //_ = to get rid of warning
+        _ = amendNextScheduledPeriod(toNextStartFrom: self.scheduledStartTime!) //_ = to get rid of warning
     }
     
     ///-1: scheduled period has passed by given date
     ///0: schedule is/would be active at given date
     ///1: schedule will not have started by given date
-    func scheduledPeriodRelativity(toDate: Date = Date.now) -> Int{
-        if self.getActualEndTime() <= toDate { return -1 }
-        else if self.startTime! <= toDate { return 0 }
-        else { return 1 }
+    public enum ScheduleRelativity: Int{
+        case past = -1
+        case now = 0
+        case future = 1
+    }
+    func scheduledPeriodRelativity(toDate: Date = Date.now) -> ScheduleRelativity{
+        if self.getActualEndTime() <= toDate { return .past }
+        else if self.startTime! <= toDate { return .now }
+        else { return .future }
     }
     ///Used to move the scheduled start/end dates forward to make it possible for the scheduled quest to start automatically again
     ///Can pad with QuestKeys to pretend it was doing schedules the whole time
@@ -252,7 +258,7 @@ extension Schedule {
                 moveAlongOne()
             }
             //then, move again if between start/end and safe is true
-            if safe == true && self.scheduledStartTime! < givenTime{
+            if safe == true && self.scheduledStartTime! <= givenTime{
                 moveAlongOne()
             }
             

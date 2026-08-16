@@ -60,6 +60,9 @@
             <PersistentString
                value = "self.startTime">
             </PersistentString>
+            <PersistentString
+               value = "self.scheduledStartTime">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
@@ -112,6 +115,9 @@
          contextName = "Quest.getCurrentScheduler():Quest.swift">
          <PersistentStrings>
             <PersistentString
+               value = "questStartTime">
+            </PersistentString>
+            <PersistentString
                value = "schedule.startTime!">
             </PersistentString>
             <PersistentString
@@ -128,6 +134,43 @@
             <PersistentString
                value = "container.viewContext.fetch(TimeInABottle.fetchRequest())[0]">
             </PersistentString>
+            <PersistentString
+               value = "container.viewContext.fetch(TimeInABottle.fetchRequest()).count">
+            </PersistentString>
+            <PersistentString
+               value = "g.count">
+            </PersistentString>
+            <PersistentString
+               value = "container.viewContext.fetch(GlobalQuestLoot.fetchRequest()).count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "TimeInABottle.updateStoredTime(amount:limit:):TimeInABottle.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.weeklyTallyResetDate">
+            </PersistentString>
+            <PersistentString
+               value = "Date.now ">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Schedule.amendNextScheduledPeriod(toNextStartFrom:safe:padQuestFailures:):Schedule.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.scheduledEndTime! &lt; givenTime">
+            </PersistentString>
+            <PersistentString
+               value = "safe == true &amp;&amp; self.scheduledStartTime! &lt;= givenTime">
+            </PersistentString>
+            <PersistentString
+               value = "self.scheduledStartTime! &lt;= givenTime">
+            </PersistentString>
+            <PersistentString
+               value = "scheduledEndTime!.timeIntervalSince(scheduledStartTime!)">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
@@ -142,13 +185,13 @@
          contextName = "Location.asRegion(questUUID:):Location.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.objectID.uriRepresentation().absoluteString">
+               value = "&quot;\(self.objectID)&quot;">
             </PersistentString>
             <PersistentString
                value = "self.objectID">
             </PersistentString>
             <PersistentString
-               value = "&quot;\(self.objectID)&quot;">
+               value = "self.objectID.uriRepresentation().absoluteString">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -189,18 +232,24 @@
          contextName = "Week.init(rawValue:):ScheduleTypeInfo.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.toBitSetString()">
+               value = "Week.monday">
             </PersistentString>
             <PersistentString
-               value = "Week.monday">
+               value = "self.toBitSetString()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LocationServices.stopTrackingRegion(region:):LocationServices.swift">
+         contextName = "LocationServices.tasksFor(region:):LocationServices.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.regionsTracked">
+               value = "error">
+            </PersistentString>
+            <PersistentString
+               value = "t.location?.regionIdentifier">
+            </PersistentString>
+            <PersistentString
+               value = "region.identifier">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -213,13 +262,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LocationOccupationQuestTask.update():LocationOccupationQuestTask.swift">
+         contextName = "LocationServices.stopTrackingRegion(region:):LocationServices.swift">
          <PersistentStrings>
             <PersistentString
-               value = "taskArea.radius">
-            </PersistentString>
-            <PersistentString
-               value = "LocationServices.calcDistance(p1: curPos, p2: taskArea.center())">
+               value = "self.regionsTracked">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -240,16 +286,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LocationServices.tasksFor(region:):LocationServices.swift">
+         contextName = "LocationOccupationQuestTask.update():LocationOccupationQuestTask.swift">
          <PersistentStrings>
             <PersistentString
-               value = "error">
+               value = "taskArea.radius">
             </PersistentString>
             <PersistentString
-               value = "t.location?.regionIdentifier">
-            </PersistentString>
-            <PersistentString
-               value = "region.identifier">
+               value = "LocationServices.calcDistance(p1: curPos, p2: taskArea.center())">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -272,6 +315,9 @@
       <ContextState
          contextName = "Quest.end(error:):Quest.swift">
          <PersistentStrings>
+            <PersistentString
+               value = "self.questStartTime">
+            </PersistentString>
             <PersistentString
                value = "self.managedObjectContext!.fetch(GlobalQuestLoot.fetchRequest())">
             </PersistentString>
@@ -332,10 +378,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in closure #2 in closure #1 in MainView.body.getter:MainView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "GlobalQuestLoot.shared">
+            </PersistentString>
+            <PersistentString
+               value = "context.fetch(GlobalQuestLoot.fetchRequest()).count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "SingleLocationTask.update():SingleLocationTask.swift">
          <PersistentStrings>
             <PersistentString
-               value = "taskArea.radius">
+               value = "LocationServices.shared.locationManager.location?.coordinate">
             </PersistentString>
             <PersistentString
                value = "location?.latitude">
@@ -347,15 +404,23 @@
                value = "LocationServices.calcDistance(p1: curPos, p2: taskArea.center()) &lt;= taskArea.radius">
             </PersistentString>
             <PersistentString
-               value = "location?.longitude">
+               value = "taskArea.radius">
             </PersistentString>
             <PersistentString
-               value = "LocationServices.shared.locationManager.location?.coordinate">
+               value = "location?.longitude">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "Schedule.getState():Schedule.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static QuestTaskList.taskStatusColor(task:):QuestTaskList.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "task.quest?.questStatus()">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

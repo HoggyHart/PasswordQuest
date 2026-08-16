@@ -69,7 +69,7 @@ struct QuestView: View {
         VStack{
             //title
             HStack{
-                TextField("Quest Name", text: $quest.questName ?? "Unset")
+                TextField("Quest Name", text: $quest.questName)
                     .font(.title)
                 Image(systemName:"pencil")
             }
@@ -90,22 +90,36 @@ struct QuestView: View {
                 //start/end button
                 ZStack{
                     questStatusButton
-                    if quest.locked{
-                        Button(){
-                            context.perform {
-                                if GlobalQuestLoot.getLoot().timeInABottle!.updateStoredTime(amount: -quest.maxRewardValue){
-                                    quest.end()
-                                    let k = QuestKey.generateKey(quest: quest)
-                                    k.keyType = .complete
-                                }
-                                do{try context.save()}catch{}
-                            }
-                        } label: {
-                            Rectangle().opacity(0)
-                        }
-                    }
                 }
             }.frame(width: 250, height: 50)
+            if quest.isActive{
+                Button(){
+                    context.perform {
+                        if quest.getCurrentScheduler()?.delay(duration: 300) == nil{
+                            let tempSch = Schedule(context: context, quest: quest)
+                            tempSch.setSchedule(scheduledDays: Week(rawValue: 0))
+                            tempSch.scheduledStartTime = quest.questStartTime
+                            tempSch.startTime = Date.now.addingTimeInterval(300)
+                            tempSch.scheduledEndTime = Date.distantFuture
+                            tempSch.isActive = true
+                            tempSch.nextSchLocked = true
+                            //TODO: simplify this whole chunk. make schedule making quicker
+                            //      AND see about just calling .delay() on the sch and remove need for this below bit VVV
+                            quest.isActive = false
+                            quest.questStartTime = tempSch.startTime
+                            for t in quest.tasks!{
+                                (t as! QuestTask).endDependenciesAndTrackers()
+                            }
+                        }
+                        
+                        let k = QuestKey.generateKey(quest: quest)
+                        k.keyType = .cancelled
+                        do{try context.save()}catch{}
+                    }
+                } label: {
+                    Text("Delay 5 Minutes (5\(Image(systemName: "hourglass")))")
+                }
+            }
         }
         .padding(EdgeInsets(top: 0.0, leading: 30.0, bottom: 0.0, trailing: 30.0))
     }
@@ -114,10 +128,10 @@ struct QuestView: View {
         context.perform{
             switch(quest.questStatus()){
                 //ended due to failed/succeeded
-            case -1, 2:
+            case .failed, .completed:
                 quest.reset()
                 //inactive
-            case 0:
+            case .inactive:
                 do{
                     try quest.start()
                 }catch _ as FailedStartError{
@@ -125,8 +139,28 @@ struct QuestView: View {
                     //highlight problematic task/ pop up with whatever the fail reason was
                 }catch{}
                 //active
-            case 1:
-                quest.end()
+            case .inProgress:
+                if quest.locked{
+                    if GlobalQuestLoot.getLoot(context).timeInABottle.updateStoredTime(amount: -quest.maxRewardValue, impactTrackers: true) != 0{
+                        quest.end()
+                        let k = QuestKey.generateKey(quest: quest)
+                        k.keyType = .complete
+                    }
+                    do{try context.save()}catch{}
+                }
+                else{
+                    quest.end()
+                }
+            case .paused:
+                quest.isActive = true
+                do{
+                    for t in quest.tasks!{
+                        try (t as! QuestTask).initDependenciesAndTrackers()
+                    }
+                }catch{}
+                guard let sch = quest.getCurrentScheduler() else { break }
+                sch.startTime = Date.now
+                quest.questStartTime = sch.startTime
             default: // also for -2: inactive + no quests
                 //do nothing, unknown status
                 
@@ -142,17 +176,19 @@ struct QuestView: View {
         ///1: active
         ///2: inactive, completed successfully
         switch(quest.questStatus()){
-        case -1:
+        case .failed:
             return "Failed"
-        case 0, -2:
+        case .inactive:
             return "Start"
-        case 1:
+        case .inProgress:
             if quest.locked{
                 return "Skip? (\(quest.maxRewardValue))"
             }
             return "End"
-        case 2:
+        case .completed:
             return "Turn In"
+        case .paused:
+            return "Resume"
         default:
             return "Unknown status"
         }
@@ -164,13 +200,13 @@ struct QuestView: View {
         ///1: active
         ///2: inactive, completed successfully
         switch(quest.questStatus()){
-        case -1:
+        case .failed:
             return .red
-        case 0, -2:
+        case .inactive, .paused:
             return .blue
-        case 1:
+        case .inProgress:
             return .gray
-        case 2:
+        case .completed:
             return .green
         default:
             return .yellow

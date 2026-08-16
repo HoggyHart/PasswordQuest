@@ -11,11 +11,11 @@ import CoreData
 
 extension SingleLocationTask: MKMapViewDelegate {
     
-    override public var currentReward: Int{
+    override public var currentReward: Int{  //TODO: include "if incompletion rewards == true" when that var is added
         get { if completed { return maxReward} else {return Int(self.recordedOccupationTime/60*0.1)}}
     }
     override public var maxReward: Int{
-        get { return max(Int(self.requiredOccupationDuration/60*0.5),5)}
+        get { return max(Int(self.requiredOccupationDuration/60*0.5),5)} //TODO: add a user 'origin/home' location var for the app so that distance from home can be added to these calcs to replace min reward of 5. Because if quest is 'stay where you are for 0 seconds' it shouldnt have the same reward as 'go to a place 1km from home and be there for 0 seconds'. This is both an incentive to move AND an anti-cheat measure
     }
     
     convenience init(context: NSManagedObjectContext, dummyVar: Bool = false){
@@ -65,7 +65,6 @@ extension SingleLocationTask: MKMapViewDelegate {
         guard let taskArea = location else { throw InvalidTaskError(task: self.name!, invalidAttribute: "Location") } //in case it somehow gets deleted mid-quest
         
         guard let curPos = LocationServices.shared.locationManager.location?.coordinate else {return} //TODO: throw location error (wont end task)
-        //TODO: check wazzup
         if stayInside == (LocationServices.calcDistance(p1: curPos, p2: taskArea.center()) <= taskArea.radius){
             updateRecordedTime()
             occupiedAtLastUpdate = true

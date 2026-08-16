@@ -15,7 +15,6 @@ struct MainView: View {
     var body: some View {
         NavigationView{
             VStack{
-                
                 if menu == 0{
                     QuestManagerView()
                 }
@@ -35,7 +34,7 @@ struct MainView: View {
                 .navigationViewStyle(.stack)
                 .toolbar{
                     ToolbarItem{
-                        TimeInABottleDisplay(GlobalQuestLoot.getLoot().timeInABottle!)
+                        TimeInABottleDisplay(GlobalQuestLoot.getLoot(context).timeInABottle)
                     }
                 }
         }

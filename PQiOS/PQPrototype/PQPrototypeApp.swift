@@ -73,7 +73,7 @@ struct PQPrototypeApp: App {
                     //for each scheduled quest
                     for schedule in createdSchedules {
                         //if schedule isnt active or has already started: skip this one
-                        if !schedule.isActive || schedule.getState().rawValue == 0 { continue }
+                        if !schedule.isActive || schedule.getState() == .inProgress { continue }
                         let quest = schedule.quest! //shorten syntax for convenience
                         if quest.isActive { continue }
                         
@@ -85,7 +85,12 @@ struct PQPrototypeApp: App {
                         //if past start time (and before end time), start
                         if Date.now > schedule.startTime!{
                             do{
-                                try quest.start(withSchedule: schedule)
+                                if !schedule.startTime!.equals(date2: schedule.scheduledStartTime!){
+                                    //indicates schedule was delayed meaning quest was paused
+                                    quest.isActive = true
+                                }else{
+                                    try quest.start(withSchedule: schedule)
+                                }
                             }catch{bgContext.undo(); continue}
                         }
                     }

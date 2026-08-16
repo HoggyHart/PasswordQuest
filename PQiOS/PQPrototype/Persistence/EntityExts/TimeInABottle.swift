@@ -32,6 +32,10 @@ extension TimeInABottle{
         set { self.weeklyTimeLimit = Int16(newValue)}
     }
     
+    func tes(){
+        self.weeklyTimeLimit = 3
+    }
+    
     var weeklyUpgradeChallengeDate: Date {
         get { return self.weeklyLimitIncreaseDate ??
             {
@@ -48,7 +52,7 @@ extension TimeInABottle{
             {
                 self.weeklyTimeReset = Date.now
                 self.weeklyTimeReset = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date.now)! //set to 00:00:00
-                self.weeklyTimeReset = Calendar.current.date(bySetting: .day, value: 1, of: Date.now)! //set to monday
+                self.weeklyTimeReset = Calendar.current.date(bySetting: .weekday, value: 1, of: Date.now)! //set to monday
                 //now either the date is the monday at the beginning of this week or it is tomorrow (now.day == 0 i.e. sunday)
         
                 if Date.now > self.weeklyTimeReset!{
@@ -61,11 +65,21 @@ extension TimeInABottle{
         }
     }
     
-    public func updateStoredTime(amount: Int, limit: Bool = false) -> Bool{
+    
+    public func updateStoredTime(amount: Int, impactTrackers limit: Bool = false) -> Int{
+        while Date.now > self.weeklyTallyResetDate {
+            self.weeklyTallyResetDate.addTimeInterval(86400*7)
+            self.weeklyTally = 0
+        }
+        if amount == 0 {
+            return 0
+        }
+        
         var added = amount
+        
         //if this contributes to the weekly limit
         if (amount>0 && limit){
-            if self.weeklyTally >= self.weeklyCap { return false }
+            if self.weeklyTally >= self.weeklyCap { return 0 }
             
             let ogTally = self.weeklyTally
             self.weeklyTally = min(ogTally+amount, self.weeklyCap)
@@ -76,12 +90,12 @@ extension TimeInABottle{
         else if amount < 0 {
             //and its more than there is *to* spend
             if Int(self.timeStored) + amount < 0{
-                return false
+                return 0
             }
-            //reset duration required of no spending
-            self.weeklyUpgradeChallengeDate.addTimeInterval(86400*7)
+            //reset duration required of no spending (nil makes it lazily regenerated next time its used (see weeklyUpgradeChallengeDate)
+            if limit { self.weeklyLimitIncreaseDate = nil }
         }
         self.timeStored+=Int64(added)
-        return true
+        return added
     }
 }
