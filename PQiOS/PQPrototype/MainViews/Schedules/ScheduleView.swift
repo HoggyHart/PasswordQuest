@@ -191,10 +191,12 @@ struct ScheduleView: View {
                     }
                 }
                 //start early button, to speed up locked quests
-                Button(){
-                    startScheduleEarly()
-                } label: {
-                    Text("Start Early")
+                if !schedule.quest!.isActive{
+                    Button(){
+                        startScheduleEarly()
+                    } label: {
+                        Text("Start Early")
+                    }
                 }
             }
         }

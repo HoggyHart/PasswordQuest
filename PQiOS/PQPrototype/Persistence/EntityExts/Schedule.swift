@@ -335,7 +335,7 @@ extension Schedule {
         let content = UNMutableNotificationContent()
         
         content.title = self.scheduleName!
-        content.body = "desc: time n date n dat"
+        content.body = self.scheduleName! + " is starting!" //TODO: repeated in other notif scheduling func, make const or something
         
         for i in 0..<7{
             if scheduledDays.contains(.Element(rawValue: 1<<i)){
@@ -364,7 +364,6 @@ extension Schedule {
     
     private func createIntervalNotifications(){
         let nextScheduled = self.scheduledStartTime!
-        print(nextScheduled)
         let content = UNMutableNotificationContent()
         
         content.title = "Scheduled Quest Start"
@@ -372,7 +371,7 @@ extension Schedule {
         
         //create notification schedule info
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: nextScheduled.timeIntervalSince(Date.now), repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: max(nextScheduled.timeIntervalSince(Date.now),1), repeats: false)
         
         //create actual notification
         let uuidString = UUID().uuidString

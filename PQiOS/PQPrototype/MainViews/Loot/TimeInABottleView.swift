@@ -151,7 +151,7 @@ struct TimeInABottleShopView: View{
     @Environment(\.managedObjectContext) private var context
     
     @ObservedObject var tiab: TimeInABottle
-    var adminKeyCost = -100
+    var adminKeyCost = 100
     init(_ tiab: TimeInABottle){
         self.tiab = tiab
     }

@@ -38,7 +38,7 @@ extension Quest{
 //Start, Update, End, Reset
     //make throw as a result of failed task starts
     public func start(withSchedule sch: Schedule? = nil) throws{
-        if tasks!.allObjects.isEmpty { return } //if no tasks, nothing to start
+        if tasks!.allObjects.isEmpty || self.isActive { return } //if no tasks or already in progress, nothing to start
         self.reset()
         
         var errors: String = ""
