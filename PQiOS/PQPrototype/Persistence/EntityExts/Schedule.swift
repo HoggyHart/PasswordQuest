@@ -331,11 +331,18 @@ extension Schedule {
         }
     }
     
+    func queueNotif(content: UNNotificationContent, trigger: UNNotificationTrigger){
+        //create actual notification
+        let uuidString = UUID().uuidString
+        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+
+        // Schedule the request with the system.
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.add(request)
+    }
+    
     private func createDatedNotifications(){
-        let content = UNMutableNotificationContent()
-        
-        content.title = self.scheduleName!
-        content.body = self.scheduleName! + " is starting!" //TODO: repeated in other notif scheduling func, make const or something
+        let content = QuestStartNotification(questName: self.quest!.questName, scheduleName: self.scheduleName)
         
         for i in 0..<7{
             if scheduledDays.contains(.Element(rawValue: 1<<i)){
@@ -347,40 +354,21 @@ extension Schedule {
                 dateComponents.hour = Calendar.current.component(.hour, from: self.scheduledStartTime!)
                 dateComponents.minute = Calendar.current.component(.minute, from: self.scheduledStartTime!)
              
+                
                 let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
                 
-                //create actual notification
-                let uuidString = UUID().uuidString
-                
-                let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
-
-                // Schedule the request with the system.
-                let notificationCenter = UNUserNotificationCenter.current()
-                notificationCenter.add(request)
-                self.notificationIDs?.append(","+uuidString)
+                queueNotif(content: content, trigger: trigger)
             }
         }
     }
     
     private func createIntervalNotifications(){
         let nextScheduled = self.scheduledStartTime!
-        let content = UNMutableNotificationContent()
-        
-        content.title = "Scheduled Quest Start"
-        content.body = self.scheduleName! + " is starting!"
-        
+        let content = QuestStartNotification(questName: self.quest!.questName, scheduleName: self.scheduleName)
         //create notification schedule info
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: max(nextScheduled.timeIntervalSince(Date.now),1), repeats: false)
         
-        //create actual notification
-        let uuidString = UUID().uuidString
-        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
-
-        // Schedule the request with the system.
-        let notificationCenter = UNUserNotificationCenter.current()
-        
-        notificationCenter.add(request)
-
+        queueNotif(content: content, trigger: trigger)
     }
 }

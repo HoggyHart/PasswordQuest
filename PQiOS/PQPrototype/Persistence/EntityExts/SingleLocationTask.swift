@@ -28,7 +28,6 @@ extension SingleLocationTask: MKMapViewDelegate {
     
     override func start() throws{
         try super.start()
-        lastUpdate = Date.now
     }
     override func initDependenciesAndTrackers() throws {
         try super.initDependenciesAndTrackers()
@@ -36,6 +35,7 @@ extension SingleLocationTask: MKMapViewDelegate {
             throw InvalidTaskError(task: self.name!, invalidAttribute: "Location is nil")
         }
         LocationServices.shared.startTrackingRegion(region: location.asRegion(),forTask: self.objectID)
+        lastUpdate = Date.now
     }
     
     override func endDependenciesAndTrackers() {
