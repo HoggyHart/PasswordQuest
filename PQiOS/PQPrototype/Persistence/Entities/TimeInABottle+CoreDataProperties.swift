@@ -18,6 +18,7 @@ extension TimeInABottle {
 
     @NSManaged public var weeklyTimeLimit: Int16
     @NSManaged public var weeklyTimeReset: Date?
+    @NSManaged public var weeklyLimitIncreaseDate: Date?
     @NSManaged public var weeklyTimeCollected: Int16
     @NSManaged public var timeStored: Int64
 

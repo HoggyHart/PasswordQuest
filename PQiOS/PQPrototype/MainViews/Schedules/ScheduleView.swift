@@ -124,7 +124,7 @@ struct ScheduleView: View {
                         .disabled(!editing)
                     if editing {Image(systemName:"pencil")}
                 }
-                Text("Scheduled Quest: "+schedule.quest!.questName!)
+                Text("Scheduled Quest: "+schedule.quest!.questName)
                     .font(.footnote)
             }
             Divider()
@@ -178,23 +178,25 @@ struct ScheduleView: View {
                     }
                     //lock to block buttons
                     if schedule.isActive && schedule.nextSchLocked{
-                        Button(){
-                            if GlobalQuestLoot.getLoot(context).timeInABottle!.updateStoredTime(amount: -60){
+                        Button(){ //TODO: make price tied to individual schedules (based on frequency + quest difficulty)
+                            if GlobalQuestLoot.getLoot(context).timeInABottle.updateStoredTime(amount: -60) != 0{
                                 schedule.nextSchLocked = false
                             }
                         } label:{
                             ZStack{
                                 Image(systemName:"lock.fill").resizable().foregroundColor(.cyan).frame(width: 150, height: 75)
                                 HStack(spacing:0){Text("60T"); Image(systemName: "hourglass")}
-                            }
+                            }.foregroundColor(.white)
                         }
                     }
                 }
                 //start early button, to speed up locked quests
-                Button(){
-                    startScheduleEarly()
-                } label: {
-                    Text("Start Early")
+                if !schedule.quest!.isActive{
+                    Button(){
+                        startScheduleEarly()
+                    } label: {
+                        Text("Start Early")
+                    }
                 }
             }
         }
@@ -214,16 +216,15 @@ struct ScheduleView: View {
     func startScheduleEarly(){
         context.perform {
             do{
+                schedule.startTime = Date.now
                 try schedule.quest!.start(withSchedule: schedule)
             }
-            catch let e as FailedStartError{
+            catch let _ as FailedStartError{
                 context.undo()
                 //HIGHLIGHT error on screen
-                
                 return
             }catch{context.undo()
                 return}
-            schedule.startTime = Date.now
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
     }
@@ -252,13 +253,13 @@ struct ScheduleView: View {
             
             let scheduleOnTimeline = schedule.scheduledPeriodRelativity()
             //if scheduled period has passed, move scheduled period to now/future (whichever fits the scheduled pattern)
-            if scheduleOnTimeline == -1{
+            if scheduleOnTimeline == .past{
                 _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now)
                 //FIX: and add a popup to say (couldnt activate, moved schedule forward to feasible time)
             }
             //if scheduled period is not in the past
             else {
-                if scheduleOnTimeline == 0 && !areYouSure{
+                if scheduleOnTimeline == .now && !areYouSure{
                     //TODO: add popup "scheduled period is right now, are you sure?"
                     schedule.toggleActive()
                     return

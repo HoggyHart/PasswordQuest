@@ -52,8 +52,7 @@ class RNGLTaskViewModel: LocationViewModel {
             }
             //else indicate progress
             else{
-                //doesnt throw an error for dividing by 0 :)
-                markerRenderer.strokeEnd = (lTask.requiredOccupationDuration-lTask.recordedOccupationTime) / lTask.requiredOccupationDuration
+                markerRenderer.strokeEnd = (100.0 - lTask.completionPercent)/100.0
             }
         }
     }

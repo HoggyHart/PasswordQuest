@@ -24,11 +24,21 @@ extension Quest{
         get{ return 0 }
     }
     
+    var maxRewardValue: Int{
+        get{
+            var tot = 0
+            for t in tasks!.allObjects as! [QuestTask]{
+                tot += t.maxReward
+            }
+            return tot
+        }
+    }
+    
     
 //Start, Update, End, Reset
     //make throw as a result of failed task starts
     public func start(withSchedule sch: Schedule? = nil) throws{
-        if tasks!.allObjects.isEmpty { return } //if no tasks, nothing to start
+        if tasks!.allObjects.isEmpty || self.isActive { return } //if no tasks or already in progress, nothing to start
         self.reset()
         
         var errors: String = ""
@@ -61,6 +71,8 @@ extension Quest{
     
     public func updateProgress(){
         if self.isActive{
+            //TODO: remove this when the various getScheduler and start early issues are fixed
+            if self.questStartTime == nil { self.questStartTime = Date.now}
             var stillInProgress = false
             
             for qTask in self.tasks!{
@@ -85,8 +97,7 @@ extension Quest{
                 self.end()
             }
             //alternatively, if quest not finished BUT time has run out
-            //TODO: change to now.timeintervalsincestarttime for easier compreehension
-            else if -self.questStartTime!.timeIntervalSinceNow > self.maxQuestDuration{
+            else if Date.now.timeIntervalSince(self.questStartTime!) > self.maxQuestDuration{
                 self.end()
             }//or via schedule end if it is active due to a scheduler
             else if let sch = self.getCurrentScheduler(){
@@ -99,11 +110,14 @@ extension Quest{
     
     public func end(error: String? = nil){
         if self.isActive{
-            
+        
+            for t in tasks!{
+                (t as! QuestTask).endDependenciesAndTrackers()
+            }
             //geeenerate notif
             let notif = UNMutableNotificationContent()
             notif.title = "Quest Complete!"
-            notif.body = error == nil ? self.questName! + " is now complete!" : self.questName! + " ended due to a goblin hex!"
+            notif.body = error == nil ? self.questName + " is now complete!" : self.questName + " ended due to a goblin hex!"
             
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: notif, trigger: trigger)
@@ -113,7 +127,12 @@ extension Quest{
             //create quest reward (key)
             let reward = QuestKey.generateKey(quest: self)
             if error != nil {reward.keyType = QuestKeyType.cancelled}
-            if error == nil {GlobalQuestLoot.getLoot(self.managedObjectContext!).timeInABottle?.updateStoredTime(amount: 5, limit: true)} //TODO: adapt this to scale with task difficulty
+            var rewardT: Int = 0
+            for t in tasks!.allObjects{
+                let t = t as! QuestTask
+                rewardT += t.currentReward
+            }
+            if error == nil {_ = GlobalQuestLoot.getLoot(self.managedObjectContext!).timeInABottle.updateStoredTime(amount: rewardT, impactTrackers: true)}
             self.addToRewards(reward)
             
             //end scheduler
@@ -123,6 +142,7 @@ extension Quest{
             //these are changed in reset()
             self.isActive = false
             self.locked = false
+            self.questStartTime = nil
         }
     }
     
@@ -144,18 +164,27 @@ extension Quest{
     ///0: inactive, not started
     ///1: active
     ///2: inactive, completed successfully
-    public func questStatus() -> Int{
+    public enum QuestStatus: Int{
+        case inactive = -2
+        case failed = -1
+        case notStarted = 0
+        case inProgress = 1
+        case completed = 2
+        case paused = 3
+    }
+    public func questStatus() -> QuestStatus{
         
         //if active, its in progress
-        if self.isActive { return 1 }
+        if self.isActive { return .inProgress }
         //if inactive and tasks are complete, that means successfully finished and pending submission
-        else if tasksComplete(){ return 2 }
+        else if tasksComplete(){ return .completed }
         //if no quests to be completed, indicate there is nothing to start
-        else if self.tasks?.allObjects.isEmpty ?? true { return -2 }
+        else if self.tasks?.allObjects.isEmpty ?? true { return .inactive }
         //if inactive and questStartTime == nil, that means the quest has been officially ended and is waiting for next start
-        else if questStartTime == nil { return 0 }
+        else if questStartTime == nil { return .inactive}
+        else if questStartTime! > Date.now { return .paused}
         //only option left is inactive with incomplete quests - failed
-        else { return -1 }
+        else { return .failed }
         
     }
     public func tasksComplete() -> Bool{
@@ -171,7 +200,7 @@ extension Quest{
     }
     
     public func getCurrentScheduler() -> Schedule?{
-        if !self.isActive {return nil}
+        if !self.isActive || self.questStartTime == nil {return nil}
         for schedule in schedulers!{
             let schedule = schedule as! Schedule
             //if this scheduler is active and was scheduled to start a quest at the same time this quest was started (i.e. this scheduler started this now-ending quest) then log the last completion date
@@ -197,7 +226,7 @@ extension Quest{
     
     func toJson() -> String{
         var string = "{\n"
-        string += "    \"questName\" : \""+self.questName!+"\",\n"
+        string += "    \"questName\" : \""+self.questName+"\",\n"
         string += "    \"questUUID\" : \"" + self.questUUID!.uuidString + "\",\n"
         string += "    \"expiryDate\" : \"" + (self.getCurrentScheduler()?.scheduledEndTime ?? (self.questStartTime ?? Date.now).addingTimeInterval(maxQuestDuration)).formatted(date: .numeric, time: .standard) + "\"\n"
         string +=   "}"

@@ -33,7 +33,7 @@ class SingleLocationTaskViewModel: LocationViewModel{
         //else indicate progress
         else{
             //doesnt throw an error for dividing by 0 :)
-            markerRenderer.strokeEnd = (task.requiredOccupationDuration-task.recordedOccupationTime) / task.requiredOccupationDuration
+            markerRenderer.strokeEnd = (100.0 - task.completionPercent)/100.0
         }
     }
     func updateQuestMarkers(){

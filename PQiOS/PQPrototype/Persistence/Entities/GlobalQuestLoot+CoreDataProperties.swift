@@ -16,7 +16,7 @@ extension GlobalQuestLoot {
         return NSFetchRequest<GlobalQuestLoot>(entityName: "GlobalQuestLoot")
     }
 
-    @NSManaged public var timeInABottle: TimeInABottle?
+    @NSManaged public var rawTimeInABottle: TimeInABottle?
 
 }
 

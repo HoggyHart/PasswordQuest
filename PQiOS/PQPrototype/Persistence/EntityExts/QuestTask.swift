@@ -20,6 +20,14 @@ class InvalidTaskError: Error{
 }
 
 extension QuestTask{
+    @objc
+    public var currentReward: Int{
+        get { if completed {return 5} else {return 0} }
+    }
+    @objc
+    public var maxReward: Int{
+        return 5
+    }
     
     @objc
     public var type: String {
@@ -37,6 +45,12 @@ extension QuestTask{
     func initDependenciesAndTrackers() throws{
         
     }
+    //like reset() but doesn't stop indicating completion status
+    //  use cases include failing a quest, wheere you dont want to reset yet so the user can see what they did/didnt do, but the tasks have ended so no need to keep tracking sensors
+    @objc
+    func endDependenciesAndTrackers(){
+        
+    }
     
     @objc
     func update() throws {//just for supercalls
@@ -46,6 +60,7 @@ extension QuestTask{
     @objc
     func reset(){
         completed = false
+        self.endDependenciesAndTrackers()
     }
     
     @objc

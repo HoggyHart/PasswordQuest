@@ -25,7 +25,7 @@ extension Location{
     }
     
     var regionIdentifier: String{
-        get { return self.objectID.uriRepresentation().absoluteString }
+        get { return self.name! + " " + self.objectID.uriRepresentation().absoluteString }
     }
     
     func center() -> CLLocationCoordinate2D{

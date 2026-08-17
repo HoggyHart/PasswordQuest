@@ -20,14 +20,14 @@ struct QuestKeyManagerView: View {
             Text("Quest Rewards")
             List{
                 ForEach(rewards){ reward in
-                    if reward.keyType == QuestKeyType.complete || reward.keyType == QuestKeyType.failed{
+                    if reward.keyType == .complete || reward.keyType == .failed || reward.keyType == .admin{
                         Button(){
                             submitKey(result: reward)
                         } label: {
                             HStack{
                                 Image(systemName: iconForKeyType(type: reward.keyType))
                                     .foregroundColor(colourForKeyType(type: reward.keyType))
-                                Text("\(reward.quest?.questName! ?? "Deleted Quest")(\(reward.obtainmentDate!.formatted(date: .numeric, time: .shortened)))")
+                                Text("\(reward.quest?.questName ?? "All In One Key")(\(reward.obtainmentDate!.formatted(date: .numeric, time: .shortened)))")
                                 Spacer()
                             }
                         }
@@ -41,7 +41,10 @@ struct QuestKeyManagerView: View {
         return type == QuestKeyType.complete ? "checkmark.circle.fill" : "x.circle.fill"
     }
     func colourForKeyType(type: QuestKeyType) -> Color{
-        return type == QuestKeyType.complete ? .green : .red
+        if type == .complete || type == .admin{
+            return .green
+        }
+        return .red
     }
     func submitKey(result: QuestKey){
        // if result.questComplete == false{

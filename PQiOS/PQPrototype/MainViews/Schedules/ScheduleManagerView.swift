@@ -85,17 +85,18 @@ struct ScheduleManagerView: View {
             request.httpMethod = "POST"
             
             do{
-                var keyfetch: NSFetchRequest<QuestKey> = NSFetchRequest()
+                let keyfetch: NSFetchRequest<QuestKey> = NSFetchRequest()
                 keyfetch.entity = QuestKey.entity()
                 keyfetch.sortDescriptors = [NSSortDescriptor(keyPath: \QuestKey.obtainmentDate, ascending: true)]
                 var keys = try keyfetch.execute()
                 for key in keys{ //TODO: copied from QuestReewardManager. just make method for both to use or smth
+                    if key.keyType == .admin { continue }
                     let keyd = key.toJson()
                     
                     let newData = Data(keyd.utf8)
                     let task = URLSession.shared.uploadTask(with: request, from: newData){ data, response, error in
                         //print("sent")
-                        if let error = error {
+                        if error != nil {
                             // Handle the error
                             //print("Error: \(error.localizedDescription)")
                         } else if let response = (response as? HTTPURLResponse){
