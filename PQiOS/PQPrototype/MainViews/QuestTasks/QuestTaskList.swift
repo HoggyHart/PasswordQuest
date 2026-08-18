@@ -83,6 +83,7 @@ struct QuestTaskList: View {
     struct QuestTaskListEntry: View {
         @ObservedObject
         var qtask: QuestTask
+        
         init(qtask: QuestTask) {
             self.qtask = qtask
         }
@@ -152,6 +153,13 @@ struct QuestTaskList: View {
                     LazyVGrid(columns: [GridItem(), GridItem()]) {
                         // for each task type
                         Button(){
+                            addTask(task: TrainingQuestTask(context: context))
+                            taskTypeSheetActive = false
+                        } label:{
+                            Image(systemName:"timer")
+                                .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
+                        }
+                        Button(){
                             addTask(task:SingleLocationTask(context: context, dummyVar: true))
                             taskTypeSheetActive = false
                         } label:{
@@ -169,6 +177,7 @@ struct QuestTaskList: View {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
                         }
+                        
                     }
                 }
             }
@@ -236,8 +245,11 @@ struct QuestTaskList: View {
         else if task is RNGLocationTask{
             RNGLTaskView(locationTask: task as! RNGLocationTask)
         }
+        else if task is TrainingQuestTask{
+            TrainingTaskView(task: task as! TrainingQuestTask)
+        }
         else{
-            EmptyView()
+            Text("No View Assigned To This Task Type!")
         }
     }
 }

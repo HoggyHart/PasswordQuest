@@ -22,18 +22,12 @@ struct SingleLocationTaskView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Location.name, ascending: true)],animation: .default)
     private var locations: FetchedResults<Location>
     
-    
     @State var editedDuration: Date = Date(timeIntervalSinceReferenceDate:3600)
 
-    // --
-
-    //var locationView: LocationView = LocationView()
     @StateObject var viewModel = SingleLocationTaskViewModel()
     
     init(locationTask: SingleLocationTask){
         self.task = locationTask
-        //self.locationView = LocationView(location: locationTask.taskArea!)
-        
     }
     func loadData(){
         editedDuration = Date(timeIntervalSinceReferenceDate: task.requiredOccupationDuration)

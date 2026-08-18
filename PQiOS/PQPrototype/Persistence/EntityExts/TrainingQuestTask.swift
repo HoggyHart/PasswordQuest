@@ -17,6 +17,7 @@ extension TrainingQuestTask{
     
     var completionPercent: Double{
         get{
+            if completed { return 100.0 }
             return Date.now.timeIntervalSince(self.quest!.questStartTime!) * 100.0 / duration
         }
     }

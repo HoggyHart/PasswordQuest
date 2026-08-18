@@ -83,7 +83,9 @@ extension SingleLocationTask: MKMapViewDelegate {
     }
     
     var completionPercent: Double{
-        get{return recordedOccupationTime/(requiredOccupationDuration == 0 ? 1 : requiredOccupationDuration) * 100.0}
+        get{
+            if completed { return 100.0 }
+            return recordedOccupationTime/(requiredOccupationDuration == 0 ? 1 : requiredOccupationDuration) * 100.0}
     }
     override func toString() -> String{
         var magnitude: Double

@@ -37,7 +37,7 @@
     </entity>
     <entity name="QuestTask" representedClassName=".QuestTask" isAbstract="YES" syncable="YES">
         <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="name" attributeType="String" defaultValueString="&quot;Unnamed Task"/>
+        <attribute name="name" attributeType="String" defaultValueString="Unnamed Task"/>
         <attribute name="partialCompletionReward" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <relationship name="quest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Quest" inverseName="tasks" inverseEntity="Quest"/>
     </entity>
@@ -78,6 +78,6 @@
         <attribute name="weeklyTimeReset" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="TrainingQuestTask" representedClassName=".TrainingQuestTask" parentEntity="QuestTask" syncable="YES">
-        <attribute name="duration" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="duration" attributeType="Double" defaultValueString="60" usesScalarValueType="YES"/>
     </entity>
 </model>
