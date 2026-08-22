@@ -79,7 +79,7 @@ struct PQPrototypeApp: App {
                         
                         // if scheduled period has already passed, fail quests until schedule has caught up to now
                         if Date.now > schedule.getActualEndTime(){
-                            _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now, safe: false, padQuestFailures: true)
+                            _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now, padQuestFailures: true)
                         }
                         
                         //if past start time (and before end time), start
@@ -144,7 +144,7 @@ struct PQPrototypeApp: App {
                         
                         // if scheduled period has already passed, fail quests until schedule has caught up to now
                         if Date.now > schedule.getActualEndTime(){
-                            _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now, safe: false, padQuestFailures: true)
+                            _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now, padQuestFailures: true)
                         }
                         
                         //if past start time (and before end time), start

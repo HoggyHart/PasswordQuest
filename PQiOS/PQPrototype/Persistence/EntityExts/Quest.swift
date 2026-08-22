@@ -59,13 +59,11 @@ extension Quest{
         self.questStartTime = sch?.startTime ?? Date.now
         
         //populate with initial task data
-        self.updateProgress()
+        self.updateProgress() //TODO: include in task start code?
         
         //if scheduled start, check schedule data that impacts quest
         guard let sch = sch else {return}
-        if sch.nextSchLocked{
-            self.locked = true
-        }
+        self.locked = sch.nextSchLocked
         sch.lastScheduleCompletedOnTime = false
     }
     

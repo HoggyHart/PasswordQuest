@@ -79,11 +79,13 @@ extension Schedule {
         return !self.everyXDays && self.rawScheduledDays == 0
     }
     
+    var endTime: Date{
+        get{
+            return scheduledEndTime!
+        }
+    }
     func getActualEndTime() -> Date{
-         return startTime!
-            .addingTimeInterval(
-                scheduledEndTime!
-                    .timeIntervalSince(scheduledStartTime!))
+         return scheduledEndTime!
     }
     
     public enum ScheduleState: Int{
@@ -211,7 +213,7 @@ extension Schedule {
         case future = 1
     }
     func scheduledPeriodRelativity(toDate: Date = Date.now) -> ScheduleRelativity{
-        if self.getActualEndTime() <= toDate { return .past }
+        if self.endTime <= toDate { return .past }
         else if self.startTime! <= toDate { return .now }
         else { return .future }
     }
@@ -220,28 +222,22 @@ extension Schedule {
     ///return value indicates whether start time was moved forward, backward, or stayed the same
     ///
     ///safe: indicates whether the shift could result in 'now' being between the start and end time, true = now will be before a start, false = could be between
-    func amendNextScheduledPeriod(toNextStartFrom givenTime: Date, safe: Bool = true, padQuestFailures: Bool = false) -> Int{
+    func amendNextScheduledPeriod(toNextStartFrom givenTime: Date, padQuestFailures: Bool = false) -> Int{
         if self.isOneTime(){
             self.deactivateSchedule()
             return 0
         }
         
+        let recDuration = self.duration
         //if start time is already ahead of the given date
         if self.startTime! > givenTime {
             //just make sure it's the IMMEDIATE next possible start
-            let soonestStart = getNextStartTime(fromDate: givenTime)
-            //if self.startTime is too far ahead, move it backwards
-            if !soonestStart.equals(date2: self.scheduledStartTime!){
-                scheduledStartTime = soonestStart
-                startTime = scheduledStartTime
-                scheduledEndTime = scheduledStartTime!.addingTimeInterval(self.duration)
-            }
+            scheduledStartTime = getNextStartTime(fromDate: givenTime)
         }
         //if startTime is behind
         else{
             let moveAlongOne = { [self] in
-                //add quest fails
-                var duration = scheduledEndTime!.timeIntervalSince(scheduledStartTime!)
+                //add quest fails]
                 if padQuestFailures{
                     let reward = QuestKey.generateKey(quest: self.quest!)
                     reward.keyType = QuestKeyType.failed
@@ -251,19 +247,15 @@ extension Schedule {
                 }
                 //move schedule ahead
                 scheduledStartTime = getNextStartTime(fromDate: scheduledStartTime!)
-                scheduledEndTime = scheduledStartTime!.addingTimeInterval(duration)
             }
-            //while current scheduled end is earlier than the given date
-            while self.scheduledEndTime! < givenTime{
-                moveAlongOne()
-            }
-            //then, move again if between start/end and safe is true
-            if safe == true && self.scheduledStartTime! <= givenTime{
+            //push back start until start date is in the future
+            while self.scheduledStartTime! <= givenTime{
                 moveAlongOne()
             }
             
-            //finalise start time
+            //finalise start time and end time
             startTime = scheduledStartTime
+            scheduledEndTime = scheduledStartTime!.addingTimeInterval(recDuration)
         }
         
         //doesnt reeally matter as this result isnt used anywhere atm.

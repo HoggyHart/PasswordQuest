@@ -166,10 +166,13 @@
                value = "safe == true &amp;&amp; self.scheduledStartTime! &lt;= givenTime">
             </PersistentString>
             <PersistentString
-               value = "self.scheduledStartTime! &lt;= givenTime">
+               value = "self.scheduledStartTime!">
             </PersistentString>
             <PersistentString
                value = "scheduledEndTime!.timeIntervalSince(scheduledStartTime!)">
+            </PersistentString>
+            <PersistentString
+               value = "soonestStart">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -293,6 +296,23 @@
             </PersistentString>
             <PersistentString
                value = "LocationServices.calcDistance(p1: curPos, p2: taskArea.center())">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ScheduleView.toggleScheduleActiveStatus(areYouSure:):ScheduleView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "schedule.scheduledStartTime">
+            </PersistentString>
+            <PersistentString
+               value = "Date.now">
+            </PersistentString>
+            <PersistentString
+               value = "schedule.startTime">
+            </PersistentString>
+            <PersistentString
+               value = "schedule.scheduledEndTime">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
