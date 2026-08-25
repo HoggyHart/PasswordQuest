@@ -33,6 +33,20 @@ struct PQPrototypeApp: App {
                 // Handle the error here.
             }
         }
+        resumeQuestTracking()
+        initMainBackgroundLoop()
+    }
+    
+    
+    
+    var body: some Scene {
+        WindowGroup {
+            MainView()
+                .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+        }
+    }
+    
+    private func resumeQuestTracking(){
         let bgContext = PQPrototypeApp.mainContext
         do{
             let tasks = try bgContext.fetch(QuestTask.fetchRequest())
@@ -49,6 +63,8 @@ struct PQPrototypeApp: App {
         catch{
             
         }
+    }
+    private func initMainBackgroundLoop(){
         PQPrototypeApp.scheduleAndQuestUpdater = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){_ in
             if PQPrototypeApp.updatingThreadActive == true{return}
             PQPrototypeApp.updatingThreadActive = true
@@ -79,13 +95,13 @@ struct PQPrototypeApp: App {
                         
                         // if scheduled period has already passed, fail quests until schedule has caught up to now
                         if Date.now > schedule.getActualEndTime(){
-                            _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now, padQuestFailures: true)
+                            schedule.ensureValidAutostart(from: Date.now, padQuestFailures: true)
                         }
                         
                         //if past start time (and before end time), start
                         if Date.now > schedule.startTime!{
                             do{
-                                if !schedule.startTime!.equals(date2: schedule.scheduledStartTime!){
+                                if !schedule.nextStart.equals(date2: schedule.nextScheduledStart){
                                     //indicates schedule was delayed meaning quest was paused
                                     quest.isActive = true
                                 }else{
@@ -102,67 +118,6 @@ struct PQPrototypeApp: App {
             
             PQPrototypeApp.updatingThreadActive = false
         }
-
-    }
-    
-    
-    
-    var body: some Scene {
-        WindowGroup {
-            MainView()
-                .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
-        }
-    }
-    
-    private func initMainBackgroundLoop(){
-        PQPrototypeApp.scheduleAndQuestUpdater = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){_ in
-            //TODO: use a more standard multithreading safety lock
-            if PQPrototypeApp.updatingThreadActive == true{return}
-            PQPrototypeApp.updatingThreadActive = true
-            
-            let bgContext = PQPrototypeApp.isPreview ?  PersistenceController.preview.container.viewContext : PersistenceController.shared.container.viewContext
-            //try to start scheduled quests
-            bgContext.perform {
-                
-                do{
-//QUESTS
-                    let quests = try bgContext.fetch(Quest.fetchRequest())
-                    for quest in quests{
-                        if !quest.isActive { continue; }
-                        quest.updateProgress()
-                    }
-                    try bgContext.save()
-//SCHEDULES
-                    let createdSchedules = try bgContext.fetch(Schedule.fetchRequest())
-                    
-                    //for each scheduled quest
-                    for schedule in createdSchedules {
-                        //if schedule isnt active or has already started: skip this one
-                        if !schedule.isActive || schedule.getState().rawValue == 0 { continue }
-                        let quest = schedule.quest! //shorten syntax for convenience
-                        if quest.isActive { continue }
-                        
-                        // if scheduled period has already passed, fail quests until schedule has caught up to now
-                        if Date.now > schedule.getActualEndTime(){
-                            _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now, padQuestFailures: true)
-                        }
-                        
-                        //if past start time (and before end time), start
-                        if Date.now > schedule.startTime!{
-                            do{
-                                try quest.start(withSchedule: schedule)
-                            }catch{bgContext.undo(); continue}
-                        }
-                    }
-                    
-                    try bgContext.save()
-                    
-                }catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-            }
-            
-            PQPrototypeApp.updatingThreadActive = false
-        }
-
     }
 }
 

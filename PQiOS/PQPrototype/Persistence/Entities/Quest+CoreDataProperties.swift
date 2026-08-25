@@ -20,13 +20,13 @@ extension Quest {
     @NSManaged public var locked: Bool
     @NSManaged public var maxQuestDuration: Double
     
-    @NSManaged public var rawQuestName: String?
-    public var questName: String {
-        get { return rawQuestName ?? {
-            rawQuestName = "Unnamed Quest"
-            return rawQuestName!
+    @NSManaged public var questName: String?
+    public var name: String {
+        get { return questName ?? {
+            questName = "Unnamed Quest"
+            return questName!
         }()}
-        set{rawQuestName = newValue}
+        set{questName = newValue}
     }
     
     @NSManaged public var questStartTime: Date?

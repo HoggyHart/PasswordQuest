@@ -11,7 +11,7 @@ import CoreData
 
 extension SingleLocationTask: MKMapViewDelegate {
     
-    override public var currentReward: Int{  //TODO: include "if incompletion rewards == true" when that var is added
+    override public var currentReward: Int{
         get { if completed { return maxReward} else {return Int(self.recordedOccupationTime/60*0.1)}}
     }
     override public var maxReward: Int{
@@ -36,6 +36,8 @@ extension SingleLocationTask: MKMapViewDelegate {
         }
         LocationServices.shared.startTrackingRegion(region: location.asRegion(),forTask: self.objectID)
         lastUpdate = Date.now
+        LocationServices.shared.locationManager.requestLocation()
+        self.occupiedAtLastUpdate = stayInside == (LocationServices.calcDistance(p1: LocationServices.shared.locationManager.location!.coordinate, p2: location.center()) <= location.radius)
     }
     
     override func endDependenciesAndTrackers() {
@@ -64,13 +66,10 @@ extension SingleLocationTask: MKMapViewDelegate {
         
         guard let taskArea = location else { throw InvalidTaskError(task: self.name!, invalidAttribute: "Location") } //in case it somehow gets deleted mid-quest
         
-        guard let curPos = LocationServices.shared.locationManager.location?.coordinate else {return} //TODO: throw location error (wont end task)
-        if stayInside == (LocationServices.calcDistance(p1: curPos, p2: taskArea.center()) <= taskArea.radius){
-            updateRecordedTime()
-            occupiedAtLastUpdate = true
-        }else{
-            occupiedAtLastUpdate = false
-        }
+        guard let curPos = LocationServices.shared.locationManager.location?.coordinate else {return}
+        
+        occupiedAtLastUpdate = stayInside == (LocationServices.calcDistance(p1: curPos, p2: taskArea.center()) <= taskArea.radius)
+        updateRecordedTime()
         lastUpdate = Date.now
     }
     

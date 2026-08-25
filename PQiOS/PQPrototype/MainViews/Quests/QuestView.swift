@@ -69,7 +69,7 @@ struct QuestView: View {
         VStack{
             //title
             HStack{
-                TextField("Quest Name", text: $quest.questName)
+                TextField("Quest Name", text: $quest.name)
                     .font(.title)
                 Image(systemName:"pencil")
             }
@@ -95,25 +95,7 @@ struct QuestView: View {
             if quest.isActive{
                 Button(){
                     context.perform {
-                        if quest.getCurrentScheduler()?.delay(duration: 300) == nil{
-                            let tempSch = Schedule(context: context, quest: quest)
-                            tempSch.setSchedule(scheduledDays: Week(rawValue: 0))
-                            tempSch.scheduledStartTime = quest.questStartTime
-                            tempSch.startTime = Date.now.addingTimeInterval(300)
-                            tempSch.scheduledEndTime = Date.distantFuture
-                            tempSch.isActive = true
-                            tempSch.nextSchLocked = true
-                            //TODO: simplify this whole chunk. make schedule making quicker
-                            //      AND see about just calling .delay() on the sch and remove need for this below bit VVV
-                            quest.isActive = false
-                            quest.questStartTime = tempSch.startTime
-                            for t in quest.tasks!{
-                                (t as! QuestTask).endDependenciesAndTrackers()
-                            }
-                        }
-                        
-                        let k = QuestKey.generateKey(quest: quest)
-                        k.keyType = .cancelled
+                        quest.delay(seconds: 300)
                         do{try context.save()}catch{}
                     }
                 } label: {

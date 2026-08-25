@@ -15,26 +15,28 @@ struct ScheduleView: View {
     
     @ObservedObject
     var schedule: Schedule
-
+    
     @State var prevStartTime: Date? = nil
     
     //havent quite figured out how to properly handle Transformables, so this is here still
     @State var schDayArr: [Bool] = [true,true,true,true,true,true,true]
-    
-    let defaultStartTime = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date.now)!
-    let defaultEndTime = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: Date.now)!
-    
+
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Quest.objectID, ascending: true)], animation: .default)
     private var quests: FetchedResults<Quest>
     
     init(scheduleToLoad: Schedule){
         self.schedule = scheduleToLoad
+        if !self.schedule.isActive { self.schedule.ensureValidAutostart(from: Date.now) }
     }
     
     // UI Elements
     var activeToggleButton: some View {
         Button(){
-            toggleScheduleActiveStatus()
+            context.perform {
+                schedule.toggleActive()
+                do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+                
+            }
         } label : {
             VStack(spacing:0){
                 ZStack{
@@ -58,7 +60,6 @@ struct ScheduleView: View {
                 Stepper(label: {},
                         onIncrement: {schedule.xDayDelay+=1},
                         onDecrement: {
-                            schedule.xDayDelay-=1;
                             if schedule.xDayDelay<=0 {
                                 schedule.xDayDelay = 1}}
                 ).disabled(!editing)
@@ -119,12 +120,12 @@ struct ScheduleView: View {
             }
             VStack(alignment: .leading, spacing:0){
                 HStack{
-                    TextField("Quest Name", text: $schedule.scheduleName ?? "Unset Name")
+                    TextField("Schedule Name", text: $schedule.scheduleName ?? "Schedule")
                         .font(.title)
                         .disabled(!editing)
                     if editing {Image(systemName:"pencil")}
                 }
-                Text("Scheduled Quest: "+schedule.quest!.questName)
+                Text("Scheduled Quest: "+schedule.quest!.name)
                     .font(.footnote)
             }
             Divider()
@@ -145,27 +146,28 @@ struct ScheduleView: View {
             HStack{
                 Spacer()
                 Text("From")
-                DatePicker("ScheduledStart", selection: $schedule.scheduledStartTime ?? defaultStartTime, displayedComponents: .hourAndMinute).labelsHidden()
+                DatePicker("ScheduledStart", selection: $schedule.scheduledStartTime ?? schedule.nextScheduledStart, displayedComponents: .hourAndMinute).labelsHidden()
                     .disabled(!editing)
                 Text("to")
-                DatePicker(selection: $schedule.scheduledEndTime ?? defaultEndTime, displayedComponents: .hourAndMinute, label: {Text("to")})
+                DatePicker(selection: $schedule.scheduledEndTime ?? schedule.nextScheduledEnd, displayedComponents: .hourAndMinute, label: {Text("to")})
                     .labelsHidden()
                     .disabled(!editing)
                 //if end time hour+min is before start time hour+min
-                if isEndBeforeStart(){
+                if schedule.nextScheduledEnd < schedule.nextScheduledStart || Calendar.current.component(.day, from: schedule.nextScheduledEnd) > Calendar.current.component(.day, from: schedule.nextScheduledStart){
                     Text("next day")
                 }
                 Spacer()
             }
             HStack{
                 Text("Next start date:")
-                DatePicker(selection: $schedule.scheduledStartTime ?? defaultStartTime, in: Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date.now)!..., displayedComponents: .date, label: {Text("Next start date ")})
+                DatePicker(selection: $schedule.scheduledStartTime ?? schedule.nextScheduledStart, in: Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date.now)!..., displayedComponents: .date, label: {Text("Next start date ")})
                     .labelsHidden()
                     .disabled(!editing)
             }
             Divider()
             
             //toggle active + toggle lock buttons
+            //these access the actual schedule object
             if !editing{
                 ZStack{
                     HStack{
@@ -197,10 +199,10 @@ struct ScheduleView: View {
             schDayArr[i] = schedule.scheduledDays.contains(.Element(rawValue: 1<<i))
         }
         prevStartTime = schedule.startTime
-        
     }
     func startScheduleEarly(){
         context.perform {
+            applyChanges()
             do{
                 schedule.startTime = Date.now
                 try schedule.quest!.start(withSchedule: schedule)
@@ -219,7 +221,7 @@ struct ScheduleView: View {
             //deactivate while editing, not possible while schLocked
             if nowEditing && schedule.isActive{
                 schedule.toggleActive()
-            }else{
+            }else if !nowEditing{
                 applyChanges()
             }
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
@@ -231,58 +233,7 @@ struct ScheduleView: View {
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
     }
-    
-    
-    @State var autoScheduleChange: Int = 0
-    //try to active/deactivate schedule
-    func toggleScheduleActiveStatus(areYouSure: Bool = false){
-        context.perform {
-            
-            let scheduleOnTimeline = schedule.scheduledPeriodRelativity()
-            //if scheduled period has passed, move scheduled period to now/future (whichever fits the scheduled pattern)
-            if schedule.startTime! < Date.now{
-                autoScheduleChange = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now)
-                //FIX: and add a popup to say (couldnt activate, moved schedule forward to feasible time)
-            }
-            //if scheduled period is not in the past
-            else {
-                if scheduleOnTimeline == .now && !areYouSure{
-                    //TODO: add popup "scheduled period is right now, are you sure?"
-                    schedule.toggleActive()
-                    return
-                }
-                //if scheduled period is in future or force start, go ahead and toggle active status
-                schedule.toggleActive()
-            }
-            
-            //try saving this attribute change
-            do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-            
-        }
-    }
-    func isEndBeforeStart() -> Bool{
-        return schedule.scheduledStartTime! > Calendar.current.date(  bySettingHour: Calendar.current.component(.hour, from: schedule.scheduledEndTime!), minute: Calendar.current.component(.minute, from: schedule.scheduledEndTime!), second: Calendar.current.component(.second, from: schedule.scheduledEndTime!), of: schedule.scheduledStartTime!)!
-    }
-    func fixEndTime(){
-        //get hour and min of end time, and set it to later time in start day or next day if endhour < starthour
-        let hour = Calendar.current.component(.hour, from: schedule.scheduledEndTime!)
-        let minute = Calendar.current.component(.minute, from: schedule.scheduledEndTime!)
-        schedule.scheduledEndTime = Calendar.current.date(bySettingHour: hour, minute: minute, second: 0, of: schedule.scheduledStartTime!)!
-        //then push it ahead if needed (i.e. 22:00 start - 8:00 end --> move end to next day)
-        while schedule.scheduledEndTime! <= schedule.scheduledStartTime!{
-            schedule.scheduledEndTime!.addTimeInterval(86400)
-        }
-    }
-    
-    //similar to schedule.amendNextScheduledPeriod BUT it doesn't abide by the schedule, just makes sure end > now
-    ///return cases:
-    ///0: scheduled period is NOW
-    ///1: scheduled period is LATER
-    func ensureAutoStartIsPossible(){
-        //makes it so end time lines up with start time (i.e. 10:00-12:00 is same day and 22:00-8:00 is day X to X+1)
-        fixEndTime()
-        let _ = schedule.amendNextScheduledPeriod(toNextStartFrom: Date.now)
-    }
+
     
     func applyChanges(){
         context.perform {
@@ -295,8 +246,9 @@ struct ScheduleView: View {
                     {schedule.scheduledDays.remove(.Element(rawValue: 1<<i))}
                 }
             }
-            //validate changes so scheduling is still possible with given startTime
-            ensureAutoStartIsPossible()
+            
+            schedule.correctEndTime()
+            schedule.ensureValidAutostart(from: Date.now)
             
             //generate key to amend unsynchronised behaviour on PC app
             if prevStartTime != nil && schedule.startTime! > prevStartTime!{

@@ -1,0 +1,46 @@
+{
+  "configurations" : [
+    {
+      "id" : "2483493D-025F-466F-B42A-ED5A044900FF",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "-com.apple.CoreData.ConcurrencyDebug 1"
+      }
+    ],
+    "environmentVariableEntries" : [
+      {
+        "key" : "OS_ACTIVITY_MODE",
+        "value" : "disable"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:PQPrototype.xcodeproj",
+      "identifier" : "6BA3F8622ED8BF4F00EBE046",
+      "name" : "PQPrototype"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:PQPrototype.xcodeproj",
+        "identifier" : "6BA3F8772ED8BF5200EBE046",
+        "name" : "PQPrototypeTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:PQPrototype.xcodeproj",
+        "identifier" : "6BA3F8812ED8BF5200EBE046",
+        "name" : "PQPrototypeUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

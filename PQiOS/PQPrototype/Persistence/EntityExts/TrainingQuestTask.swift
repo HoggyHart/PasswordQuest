@@ -10,7 +10,7 @@ import Foundation
 extension TrainingQuestTask{
     
     override func update() throws {
-        if Date.now.timeIntervalSince(self.quest!.questStartTime!) >= duration{
+        if Date.now.timeIntervalSince(self.quest!.questStartTime ?? Date.distantFuture) >= duration{
             self.completed = true
         }
     }

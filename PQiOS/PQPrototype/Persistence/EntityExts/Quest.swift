@@ -10,13 +10,12 @@ class FailedStartError: Error{
 }
 
 extension Quest{
-
     convenience init(context: NSManagedObjectContext, name: String){
         self.init(context: context)
         self.isActive = false
         self.maxQuestDuration = 86400
         self.restrictedDeviceIPs = ""
-        self.questName = name
+        self.name = name
         self.questUUID = UUID()
     }
     
@@ -41,6 +40,10 @@ extension Quest{
         if tasks!.allObjects.isEmpty || self.isActive { return } //if no tasks or already in progress, nothing to start
         self.reset()
         
+        
+        self.isActive = true
+        self.questStartTime = sch?.startTime ?? Date.now
+        
         var errors: String = ""
         for t in tasks!{
             do{
@@ -55,12 +58,6 @@ extension Quest{
             throw FailedStartError(reasons: errors)
         }
         
-        self.isActive = true
-        self.questStartTime = sch?.startTime ?? Date.now
-        
-        //populate with initial task data
-        self.updateProgress() //TODO: include in task start code?
-        
         //if scheduled start, check schedule data that impacts quest
         guard let sch = sch else {return}
         self.locked = sch.nextSchLocked
@@ -69,8 +66,6 @@ extension Quest{
     
     public func updateProgress(){
         if self.isActive{
-            //TODO: remove this when the various getScheduler and start early issues are fixed
-            if self.questStartTime == nil { self.questStartTime = Date.now}
             var stillInProgress = false
             
             for qTask in self.tasks!{
@@ -115,7 +110,7 @@ extension Quest{
             //geeenerate notif
             let notif = UNMutableNotificationContent()
             notif.title = "Quest Complete!"
-            notif.body = error == nil ? self.questName + " is now complete!" : self.questName + " ended due to a goblin hex!"
+            notif.body = error == nil ? self.name + " is now complete!" : self.name + " ended due to a goblin hex!"
             
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: notif, trigger: trigger)
@@ -208,6 +203,28 @@ extension Quest{
         }
         return nil
     }
+    
+    public func delay(seconds: Double) {
+        //delay schedule, or if no scheduler, create temp schedule
+        if self.getCurrentScheduler()?.delay(duration: seconds) == nil{
+            let tempSch = Schedule(context: self.managedObjectContext!, quest: self)
+            tempSch.setSchedule(scheduledDays: Week(rawValue: 0))
+            tempSch.nextScheduledStart = self.questStartTime!
+            tempSch.nextScheduledEnd = self.questStartTime!.addingTimeInterval(86400)
+            tempSch.isActive = true
+            tempSch.nextSchLocked = true
+            //TODO: simplify this whole chunk. make schedule making quicker
+            //      AND see about just calling .delay() on the sch and remove need for this below bit VVV
+            self.isActive = false
+            self.questStartTime = tempSch.startTime
+            for t in self.tasks!{
+                (t as! QuestTask).endDependenciesAndTrackers()
+            }
+        }
+        
+        let k = QuestKey.generateKey(quest: self)
+        k.keyType = .cancelled
+    }
     public func endCurrentSchduler(){
         if let scheduler = getCurrentScheduler(){
             scheduler.endScheduledPeriod()
@@ -224,7 +241,7 @@ extension Quest{
     
     func toJson() -> String{
         var string = "{\n"
-        string += "    \"questName\" : \""+self.questName+"\",\n"
+        string += "    \"questName\" : \""+self.name+"\",\n"
         string += "    \"questUUID\" : \"" + self.questUUID!.uuidString + "\",\n"
         string += "    \"expiryDate\" : \"" + (self.getCurrentScheduler()?.scheduledEndTime ?? (self.questStartTime ?? Date.now).addingTimeInterval(maxQuestDuration)).formatted(date: .numeric, time: .standard) + "\"\n"
         string +=   "}"

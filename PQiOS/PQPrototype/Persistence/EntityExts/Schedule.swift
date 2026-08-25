@@ -25,6 +25,39 @@ extension Schedule {
             self.rawScheduledDays = Int16(newValue.rawValue)
         }
     }
+    var nextStart: Date {
+        get{
+            return startTime ?? nextScheduledStart
+        }
+        set{
+            self.startTime = newValue
+        }
+    }
+    var nextScheduledStart: Date{
+        get{
+            
+            return scheduledStartTime ?? {
+                scheduledStartTime = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date.now.addingTimeInterval(86400))
+                self.startTime = scheduledStartTime
+                return scheduledStartTime!
+                }()
+        }
+        set{
+            self.scheduledStartTime = newValue
+            self.startTime = newValue
+        }
+    }
+    var nextScheduledEnd: Date{
+        get{
+            return self.scheduledEndTime ?? {
+                scheduledEndTime = nextScheduledStart.addingTimeInterval(86400)
+                return scheduledEndTime!
+            }()
+        }
+        set{
+            self.scheduledEndTime = newValue
+        }
+    }
     
     var notificationUUIDs: [String]{
         get {
@@ -40,7 +73,15 @@ extension Schedule {
     ///to alter the duration, set the scheduledStart and scheduledEnd properties
     var duration: Double{
         get{
-            return scheduledEndTime!.timeIntervalSince(scheduledStartTime!)
+            return nextScheduledEnd.timeIntervalSince(nextScheduledStart)
+        }
+    }
+    func correctEndTime(){
+        while self.duration <= 0{
+            nextScheduledEnd.addTimeInterval(86400)
+        }
+        while self.duration > 86400{
+            nextScheduledEnd.addTimeInterval(-86400)
         }
     }
 }
@@ -50,16 +91,10 @@ extension Schedule {
 //init stuff
     convenience init(context: NSManagedObjectContext, quest: Quest){
         self.init(context: context)
-        isActive = false
-        let d = Date.now.addingTimeInterval(10)
-        scheduledStartTime = d
-        scheduledEndTime = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: Date.now)
-        scheduleName = quest.questName+" Schedule"
+        scheduleName = quest.name+" Schedule"
+        nextScheduledStart = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date.now.addingTimeInterval(86400))!
+        nextScheduledEnd = nextScheduledStart.addingTimeInterval(86400)
         scheduleUUID = UUID()
-        startTime = scheduledStartTime
-        setSchedule(scheduledDays: .weekdays)
-        lastEndDate = nil
-        lastScheduleCompletedOnTime = true
         self.quest = quest
     }
     
@@ -146,26 +181,24 @@ extension Schedule {
     }
     func getNext_XDayDelay_StartTime(fromDate: Date) -> Date{
         
-        let startHour = Calendar.current.component(.hour, from: scheduledStartTime!)
-        let startMin = Calendar.current.component(.minute, from: scheduledStartTime!)
+        let startHour = Calendar.current.component(.hour, from: nextScheduledStart)
+        let startMin = Calendar.current.component(.minute, from: nextScheduledStart)
         let start = Calendar.current.date(bySettingHour: startHour, minute: startMin, second: 0, of: fromDate)!
         return start.addingTimeInterval(Double(self.xDayDelay * 86400))
     }
     
     func getNext_ScheduledDays_StartTime(fromDate: Date) -> Date?{
-        
         if self.isOneTime() {
             return nil
         }
-        //Calendar: 1..<8
-        //mine:     0..<7
-        let curDay = Calendar.current.component(.weekday, from: fromDate)
         
-        let curDayOfWeek = curDay - 1
+        //Calendar: 1..<8
+        //mine:     0..<7 (-1)
+        let curDayOfWeek = Calendar.current.component(.weekday, from: fromDate) - 1
         
         var gap: Int = Int.max
         for i in 0..<7{
-            //if day scheduled and first scheduled day found
+            //if day scheduled and is the first scheduled day found
             if scheduledDays.contains(.Element(rawValue: 1<<i)) && gap == Int.max{
                 gap = i - curDayOfWeek
             }
@@ -178,20 +211,16 @@ extension Schedule {
         if gap <= 0{
             gap += 7
         }
-        let startHour = Calendar.current.component(.hour, from: scheduledStartTime!)
-        let startMin = Calendar.current.component(.minute, from: scheduledStartTime!)
+        let startHour = Calendar.current.component(.hour, from: nextScheduledStart)
+        let startMin = Calendar.current.component(.minute, from: nextScheduledStart)
         let start = Calendar.current.date(bySettingHour: startHour, minute: startMin, second: 0, of: fromDate)!
         return start.addingTimeInterval(Double(gap*86400))
     }
     
-    func getNextStartTime(fromDate: Date) -> Date{
-        guard let nextStart = self.everyXDays ? getNext_XDayDelay_StartTime(fromDate: fromDate) : getNext_ScheduledDays_StartTime(fromDate: fromDate)
-        else{ //if cannot get a scheduled day (no days of the week chosen or invalid delay (<1))
-            //deactivate and leave start time as date given
-            self.deactivateSchedule()
-            return fromDate
-        }
-        return nextStart
+    
+    
+    func getNextStartTime(fromDate: Date) -> Date?{
+        return self.everyXDays ? getNext_XDayDelay_StartTime(fromDate: fromDate) : getNext_ScheduledDays_StartTime(fromDate: fromDate)
     }
     
     ///Called when scheduled quest finishes
@@ -199,9 +228,16 @@ extension Schedule {
         //finish period
         self.lastEndDate = Date.now
         self.lastScheduleCompletedOnTime = self.quest!.tasksComplete()
+        self.updateSchedule()
+    }
+    func updateSchedule(){
+        let dur = self.duration
+        var nextStart = getNextStartTime(fromDate: self.nextScheduledStart)
+        if nextStart == nil { self.deactivateSchedule() }
         
-        //set next start/end times
-        _ = amendNextScheduledPeriod(toNextStartFrom: self.scheduledStartTime!) //_ = to get rid of warning
+        nextScheduledStart = nextStart ?? nextScheduledStart
+        nextScheduledEnd = nextScheduledStart.addingTimeInterval(dur)
+        scheduleNotification()
     }
     
     ///-1: scheduled period has passed by given date
@@ -221,45 +257,31 @@ extension Schedule {
     ///Can pad with QuestKeys to pretend it was doing schedules the whole time
     ///return value indicates whether start time was moved forward, backward, or stayed the same
     ///
-    ///safe: indicates whether the shift could result in 'now' being between the start and end time, true = now will be before a start, false = could be between
-    func amendNextScheduledPeriod(toNextStartFrom givenTime: Date, padQuestFailures: Bool = false) -> Int{
-        if self.isOneTime(){
-            self.deactivateSchedule()
-            return 0
-        }
+    func ensureValidAutostart(from givenTime: Date, padQuestFailures: Bool = false){
+        let oneTime = self.isOneTime()
         
-        let recDuration = self.duration
-        //if start time is already ahead of the given date
-        if self.startTime! > givenTime {
-            //just make sure it's the IMMEDIATE next possible start
-            scheduledStartTime = getNextStartTime(fromDate: givenTime)
-        }
-        //if startTime is behind
-        else{
-            let moveAlongOne = { [self] in
-                //add quest fails]
-                if padQuestFailures{
-                    let reward = QuestKey.generateKey(quest: self.quest!)
-                    reward.keyType = QuestKeyType.failed
-                    reward.scheduled = self.scheduleUUID
-                    reward.obtainmentDate = self.scheduledEndTime!
-                    self.quest!.addToRewards(reward)
-                }
-                //move schedule ahead
-                scheduledStartTime = getNextStartTime(fromDate: scheduledStartTime!)
+        let moveAlongOne = { [self] in
+            //add quest fails]
+            if padQuestFailures{
+                let reward = QuestKey.generateKey(quest: self.quest!)
+                reward.keyType = QuestKeyType.failed
+                reward.scheduled = self.scheduleUUID
+                reward.obtainmentDate = self.scheduledEndTime!
+                self.quest!.addToRewards(reward)
             }
-            //push back start until start date is in the future
-            while self.scheduledStartTime! <= givenTime{
-                moveAlongOne()
-            }
-            
-            //finalise start time and end time
-            startTime = scheduledStartTime
-            scheduledEndTime = scheduledStartTime!.addingTimeInterval(recDuration)
+            //move schedule ahead
+            scheduledStartTime = getNextStartTime(fromDate: scheduledStartTime!)
         }
+        //push back start until start date is in the future
+        if oneTime{ self.everyXDays = true; self.xDayDelay = 1}
+        while self.scheduledStartTime! <= givenTime{
+            moveAlongOne()
+        }
+        if oneTime{ self.everyXDays = false }
         
-        //doesnt reeally matter as this result isnt used anywhere atm.
-        return givenTime.timeIntervalSince(startTime!) < 0 ? -1 : givenTime.equals(date2: startTime!) ? 0 : 1
+        //finalise start time and end time
+        startTime = scheduledStartTime
+        self.correctEndTime()
     }
     
     public func toggleActive(){
@@ -267,24 +289,25 @@ extension Schedule {
             self.deactivateSchedule()
         }
         else{
+            self.correctEndTime()
             self.activateSchedule()
         }
     }
     
     private func activateSchedule(){
         self.isActive = true
-        self.scheduleNotifications()
+        self.scheduleNotification()
     }
     
     private func deactivateSchedule(){
         self.isActive = false
         self.nextSchLocked = false
-        //cancel notifications
-        let notcen = UNUserNotificationCenter.current()
-        notcen.removePendingNotificationRequests(withIdentifiers: self.notificationUUIDs)
         //generate key in case of PC quest start on cancelled schedule due to desync between devices
         let key = QuestKey.generateKey(quest: self.quest!)
         key.keyType = .cancelled
+        //cancel notifications
+        let notcen = UNUserNotificationCenter.current()
+        notcen.removePendingNotificationRequests(withIdentifiers: self.notificationUUIDs)
         
     }
     
@@ -315,11 +338,11 @@ extension Schedule {
 extension Schedule {
     
     //schedules the single next start time notification
-    func scheduleNotifications(){
+    func scheduleNotification(){
         if everyXDays{
-            createIntervalNotifications()
+            createIntervalNotification()
         }else{
-            createDatedNotifications()
+            createDatedNotification()
         }
     }
     
@@ -333,33 +356,26 @@ extension Schedule {
         notificationCenter.add(request)
     }
     
-    private func createDatedNotifications(){
-        let content = QuestStartNotification(questName: self.quest!.questName, scheduleName: self.scheduleName)
+    private func createDatedNotification(){
+        let content = QuestStartNotification(questName: self.quest!.name, scheduleName: self.scheduleName)
         
-        for i in 0..<7{
-            if scheduledDays.contains(.Element(rawValue: 1<<i)){
-                
-                //create notification schedule info
-                var dateComponents = DateComponents()
-                dateComponents.calendar = Calendar.current
-                dateComponents.weekday = i+1 // my scale 0-6 theirs 1-7
-                dateComponents.hour = Calendar.current.component(.hour, from: self.scheduledStartTime!)
-                dateComponents.minute = Calendar.current.component(.minute, from: self.scheduledStartTime!)
-             
-                
-                let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-                
-                queueNotif(content: content, trigger: trigger)
-            }
-        }
-    }
-    
-    private func createIntervalNotifications(){
-        let nextScheduled = self.scheduledStartTime!
-        let content = QuestStartNotification(questName: self.quest!.questName, scheduleName: self.scheduleName)
         //create notification schedule info
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: max(nextScheduled.timeIntervalSince(Date.now),1), repeats: false)
+        var dateComponents = DateComponents()
+        dateComponents.calendar = Calendar.current
+        dateComponents.day = Calendar.current.component(.day, from: self.nextScheduledStart)
+        dateComponents.hour = Calendar.current.component(.hour, from: self.nextScheduledStart)
+        dateComponents.minute = Calendar.current.component(.minute, from: self.nextScheduledStart)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        
+        queueNotif(content: content, trigger: trigger)
+    }
+    
+    private func createIntervalNotification(){
+        let content = QuestStartNotification(questName: self.quest!.name, scheduleName: self.scheduleName)
+        //create notification schedule info
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: max(self.nextScheduledStart.timeIntervalSince(Date.now),1), repeats: false)
         
         queueNotif(content: content, trigger: trigger)
     }
