@@ -26,7 +26,7 @@ struct PQPrototypeApp: App {
     init(){
         Task {
             let center = UNUserNotificationCenter.current()
-            
+            center.removeAllDeliveredNotifications() //clear old notifs
             do {
                 try await center.requestAuthorization(options: [.alert, .sound, .badge])
             } catch {

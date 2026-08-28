@@ -18,7 +18,14 @@ extension TrainingQuestTask{
     var completionPercent: Double{
         get{
             if completed { return 100.0 }
-            return Date.now.timeIntervalSince(self.quest!.questStartTime!) * 100.0 / duration
+            return Date.now.timeIntervalSince(self.quest!.questStartTime ?? Date.distantFuture) * 100.0 / duration
+        }
+    }
+    
+    public override var currentReward: Int {
+        get{
+            if completed { return Int(duration/720) } //5 per hour
+            return 0 //
         }
     }
     override func currentStatus() -> String {

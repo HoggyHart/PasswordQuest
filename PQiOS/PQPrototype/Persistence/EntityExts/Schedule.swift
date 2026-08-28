@@ -308,9 +308,7 @@ extension Schedule {
         //cancel notifications
         let notcen = UNUserNotificationCenter.current()
         notcen.removePendingNotificationRequests(withIdentifiers: self.notificationUUIDs)
-        
     }
-    
 }
 
 //json/pc lock stuff
@@ -354,6 +352,7 @@ extension Schedule {
         // Schedule the request with the system.
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.add(request)
+        self.notificationUUIDs.append(uuidString)
     }
     
     private func createDatedNotification(){

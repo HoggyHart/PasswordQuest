@@ -66,6 +66,10 @@ extension Quest{
     
     public func updateProgress(){
         if self.isActive{
+            if self.questStartTime == nil {
+                self.end() //TODO: make an in-app notification about this
+                return
+            }
             var stillInProgress = false
             
             for qTask in self.tasks!{
