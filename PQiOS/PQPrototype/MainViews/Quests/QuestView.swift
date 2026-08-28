@@ -134,15 +134,11 @@ struct QuestView: View {
                     quest.end()
                 }
             case .paused:
-                quest.isActive = true
+                let sch = quest.getCurrentScheduler()
                 do{
-                    for t in quest.tasks!{
-                        try (t as! QuestTask).initDependenciesAndTrackers()
-                    }
+                    try quest.resume()
                 }catch{}
-                guard let sch = quest.getCurrentScheduler() else { break }
-                sch.startTime = Date.now
-                quest.questStartTime = sch.startTime
+                sch?.startTime = quest.questStartTime
             default: // also for -2: inactive + no quests
                 //do nothing, unknown status
                 

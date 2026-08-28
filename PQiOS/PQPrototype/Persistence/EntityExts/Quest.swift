@@ -12,9 +12,6 @@ class FailedStartError: Error{
 extension Quest{
     convenience init(context: NSManagedObjectContext, name: String){
         self.init(context: context)
-        self.isActive = false
-        self.maxQuestDuration = 86400
-        self.restrictedDeviceIPs = ""
         self.name = name
         self.questUUID = UUID()
     }
@@ -133,28 +130,43 @@ extension Quest{
             self.addToRewards(reward)
             
             //end scheduler
-            endCurrentSchduler()
+            endCurrentScheduler()
             
             //leave task progress and questStartTime alone to indicate quest status as completed or failed
             //these are changed in reset()
             self.isActive = false
             self.locked = false
-            self.questStartTime = nil
         }
     }
     
-    //set progress to 0 and deactivate
     public func reset(){
+        endCurrentScheduler()
+        
         for qTask in self.tasks!{
             (qTask as! QuestTask).reset()
         }
         
-        endCurrentSchduler()
-        
-        self.isActive = false
         self.questStartTime = nil
     }
     
+    public func pause(){
+        self.isActive = false
+        self.questStartTime = Date.distantFuture //so the quest is flagged as paused in Quest.questStatus()
+        for t in tasks!{
+            (t as! QuestTask).endDependenciesAndTrackers()
+        }
+    }
+    
+    public func resume() throws{
+        self.isActive = true
+        self.questStartTime = Date.now //TODO: ensure this is later set to any related schedule's startTime
+        for t in tasks!{
+            do{
+                try (t as! QuestTask).initDependenciesAndTrackers()
+            }catch let e as InvalidTaskError{
+            }
+        }
+    }
 //Status Checking
     ///-2: inactive, no quests
     ///-1: inactive, failed
@@ -173,13 +185,13 @@ extension Quest{
         
         //if active, its in progress
         if self.isActive { return .inProgress }
-        //if inactive and tasks are complete, that means successfully finished and pending submission
-        else if tasksComplete(){ return .completed }
         //if no quests to be completed, indicate there is nothing to start
         else if self.tasks?.allObjects.isEmpty ?? true { return .inactive }
         //if inactive and questStartTime == nil, that means the quest has been officially ended and is waiting for next start
         else if questStartTime == nil { return .inactive}
         else if questStartTime! > Date.now { return .paused}
+        //if inactive and tasks are complete, that means successfully finished and pending submission
+        else if tasksComplete(){ return .completed }
         //only option left is inactive with incomplete quests - failed
         else { return .failed }
         
@@ -217,19 +229,15 @@ extension Quest{
             tempSch.nextScheduledEnd = self.questStartTime!.addingTimeInterval(86400)
             tempSch.isActive = true
             tempSch.nextSchLocked = true
-            //TODO: simplify this whole chunk. make schedule making quicker
-            //      AND see about just calling .delay() on the sch and remove need for this below bit VVV
-            self.isActive = false
+            
+            self.pause()
             self.questStartTime = tempSch.startTime
-            for t in self.tasks!{
-                (t as! QuestTask).endDependenciesAndTrackers()
-            }
         }
         
         let k = QuestKey.generateKey(quest: self)
         k.keyType = .cancelled
     }
-    public func endCurrentSchduler(){
+    public func endCurrentScheduler(){
         if let scheduler = getCurrentScheduler(){
             scheduler.endScheduledPeriod()
         }

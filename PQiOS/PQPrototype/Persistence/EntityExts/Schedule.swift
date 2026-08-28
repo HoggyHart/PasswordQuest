@@ -160,24 +160,17 @@ extension Schedule {
     }
     
     func delay(duration: Double) -> Void{
-        if (GlobalQuestLoot.getLoot(self.managedObjectContext!).timeInABottle.updateStoredTime(amount: -Int(duration)/60) == 0) {
+        if (GlobalQuestLoot.getLoot(self.managedObjectContext!).timeInABottle.updateStoredTime(amount: -Int(duration)/60) == 0) { //dont delay if cant afford to delay for this long (1u of TIAB per minute delayed)
             return
         }
         if self.scheduledPeriodRelativity() == .now{
             self.startTime = Date.now.addingTimeInterval(duration)
-            self.quest?.isActive = false
+            self.quest?.pause()
             self.quest?.questStartTime = self.startTime
         }
         else{
             self.startTime?.addTimeInterval(duration)
         }
-        /*
-         let delayImpactsSchedule = true //FIX: Not yet fully implemented / may also affect hour/minute depending on frequency of schedule if I improve schedule versatility to sub-day intervals
-         if delayImpactsSchedule{
-             scheduledStartTime!.addTimeInterval(delay)
-             scheduledEndTime!.addTimeInterval(delay)
-         }
-         */
     }
     func getNext_XDayDelay_StartTime(fromDate: Date) -> Date{
         

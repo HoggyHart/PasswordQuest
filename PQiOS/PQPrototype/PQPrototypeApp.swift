@@ -103,7 +103,8 @@ struct PQPrototypeApp: App {
                             do{
                                 if !schedule.nextStart.equals(date2: schedule.nextScheduledStart){
                                     //indicates schedule was delayed meaning quest was paused
-                                    quest.isActive = true
+                                    try quest.resume()
+                                    quest.questStartTime = schedule.nextStart//sync so their link is clear
                                 }else{
                                     try quest.start(withSchedule: schedule)
                                 }
