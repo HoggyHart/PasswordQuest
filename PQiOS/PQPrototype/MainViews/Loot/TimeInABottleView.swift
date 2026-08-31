@@ -122,6 +122,7 @@ struct TimeInABottleUpgradeView: View{
                             context.perform {
                                 if tiab.updateStoredTime(amount: -tiab.weeklyCap) != 0{
                                     tiab.weeklyCap += TimeInABottle.weeklyCapIncrease
+                                    _ = QuestKey.generateAIOKey(context: context) //and generate a congratulations key
                                 }
                                 do{try context.save()}catch{}
                             }

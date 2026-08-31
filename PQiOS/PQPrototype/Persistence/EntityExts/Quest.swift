@@ -159,7 +159,7 @@ extension Quest{
     
     public func resume() throws{
         self.isActive = true
-        self.questStartTime = Date.now //TODO: ensure this is later set to any related schedule's startTime
+        self.questStartTime = Date.now
         for t in tasks!{
             do{
                 try (t as! QuestTask).initDependenciesAndTrackers()
