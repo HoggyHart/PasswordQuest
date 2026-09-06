@@ -18,18 +18,18 @@ extension RNGLocationTask{
             }).count ?? 0
         }
     }
-    override public var currentReward: Int{
+    override public var currentReward: Float{
         get {
             if completed { return maxReward }
-            else { return max(5,Int(Double(self.completedAreas)*rangeMult)) }
+            else { return max(5,Float(self.completedAreas)*rangeMult) }
         }
     }
-    private var rangeMult: Double{
+    private var rangeMult: Float{
         // 100% +10% value per 100 meters range
-        get {return 1.0 + (self.location?.radius ?? 0.0)*0.1/100.0}
+        get {return Float(1.0 + (self.location?.radius ?? 0.0)*0.1/100.0)}
     }
-    override public var maxReward: Int{
-        get{ return max(5,Int(Double(self.numberOfGeneratedLocations) * rangeMult)) }
+    override public var maxReward: Float{
+        get{ return max(5,Float(self.numberOfGeneratedLocations) * rangeMult) }
     }
 }
 extension RNGLocationTask{

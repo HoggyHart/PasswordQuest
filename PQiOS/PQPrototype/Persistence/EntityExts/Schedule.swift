@@ -160,7 +160,7 @@ extension Schedule {
     }
     
     func delay(duration: Double) -> Void{
-        if (GlobalQuestLoot.getLoot(self.managedObjectContext!).timeInABottle.updateStoredTime(amount: -Int(duration)/60) == 0) { //dont delay if cant afford to delay for this long (1u of TIAB per minute delayed)
+        if (GlobalQuestLoot.getLoot(self.managedObjectContext!).timeInABottle.updateStoredTime(amount: -Float(duration)/60) == 0) { //dont delay if cant afford to delay for this long (1u of TIAB per minute delayed)
             return
         }
         if self.scheduledPeriodRelativity() == .now{
@@ -219,7 +219,7 @@ extension Schedule {
     ///Called when scheduled quest finishes
     func endScheduledPeriod(){
         //finish period
-        self.lastEndDate = Date.now
+        self.lastEndDate = self.nextScheduledEnd
         self.lastScheduleCompletedOnTime = self.quest!.tasksComplete()
         self.updateSchedule()
     }
@@ -250,12 +250,12 @@ extension Schedule {
     ///Can pad with QuestKeys to pretend it was doing schedules the whole time
     ///return value indicates whether start time was moved forward, backward, or stayed the same
     ///
-    func ensureValidAutostart(from givenTime: Date, padQuestFailures: Bool = false){
+    func ensureValidAutostart(from givenTime: Date, naturalUpdate: Bool = false){
         let oneTime = self.isOneTime()
         
         let moveAlongOne = { [self] in
             //add quest fails]
-            if padQuestFailures{
+            if naturalUpdate{
                 let reward = QuestKey.generateKey(quest: self.quest!)
                 reward.keyType = QuestKeyType.failed
                 reward.scheduled = self.scheduleUUID
@@ -265,13 +265,19 @@ extension Schedule {
             //move schedule ahead
             scheduledStartTime = getNextStartTime(fromDate: scheduledStartTime!)
         }
-        //push back start until start date is in the future
-        if oneTime{ self.everyXDays = true; self.xDayDelay = 1}
-        while self.scheduledStartTime! <= givenTime{
-            moveAlongOne()
-        }
-        if oneTime{ self.everyXDays = false }
         
+        //push back start until start date is in the future
+        if oneTime && naturalUpdate && self.scheduledStartTime! <= givenTime{
+            moveAlongOne() //i.e. generate key
+            self.deactivateSchedule()
+        }
+        else{
+            if oneTime {self.everyXDays = true; self.xDayDelay = 1}
+            while self.scheduledStartTime! <= givenTime {
+                moveAlongOne()
+            }
+            if oneTime{ self.everyXDays = false }
+        }
         //finalise start time and end time
         startTime = scheduledStartTime
         self.correctEndTime()

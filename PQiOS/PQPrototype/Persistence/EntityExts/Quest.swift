@@ -16,13 +16,13 @@ extension Quest{
         self.questUUID = UUID()
     }
     
-    var minRewardValue: Int{
+    var minRewardValue: Float{
         get{ return 0 }
     }
     
-    var maxRewardValue: Int{
+    var maxRewardValue: Float{
         get{
-            var tot = 0
+            var tot: Float = 0
             for t in tasks!.allObjects as! [QuestTask]{
                 tot += t.maxReward
             }
@@ -64,7 +64,7 @@ extension Quest{
     public func updateProgress(){
         if self.isActive{
             if self.questStartTime == nil {
-                self.end() //TODO: make an in-app notification about this
+                self.end(reason: .error, error:"active quest with no start time") //TODO: make an in-app notification about this
                 return
             }
             var stillInProgress = false
@@ -75,7 +75,7 @@ extension Quest{
                     do{
                         try qTask.update()
                     }catch let e as InvalidTaskError{
-                        self.end(error:"\(e.task) with invalid \(e.invalidAttribute)")
+                        self.end(reason: .error, error:"\(e.task) with invalid \(e.invalidAttribute)")
                     }catch let e{
                         fatalError(e.localizedDescription)
                     }
@@ -101,8 +101,13 @@ extension Quest{
             }
         }
     }
-    
-    public func end(error: String? = nil){
+    public enum QuestEndReason{
+        case natural
+        case error
+        case skipped
+        case cancelled
+    }
+    public func end(reason: QuestEndReason = .natural, error: String? = nil){
         if self.isActive{
         
             for t in tasks!{
@@ -120,13 +125,18 @@ extension Quest{
             
             //create quest reward (key)
             let reward = QuestKey.generateKey(quest: self)
-            if error != nil {reward.keyType = QuestKeyType.cancelled}
-            var rewardT: Int = 0
-            for t in tasks!.allObjects{
-                let t = t as! QuestTask
-                rewardT += t.currentReward
+            if reason == .error || reason == .cancelled{
+                reward.keyType = .cancelled
+            } else if reason == .skipped{
+                reward.keyType = .complete
+            } else if reason == .natural{
+                var rewardT: Float = 0
+                for t in tasks!.allObjects{
+                    let t = t as! QuestTask
+                    rewardT += t.currentReward
+                }
+                _ = GlobalQuestLoot.getLoot(self.managedObjectContext!).timeInABottle.updateStoredTime(amount: rewardT, impactTrackers: true)
             }
-            if error == nil {_ = GlobalQuestLoot.getLoot(self.managedObjectContext!).timeInABottle.updateStoredTime(amount: rewardT, impactTrackers: true)}
             self.addToRewards(reward)
             
             //end scheduler

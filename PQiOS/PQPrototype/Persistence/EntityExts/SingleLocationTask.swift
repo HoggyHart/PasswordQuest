@@ -11,11 +11,11 @@ import CoreData
 
 extension SingleLocationTask: MKMapViewDelegate {
     
-    override public var currentReward: Int{
-        get { if completed { return maxReward} else {return Int(self.recordedOccupationTime/60*0.1)}}
+    override public var currentReward: Float{
+        get { if completed { return maxReward} else {return Float(self.recordedOccupationTime/60*0.1)}}
     }
-    override public var maxReward: Int{
-        get { return max(Int(self.requiredOccupationDuration/60*0.5),5)} //TODO: add a user 'origin/home' location var for the app so that distance from home can be added to these calcs to replace min reward of 5. Because if quest is 'stay where you are for 0 seconds' it shouldnt have the same reward as 'go to a place 1km from home and be there for 0 seconds'. This is both an incentive to move AND an anti-cheat measure
+    override public var maxReward: Float{
+        get { return Float(max(self.requiredOccupationDuration/60*0.5,5))} //TODO: add a user 'origin/home' location var for the app so that distance from home can be added to these calcs to replace min reward of 5. Because if quest is 'stay where you are for 0 seconds' it shouldnt have the same reward as 'go to a place 1km from home and be there for 0 seconds'. This is both an incentive to move AND an anti-cheat measure
     }
     
     convenience init(context: NSManagedObjectContext, dummyVar: Bool = false){

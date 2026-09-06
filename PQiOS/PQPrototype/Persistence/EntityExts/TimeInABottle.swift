@@ -12,9 +12,9 @@ extension TimeInABottle{
     static let weeklyCapIncrease: Int = 30
     
     //wrapper for simplicity of using regular Int
-    var weeklyTally: Int {
-        get { return Int(self.weeklyTimeCollected)}
-        set { self.weeklyTimeCollected = Int16(newValue)}
+    var weeklyTally: Float {
+        get { return self.weeklyTimeCollected}
+        set { self.weeklyTimeCollected = newValue}
     }
     
     //returns the softcap - or 'pre-upgrade' - weekly limit
@@ -66,7 +66,7 @@ extension TimeInABottle{
     }
     
     
-    public func updateStoredTime(amount: Int, impactTrackers limit: Bool = false) -> Int{
+    public func updateStoredTime(amount: Float, impactTrackers limit: Bool = false) -> Float{
         while Date.now > self.weeklyTallyResetDate {
             self.weeklyTallyResetDate.addTimeInterval(86400*7)
             self.weeklyTally = 0
@@ -79,23 +79,23 @@ extension TimeInABottle{
         
         //if this contributes to the weekly limit
         if (amount>0 && limit){
-            if self.weeklyTally >= self.weeklyCap { return 0 }
+            if self.weeklyTally >= Float(self.weeklyCap) { return 0 }
             
             let ogTally = self.weeklyTally
-            self.weeklyTally = min(ogTally+amount, self.weeklyCap)
+            self.weeklyTally = min(ogTally+amount, Float(self.weeklyCap))
             //get capped amount added (to add to actual tiab)
             added = self.weeklyTally - ogTally
         }
         //else if spending time
         else if amount < 0 {
             //and its more than there is *to* spend
-            if Int(self.timeStored) + amount < 0{
+            if self.timeStored + amount < 0{
                 return 0
             }
             //reset duration required of no spending (nil makes it lazily regenerated next time its used (see weeklyUpgradeChallengeDate)
             if limit { self.weeklyLimitIncreaseDate = nil }
         }
-        self.timeStored+=Int64(added)
+        self.timeStored+=Float(added)
         return added
     }
 }

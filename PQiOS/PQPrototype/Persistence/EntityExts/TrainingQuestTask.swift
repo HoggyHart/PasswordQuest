@@ -22,9 +22,9 @@ extension TrainingQuestTask{
         }
     }
     
-    public override var currentReward: Int {
+    public override var currentReward: Float {
         get{
-            if completed { return Int(duration/720) } //5 per hour
+            if completed { return Float(duration/720) } //5 per hour
             return 0 //
         }
     }

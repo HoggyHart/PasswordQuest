@@ -95,7 +95,7 @@ struct PQPrototypeApp: App {
                         
                         // if scheduled period has already passed, fail quests until schedule has caught up to now
                         if Date.now > schedule.getActualEndTime(){
-                            schedule.ensureValidAutostart(from: Date.now, padQuestFailures: true)
+                            schedule.ensureValidAutostart(from: Date.now, naturalUpdate: true)
                         }
                         
                         //if past start time (and before end time), start

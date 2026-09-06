@@ -120,7 +120,7 @@ struct TimeInABottleUpgradeView: View{
                     content:
                         Button(){
                             context.perform {
-                                if tiab.updateStoredTime(amount: -tiab.weeklyCap) != 0{
+                                if tiab.updateStoredTime(amount: -Float(tiab.weeklyCap)) != 0{
                                     tiab.weeklyCap += TimeInABottle.weeklyCapIncrease
                                     _ = QuestKey.generateAIOKey(context: context) //and generate a congratulations key
                                 }
@@ -165,7 +165,7 @@ struct TimeInABottleShopView: View{
     }
     func buyAdminKey(){
         context.perform {
-            if tiab.updateStoredTime(amount: -adminKeyCost) != 0{
+            if tiab.updateStoredTime(amount: -Float(adminKeyCost)) != 0{
                 _ = QuestKey.generateAIOKey(context: context)
             }
             

@@ -124,14 +124,12 @@ struct QuestView: View {
             case .inProgress:
                 if quest.locked{
                     if GlobalQuestLoot.getLoot(context).timeInABottle.updateStoredTime(amount: -quest.maxRewardValue, impactTrackers: true) != 0{
-                        quest.end()
-                        let k = QuestKey.generateKey(quest: quest)
-                        k.keyType = .complete
+                        quest.end(reason:.skipped)
                     }
                     do{try context.save()}catch{}
                 }
                 else{
-                    quest.end()
+                    quest.end(reason: .cancelled)
                 }
             case .paused:
                 let sch = quest.getCurrentScheduler()

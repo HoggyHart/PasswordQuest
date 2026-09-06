@@ -71,9 +71,9 @@
         <attribute name="stayInside" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
     </entity>
     <entity name="TimeInABottle" representedClassName=".TimeInABottle" syncable="YES">
-        <attribute name="timeStored" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timeStored" attributeType="Float" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="weeklyLimitIncreaseDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="weeklyTimeCollected" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="weeklyTimeCollected" attributeType="Float" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="weeklyTimeLimit" attributeType="Integer 16" defaultValueString="120" usesScalarValueType="YES"/>
         <attribute name="weeklyTimeReset" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>

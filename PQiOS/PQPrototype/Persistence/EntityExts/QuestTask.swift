@@ -21,11 +21,11 @@ class InvalidTaskError: Error{
 
 extension QuestTask{
     @objc
-    public var currentReward: Int{
+    public var currentReward: Float{
         get { if completed {return 5} else {return 0} }
     }
     @objc
-    public var maxReward: Int{
+    public var maxReward: Float{
         return 5
     }
     
