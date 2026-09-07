@@ -75,6 +75,9 @@
 		6BA9DDC42F3CEDAC00AF1B06 /* QuestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9DDC32F3CEDAC00AF1B06 /* QuestTask.swift */; };
 		6BA9DDC62F3CEDC500AF1B06 /* QuestKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9DDC52F3CEDC500AF1B06 /* QuestKey.swift */; };
 		6BA9DE0A2F42003400AF1B06 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9DE092F42003400AF1B06 /* StringUtils.swift */; };
+		6BE3230E304F188500074E25 /* ManualQuestTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE3230C304F187F00074E25 /* ManualQuestTask+CoreDataClass.swift */; };
+		6BE3230F304F188500074E25 /* ManualQuestTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE3230D304F187F00074E25 /* ManualQuestTask+CoreDataProperties.swift */; };
+		6BE32312304F18C900074E25 /* ManualTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE32311304F18C900074E25 /* ManualTaskView.swift */; };
 		6BF5EF312FBF984100970F59 /* GlobalQuestLoot+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF5EF232FBF984100970F59 /* GlobalQuestLoot+CoreDataClass.swift */; };
 		6BF5EF322FBF984100970F59 /* GlobalQuestLoot+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF5EF242FBF984100970F59 /* GlobalQuestLoot+CoreDataProperties.swift */; };
 		6BF5EF332FBF984100970F59 /* QuestTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF5EF252FBF984100970F59 /* QuestTask+CoreDataClass.swift */; };
@@ -183,6 +186,9 @@
 		6BA9DDC32F3CEDAC00AF1B06 /* QuestTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTask.swift; sourceTree = "<group>"; };
 		6BA9DDC52F3CEDC500AF1B06 /* QuestKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestKey.swift; sourceTree = "<group>"; };
 		6BA9DE092F42003400AF1B06 /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
+		6BE3230C304F187F00074E25 /* ManualQuestTask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManualQuestTask+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6BE3230D304F187F00074E25 /* ManualQuestTask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManualQuestTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		6BE32311304F18C900074E25 /* ManualTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualTaskView.swift; sourceTree = "<group>"; };
 		6BF5EF232FBF984100970F59 /* GlobalQuestLoot+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GlobalQuestLoot+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6BF5EF242FBF984100970F59 /* GlobalQuestLoot+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GlobalQuestLoot+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6BF5EF252FBF984100970F59 /* QuestTask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QuestTask+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -290,6 +296,7 @@
 		6B331EF02F647F6700DBECA4 /* QuestTasks */ = {
 			isa = PBXGroup;
 			children = (
+				6BE32310304F18BA00074E25 /* ManualTaskView */,
 				6B94B59B3033BE7000EF0D60 /* TrainingTaskView */,
 				6B94B58E3031D6CD00EF0D60 /* SingleLocationTaskVIew */,
 				6B7CB8342FC618C400345B18 /* RNGLocationTaskView */,
@@ -459,6 +466,8 @@
 		6BA9DDBC2F3CE9F500AF1B06 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				6BE3230C304F187F00074E25 /* ManualQuestTask+CoreDataClass.swift */,
+				6BE3230D304F187F00074E25 /* ManualQuestTask+CoreDataProperties.swift */,
 				6B94B588302C91CB00EF0D60 /* TrainingQuestTask+CoreDataClass.swift */,
 				6B94B589302C91CB00EF0D60 /* TrainingQuestTask+CoreDataProperties.swift */,
 				6B80D0D93006F7BC00A75888 /* TimeInABottle+CoreDataClass.swift */,
@@ -509,6 +518,14 @@
 				6B94B5993033B75700EF0D60 /* TrainingQuestTask.swift */,
 			);
 			path = EntityExts;
+			sourceTree = "<group>";
+		};
+		6BE32310304F18BA00074E25 /* ManualTaskView */ = {
+			isa = PBXGroup;
+			children = (
+				6BE32311304F18C900074E25 /* ManualTaskView.swift */,
+			);
+			path = ManualTaskView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -657,6 +674,7 @@
 				6BF5EF3C2FBF984100970F59 /* Quest+CoreDataProperties.swift in Sources */,
 				6BF5EF402FC05E7900970F59 /* ScheduleList.swift in Sources */,
 				6B94B59830339B1F00EF0D60 /* Notifications.swift in Sources */,
+				6BE3230E304F188500074E25 /* ManualQuestTask+CoreDataClass.swift in Sources */,
 				6B2153232EEC2BEB00188D31 /* QuestView.swift in Sources */,
 				6BA72D7F2F474C620019649F /* LocationView.swift in Sources */,
 				6BF5EF322FBF984100970F59 /* GlobalQuestLoot+CoreDataProperties.swift in Sources */,
@@ -667,6 +685,7 @@
 				6BF5EF3B2FBF984100970F59 /* Quest+CoreDataClass.swift in Sources */,
 				6B2153402EECEC0900188D31 /* ScheduleView.swift in Sources */,
 				6B94B58B302C91CB00EF0D60 /* TrainingQuestTask+CoreDataProperties.swift in Sources */,
+				6BE32312304F18C900074E25 /* ManualTaskView.swift in Sources */,
 				6B331EF92F649F2500DBECA4 /* Colors.swift in Sources */,
 				6B7A48D12F02E31F002102FE /* UIViewtoViewWrapper.swift in Sources */,
 				6B7CB8422FC61AE800345B18 /* RNGLocationTask.swift in Sources */,
@@ -707,6 +726,7 @@
 				6B80D0DE30070B0800A75888 /* TimeInABottle.swift in Sources */,
 				6B5CF8172FA75CEC00769422 /* PQPrototype.xcdatamodeld in Sources */,
 				6B80D0E2300BB6E100A75888 /* TimeInABottleView.swift in Sources */,
+				6BE3230F304F188500074E25 /* ManualQuestTask+CoreDataProperties.swift in Sources */,
 				6B4C64092FCF0AA900D5C1E2 /* MyAnnotation.swift in Sources */,
 				6B94B5943031D6CD00EF0D60 /* SingleLocationTaskView.swift in Sources */,
 				6B94B58A302C91CB00EF0D60 /* TrainingQuestTask+CoreDataClass.swift in Sources */,

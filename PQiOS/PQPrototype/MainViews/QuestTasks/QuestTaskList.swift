@@ -151,6 +151,12 @@ struct QuestTaskList: View {
             ZStack{
                 ScrollView{
                     LazyVGrid(columns: [GridItem(), GridItem()]) {
+                        Button(){
+                            addTask(task: ManualQuestTask(context: context))
+                            taskTypeSheetActive = false
+                        } label:{
+                            Image(systemName: "checklist")
+                        }
                         // for each task type
                         Button(){
                             addTask(task: TrainingQuestTask(context: context))
@@ -247,6 +253,9 @@ struct QuestTaskList: View {
         }
         else if task is TrainingQuestTask{
             TrainingTaskView(task: task as! TrainingQuestTask)
+        }
+        else if task is ManualQuestTask{
+            ManualTaskView(task: task as! ManualQuestTask)
         }
         else{
             Text("No View Assigned To This Task Type!")

@@ -252,7 +252,7 @@ extension Schedule {
     ///
     func ensureValidAutostart(from givenTime: Date, naturalUpdate: Bool = false){
         let oneTime = self.isOneTime()
-        
+        let beforeTime = self.nextScheduledStart
         let moveAlongOne = { [self] in
             //add quest fails]
             if naturalUpdate{
@@ -278,9 +278,11 @@ extension Schedule {
             }
             if oneTime{ self.everyXDays = false }
         }
-        //finalise start time and end time
-        startTime = scheduledStartTime
-        self.correctEndTime()
+        //update start time and end time IF anything changed
+        if !beforeTime.equals(date2: self.nextScheduledStart){
+            startTime = scheduledStartTime
+            self.correctEndTime()
+        }
     }
     
     public func toggleActive(){

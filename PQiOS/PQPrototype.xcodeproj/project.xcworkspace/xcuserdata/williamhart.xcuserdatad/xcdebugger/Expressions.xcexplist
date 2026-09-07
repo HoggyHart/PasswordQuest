@@ -115,7 +115,7 @@
          contextName = "Quest.getCurrentScheduler():Quest.swift">
          <PersistentStrings>
             <PersistentString
-               value = "questStartTime">
+               value = "schedule!">
             </PersistentString>
             <PersistentString
                value = "schedule.startTime!">
@@ -188,13 +188,13 @@
          contextName = "Location.asRegion(questUUID:):Location.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.objectID.uriRepresentation().absoluteString">
+               value = "self.objectID">
             </PersistentString>
             <PersistentString
                value = "&quot;\(self.objectID)&quot;">
             </PersistentString>
             <PersistentString
-               value = "self.objectID">
+               value = "self.objectID.uriRepresentation().absoluteString">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -260,10 +260,10 @@
          contextName = "Week.init(rawValue:):ScheduleTypeInfo.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.toBitSetString()">
+               value = "Week.monday">
             </PersistentString>
             <PersistentString
-               value = "Week.monday">
+               value = "self.toBitSetString()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -303,6 +303,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ScheduleTests.testWeekdaySchedule():ScheduleTests.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "schedule.nextScheduledStart">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "LocationServices.stopTrackingRegion(region:):LocationServices.swift">
          <PersistentStrings>
             <PersistentString
@@ -311,10 +319,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ScheduleTests.testWeekdaySchedule():ScheduleTests.swift">
+         contextName = "Quest.delay(seconds:):Quest.swift">
          <PersistentStrings>
             <PersistentString
-               value = "schedule.nextScheduledStart">
+               value = "self.getCurrentScheduler()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -325,10 +333,10 @@
                value = "schedule.scheduledStartTime">
             </PersistentString>
             <PersistentString
-               value = "schedule.startTime">
+               value = "Date.now">
             </PersistentString>
             <PersistentString
-               value = "Date.now">
+               value = "schedule.startTime">
             </PersistentString>
             <PersistentString
                value = "schedule.scheduledEndTime">
@@ -443,10 +451,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in ScheduleView.startScheduleEarly():ScheduleView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "schedule.startTime">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "SingleLocationTask.update():SingleLocationTask.swift">
          <PersistentStrings>
             <PersistentString
-               value = "location?.longitude">
+               value = "LocationServices.shared.locationManager.location?.coordinate">
             </PersistentString>
             <PersistentString
                value = "location?.latitude">
@@ -458,10 +474,10 @@
                value = "LocationServices.calcDistance(p1: curPos, p2: taskArea.center()) &lt;= taskArea.radius">
             </PersistentString>
             <PersistentString
-               value = "taskArea.radius">
+               value = "location?.longitude">
             </PersistentString>
             <PersistentString
-               value = "LocationServices.shared.locationManager.location?.coordinate">
+               value = "taskArea.radius">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

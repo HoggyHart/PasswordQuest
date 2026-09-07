@@ -158,7 +158,7 @@ struct QuestView: View {
             return "Start"
         case .inProgress:
             if quest.locked{
-                return "Skip? (\(quest.maxRewardValue))"
+                return "Skip? (\(Int(quest.maxRewardValue))"
             }
             return "End"
         case .completed:

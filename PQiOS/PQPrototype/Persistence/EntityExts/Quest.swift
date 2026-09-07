@@ -219,11 +219,11 @@ extension Quest{
     }
     
     public func getCurrentScheduler() -> Schedule?{
-        if !self.isActive || self.questStartTime == nil {return nil}
+        guard let qst = self.questStartTime else { return nil }
         for schedule in schedulers!{
             let schedule = schedule as! Schedule
             //if this scheduler is active and was scheduled to start a quest at the same time this quest was started (i.e. this scheduler started this now-ending quest) then log the last completion date
-            if schedule.isActive && schedule.startTime!.equals(date2: questStartTime!) {
+            if schedule.isActive && schedule.nextStart.equals(date2: qst) {
                 return schedule
             }
         }

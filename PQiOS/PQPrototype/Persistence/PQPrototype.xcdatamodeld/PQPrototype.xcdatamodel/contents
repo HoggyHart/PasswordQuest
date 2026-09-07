@@ -14,6 +14,7 @@
     <entity name="LocationTask" representedClassName="LocationTask" isAbstract="YES" parentEntity="QuestTask" syncable="YES">
         <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="tasks" inverseEntity="Location"/>
     </entity>
+    <entity name="ManualQuestTask" representedClassName="ManualQuestTask" parentEntity="QuestTask" syncable="YES"/>
     <entity name="Quest" representedClassName=".Quest" syncable="YES">
         <attribute name="isActive" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="locked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>

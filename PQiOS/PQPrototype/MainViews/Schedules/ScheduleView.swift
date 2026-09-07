@@ -112,7 +112,7 @@ struct ScheduleView: View {
     var body: some View {
         VStack{
             // --EDIT TOOLBAR ==needed since ScheduleView is raised as a form from the bottom of QuestView, it needs its own edit button.
-            if !schedule.quest!.isActive && !schedule.nextSchLocked{
+            if schedule.getState() != .inProgress {
                 HStack{
                     Spacer()
                     EditButton()
@@ -251,7 +251,7 @@ struct ScheduleView: View {
             schedule.ensureValidAutostart(from: Date.now)
             
             //generate key to amend unsynchronised behaviour on PC app
-            if prevStartTime != nil && schedule.startTime! > prevStartTime!{
+            if prevStartTime != nil && schedule.nextStart > prevStartTime!{
                 //if startTime has been pushed back, generate nullify key in case synchronisation doesnt happen in time and active quest on PC needs to be ended
                 //key stores date of creation, so on PC it can check quest start time against key creation date to see "does this key cancel *this* quest?"
                 //i.e. if quest.startTime <= key.creationDate: endQuest()
