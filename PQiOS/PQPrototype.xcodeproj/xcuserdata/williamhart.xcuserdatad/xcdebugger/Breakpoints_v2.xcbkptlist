@@ -241,6 +241,38 @@
             endingLineNumber = "33"
             landmarkName = "nextStart"
             landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "0C26BB82-CD91-471F-AAA5-56694884BC93 - d72949eca761ac11"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PQPrototype.Schedule.nextStart.setter : Foundation.Date"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Schedule.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "144">
+               </Location>
+               <Location
+                  uuid = "0C26BB82-CD91-471F-AAA5-56694884BC93 - d72949eca761ac11"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PQPrototype.Schedule.nextStart.setter : Foundation.Date"
+                  moduleName = "PQPrototype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamhart/repos/PasswordQuest/PQiOS/PQPrototype/Persistence/EntityExts/Schedule.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "117">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -297,6 +297,7 @@ extension Schedule {
     
     private func activateSchedule(){
         self.isActive = true
+        self.startTime = self.scheduledStartTime
         self.scheduleNotification()
     }
     

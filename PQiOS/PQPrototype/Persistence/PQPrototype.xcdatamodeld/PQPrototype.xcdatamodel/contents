@@ -14,7 +14,10 @@
     <entity name="LocationTask" representedClassName="LocationTask" isAbstract="YES" parentEntity="QuestTask" syncable="YES">
         <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="tasks" inverseEntity="Location"/>
     </entity>
-    <entity name="ManualQuestTask" representedClassName="ManualQuestTask" parentEntity="QuestTask" syncable="YES"/>
+    <entity name="ManualQuestTask" representedClassName="ManualQuestTask" parentEntity="QuestTask" syncable="YES">
+        <relationship name="subTasks" toMany="YES" deletionRule="Cascade" destinationEntity="ManualQuestTask" inverseName="superTask" inverseEntity="ManualQuestTask"/>
+        <relationship name="superTask" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManualQuestTask" inverseName="subTasks" inverseEntity="ManualQuestTask"/>
+    </entity>
     <entity name="Quest" representedClassName=".Quest" syncable="YES">
         <attribute name="isActive" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="locked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>

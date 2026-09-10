@@ -1,8 +1,8 @@
 //
-//  ManualTask+CoreDataProperties.swift
+//  ManualQuestTask+CoreDataProperties.swift
 //  PQPrototype
 //
-//  Created by William Hart on 07/09/2026.
+//  Created by William Hart on 08/09/2026.
 //
 //
 
@@ -16,5 +16,7 @@ extension ManualQuestTask {
         return NSFetchRequest<ManualQuestTask>(entityName: "ManualQuestTask")
     }
 
+    @NSManaged public var subTasks: ManualQuestTask?
+    @NSManaged public var superTask: ManualQuestTask?
 
 }
