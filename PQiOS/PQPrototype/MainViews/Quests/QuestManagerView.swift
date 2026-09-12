@@ -16,48 +16,90 @@ struct QuestManagerView: View {
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Quest.isActive, ascending: false),NSSortDescriptor(keyPath: \Quest.questName, ascending: true)]) private var quests: FetchedResults<Quest>
     
+    struct QuestRow: View {
+        let quest: Quest
+        init(quest: Quest) {
+            self.quest = quest
+        }
+        var body: some View {
+            VStack(spacing: 0){
+                ZStack{
+                    RoundedRectangle(cornerRadius: 3).foregroundColor(.brown).offset(y:-7).opacity(0.3)
+                    RoundedRectangle(cornerRadius: 3).foregroundColor(Color(red: 243/255, green: 227/255, blue: 172/255))
+                    Text("\(quest.name)").frame(width:UIScreen.main.bounds.width,alignment: .center).font(.custom("Bradley Hand", fixedSize: 20))
+                        .foregroundColor(Color(red: 22/255, green: 13/255, blue: 13/255))
+                }
+            }.frame(height: 40)
+        }
+    }
+    @State var expandedQuest: Quest? = nil
     var body: some View {
         HStack{
             HStack{
                 Button(action:addQuest){
                     Label("Add Quest", systemImage: "plus")
                 }
-                EditButton()
             }
         }
-        Form{
-            Section(header: Text("Active Quests")){
-                ForEach(questfs) { quest in
-                    if quest.isActive{
-                        NavigationLink (
-                            destination: QuestView(quest: quest)
-                                .id(quest.objectID)
-                        ) {
-                            Text("\(quest.name)")
-                        }
-                    }
-                }
-                .onDelete(perform:deleteQuests)
+        Divider()
+        ScrollView{
+            VStack(spacing: 0){
+                ZStack{
+                    Rectangle().foregroundColor(.brown)
+                    Text("Active")
+                }.frame(height: 30)
                 
-            }
-           // Text(String(quests.allSatisfy({ v in return v.isActive })))
-            Section(header:Text("Inactive Quests")){
-                ForEach(questfs) { quest in
-                    if !quest.isActive{
-                        NavigationLink {
-                            QuestView(quest: quest)
-                                .id(quest.objectID)
-                        } label: {
-                            Text("\(quest.name)")
+                VStack(spacing:-10){
+                    ForEach(questfs) {  quest in
+                        if quest.isActive{
+                            Button(){
+                                if expandedQuest == quest{
+                                    expandedQuest = nil
+                                }else{
+                                    expandedQuest = quest
+                                }
+                            } label: {
+                                if quest != expandedQuest{
+                                    QuestRow(quest: quest)
+                                }
+                                else{
+                                    QuestView(quest: quest)
+                                }
+                            }
                         }
                     }
-                }.onDelete(perform:deleteQuests)
+                    .onDelete(perform:deleteQuests)
+                }
+                ZStack{
+                    Rectangle().foregroundColor(.brown)
+                    Text("ina")
+                }.frame(height: 30)
+                
+                VStack(spacing:-10){
+                    ForEach(questfs, id: \.self) { quest in
+                        if !quest.isActive{
+                            Button(){
+                                if expandedQuest == quest{
+                                    expandedQuest = nil
+                                }else{
+                                    expandedQuest = quest
+                                }
+                            } label: {
+                                if quest != expandedQuest{
+                                    QuestRow(quest: quest)
+                                }
+                                else{
+                                    QuestView(quest: quest)
+                                }
+                            }
+                        }
+                    }.onDelete(perform:deleteQuests)
+                    
+                }
             }
-        }
-        .onAppear {
+        }.onAppear {
             refreshQuests(context: viewContext)
-        }
-        .navigationViewStyle(.stack)
+        }.navigationViewStyle(.stack)
     }
     
     private func refreshQuests(context: NSManagedObjectContext){
@@ -66,6 +108,7 @@ struct QuestManagerView: View {
         fr.sortDescriptors = [NSSortDescriptor(keyPath: \Quest.questName, ascending: true)]
         do{
             try questfs = context.fetch(fr)
+            expandedQuest = questfs.last
         }catch{
             return
         }
@@ -104,7 +147,6 @@ struct QuestManagerView: View {
 }
 
 #Preview {
-    NavigationView{
-        QuestManagerView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-    }
+    QuestManagerView()
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

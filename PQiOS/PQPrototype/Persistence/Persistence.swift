@@ -13,14 +13,14 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for i in 0..<6 {
+        for i in 0..<20 {
             let newQuest = Quest(context: viewContext, name: "Test Quest \(i+1)")
             
             //0%2 == T
             //1%2 == F
             //2%2 == T
             //3%2 == F
-            if i%2 == 0{
+            if i%2 == -1{
                 let task = SingleLocationTask(context: viewContext, dummyVar: true)
                 task.location = Location(context: viewContext, name: "Location "+String(i), area: CLCircularRegion(
                         center: LocationServices.generateRandomLocation(origin: CLLocationCoordinate2D(latitude: 0, longitude: 0), minRange: 0, maxRange: 500),
@@ -39,6 +39,9 @@ struct PersistenceController {
                 if i%2 == 0{
                     newSchedule.toggleActive()
                 }
+            }
+            if i%5 == 0{
+                newQuest.isActive = true
             }
             
             let newReward = QuestKey(context: viewContext)

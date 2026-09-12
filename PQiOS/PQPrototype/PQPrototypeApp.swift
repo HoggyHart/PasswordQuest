@@ -65,6 +65,7 @@ struct PQPrototypeApp: App {
         }
     }
     private func initMainBackgroundLoop(){
+        if PQPrototypeApp.isPreview { return }
         PQPrototypeApp.scheduleAndQuestUpdater = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){_ in
             if PQPrototypeApp.updatingThreadActive == true{return}
             PQPrototypeApp.updatingThreadActive = true

@@ -37,7 +37,8 @@ extension SingleLocationTask: MKMapViewDelegate {
         LocationServices.shared.startTrackingRegion(region: location.asRegion(),forTask: self.objectID)
         lastUpdate = Date.now
         LocationServices.shared.locationManager.requestLocation()
-        self.occupiedAtLastUpdate = stayInside == (LocationServices.calcDistance(p1: LocationServices.shared.locationManager.location!.coordinate, p2: location.center()) <= location.radius)
+        guard let usrLocation = LocationServices.shared.locationManager.location?.coordinate else {return}
+        self.occupiedAtLastUpdate = stayInside == (LocationServices.calcDistance(p1: usrLocation, p2: location.center()) <= location.radius)
     }
     
     override func endDependenciesAndTrackers() {
