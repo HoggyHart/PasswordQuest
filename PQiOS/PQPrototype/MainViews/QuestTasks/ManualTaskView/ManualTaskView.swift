@@ -1,62 +1,4 @@
 import SwiftUI
-struct MTRow: View {
-    @Environment(\.editMode) private var editMode
-    private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
-    
-    @ObservedObject
-    var task: ManualQuestTask
-    
-    @FetchRequest
-    var subtasks: FetchedResults<ManualQuestTask>
-    
-    let inactive: Bool
-    init(task: ManualQuestTask, toggleDisabled: Bool) {
-        self.task = task
-        _subtasks = FetchRequest(
-            entity: ManualQuestTask.entity(),
-            sortDescriptors: [NSSortDescriptor(keyPath: \ManualQuestTask.name, ascending: true),
-                              NSSortDescriptor(keyPath: \ManualQuestTask.objectID, ascending: true)],
-            predicate: NSPredicate(format: "superTask == %@", task)
-        )
-        inactive = toggleDisabled
-    }
-    
-    @State var testint: Int = 0
-    @State var expanded: Bool = false
-    var body: some View{
-        VStack{
-            HStack{
-//                Button(){expanded.toggle()} label:{
-//                    Rectangle().frame(width: 10, height: 10)
-//                }
-                Text(task.name ?? "huh")
-                //Button(){addTask()} label: {
-                  //  Rectangle().foregroundColor(.orange)
-                //}
-                if !editing{Toggle(isOn: $task.completed) {}.disabled(inactive)}
-            }
-//            if expanded{
-//                ForEach(subtasks) { st in
-//                    MTRow(task: st, toggleDisabled: inactive).padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 0))
-//                }
-//            }
-        }
-        .onChange(of: task.completed) { newValue in
-            testint += 1
-            task.chainCompletionToggle()
-        }
-    }
-    func addTask(){
-        task.managedObjectContext?.perform {
-            withAnimation {
-                let task = ManualQuestTask(context: task.managedObjectContext!)
-                self.task.addToSubTasks(task)
-                do{try task.managedObjectContext!.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-            }
-        }
-    }
-}
-
 struct ManualTaskView: View {
     @Environment(\.editMode) private var editMode
     private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
@@ -80,7 +22,21 @@ struct ManualTaskView: View {
         
     }
     
-    @State var allSubtasks: Dictionary<Int,ManualQuestTask> = [:]
+    struct MTRow: View{
+        @ObservedObject
+        var subtask: ManualQuestTask
+        
+        var body: some View{
+            HStack{
+                TextField("Task Name", text: $subtask.name ?? "Unnamed")
+                Toggle(isOn: $subtask.completed, label: { Rectangle().foregroundColor(subtask.completed ? .green : .red)}).labelsHidden()
+                   
+            }.onChange(of: subtask.completed) { newValue in
+                subtask.chainCompletionToggle()
+            }
+        }
+    }
+    
     var body: some View {
         VStack{
             VStack{
@@ -97,18 +53,15 @@ struct ManualTaskView: View {
                 
                 TextField("Task Name", text: $task.name ?? "Task Name")
                     .font(.title)
+                    .foregroundColor(task.completed ? .green : .red)
                     .disabled(!editing)
 
                 //TODO: implement addTask button (and remove)
-                //List{
                 List{
                     ForEach(subtasks){ stask in
-                        MTRow(task: stask, toggleDisabled: !task.getQuest().isActive)
-                            .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 0))
+                        MTRow(subtask: stask)
+                        .frame(height: 30)
                     }.onDelete(perform:deleteTasks)
-                    .onMove { index, int in
-                        print(index)
-                    }
                 }.listStyle(PlainListStyle())
             }.padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
         }
@@ -124,6 +77,7 @@ struct ManualTaskView: View {
                 }
             }
         }
+        
     }
     
     func save() -> Bool{
@@ -136,7 +90,7 @@ struct ManualTaskView: View {
     func addTask(){
         context.perform {
             withAnimation {
-                var task = ManualQuestTask(context: context)
+                let task = ManualQuestTask(context: context)
                 self.task.addToSubTasks(task)
                 do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
             }

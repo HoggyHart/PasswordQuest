@@ -79,17 +79,22 @@ struct QuestManagerView: View {
                     ForEach(questfs, id: \.self) { quest in
                         if !quest.isActive{
                             Button(){
-                                if expandedQuest == quest{
-                                    expandedQuest = nil
-                                }else{
-                                    expandedQuest = quest
-                                }
+                                expandedQuest = quest
                             } label: {
                                 if quest != expandedQuest{
                                     QuestRow(quest: quest)
                                 }
-                                else{
-                                    QuestView(quest: quest)
+                            }
+                            if quest == expandedQuest{
+                                ZStack{
+                                    Rectangle().foregroundColor(Color(red: 243/255, green: 227/255, blue: 172/255)).shadow(radius: 10)
+                                    VStack(alignment: .trailing){
+                                        NavigationLink(destination: QuestView(quest: quest)) {
+                                            Rectangle().foregroundStyle(.black).frame(width: 100, height: 50)
+                                        }
+                                        Image(systemName: "arrow.right")
+                                        QuestView(quest: quest)
+                                    }
                                 }
                             }
                         }

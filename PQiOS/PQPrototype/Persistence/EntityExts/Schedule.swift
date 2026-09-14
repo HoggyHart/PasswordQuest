@@ -225,7 +225,7 @@ extension Schedule {
     }
     func updateSchedule(){
         let dur = self.duration
-        var nextStart = getNextStartTime(fromDate: self.nextScheduledStart)
+        let nextStart = getNextStartTime(fromDate: self.nextScheduledStart)
         if nextStart == nil { self.deactivateSchedule() }
         
         nextScheduledStart = nextStart ?? nextScheduledStart

@@ -216,7 +216,7 @@ struct QuestTaskList: View {
             withAnimation {
             
                 context.delete(task)
-                var key = QuestKey.generateKey(quest: quest)
+                let key = QuestKey.generateKey(quest: quest)
                 key.keyType = .edited
                 do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
             }
