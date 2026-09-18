@@ -39,17 +39,7 @@ struct QuestPreview: View {
         }
     }
     var body: some View{
-     //   Button(){
-        //    extended.toggle()
-     //   } label: {
-            //if !extended{
-                header
-           // }
-     //   }
-       // if extended{
-         //   content
-        //}
-        
+        header
     }
 }
 
@@ -118,9 +108,13 @@ struct QuestList: View {
                             }
                         }
                     }
-                }else if i == questL.count && i > 0{
+                }else if i == questL.count{
                     TextField("New Quest \(Image(systemName: "plus"))" , text: $newQuestName)
                         .frame(height:30)
+                        .submitLabel(.done)
+                        .onSubmit {
+                            addQuest()
+                        }
                 }else{
                     Rectangle().opacity(0)
                         .frame(height:30)
@@ -133,6 +127,15 @@ struct QuestList: View {
             if toDelete.isEmpty { return }
             delQuests(offsets: toDelete)
             //loadQuests()
+        }
+    }
+    func addQuest(){
+        context.perform {
+            if newQuestName == "" { return }
+            var quest = Quest(context: context, name: newQuestName)
+            newQuestName = ""
+            do{try context.save()}catch{}
+            loadQuests()
         }
     }
     func delQuests(offsets: IndexSet){
