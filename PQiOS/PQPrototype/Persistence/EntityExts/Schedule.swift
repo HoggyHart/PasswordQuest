@@ -147,7 +147,7 @@ extension Schedule {
             return .notStarted
         }
         //else if after schedule start, and quest is active due to this scheduler, return in progress
-        else if quest!.getCurrentScheduler() == self {
+        else if quest!.isActive && quest!.getCurrentScheduler() == self {
             return .inProgress
         }
         //if sch completed today -> show succeed/fail

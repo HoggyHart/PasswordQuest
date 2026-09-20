@@ -235,7 +235,8 @@ extension Quest{
         if self.getCurrentScheduler()?.delay(duration: seconds) == nil{
             let tempSch = Schedule(context: self.managedObjectContext!, quest: self)
             tempSch.setSchedule(scheduledDays: Week(rawValue: 0))
-            tempSch.nextScheduledStart = self.questStartTime!.addingTimeInterval(seconds)
+            tempSch.scheduledStartTime = self.questStartTime!
+            tempSch.startTime = self.questStartTime?.addingTimeInterval(seconds)
             tempSch.nextScheduledEnd = self.questStartTime!.addingTimeInterval(seconds+86400)
             tempSch.isActive = true
             tempSch.nextSchLocked = true

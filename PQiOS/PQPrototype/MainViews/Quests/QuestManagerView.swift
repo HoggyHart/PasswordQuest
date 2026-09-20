@@ -8,54 +8,21 @@
 import SwiftUI
 import CoreData
 
-struct QuestPreview: View {
-    
-    @ObservedObject
-    var quest: Quest
-    
-    @State var extended: Bool = false
-    
-    var header: some View {
-        VStack(spacing: 0){
-            ZStack{
-             //   RoundedRectangle(cornerRadius: 3).foregroundColor(.brown).offset(y:-7).opacity(0.3)
-               // RoundedRectangle(cornerRadius: 3).foregroundColor(Color(red: 243/255, green: 227/255, blue: 172/255))
-                Text("\(quest.name)")
-                    .font(.custom("Bradley Hand", fixedSize: 20))
-                    .foregroundColor(Color(red: 22/255, green: 13/255, blue: 13/255))
-            }
-        }.frame(height: 30)
-    }
-    var content: some View {
-        ZStack{
-            Rectangle().foregroundColor(Color(red: 243/255, green: 227/255, blue: 172/255)).shadow(radius: 10)
-            VStack(alignment: .trailing){
-                NavigationLink(destination: QuestView(quest: quest)) {
-                    Rectangle().foregroundStyle(.black).frame(width: 100, height: 50)
-                }
-                Image(systemName: "arrow.right")
-                QuestView(quest: quest)
-            }
-        }
-    }
-    var body: some View{
-        header
-    }
-}
-
 struct QuestList: View {
     @Environment(\.managedObjectContext) private var context
    
     @Environment(\.editMode) private var editMode
     var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
     
-  //  @FetchRequest private var quests: FetchedResults<Quest>
     @State private var questL: [Quest] = []
-   // @State var ertext: String = ""
+    @State var toDelete: IndexSet = IndexSet()
+    @State var questNav: [Bool] = []
+    
     let pred: NSPredicate?
     let size: Int
     let offset: Int
     @State var newQuestName: String = ""
+    
     init(size: Int, offset: Int, predicate: NSPredicate? = nil, context: NSManagedObjectContext) {
         self.size = size
         self.offset = offset
@@ -72,55 +39,51 @@ struct QuestList: View {
             let arr = try context.fetch(fr)
          //   self.ertext = "\(arr.count)"
             self.questL = arr
-        }catch let e{
-            self.questL = []
-            //     self.ertext = e.localizedDescription
-        }
+            self.questNav = [Bool].init(repeating: false, count: arr.count)
+        }catch _{}
     }
-
-    @State var toDelete: IndexSet = IndexSet()
+    
     var body: some View{
         ForEach(0..<size, id: \.self){i in
             VStack(alignment: .leading, spacing: 0){
+                //Quest Line
                 if i < questL.count{
-                    ZStack{
-                        if !editing{
-                            NavigationLink(destination: QuestView(quest: questL[i])) {
-                                QuestPreview(quest: questL[i])
-                                    .frame(height: 30)
-                            }
-                        }
+                    Button(){
                         if editing{
-                            Button(){
+                            toggleDelQuest(index: i)
+                        }
+                        else{
+                            questNav[i] = true
+                        }
+                    } label:{
+                        NavigationLink(isActive: $questNav[i]) {
+                            QuestView(quest: questL[i])
+                        } label: {
+                            ZStack{
+                                Text("\(questL[i].name)")
+                                    .font(.custom("Bradley Hand", fixedSize: 20))
+                                    .foregroundColor(.classicInk)
                                 if toDelete.contains(i){
-                                    toDelete.remove(i)
-                                }else{
-                                    toDelete.insert(i)
-                                }
-                            } label:{
-                                ZStack{
-                                    QuestPreview(quest: questL[i])
-                                        .frame(height: 30)
-                                    if toDelete.contains(i){
-                                        Rectangle().frame(height: 2).foregroundColor(.red)
-                                    }
+                                    Rectangle().frame(height: 2).foregroundColor(.red)
                                 }
                             }
                         }
+                        .disabled(editing)
                     }
+                //Add Quest
                 }else if i == questL.count{
                     TextField("New Quest \(Image(systemName: "plus"))" , text: $newQuestName)
-                        .frame(height:30)
                         .submitLabel(.done)
                         .onSubmit {
                             addQuest()
                         }
+                //empty padding
                 }else{
                     Rectangle().opacity(0)
-                        .frame(height:30)
                 }
                 Divider()
             }.padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                .frame(height:25)
         }.onAppear(){
             loadQuests()
         }.onChange(of: editing) { newValue in
@@ -132,7 +95,7 @@ struct QuestList: View {
     func addQuest(){
         context.perform {
             if newQuestName == "" { return }
-            var quest = Quest(context: context, name: newQuestName)
+            _ = Quest(context: context, name: newQuestName)
             newQuestName = ""
             do{try context.save()}catch{}
             loadQuests()
@@ -140,10 +103,22 @@ struct QuestList: View {
     }
     func delQuests(offsets: IndexSet){
         context.perform {
-            offsets.map{questL[$0]}.forEach(context.delete)
-            questL.remove(atOffsets: offsets)
+            //this instead of context.delete -> questL.remove to prevent editing deleted object warning AND visual issue of "Unnamed Quest" being removed from list
+            offsets.map{questL[$0]}.forEach { q in
+                questL.removeAll { qs in
+                    q == qs
+                }
+                context.delete(q)
+            }
             toDelete = IndexSet()
             do{try context.save()}catch{}
+        }
+    }
+    func toggleDelQuest(index i: Int){
+        if toDelete.contains(i){
+            toDelete.remove(i)
+        }else{
+            toDelete.insert(i)
         }
     }
 }
@@ -157,37 +132,39 @@ struct QuestManagerView: View {
     
     @State var expandedQuest: Quest? = nil
     @State var page = 1
-    @State var activeSort: Bool = false
+    @State var predicateIndex: Int = 0
+    let predicates: [NSPredicate?] =
+        [nil, NSPredicate(format: "isActive == true"), NSPredicate(format: "isActive == false")]
     @State var pageSide: CGFloat = -1
+    let predicateName: [String] = ["", "Active ", "Inactive "]
     let listSize: Int
     
     //book cover vars
     var bCCornerRadius: CGFloat = 10
-    
-    init(pageSize: CGFloat = UIScreen.main.bounds.height){
+    init(listLength: Int){
         //arbitrary values obtained using GeometryReader and Divider+Row height
         //ideally this bit would be done in var body, but encasing the ForEach in a GeometryReader makes each loop result overlay eachother
-        let px = pageSize - 136.5
-        listSize = max(0,Int(px/31))
+        listSize = listLength
     }
     var body: some View {
         ZStack{
             //table
-            Rectangle().foregroundColor(Color(red:96/255,green:58/255,blue:0))
+            Rectangle().foregroundColor(.tableWood)
             //book cover
             RoundedRectangle(cornerRadius: bCCornerRadius)
-                .foregroundColor(Color(red:70/255,green:30/255,blue:0))
+                .foregroundColor(.bookCover)
                 .padding(
                     EdgeInsets(top: 10,
                                leading: min(1,-pageSide*bCCornerRadius),
                                bottom: 10,
                                trailing: min(1,pageSide*bCCornerRadius)))
                 .id(page)
+            
             //page(s)
             ZStack{
                 //gives page selection some 'UI depth'
                 ForEach(0..<min(5,page)){i in
-                    Rectangle().foregroundColor(Color(red: 243/255, green: 227/255, blue: 172/255)).offset(x:-pageSide*CGFloat(i)).shadow(radius: 1)
+                    Rectangle().foregroundColor(.journalPaper).offset(x:-pageSide*CGFloat(i)).shadow(radius: 1)
                 }.id(page)
                 //quest list
                 //  list is 1 + 31*size pixels tall i beleievee
@@ -198,8 +175,8 @@ struct QuestManagerView: View {
                     Divider()
                     
                        // Text("\(h.size.height)")
-                        QuestList(size:listSize, offset: (page-1)*listSize, predicate: nil, context: viewContext
-                        ).id(page).id(activeSort)
+                        QuestList(size:listSize, offset: (page-1)*listSize, predicate: predicates[predicateIndex], context: viewContext
+                        ).id(page).id(predicateIndex)
                     
                     Spacer()
                 }
@@ -209,7 +186,14 @@ struct QuestManagerView: View {
                 VStack(spacing:0){
                 
                     ZStack{
-                        Text("Quest Log").font(.custom("Bradley Hand", fixedSize: 25))
+                        Button(){
+                            predicateIndex += 1
+                            if predicateIndex == 3{
+                                predicateIndex = 0
+                            }
+                        } label : {
+                            Text(predicateName[predicateIndex]+"Quest Log").font(.custom("Bradley Hand", fixedSize: 25))
+                        }
                         HStack{
                             Spacer()
                             EditButton().font(.custom("Bradley Hand", fixedSize: 25))
@@ -226,7 +210,7 @@ struct QuestManagerView: View {
                             pageSide *= -1
                         } label: {
                             Image(systemName: "arrowshape.turn.up.left.fill")
-                                .foregroundColor(Color(red:0.7,green:0,blue:0))
+                                .foregroundColor(.darkRed)
                         }
                         Spacer()
                         //Text("\(page*2 + min(0,Int(pageSide)))")
@@ -237,7 +221,7 @@ struct QuestManagerView: View {
                             pageSide *= -1
                         } label: {
                             Image(systemName: "arrowshape.turn.up.right.fill")
-                                .foregroundColor(Color(red:0.7,green:0,blue:0))
+                                .foregroundColor(.darkRed)
                         }
                         
                     }.frame(height:30)
@@ -248,21 +232,21 @@ struct QuestManagerView: View {
                                 leading: 11,
                                 bottom: 20,
                                 trailing: 11))
+            
+            //other side of journal, probably a smoother way to do this
             if(pageSide == -1){
                 HStack(spacing:0){
                     Spacer()
                     Rectangle().frame(width: 1).padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-                    Rectangle().frame(width: 11).padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0)).foregroundColor(Color(red: 243/255, green: 227/255, blue: 172/255))
+                    Rectangle().frame(width: 11).padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0)).foregroundColor(.journalPaper)
                 }
             }else{
                 HStack(spacing:0){
-                    Rectangle().frame(width: 11).padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0)).foregroundColor(Color(red: 243/255, green: 227/255, blue: 172/255))
+                    Rectangle().frame(width: 11).padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0)).foregroundColor(.journalPaper)
                     Rectangle().frame(width: 1).padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
                     Spacer()
                 }
             }
-            
-            
         }
         .navigationViewStyle(.stack)
      //   .frame(height: 20)
@@ -313,7 +297,6 @@ struct QuestManagerView: View {
 }
 
 #Preview {
-    QuestManagerView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-
+    QuestManagerView(listLength: 20).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
 

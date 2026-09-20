@@ -43,7 +43,7 @@ struct LocationManagerView: View {
                                 VStack{
                                     //background paper
                                     RoundedRectangle(cornerRadius: 22.5)
-                                        .foregroundColor(MyColors.parchment)
+                                        .foregroundColor(.parchment)
                                         .frame(
                                             height: CGFloat.minimum(CGFloat(35*locations.count)+45,UIScreen.main.bounds.height*0.5))
                                     Spacer()
@@ -51,7 +51,7 @@ struct LocationManagerView: View {
                                 VStack{
                                     //background header
                                     RoundedRectangle(cornerRadius: 0)
-                                        .foregroundColor(MyColors.leather)
+                                        .foregroundColor(.leather)
                                         .frame(
                                             height: 45)
                                     Spacer()
@@ -118,7 +118,7 @@ struct LocationManagerView: View {
                                 showList.toggle()
                             } label :{
                                 ZStack{
-                                    Circle().foregroundColor(MyColors.leather)
+                                    Circle().foregroundColor(.leather)
                                     Image(systemName:"list.bullet")
                                         .foregroundColor(.white)
                                 }
