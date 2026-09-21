@@ -17,7 +17,7 @@ struct MainView: View {
                 VStack(spacing: 0){
                     //  GeometryReader{h in
                     if menu == 0{
-                        QuestManagerView(listLength: 16)
+                        QuestManagerView(listLength: 14)
                     }
                     else if menu == 1{
                         ScheduleManagerView()
@@ -28,7 +28,7 @@ struct MainView: View {
                     else if menu == 3{
                         LocationManagerView()
                     }
-                    HStack(alignment: .bottom, spacing: 1){
+                    HStack(spacing: 1){
                         ForEach(0..<views,id:\.self){i in
                             Button(){
                                 menu = i

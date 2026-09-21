@@ -7,16 +7,18 @@
 
 import SwiftUI
 
-struct Journal<Content: View>: View {
+struct Journal<Header: View, Content: View>: View {
     
-    var bCCornerRadius: CGFloat = 10
-    
-    @State var page = 1
-    @State var pageSide: CGFloat = -1
+    let bCCornerRadius: CGFloat = 10
     let multiplePages: Bool
     
+    @ObservedObject var viewModel: JournalViewModel
     let content: (() -> Content)
-    init(multiplePages: Bool, content: @escaping (() -> Content)){
+    let header: (() -> Header)
+    init(multiplePages: Bool, viewModel: JournalViewModel = JournalViewModel(), header: @escaping (() -> Header), content: @escaping (() -> Content)
+    ){
+        self.viewModel = viewModel
+        self.header = header
         self.content = content
         self.multiplePages = multiplePages
     }
@@ -30,18 +32,18 @@ struct Journal<Content: View>: View {
                 //book cover
                 RoundedRectangle(cornerRadius: bCCornerRadius)
                     .foregroundColor(.bookCover)
-                    .id(page)
+                    .id(viewModel.page)
                 
                 //page(s)
                 ZStack{
                     
                     //gives page selection some 'UI depth'
-                    ForEach(0..<min(5,page)){i in
-                        Rectangle().foregroundColor(.journalPaper).offset(x:-pageSide*CGFloat(i)).shadow(radius: 1)
-                    }.id(page)
+                    ForEach(0..<min(5,viewModel.page)){i in
+                        Rectangle().foregroundColor(.journalPaper).offset(x:-viewModel.pageSide*CGFloat(i)).shadow(radius: 1)
+                    }.id(viewModel.page)
                     //other side of journal, probably a smoother way to do this
                     HStack(spacing:0){
-                        if(pageSide == -1){
+                        if(viewModel.pageSide == -1){
                             Spacer()
                             Rectangle().frame(width: 1)
                             Rectangle().frame(width: 11).foregroundColor(.journalPaper)
@@ -50,19 +52,24 @@ struct Journal<Content: View>: View {
                             Rectangle().frame(width: 1)
                             Spacer()
                         }
-                    }.offset(x:-pageSide*11)
+                    }.offset(x:-viewModel.pageSide*11)
                     
-                    GeometryReader{h in
-                        VStack(alignment: .center, spacing:0){
-                           // Rectangle()
-                            Spacer()
-                            ForEach(0..<Int(h.size.height-60)/30){i in
-                                Divider().offset(x:-pageSide*11).padding(EdgeInsets(top: 0, leading: min(pageSide*11,0), bottom: 0, trailing: min(-pageSide*11,0)))
-                                if i < Int(h.size.height-60)/30-1 {Spacer().frame(height: 30)}
-                            }
-                            Spacer()
-                            //Rectangle()
+                    VStack(alignment: .center, spacing: 0){
+                        Spacer().frame(height: 50)
+                        GeometryReader{h in
+                            VStack(alignment: .center, spacing:0){
+                                Spacer().frame(minHeight: 0)
+                                header().offset(y:-25).frame(height: 0)
+                                    .padding(EdgeInsets(top: 0, leading: max(viewModel.pageSide*11,0), bottom: 0, trailing: max(-viewModel.pageSide*11,0)))
+                                Spacer().frame(minHeight: 0)
+                                ForEach(0..<max(Int(h.size.height)/30,2)){i in
+                                    Divider()
+                                    Spacer().frame(height: 29.5)
+                                }
+                                Divider()
+                            }.offset(x:-viewModel.pageSide*11).padding(EdgeInsets(top: 0, leading: min(viewModel.pageSide*11,0), bottom: 0, trailing: min(-viewModel.pageSide*11,0)))
                         }
+                        Spacer().frame(height: 50)
                     }
                     content()
                     //page turn overlay
@@ -71,48 +78,58 @@ struct Journal<Content: View>: View {
                         HStack{
                             
                             Button(){
-                                if page == 1 {return}
-                                page = max(1,page-1)
-                                pageSide *= -1
+                                if viewModel.page == 1 {return}
+                                viewModel.page = max(1,viewModel.page-1)
+                                viewModel.pageSide *= -1
                             } label: {
                                 Image(systemName: "arrowshape.turn.up.left.fill")
                                     .foregroundColor(.darkRed)
                             }
                             Spacer()
                             //Text("\(page*2 + min(0,Int(pageSide)))")
-                            Text("\(page)")
+                            Text("\(viewModel.page)")
                             Spacer()
                             Button(){
-                                page += 1
-                                pageSide *= -1
+                                viewModel.page += 1
+                                viewModel.pageSide *= -1
                             } label: {
                                 Image(systemName: "arrowshape.turn.up.right.fill")
                                     .foregroundColor(.darkRed)
                             }
                             
-                        }.frame(height:30)
+                        }
                     }
-                    .padding(EdgeInsets(top: 7, leading: 10, bottom: 7, trailing: 10))
+                    .padding(EdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15))
                 }
                 .padding(EdgeInsets(top: 10,
-                                    leading: max(10,pageSide*21),
+                                    leading: max(10,viewModel.pageSide*21),
                                     bottom: 10,
-                                    trailing: max(10,-pageSide*21)))
+                                    trailing: max(10,-viewModel.pageSide*21)))
                 
             }.padding(
                 EdgeInsets(top: 10,
-                           leading: min(1,-pageSide*bCCornerRadius),
+                           leading: min(1,-viewModel.pageSide*bCCornerRadius),
                            bottom: 10,
-                           trailing: min(1,pageSide*bCCornerRadius)))
+                           trailing: min(1,viewModel.pageSide*bCCornerRadius)))
             
         }
-        .navigationViewStyle(.stack)
     }
 }
-
+    
 #Preview {
-    Journal(multiplePages: true) {
-        Rectangle().foregroundColor(.red)
-            .opacity(0.4)
+    Journal(multiplePages: true)
+    {
+        Rectangle().foregroundColor(.blue)
+            .opacity(0.2).frame(height: 50)
+    } content: {
+        ZStack{
+            VStack(alignment: .leading){
+                Rectangle().foregroundColor(.red)
+                    .opacity(0.2).frame(width: 200, height: 200)
+               // Spacer()
+            }
+            Rectangle().foregroundColor(.red)
+                .opacity(0.2)
         }
+    }
 }
