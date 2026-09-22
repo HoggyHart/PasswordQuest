@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6B05351A30606CEA005C56A3 /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B05351930606CEA005C56A3 /* Journal.swift */; };
+		6B05351A30606CEA005C56A3 /* JournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B05351930606CEA005C56A3 /* JournalView.swift */; };
+		6B05351C30612C9F005C56A3 /* JournalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B05351B30612C9F005C56A3 /* JournalViewModel.swift */; };
+		6B05351E30613171005C56A3 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B05351D30613171005C56A3 /* TestView.swift */; };
+		6B0535203062722B005C56A3 /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B05351F3062722B005C56A3 /* Placeholder.swift */; };
 		6B2152C22EE8511500188D31 /* LocationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2152C12EE8511500188D31 /* LocationServices.swift */; };
 		6B2152D22EE8E75400188D31 /* CLCircularRegionTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2152D12EE8E75400188D31 /* CLCircularRegionTransformer.swift */; };
 		6B2152D62EEB261F00188D31 /* Week.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2152D52EEB261F00188D31 /* Week.swift */; };
@@ -115,7 +118,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6B05351930606CEA005C56A3 /* Journal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Journal.swift; sourceTree = "<group>"; };
+		6B05351930606CEA005C56A3 /* JournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalView.swift; sourceTree = "<group>"; };
+		6B05351B30612C9F005C56A3 /* JournalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalViewModel.swift; sourceTree = "<group>"; };
+		6B05351D30613171005C56A3 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		6B05351F3062722B005C56A3 /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
 		6B2152C12EE8511500188D31 /* LocationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServices.swift; sourceTree = "<group>"; };
 		6B2152D12EE8E75400188D31 /* CLCircularRegionTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLCircularRegionTransformer.swift; sourceTree = "<group>"; };
 		6B2152D52EEB261F00188D31 /* Week.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Week.swift; sourceTree = "<group>"; };
@@ -238,7 +244,8 @@
 		6B05351830606CCF005C56A3 /* Backgrounds */ = {
 			isa = PBXGroup;
 			children = (
-				6B05351930606CEA005C56A3 /* Journal.swift */,
+				6B05351930606CEA005C56A3 /* JournalView.swift */,
+				6B05351B30612C9F005C56A3 /* JournalViewModel.swift */,
 			);
 			path = Backgrounds;
 			sourceTree = "<group>";
@@ -260,6 +267,7 @@
 			children = (
 				6B9E6D472F31789F000C403D /* StagedButton.swift */,
 				6B4C64082FCF0AA900D5C1E2 /* MyAnnotation.swift */,
+				6B05351D30613171005C56A3 /* TestView.swift */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -342,6 +350,7 @@
 				6B331EF82F649F2500DBECA4 /* Colors.swift */,
 				6B83BDC42F856617001472A6 /* MyJson.swift */,
 				6B5CF8522FAAC5B000769422 /* TwoHeadedSlider.swift */,
+				6B05351F3062722B005C56A3 /* Placeholder.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -672,6 +681,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B05351E30613171005C56A3 /* TestView.swift in Sources */,
 				6B7386AF2F1E53510076E77F /* Quest.swift in Sources */,
 				6B2152C22EE8511500188D31 /* LocationServices.swift in Sources */,
 				6BF5EF382FBF984100970F59 /* Schedule+CoreDataProperties.swift in Sources */,
@@ -687,6 +697,7 @@
 				6B4C64112FEBE62500D5C1E2 /* GlobalQuestLoot.swift in Sources */,
 				6BF5EF3C2FBF984100970F59 /* Quest+CoreDataProperties.swift in Sources */,
 				6BF5EF402FC05E7900970F59 /* ScheduleList.swift in Sources */,
+				6B0535203062722B005C56A3 /* Placeholder.swift in Sources */,
 				6BE3231E3050B6B700074E25 /* ManualQuestTask+CoreDataProperties.swift in Sources */,
 				6B94B59830339B1F00EF0D60 /* Notifications.swift in Sources */,
 				6B2153232EEC2BEB00188D31 /* QuestView.swift in Sources */,
@@ -699,6 +710,7 @@
 				6BA9DE0A2F42003400AF1B06 /* StringUtils.swift in Sources */,
 				6BF5EF3B2FBF984100970F59 /* Quest+CoreDataClass.swift in Sources */,
 				6B2153402EECEC0900188D31 /* ScheduleView.swift in Sources */,
+				6B05351C30612C9F005C56A3 /* JournalViewModel.swift in Sources */,
 				6B94B58B302C91CB00EF0D60 /* TrainingQuestTask+CoreDataProperties.swift in Sources */,
 				6BE32312304F18C900074E25 /* ManualTaskView.swift in Sources */,
 				6B331EF92F649F2500DBECA4 /* Colors.swift in Sources */,
@@ -749,7 +761,7 @@
 				6BA72D7D2F4687E70019649F /* Location.swift in Sources */,
 				6B5CF8532FAAC5B000769422 /* TwoHeadedSlider.swift in Sources */,
 				6B94B59A3033B75700EF0D60 /* TrainingQuestTask.swift in Sources */,
-				6B05351A30606CEA005C56A3 /* Journal.swift in Sources */,
+				6B05351A30606CEA005C56A3 /* JournalView.swift in Sources */,
 				6B7A48DC2F06163C002102FE /* Schedule.swift in Sources */,
 				6B47399C2FCB213400DABF3C /* LocationTask+CoreDataProperties.swift in Sources */,
 				6B2152DC2EEB31F100188D31 /* QuestManagerView.swift in Sources */,

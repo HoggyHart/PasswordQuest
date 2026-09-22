@@ -7,20 +7,24 @@
 
 import SwiftUI
 
-struct Journal<Header: View, Content: View>: View {
+struct JournalView<Header: View, Content: View>: View {
     
+    let backgroundPages: Int
     let bCCornerRadius: CGFloat = 10
-    let multiplePages: Bool
-    
+    let extraPages: Int
+    let lines: Int
     @ObservedObject var viewModel: JournalViewModel
     let content: (() -> Content)
     let header: (() -> Header)
-    init(multiplePages: Bool, viewModel: JournalViewModel = JournalViewModel(), header: @escaping (() -> Header), content: @escaping (() -> Content)
+    init(extraPages: Int, lines: Int = 17, backgroundPages: Bool = false, viewModel: JournalViewModel = JournalViewModel(), header: @escaping (() -> Header), content: @escaping (() -> Content)
     ){
+        self.lines = lines
+        self.backgroundPages = backgroundPages ? 5 : 0
         self.viewModel = viewModel
         self.header = header
         self.content = content
-        self.multiplePages = multiplePages
+        if extraPages < 0 { self.extraPages = Int.max-1}
+        else { self.extraPages = extraPages}
     }
     
     var body: some View {
@@ -38,7 +42,7 @@ struct Journal<Header: View, Content: View>: View {
                 ZStack{
                     
                     //gives page selection some 'UI depth'
-                    ForEach(0..<min(5,viewModel.page)){i in
+                    ForEach(0..<min(5,max(backgroundPages,viewModel.page))){i in
                         Rectangle().foregroundColor(.journalPaper).offset(x:-viewModel.pageSide*CGFloat(i)).shadow(radius: 1)
                     }.id(viewModel.page)
                     //other side of journal, probably a smoother way to do this
@@ -55,49 +59,57 @@ struct Journal<Header: View, Content: View>: View {
                     }.offset(x:-viewModel.pageSide*11)
                     
                     VStack(alignment: .center, spacing: 0){
-                        Spacer().frame(height: 50)
-                        GeometryReader{h in
                             VStack(alignment: .center, spacing:0){
-                                Spacer().frame(minHeight: 0)
-                                header().offset(y:-25).frame(height: 0)
+                                //  Spacer().frame(minHeight: 0)
+                                ZStack{
+                                    header().frame(minHeight: 50, maxHeight: .infinity)
                                     .padding(EdgeInsets(top: 0, leading: max(viewModel.pageSide*11,0), bottom: 0, trailing: max(-viewModel.pageSide*11,0)))
-                                Spacer().frame(minHeight: 0)
-                                ForEach(0..<max(Int(h.size.height)/30,2)){i in
-                                    Divider()
-                                    Spacer().frame(height: 29.5)
                                 }
-                                Divider()
+                               // Spacer().frame(minHeight: 0)
+                                ZStack{
+                                    VStack{
+                                        ForEach(0..<lines){i in
+                                            Divider()
+                                            Spacer().frame(height: 29.5)
+                                        }
+                                        if lines > 0 {Divider()}
+                                    }
+                                    content().padding(EdgeInsets(top: 0, leading: max(viewModel.pageSide*11,0), bottom: 0, trailing: max(-viewModel.pageSide*11,0)))
+                                }
                             }.offset(x:-viewModel.pageSide*11).padding(EdgeInsets(top: 0, leading: min(viewModel.pageSide*11,0), bottom: 0, trailing: min(-viewModel.pageSide*11,0)))
-                        }
                         Spacer().frame(height: 50)
                     }
-                    content()
                     //page turn overlay
                     VStack(spacing:0){
                         Spacer()
-                        HStack{
-                            
-                            Button(){
-                                if viewModel.page == 1 {return}
-                                viewModel.page = max(1,viewModel.page-1)
-                                viewModel.pageSide *= -1
-                            } label: {
-                                Image(systemName: "arrowshape.turn.up.left.fill")
-                                    .foregroundColor(.darkRed)
+                        ZStack{
+                            HStack{
+                                if extraPages != 0{
+                                    if viewModel.page > 1{
+                                        Button(){
+                                            if viewModel.page == 1 {return}
+                                            viewModel.page -= 1
+                                            viewModel.pageSide *= -1
+                                        } label: {
+                                            Image(systemName: "arrowshape.turn.up.left.fill")
+                                                .foregroundColor(.darkRed)
+                                        }
+                                    }
+                                    Spacer()
+                                    if viewModel.page < extraPages+1{
+                                        Button(){
+                                            if viewModel.page == extraPages+1{return}
+                                            viewModel.page += 1
+                                            viewModel.pageSide *= -1
+                                        } label: {
+                                            Image(systemName: "arrowshape.turn.up.right.fill")
+                                                .foregroundColor(.darkRed)
+                                        }
+                                    }
+                                }
                             }
-                            Spacer()
-                            //Text("\(page*2 + min(0,Int(pageSide)))")
                             Text("\(viewModel.page)")
-                            Spacer()
-                            Button(){
-                                viewModel.page += 1
-                                viewModel.pageSide *= -1
-                            } label: {
-                                Image(systemName: "arrowshape.turn.up.right.fill")
-                                    .foregroundColor(.darkRed)
-                            }
-                            
-                        }
+                        }.frame(height: 20)
                     }
                     .padding(EdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15))
                 }
@@ -117,10 +129,10 @@ struct Journal<Header: View, Content: View>: View {
 }
     
 #Preview {
-    Journal(multiplePages: true)
+    JournalView(extraPages: -1, backgroundPages: false)
     {
         Rectangle().foregroundColor(.blue)
-            .opacity(0.2).frame(height: 50)
+            .opacity(0.2)
     } content: {
         ZStack{
             VStack(alignment: .leading){

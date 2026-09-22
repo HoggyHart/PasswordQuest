@@ -89,115 +89,91 @@ struct QuestTaskList: View {
         }
         var body: some View {
             HStack(){
-                Image(systemName: "circle.fill")
-                    .foregroundColor( QuestTaskList.taskStatusColor(task: qtask) )
-                    .shadow(color:.black, radius: 1)
-                Text(qtask.currentStatus() + " - " + (qtask.name ?? "Error")).foregroundColor(UITraitCollection.current.userInterfaceStyle == .dark ? Color.white : Color.black)
-            }
+                if qtask.quest!.isActive{
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 20).frame(width:60,height:20).foregroundColor( QuestTaskList.taskStatusColor(task: qtask) )
+                            .shadow(color:.black, radius: 1)
+                        Text(qtask.currentStatus() + " ")
+                    }
+                }
+                Text("- " + (qtask.name ?? "Error")).foregroundColor(UITraitCollection.current.userInterfaceStyle == .dark ? Color.white : Color.black).font(.custom("Bradley Hand", size: 20))
+            }.frame(height: 30)
         }
     }
     
+    let firstTaskIndex: Int = 0
+    let lastTaskIndex: Int = 8
+    
     var body: some View {
-        VStack{
-            HStack{
-                Text("Tasks: ")
-                Spacer()
-                if editing{
-                    Button(){
-                        taskTypeSheetActive = true
-                        //   addTask()
-                    } label: {
-                        Label("Add Task", systemImage: "plus")
-                    }
-                } else if !fullView{
-                    NavigationLink(destination: QuestTaskList(quest: quest, full: true)) {
-                        Image(systemName: "arrow.right")
-                    }
+        VStack(alignment: .leading, spacing: 0){
+            ForEach(firstTaskIndex..<lastTaskIndex){i in
+                if i < tasks.count{
+                    QuestTaskListEntry(qtask: tasks[i])
+                }else{
+                    Spacer().frame(height: 30)
                 }
             }
-            ScrollView{ //must NOT be list to allow the config to be usable
-                ForEach(tasks){qtask in
-                   // if fullView{
-                        MyExpandable(
-                            header:
-                                Button(){
-                                    inspectedTaskID = qtask.objectID
-                                    //diwn/right arrow to indicate expansion status
-                                } label: {
-                                   QuestTaskListEntry(qtask: qtask)
-                                },
-                            content: VStack{
-                                QuestTaskConfigView(task: qtask )
-                                Button(){
-                                    deleteTask(task: qtask)
-                                } label : {
-                                    Image(systemName:"multiply").foregroundColor(.red)
-                                }
-                            },
-                            expandable: fullView
-                        )
-                    Divider()
-                }
-            }.padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
-            .listStyle(PlainListStyle())
-            
-            
-        }.sheet(isPresented: isTaskSheetPresented){
-            if let id = inspectedTaskID {
-                let localTask = context.object(with: id) as! QuestTask
-                getView(task: localTask)
-            }
-        }.sheet(isPresented: $taskTypeSheetActive){
-            ZStack{
-                ScrollView{
-                    LazyVGrid(columns: [GridItem(), GridItem()]) {
-                        Button(){
-                            addTask(task: ManualQuestTask(context: context))
-                            taskTypeSheetActive = false
-                        } label:{
-                            Image(systemName: "checklist")
-                        }
-                        // for each task type
-                        Button(){
-                            addTask(task: TrainingQuestTask(context: context))
-                            taskTypeSheetActive = false
-                        } label:{
-                            Image(systemName:"timer")
-                                .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
-                        }
-                        Button(){
-                            addTask(task:SingleLocationTask(context: context, dummyVar: true))
-                            taskTypeSheetActive = false
-                        } label:{
-                            Image("SingleLocationTaskIcon")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
-                        }
-                        Button(){
-                            addTask(task:RNGLocationTask(context: context, dummyVar: true))
-                            taskTypeSheetActive = false
-                        } label:{
-                            Image("RandomLocationTaskIcon")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
-                        }
-                        
-                    }
-                }
-            }
-        }
-        .toolbar(){
-            if !quest.isActive { EditButton() }
-        }
-        .onChange(of: editing) { v in
-            if v == false{
-                context.perform {
-                    do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-                }
-            }
-        }
+        }.frame(
+            maxWidth: .infinity,
+            alignment: .topLeading
+        )
+//
+//        }.sheet(isPresented: isTaskSheetPresented){
+//            if let id = inspectedTaskID {
+//                let localTask = context.object(with: id) as! QuestTask
+//                getView(task: localTask)
+//            }
+//        }.sheet(isPresented: $taskTypeSheetActive){
+//            ZStack{
+//                ScrollView{
+//                    LazyVGrid(columns: [GridItem(), GridItem()]) {
+//                        Button(){
+//                            addTask(task: ManualQuestTask(context: context))
+//                            taskTypeSheetActive = false
+//                        } label:{
+//                            Image(systemName: "checklist")
+//                        }
+//                        // for each task type
+//                        Button(){
+//                            addTask(task: TrainingQuestTask(context: context))
+//                            taskTypeSheetActive = false
+//                        } label:{
+//                            Image(systemName:"timer")
+//                                .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
+//                        }
+//                        Button(){
+//                            addTask(task:SingleLocationTask(context: context, dummyVar: true))
+//                            taskTypeSheetActive = false
+//                        } label:{
+//                            Image("SingleLocationTaskIcon")
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+//                                .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
+//                        }
+//                        Button(){
+//                            addTask(task:RNGLocationTask(context: context, dummyVar: true))
+//                            taskTypeSheetActive = false
+//                        } label:{
+//                            Image("RandomLocationTaskIcon")
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+//                                .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
+//                        }
+//                        
+//                    }
+//                }
+//            }
+//        }
+//        .toolbar(){
+//            if !quest.isActive { EditButton() }
+//        }
+//        .onChange(of: editing) { v in
+//            if v == false{
+//                context.perform {
+//                    do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+//                }
+//            }
+//        }
     }
     
     func addTask(task: QuestTask){
@@ -266,8 +242,14 @@ struct QuestTaskList: View {
 #Preview {
 
         let q = Quest(context: PersistenceController.preview.container.viewContext, name: "New Quest")
-        let task = SingleLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
-        q.addToTasks(task)
+    let task = ManualQuestTask(context: PersistenceController.preview.container.viewContext)
+    q.addToTasks(task)
+   let task1 = TrainingQuestTask(context: PersistenceController.preview.container.viewContext)
+    q.addToTasks(task1)
+    let task2 = SingleLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
+    q.addToTasks(task2)
+    let task3 = RNGLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
+    q.addToTasks(task3)
     return VStack{
         EditButton()
         QuestTaskList(quest: q, full: true).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)

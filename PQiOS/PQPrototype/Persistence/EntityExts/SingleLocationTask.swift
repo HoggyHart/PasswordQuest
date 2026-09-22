@@ -102,7 +102,6 @@ extension SingleLocationTask: MKMapViewDelegate {
     }
     
     override func currentStatus() -> String {
-        if !(self.quest?.isActive ?? true) { return "" }
         let nf = NumberFormatter()
         nf.roundingMode = .up
         nf.minimumFractionDigits = 0

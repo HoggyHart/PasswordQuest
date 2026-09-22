@@ -10,11 +10,16 @@ import CoreData
 
 struct ScheduleManagerView: View {
     
+    
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Schedule.isActive, ascending: false), NSSortDescriptor(keyPath: \Schedule.startTime, ascending: true)],animation: .default)
     private var schedules: FetchedResults<Schedule>
     
+    let filters: [NSPredicate]
+    init(predicates: [NSPredicate] = []){
+        filters = predicates
+    }
     var body: some View {
         VStack{
             HStack{

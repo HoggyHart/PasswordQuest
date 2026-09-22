@@ -144,7 +144,7 @@ struct QuestManagerView: View {
     }
     @State var myb: Bool = false
     var body: some View {
-        Journal(multiplePages: true, viewModel: jviewModel){
+        JournalView(extraPages: (quests.count)/listSize, lines: listSize, viewModel: jviewModel){
             ZStack{
                 Button(){
                     predicateIndex += 1
@@ -157,6 +157,7 @@ struct QuestManagerView: View {
                 HStack{
                     Spacer()
                     EditButton().font(.custom("Bradley Hand", fixedSize: 25))
+                   
                 }
             }.padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
         } content: {
@@ -164,11 +165,10 @@ struct QuestManagerView: View {
             HStack{
                 VStack(alignment: .leading, spacing:0){
                     //  Text("\(UIScreen.main.bounds.height)")
-                    Spacer()
+                    Spacer().frame(minHeight: 0)
                     // Text("\(h.size.height)")
                     QuestList(size:listSize, offset: (jviewModel.page-1)*listSize, predicate: predicates[predicateIndex], context: viewContext
                     ).id(jviewModel.page).id(predicateIndex)
-                    Spacer().frame(height: 50)
                 }
                 Spacer()
             }.padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))

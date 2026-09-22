@@ -36,9 +36,10 @@ extension RNGLocationTask{
     convenience init(context: NSManagedObjectContext, dummyVar: Bool){
         self.init(context: context)
         self.name = "Explore Generation Area"
-        self.location  = Location(context: context,
-                                       name: "Generation Area",
-                                       area: CLCircularRegion(center: LocationServices.shared.getLocation(), radius: 1000, identifier: UUID().uuidString))
+        //TODO: implement handling for nil location like done for SLT
+//        self.location  = Location(context: context,
+//                                       name: "Generation Area",
+//                                       area: CLCircularRegion(center: LocationServices.shared.getLocation(), radius: 1000, identifier: UUID().uuidString))
         self.minimumLocationsForCompletion = 1
         self.numberOfGeneratedLocations = 1
     }
@@ -99,8 +100,7 @@ extension RNGLocationTask{
     }
     
     override func currentStatus() -> String {
-        
-        return !(self.quest?.isActive ?? true) ? "" : " \(self.completedAreas)/\(self.numberOfGeneratedLocations) Locations Visited"
+        return "\(self.completedAreas)/\(self.numberOfGeneratedLocations)"
     }
     
 }
