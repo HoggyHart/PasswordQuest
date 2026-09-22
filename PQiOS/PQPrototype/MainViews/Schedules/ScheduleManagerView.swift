@@ -13,13 +13,20 @@ struct ScheduleManagerView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Schedule.isActive, ascending: false), NSSortDescriptor(keyPath: \Schedule.startTime, ascending: true)],animation: .default)
-    private var schedules: FetchedResults<Schedule>
+    @FetchRequest private var schedules: FetchedResults<Schedule>
     
-    let filters: [NSPredicate]
-    init(predicates: [NSPredicate] = []){
-        filters = predicates
+    let filters: NSPredicate?
+    init(predicate: NSPredicate? = nil){
+        filters = predicate
+        _schedules = FetchRequest(
+            sortDescriptors: [
+                NSSortDescriptor(keyPath: \Schedule.isActive, ascending: false),
+                NSSortDescriptor(keyPath: \Schedule.objectID, ascending: true)
+            ],
+            predicate: predicate
+        )
     }
+    
     var body: some View {
         VStack{
             HStack{

@@ -65,10 +65,14 @@ struct QuestTaskList: View {
     
     @State private var taskTypeSheetActive: Bool = false
     
-    private var fullView: Bool
-    init(quest: Quest, full: Bool){
+    let firstTaskIndex: Int
+    let lastTaskIndex: Int
+    
+    init(quest: Quest, firstTaskIndex: Int, lastTaskIndex: Int){
         self.quest = quest
-        self.fullView = full
+        self.firstTaskIndex = firstTaskIndex
+        self.lastTaskIndex = lastTaskIndex
+        
         _tasks = FetchRequest(
                 sortDescriptors: [
                     NSSortDescriptor(keyPath: \QuestTask.objectID, ascending: true)
@@ -101,14 +105,65 @@ struct QuestTaskList: View {
         }
     }
     
-    let firstTaskIndex: Int = 0
-    let lastTaskIndex: Int = 8
+    struct TaskTypeSelectorView: View {
+        @Environment(\.dismiss) var dismiss
+        @Environment(\.managedObjectContext) var context
+        @Binding var selection: QuestTask?
+        
+        var body: some View {
+            ZStack{
+                ScrollView{
+                    LazyVGrid(columns: [GridItem(), GridItem()]) {
+                        Button(){
+                            selection = ManualQuestTask(context: context)
+                          //  taskTypeSheetActive = false
+                        } label:{
+                            Image(systemName: "checklist")
+                        }
+                        // for each task type
+                        Button(){
+                            selection = TrainingQuestTask(context: context)
+                            dismiss()
+                        } label:{
+                            Image(systemName:"timer")
+                                .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
+                        }
+                        Button(){
+                            selection = SingleLocationTask(context: context, dummyVar: true)
+                            dismiss()
+                        } label:{
+                            Image("SingleLocationTaskIcon")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
+                        }
+                        Button(){
+                            selection = RNGLocationTask(context: context, dummyVar: true)
+                            dismiss()
+                        } label:{
+                            Image("RandomLocationTaskIcon")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
+                        }
+
+                    }
+                }
+            }
+        }
+    }
     
+    @State var newTaskName: String = ""
+    @State var newTaskType: QuestTask? = nil
     var body: some View {
         VStack(alignment: .leading, spacing: 0){
             ForEach(firstTaskIndex..<lastTaskIndex){i in
                 if i < tasks.count{
-                    QuestTaskListEntry(qtask: tasks[i])
+                    NavigationLink(destination: getView(task: tasks[i])) {
+                        QuestTaskListEntry(qtask: tasks[i])
+                    }.frame(height: 30)
+                }else if i == tasks.count{
+                    TextField("New Task \(Image(systemName: "plus"))", text: $newTaskName).font(.custom("Bradley Hand", size: 20)).submitLabel(.continue).onSubmit {taskTypeSheetActive=true}.frame(height: 30,alignment: .center)
                 }else{
                     Spacer().frame(height: 30)
                 }
@@ -117,64 +172,35 @@ struct QuestTaskList: View {
             maxWidth: .infinity,
             alignment: .topLeading
         )
-//
-//        }.sheet(isPresented: isTaskSheetPresented){
-//            if let id = inspectedTaskID {
-//                let localTask = context.object(with: id) as! QuestTask
-//                getView(task: localTask)
-//            }
-//        }.sheet(isPresented: $taskTypeSheetActive){
-//            ZStack{
-//                ScrollView{
-//                    LazyVGrid(columns: [GridItem(), GridItem()]) {
-//                        Button(){
-//                            addTask(task: ManualQuestTask(context: context))
-//                            taskTypeSheetActive = false
-//                        } label:{
-//                            Image(systemName: "checklist")
-//                        }
-//                        // for each task type
-//                        Button(){
-//                            addTask(task: TrainingQuestTask(context: context))
-//                            taskTypeSheetActive = false
-//                        } label:{
-//                            Image(systemName:"timer")
-//                                .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
-//                        }
-//                        Button(){
-//                            addTask(task:SingleLocationTask(context: context, dummyVar: true))
-//                            taskTypeSheetActive = false
-//                        } label:{
-//                            Image("SingleLocationTaskIcon")
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
-//                                .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
-//                        }
-//                        Button(){
-//                            addTask(task:RNGLocationTask(context: context, dummyVar: true))
-//                            taskTypeSheetActive = false
-//                        } label:{
-//                            Image("RandomLocationTaskIcon")
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
-//                                .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
-//                        }
-//                        
-//                    }
-//                }
-//            }
-//        }
-//        .toolbar(){
-//            if !quest.isActive { EditButton() }
-//        }
-//        .onChange(of: editing) { v in
-//            if v == false{
-//                context.perform {
-//                    do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-//                }
-//            }
-//        }
+        //.sheet(isPresented: isTaskSheetPresented, onDismiss: {
+        //            newTaskName = ""
+        //        }){
+        //            if let id = inspectedTaskID {
+        //                let localTask = context.object(with: id) as! QuestTask
+        //                getView(task: localTask)
+        //            }
+        //        }
+        .sheet(isPresented: $taskTypeSheetActive,onDismiss: {
+            if newTaskType != nil{
+                newTaskType?.name = newTaskName
+                addTask(task: newTaskType!)
+                newTaskName = ""
+                newTaskType = nil
+            }
+        }){
+            TaskTypeSelectorView(selection: $newTaskType)
+        }
     }
+        //        .toolbar(){
+        //            if !quest.isActive { EditButton() }
+        //        }
+        //        .onChange(of: editing) { v in
+        //            if v == false{
+        //                context.perform {
+        //                    do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+        //                }
+        //            }
+        //        }
     
     func addTask(task: QuestTask){
         context.perform {
@@ -252,7 +278,7 @@ struct QuestTaskList: View {
     q.addToTasks(task3)
     return VStack{
         EditButton()
-        QuestTaskList(quest: q, full: true).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        QuestTaskList(quest: q,firstTaskIndex: 0,lastTaskIndex: 17).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 
 }

@@ -72,7 +72,7 @@ struct QuestList: View {
                     }
                 //Add Quest
                 }else if i == questL.count{
-                    TextField("New Quest \(Image(systemName: "plus"))" , text: $newQuestName)
+                    TextField("New Quest \(Image(systemName: "plus"))", text: $newQuestName)
                         .submitLabel(.done)
                         .onSubmit {
                             addQuest()

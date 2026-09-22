@@ -67,8 +67,28 @@ struct QuestView: View {
     
     @StateObject var viewModel = JournalViewModel()
     
+    var taskStartIndex: Int{
+        get{
+            return max(0, (viewModel.page-2)*16 + 8 - 1)
+        }
+    }
+    var taskEndIndex: Int{
+        get{
+            if viewModel.page == 1 {
+                return tasks.count > 7 ? 7 : 8 //step back for "More on next page" label
+            }
+            return (viewModel.page-2)*16 + 24 - 1
+        }
+    }
+    var extraTaskPages: Int{
+        get{
+            if tasks.count < 8 { return 0 }
+            else if tasks.count < 23 { return 1 }
+            return 2+((tasks.count-23)/16)
+        }
+    }
     var body: some View {
-        JournalView(extraPages: 1+(tasks.count-7)/8, backgroundPages: true, viewModel: viewModel) {
+        JournalView(extraPages: 1 + extraTaskPages, backgroundPages: true, viewModel: viewModel) {
             VStack(spacing:0){
                 Spacer()
                 HStack(){
@@ -84,75 +104,54 @@ struct QuestView: View {
                     VStack(spacing:0){
                         //task list
                         VStack(alignment: .leading, spacing: 0){
-                            HStack{
-                                Text("Tasks").underline().font(.custom("Bradley Hand", size: 25))
-                            }.frame(height:30)
-                            ForEach(0..<8){i in
-                                if i < tasks.count{
-                                    if i == 7{
-                                        Text("Continued on next page...").frame(height: 30)
-                                    }else{
-                                        HStack(){
-                                            ZStack{
-                                                if quest.isActive{
-                                                    RoundedRectangle(cornerRadius: 20).frame(width:60,height:20).foregroundColor( QuestTaskList.taskStatusColor(task: tasks[i]) )
-                                                        .shadow(color:.black, radius: 1)
-                                                    // Image(systemName: "circle.fill")
-                                                    //    .foregroundColor( QuestTaskList.taskStatusColor(task: qtask) )
-                                                    //  .shadow(color:.black, radius: 1)
-                                                    Text(tasks[i].currentStatus() + " ")
-                                                }
-                                            }
-                                            Text("- " + (tasks[i].name ?? "Error")).foregroundColor(UITraitCollection.current.userInterfaceStyle == .dark ? Color.white : Color.black).font(.custom("Bradley Hand", size: 20))
-                                        }.frame(height: 30)
-                                    }
-                                }else{
-                                    Spacer().frame(height: 30)
-                                }
-                            }.offset(y:-3.5)
-                        }.frame(
-                            maxWidth: .infinity,
-                            alignment: .topLeading
-                        ).offset(y:-1)
-                        
-                        
-                        // ScheduleList(quest: quest).frame(height: 100)
-                        
-                        //start/end/lock buttons
-                        //                    HStack{
-                        //                        //lock/unlock button
-                        //                        if quest.isActive {
-                        //                            lockButton
-                        //                        }
-                        //                        //start/end button
-                        //                        ZStack{
-                        //                            questStatusButton
-                        //                        }
-                        //                    }.frame(width: 250, height: 50)
-                        //                    if quest.isActive{
-                        //                        Button(){
-                        //                            context.perform {
-                        //                                quest.delay(seconds: 300)
-                        //                                do{try context.save()}catch{}
-                        //                            }
-                        //                        } label: {
-                        //                            Text("Delay 5 Minutes (5\(Image(systemName: "hourglass")))")
-                        //                        }
-                        //                    }
+                            Text("Tasks").underline().font(.custom("Bradley Hand", size: 25)).frame(height:30).offset(y:5)
+                            QuestTaskList(quest: quest,firstTaskIndex: taskStartIndex,lastTaskIndex: taskEndIndex)
+                            if tasks.count>7{
+                                Text("Continued on next page...").frame(height: 30)
+                            }
+                        }
                         //Rewards
                         VStack(alignment:.leading, spacing:0){
-                            Text("Rewards").underline().font(.custom("Bradley Hand", size: 25))
-                            if quest.maxRewardValue.truncatingRemainder(dividingBy: 1) != 0{
-                                Text("\(Int(quest.maxRewardValue)) - \(Int(quest.maxRewardValue+1)) Grains of Time")
-                            }else{
-                                Text("\(Int(quest.maxRewardValue)) Grains of Time")
-                            }
-                        }.frame(maxWidth: .infinity,alignment: .leading).offset(y:-1)
+                            Text("Rewards").underline().font(.custom("Bradley Hand", size: 25)).offset(y:5).frame(height: 30)
+                            HStack{
+                                if quest.maxRewardValue.truncatingRemainder(dividingBy: 1) != 0{
+                                    Text("\(Int(quest.maxRewardValue)) - \(Int(quest.maxRewardValue+1))")
+                                }else{
+                                    Text("\(Int(quest.maxRewardValue))")
+                                }
+                                Text("Time in a Bottle")
+                            }.frame(height: 30)
+                        }.frame(maxWidth: .infinity,alignment: .leading)
                         Spacer()
+                        
+                        //Quest Start/Scheduling
                         HStack(spacing:0){
-                            Placeholder(description: "Stamp Area")
+                            //TODO: replace with stamp area, questStatusButton will be replaced with Empty, Completed, Failed, Paused, etc. stamps
+                            //When active stamp is tapped, replace text with "End?" and highlight a stopwatch to the right with a "Pause?" label
+                            VStack{
+                                HStack{
+                                    //lock/unlock button
+                                    if quest.isActive {
+                                        lockButton
+                                    }
+                                    //start/end button
+                                    ZStack{
+                                        questStatusButton
+                                    }
+                                }.frame(width: 250, height: 50)
+                                if quest.isActive{
+                                    Button(){
+                                        context.perform {
+                                            quest.delay(seconds: 300)
+                                            do{try context.save()}catch{}
+                                        }
+                                    } label: {
+                                        Text("Delay 5 Minutes (5\(Image(systemName: "hourglass")))")
+                                    }
+                                }
+                            }
                             Spacer()
-                            NavigationLink(destination: ScheduleManagerView(predicates: [NSPredicate(format:"quest == %@",quest)])) {
+                            NavigationLink(destination: ScheduleManagerView(predicate: NSPredicate(format:"quest == %@",quest))) {
                                 ZStack{
                                     Image("Stopwatch").resizable()
                                         .aspectRatio(contentMode: .fit).rotationEffect(.degrees(20))
@@ -160,40 +159,53 @@ struct QuestView: View {
                                 }
                             }
                         }.frame(height: 120)
-                    }.padding(EdgeInsets(top: 5, leading: 10, bottom: 0, trailing: 10))
+                    }.frame(maxWidth:.infinity, alignment: .topLeading)
+                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                 }
                 else{
-                    if tasks.count > 7{
-                        VStack(alignment: .leading, spacing: 0){
-                            HStack{
-                                Text("Tasks").underline().font(.custom("Bradley Hand", size: 25))
-                            }.frame(height:30)
-                            ForEach(7..<22){i in
-                                if i < tasks.count{
-                                    if i == 22{
-                                        Text("Continued on next page...").frame(height: 30)
-                                    }else{
-                                        HStack(){
-                                            ZStack{
-                                                if quest.isActive{
-                                                    RoundedRectangle(cornerRadius: 20).frame(width:60,height:20).foregroundColor( QuestTaskList.taskStatusColor(task: tasks[i]) )
-                                                        .shadow(color:.black, radius: 1)
-                                                    // Image(systemName: "circle.fill")
-                                                    //    .foregroundColor( QuestTaskList.taskStatusColor(task: qtask) )
-                                                    //  .shadow(color:.black, radius: 1)
-                                                    Text(tasks[i].currentStatus() + " ")
-                                                }
-                                            }
-                                            Text("- " + (tasks[i].name ?? "Error")).foregroundColor(UITraitCollection.current.userInterfaceStyle == .dark ? Color.white : Color.black).font(.custom("Bradley Hand", size: 20))
-                                        }.frame(height: 30)
-                                    }
-                                }else{
-                                    Spacer().frame(height: 30)
+                    VStack(spacing:0){
+                        if viewModel.page <= 1 + extraTaskPages{
+                            VStack(alignment: .leading, spacing: 0){
+                                HStack(spacing: 0){
+                                    Text("Tasks").underline().font(.custom("Bradley Hand", size: 25)).frame(height:30).offset(y:5)
+                                    Text(" cont. (\(viewModel.page-1)/\(extraTaskPages))").font(.custom("Bradley Hand", size: 15)).offset(y:10)
                                 }
-                            }.offset(y:-3.5)
-                            Spacer()
-                        }.frame(maxWidth: .infinity, alignment: .leading).padding(EdgeInsets(top: 5, leading: 10, bottom: 0, trailing: 10))
+                                QuestTaskList(quest: quest,
+                                              firstTaskIndex: taskStartIndex,
+                                              lastTaskIndex: taskEndIndex)
+                                .frame(minHeight:0)
+                            }
+                        }
+                        else{
+                            EditButton()
+                            ScheduleList(quest: quest).frame(height: 100)
+                            
+                          //  start/end/lock buttons
+                            HStack{
+                                //lock/unlock button
+                                if quest.isActive {
+                                    lockButton
+                                }
+                                //start/end button
+                                ZStack{
+                                    questStatusButton
+                                }
+                            }.frame(width: 250, height: 50)
+                            if quest.isActive{
+                                Button(){
+                                    context.perform {
+                                        quest.delay(seconds: 300)
+                                        do{try context.save()}catch{}
+                                    }
+                                } label: {
+                                    Text("Delay 5 Minutes (5\(Image(systemName: "hourglass")))")
+                                }
+                            }
+                        }
                     }
+                    .frame(maxWidth:.infinity, maxHeight: .infinity, alignment: .topLeading)
+                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                    .id(viewModel.page)
                 }
             }
         }
@@ -286,25 +298,24 @@ struct QuestView: View {
 #Preview {
     let stdQuest = Quest(context: PersistenceController.preview.container.viewContext, name: "New Quest")
     let task = ManualQuestTask(context: PersistenceController.preview.container.viewContext)
+    task.name = "Manual Task"
     stdQuest.addToTasks(task)
     let task1 = TrainingQuestTask(context: PersistenceController.preview.container.viewContext)
+    task1.name = "Training Task"
     stdQuest.addToTasks(task1)
     let task2 = SingleLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
     stdQuest.addToTasks(task2)
-    task2.name = "SLT"
+    task2.name = "Single Location Task"
     let task3 = RNGLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
-    task3.name = "RNGLT"//eallyReallyLongNameToCheckWhatHappensIfItGoesOffTheEdge"
+    task3.name = "Randomly Generated Location Task"
     stdQuest.addToTasks(task3)
     let schedule = Schedule(context: PersistenceController.preview.container.viewContext, quest: stdQuest)
-    
-    let task4 = ManualQuestTask(context: PersistenceController.preview.container.viewContext)
-    stdQuest.addToTasks(task4)
-    let task5 = ManualQuestTask(context: PersistenceController.preview.container.viewContext)
-    stdQuest.addToTasks(task5)
-    let task6 = ManualQuestTask(context: PersistenceController.preview.container.viewContext)
-    stdQuest.addToTasks(task6)
-    let task7 = ManualQuestTask(context: PersistenceController.preview.container.viewContext)
-    stdQuest.addToTasks(task7)
+    //0,7,8,23,38
+    for i in 0..<35{
+        let task3 = RNGLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
+        task3.name = "Task \(i)"
+        stdQuest.addToTasks(task3)
+    }
 //    let task8 = ManualQuestTask(context: PersistenceController.preview.container.viewContext)
 //    stdQuest.addToTasks(task8)
 //    let task9 = ManualQuestTask(context: PersistenceController.preview.container.viewContext)
