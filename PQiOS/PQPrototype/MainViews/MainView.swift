@@ -17,7 +17,7 @@ struct MainView: View {
                 VStack(spacing: 0){
                     //  GeometryReader{h in
                     if menu == 0{
-                        QuestManagerView(listLength: 14)
+                        QuestManagerView()
                     }
                     else if menu == 1{
                         ScheduleManagerView()

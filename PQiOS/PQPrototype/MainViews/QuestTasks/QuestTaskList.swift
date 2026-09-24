@@ -9,44 +9,6 @@ import SwiftUI
 import CoreData
 import MapKit
 
-struct MyExpandable<Header: View, Content: View>: View {
-    @Environment(\.editMode) private var editMode
-    private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
-    @State var expanded: Bool = false
-    var expandable: Bool
-    let header: Header
-    let content: Content
-    init(header: Header, content: Content, expandable: Bool){
-        self.content = content
-        self.header = header
-        self.expandable = expandable
-    }
-    
-    var body: some View{
-        VStack{
-            HStack{
-                header
-                Spacer()
-                if editing && expandable{
-                    Button(){
-                        expanded.toggle()
-                    } label:{
-                        if !expanded {
-                            Image(systemName:"chevron.right")
-                        } else{
-                            Image(systemName: "chevron.down")
-                        }
-                    }
-                }
-            }
-            if expanded && editing && expandable{
-                content
-            }
-        }
-    }
-}
-
-
 struct QuestTaskList: View {
     @Environment(\.editMode) private var editMode
     private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
@@ -60,28 +22,21 @@ struct QuestTaskList: View {
     @State private var inspectedTaskID: NSManagedObjectID? = nil
     private var isTaskSheetPresented: Binding<Bool> { Binding(get: { inspectedTaskID != nil }, set: { if !$0 { inspectedTaskID = nil } }) }
     
-    @State private var expandedConfigs: Dictionary<NSManagedObjectID,Bool> = [:]
-    @State private var toggleUpdate = false
-    
     @State private var taskTypeSheetActive: Bool = false
     
     let firstTaskIndex: Int
     let lastTaskIndex: Int
     
-    init(quest: Quest, firstTaskIndex: Int, lastTaskIndex: Int){
+    init(quest: Quest, firstTaskIndex: Int, lastTaskIndex: Int, listItemHeight: CGFloat = 30){
         self.quest = quest
         self.firstTaskIndex = firstTaskIndex
         self.lastTaskIndex = lastTaskIndex
+        self.listItemHeight = listItemHeight
         
         _tasks = FetchRequest(
-                sortDescriptors: [
-                    NSSortDescriptor(keyPath: \QuestTask.objectID, ascending: true)
-                ],
+                sortDescriptors: [],
                 predicate: NSPredicate(format: "quest == %@", quest)
             )
-        for task in tasks{
-            expandedConfigs[task.objectID] = false
-        }
     }
     
     struct QuestTaskListEntry: View {
@@ -116,6 +71,7 @@ struct QuestTaskList: View {
                     LazyVGrid(columns: [GridItem(), GridItem()]) {
                         Button(){
                             selection = ManualQuestTask(context: context)
+                            dismiss()
                           //  taskTypeSheetActive = false
                         } label:{
                             Image(systemName: "checklist")
@@ -155,17 +111,27 @@ struct QuestTaskList: View {
     
     @State var newTaskName: String = ""
     @State var newTaskType: QuestTask? = nil
+    let listItemHeight: CGFloat
+    @State var toDelete: IndexSet = IndexSet()
     var body: some View {
         VStack(alignment: .leading, spacing: 0){
             ForEach(firstTaskIndex..<lastTaskIndex){i in
                 if i < tasks.count{
-                    NavigationLink(destination: getView(task: tasks[i])) {
-                        QuestTaskListEntry(qtask: tasks[i])
-                    }.frame(height: 30)
+                    SelectableLine(selections: $toDelete, value: i) {
+                        NavigationLink(destination: getView(task: tasks[i])) {
+                            ZStack{
+                                QuestTaskListEntry(qtask: tasks[i]).frame(height: listItemHeight)
+                                if toDelete.contains(i){
+                                    Rectangle().frame(height: 2).foregroundColor(.red)
+                                }
+                            }
+                        }
+                        .disabled(editing)
+                    }
                 }else if i == tasks.count{
-                    TextField("New Task \(Image(systemName: "plus"))", text: $newTaskName).font(.custom("Bradley Hand", size: 20)).submitLabel(.continue).onSubmit {taskTypeSheetActive=true}.frame(height: 30,alignment: .center)
+                    TextField("New Task \(Image(systemName: "plus"))", text: $newTaskName).font(.custom("Bradley Hand", size: 20)).submitLabel(.continue).onSubmit {taskTypeSheetActive=true}.frame(height: listItemHeight,alignment: .center)
                 }else{
-                    Spacer().frame(height: 30)
+                    Spacer().frame(height: listItemHeight)
                 }
             }
         }.frame(
@@ -207,7 +173,7 @@ struct QuestTaskList: View {
             withAnimation {
                 quest.addToTasks(task)
                 do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-                expandedConfigs[task.objectID] = false
+                context.refreshAllObjects()
             }
         }
     }

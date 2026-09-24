@@ -7,18 +7,52 @@
 
 import SwiftUI
 
+struct SelectableLine<Content: View>: View {
+    @Environment(\.editMode) private var editMode
+    private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
+    
+    @Binding var selections: IndexSet
+    var value: Int = 0
+    var content: (() -> Content)
+    
+    init(selections: Binding<IndexSet>, value: Int, content: @escaping (() -> Content)) {
+        self.value = value
+        _selections = selections
+        self.content = content
+    }
+    var body: some View {
+        Button{
+            if editing{
+                toggleSelection()
+            }
+        } label: {
+            content()
+        }
+    }
+    func toggleSelection(){
+        if selections.contains(self.value){
+            selections.remove(self.value)
+        }else{
+            selections.insert(self.value)
+        }
+    }
+}
+
+
 struct JournalView<Header: View, Content: View>: View {
     
     let backgroundPages: Int
     let bCCornerRadius: CGFloat = 10
     let extraPages: Int
     let lines: Int
+    let lineHeight: CGFloat
     @ObservedObject var viewModel: JournalViewModel
     let content: (() -> Content)
     let header: (() -> Header)
-    init(extraPages: Int, lines: Int = 17, backgroundPages: Bool = false, viewModel: JournalViewModel = JournalViewModel(), header: @escaping (() -> Header), content: @escaping (() -> Content)
+    init(extraPages: Int, lines: Int = 17, lineHeight: CGFloat = 30, backgroundPages: Bool = false, viewModel: JournalViewModel = JournalViewModel(), header: @escaping (() -> Header), content: @escaping (() -> Content)
     ){
         self.lines = lines
+        self.lineHeight = lineHeight
         self.backgroundPages = backgroundPages ? 5 : 0
         self.viewModel = viewModel
         self.header = header
@@ -58,6 +92,8 @@ struct JournalView<Header: View, Content: View>: View {
                         }
                     }.offset(x:-viewModel.pageSide*11)
                     
+                    
+                    //lines
                     VStack(alignment: .center, spacing: 0){
                             VStack(alignment: .center, spacing:0){
                                 //  Spacer().frame(minHeight: 0)
@@ -70,7 +106,7 @@ struct JournalView<Header: View, Content: View>: View {
                                     VStack{
                                         ForEach(0..<lines){i in
                                             Divider()
-                                            Spacer().frame(height: 29.5)
+                                            Spacer().frame(height: lineHeight-0.5)
                                         }
                                         if lines > 0 {Divider()}
                                     }
@@ -84,27 +120,25 @@ struct JournalView<Header: View, Content: View>: View {
                         Spacer()
                         ZStack{
                             HStack{
-                                if extraPages != 0{
-                                    if viewModel.page > 1{
-                                        Button(){
-                                            if viewModel.page == 1 {return}
-                                            viewModel.page -= 1
-                                            viewModel.pageSide *= -1
-                                        } label: {
-                                            Image(systemName: "arrowshape.turn.up.left.fill")
-                                                .foregroundColor(.darkRed)
-                                        }
+                                if viewModel.page > 1{
+                                    Button(){
+                                        if viewModel.page == 1 {return}
+                                        viewModel.page -= 1
+                                        viewModel.pageSide *= -1
+                                    } label: {
+                                        Image(systemName: "arrowshape.turn.up.left.fill")
+                                            .foregroundColor(.darkRed)
                                     }
-                                    Spacer()
-                                    if viewModel.page < extraPages+1{
-                                        Button(){
-                                            if viewModel.page == extraPages+1{return}
-                                            viewModel.page += 1
-                                            viewModel.pageSide *= -1
-                                        } label: {
-                                            Image(systemName: "arrowshape.turn.up.right.fill")
-                                                .foregroundColor(.darkRed)
-                                        }
+                                }
+                                Spacer()
+                                if viewModel.page < extraPages+1{
+                                    Button(){
+                                        if viewModel.page == extraPages+1{return}
+                                        viewModel.page += 1
+                                        viewModel.pageSide *= -1
+                                    } label: {
+                                        Image(systemName: "arrowshape.turn.up.right.fill")
+                                            .foregroundColor(.darkRed)
                                     }
                                 }
                             }

@@ -10,7 +10,7 @@ import CoreData
 import CoreLocation
 struct QuestView: View {
     @Environment(\.managedObjectContext) private var context
-    
+    @Environment(\.dismiss) var dismiss
     
     // -- CoreData
     @ObservedObject
@@ -65,31 +65,53 @@ struct QuestView: View {
         }
     }
     
-    @StateObject var viewModel = JournalViewModel()
+    @StateObject var viewModel = JournalViewModel(lineHeight: 60)
     
+    let pageLines = 8
+    let firstPageTasks: Int = 2
+    var perPageTasks: Int { //for task pages (-1 for the subheading
+        get {
+            return pageLines - 1
+        }
+    }
     var taskStartIndex: Int{
         get{
-            return max(0, (viewModel.page-2)*16 + 8 - 1)
+            return max(0, (viewModel.page-2)*(pageLines-1) + firstPageTasks - 1)
         }
     }
     var taskEndIndex: Int{
         get{
             if viewModel.page == 1 {
-                return tasks.count > 7 ? 7 : 8 //step back for "More on next page" label
+                return tasks.count > firstPageTasks-1 ? firstPageTasks-1 : firstPageTasks //step back for "More on next page" label
             }
-            return (viewModel.page-2)*16 + 24 - 1
+            return (viewModel.page-2)*perPageTasks + firstPageTasks + (pageLines-1) - 1
         }
     }
     var extraTaskPages: Int{
         get{
-            if tasks.count < 8 { return 0 }
-            else if tasks.count < 23 { return 1 }
-            return 2+((tasks.count-23)/16)
+            
+            // 0 to F-1 ( the Xth one is replaced with "cont next page" to signify where overflow tasks go )
+            if tasks.count < firstPageTasks { return 0 }
+            // F to F + Y-1 -1 ( overflow Firstpage + amount that fit on a page - 1 (-1 since the Fth is one of those on-page tasks)
+            else if tasks.count < firstPageTasks + perPageTasks - 1 { return 1 }
+            //first extra page + first of these new pages + extra page per full page of tasks
+            // eppfpot =  (total tasks - tasks shown already)/perPageTasks
+            return 2+(tasks.count - (firstPageTasks - 1 + perPageTasks))/perPageTasks
         }
     }
     var body: some View {
-        JournalView(extraPages: 1 + extraTaskPages, backgroundPages: true, viewModel: viewModel) {
+        JournalView(extraPages: 1 + extraTaskPages, lines: pageLines, lineHeight: viewModel.lineHeight, backgroundPages: true, viewModel: viewModel) {
             VStack(spacing:0){
+                Button {
+                    dismiss()
+                } label: {
+                    Label {
+                        Text("Quest Log")
+                    } icon: {
+                        Image(systemName: "arrowshape.turn.up.left.fill")
+                            .foregroundColor(.darkRed)
+                    }.foregroundColor(.gray)
+                }.frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
                 HStack(){
                     TextField("Quest Name", text: $quest.name)
@@ -97,22 +119,24 @@ struct QuestView: View {
                     Image(systemName:"pencil")
                 }
                 Rectangle().frame(height: 2)
-            }.padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+            }.frame(maxWidth: .infinity,alignment: .leading)
+            .padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10))
         } content: {
             VStack{
                 if viewModel.page == 1{
                     VStack(spacing:0){
                         //task list
                         VStack(alignment: .leading, spacing: 0){
-                            Text("Tasks").underline().font(.custom("Bradley Hand", size: 25)).frame(height:30).offset(y:5)
-                            QuestTaskList(quest: quest,firstTaskIndex: taskStartIndex,lastTaskIndex: taskEndIndex)
-                            if tasks.count>7{
-                                Text("Continued on next page...").frame(height: 30)
+                            Text("Tasks").underline().font(.custom("Bradley Hand", size: 25)).frame(height:viewModel.lineHeight)
+                                .offset(y:viewModel.lineHeight/2 - 12.5)
+                            QuestTaskList(quest: quest,firstTaskIndex: taskStartIndex,lastTaskIndex: taskEndIndex,listItemHeight: viewModel.lineHeight).id(tasks.count)
+                            if tasks.count>firstPageTasks-1{
+                                Text("Continued on next page...").frame(height: viewModel.lineHeight)
                             }
                         }
                         //Rewards
                         VStack(alignment:.leading, spacing:0){
-                            Text("Rewards").underline().font(.custom("Bradley Hand", size: 25)).offset(y:5).frame(height: 30)
+                            Text("Rewards").underline().font(.custom("Bradley Hand", size: 25)).offset(y:5).frame(height: viewModel.lineHeight)
                             HStack{
                                 if quest.maxRewardValue.truncatingRemainder(dividingBy: 1) != 0{
                                     Text("\(Int(quest.maxRewardValue)) - \(Int(quest.maxRewardValue+1))")
@@ -120,7 +144,7 @@ struct QuestView: View {
                                     Text("\(Int(quest.maxRewardValue))")
                                 }
                                 Text("Time in a Bottle")
-                            }.frame(height: 30)
+                            }.frame(height: viewModel.lineHeight)
                         }.frame(maxWidth: .infinity,alignment: .leading)
                         Spacer()
                         
@@ -167,12 +191,13 @@ struct QuestView: View {
                         if viewModel.page <= 1 + extraTaskPages{
                             VStack(alignment: .leading, spacing: 0){
                                 HStack(spacing: 0){
-                                    Text("Tasks").underline().font(.custom("Bradley Hand", size: 25)).frame(height:30).offset(y:5)
+                                    Text("Tasks").underline().font(.custom("Bradley Hand", size: 25)).frame(height:viewModel.lineHeight).offset(y:5)
                                     Text(" cont. (\(viewModel.page-1)/\(extraTaskPages))").font(.custom("Bradley Hand", size: 15)).offset(y:10)
                                 }
                                 QuestTaskList(quest: quest,
                                               firstTaskIndex: taskStartIndex,
-                                              lastTaskIndex: taskEndIndex)
+                                              lastTaskIndex: taskEndIndex,
+                                              listItemHeight: viewModel.lineHeight)
                                 .frame(minHeight:0)
                             }
                         }
@@ -208,7 +233,7 @@ struct QuestView: View {
                     .id(viewModel.page)
                 }
             }
-        }
+        }.navigationBarHidden(true)
     }
 
     func startEndResetButtonFunc(){
@@ -297,21 +322,21 @@ struct QuestView: View {
 
 #Preview {
     let stdQuest = Quest(context: PersistenceController.preview.container.viewContext, name: "New Quest")
-    let task = ManualQuestTask(context: PersistenceController.preview.container.viewContext)
-    task.name = "Manual Task"
-    stdQuest.addToTasks(task)
-    let task1 = TrainingQuestTask(context: PersistenceController.preview.container.viewContext)
-    task1.name = "Training Task"
-    stdQuest.addToTasks(task1)
-    let task2 = SingleLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
-    stdQuest.addToTasks(task2)
-    task2.name = "Single Location Task"
-    let task3 = RNGLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
-    task3.name = "Randomly Generated Location Task"
-    stdQuest.addToTasks(task3)
+//    let task = ManualQuestTask(context: PersistenceController.preview.container.viewContext)
+//    task.name = "Manual Task"
+//    stdQuest.addToTasks(task)
+//    let task1 = TrainingQuestTask(context: PersistenceController.preview.container.viewContext)
+//    task1.name = "Training Task"
+//    stdQuest.addToTasks(task1)
+//    let task2 = SingleLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
+//    stdQuest.addToTasks(task2)
+//    task2.name = "Single Location Task"
+//    let task3 = RNGLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
+//    task3.name = "Randomly Generated Location Task"
+    //stdQuest.addToTasks(task3)
     let schedule = Schedule(context: PersistenceController.preview.container.viewContext, quest: stdQuest)
     //0,7,8,23,38
-    for i in 0..<35{
+    for i in 0..<22{
         let task3 = RNGLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
         task3.name = "Task \(i)"
         stdQuest.addToTasks(task3)
