@@ -124,8 +124,8 @@ struct QuestView: View {
                 HStack(){
                     TextField("Quest Name", text: $quest.name)
                         .font(.journalTitle)
-                    EditButton()
-                    Image(systemName:"pencil")
+                    EditButton().font(.journalSubheading)
+                    Image(systemName:"pencil").foregroundColor(.blue)
                 }
                 Rectangle().frame(height: 2)
             }.frame(maxWidth: .infinity,alignment: .leading)

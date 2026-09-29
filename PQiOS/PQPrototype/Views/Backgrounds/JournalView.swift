@@ -118,8 +118,6 @@ struct JournalView<Header: View, Content: View>: View {
                         Spacer().frame(height: 50)
                     }
                     //page turn overlay
-                    VStack(spacing:0){
-                        Spacer()
                         ZStack{
                             HStack{
                                 if viewModel.page > 1{
@@ -130,9 +128,8 @@ struct JournalView<Header: View, Content: View>: View {
                                     } label: {
                                         Image(systemName: "arrowshape.turn.up.left.fill")
                                             .foregroundColor(.darkRed)
-                                    }
+                                    }.frame(maxWidth: .infinity, alignment: .leading)
                                 }
-                                Spacer()
                                 if viewModel.page < extraPages+1{
                                     Button(){
                                         if viewModel.page == extraPages+1{return}
@@ -141,13 +138,12 @@ struct JournalView<Header: View, Content: View>: View {
                                     } label: {
                                         Image(systemName: "arrowshape.turn.up.right.fill")
                                             .foregroundColor(.darkRed)
-                                    }
+                                    }.frame(maxWidth: .infinity, alignment: .trailing)
                                 }
                             }
                             Text("\(viewModel.page)")
-                        }.frame(height: 20)
-                    }
-                    .padding(EdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15))
+                        }.frame(maxHeight: .infinity, alignment: .bottom)
+                        .padding(EdgeInsets(top: 0, leading: 15, bottom: 15, trailing: 15))
                 }
                 .padding(EdgeInsets(top: 10,
                                     leading: max(10,viewModel.pageSide*21),
@@ -174,7 +170,6 @@ struct JournalView<Header: View, Content: View>: View {
             VStack(alignment: .leading){
                 Rectangle().foregroundColor(.red)
                     .opacity(0.2).frame(width: 200, height: 200)
-               // Spacer()
             }
             Rectangle().foregroundColor(.red)
                 .opacity(0.2)

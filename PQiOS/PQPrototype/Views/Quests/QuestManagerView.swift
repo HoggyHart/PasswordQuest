@@ -23,10 +23,9 @@ struct QuestManagerView: View {
     @StateObject var jviewModel = JournalViewModel()
     @StateObject var viewModel = QuestManagerViewModel()
     
-    let rowHeight: CGFloat = 60
+    let rowHeight: CGFloat = 50
     
     var body: some View {
-        Text("\(viewModel.quests.count)").id(viewModel.quests.count)
         JournalView(extraPages: viewModel.quests.count/viewModel.listSize, lines: 8, lineHeight: rowHeight, viewModel: jviewModel){
             ZStack{
                 Button(){
@@ -46,7 +45,6 @@ struct QuestManagerView: View {
                 HStack{
                     Spacer()
                     EditButton().font(.journalSubheading)
-                    
                 }
             }.padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
         } content: {
