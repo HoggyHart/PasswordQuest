@@ -41,7 +41,7 @@ struct PQPrototypeApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainView()
+           MainView()
                 .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
         }
     }

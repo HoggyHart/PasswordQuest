@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SelectableLine<Content: View>: View {
+struct SelectableView<Content: View>: View {
     @Environment(\.editMode) private var editMode
     private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
     
@@ -20,6 +20,7 @@ struct SelectableLine<Content: View>: View {
         _selections = selections
         self.content = content
     }
+    
     var body: some View {
         Button{
             if editing{
@@ -29,6 +30,7 @@ struct SelectableLine<Content: View>: View {
             content()
         }
     }
+    
     func toggleSelection(){
         if selections.contains(self.value){
             selections.remove(self.value)
@@ -38,7 +40,6 @@ struct SelectableLine<Content: View>: View {
     }
 }
 
-
 struct JournalView<Header: View, Content: View>: View {
     
     let backgroundPages: Int
@@ -46,6 +47,7 @@ struct JournalView<Header: View, Content: View>: View {
     let extraPages: Int
     let lines: Int
     let lineHeight: CGFloat
+    
     @ObservedObject var viewModel: JournalViewModel
     let content: (() -> Content)
     let header: (() -> Header)

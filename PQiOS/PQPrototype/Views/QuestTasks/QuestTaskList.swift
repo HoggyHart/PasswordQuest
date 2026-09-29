@@ -14,29 +14,16 @@ struct QuestTaskList: View {
     private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
     @Environment(\.managedObjectContext) private var context
     
-    @FetchRequest private var tasks: FetchedResults<QuestTask>
-    
-    @ObservedObject
-    var quest: Quest
-    
-    @State private var inspectedTaskID: NSManagedObjectID? = nil
-    private var isTaskSheetPresented: Binding<Bool> { Binding(get: { inspectedTaskID != nil }, set: { if !$0 { inspectedTaskID = nil } }) }
-    
-    @State private var taskTypeSheetActive: Bool = false
+    let quest: Quest
     
     let firstTaskIndex: Int
     let lastTaskIndex: Int
-    
-    init(quest: Quest, firstTaskIndex: Int, lastTaskIndex: Int, listItemHeight: CGFloat = 30){
+    init(quest: Quest, firstTaskIndex: Int, lastTaskIndex: Int, listItemHeight: CGFloat = 30, viewModel: QuestTaskManagerViewModel? = nil){
         self.quest = quest
         self.firstTaskIndex = firstTaskIndex
         self.lastTaskIndex = lastTaskIndex
         self.listItemHeight = listItemHeight
-        
-        _tasks = FetchRequest(
-                sortDescriptors: [],
-                predicate: NSPredicate(format: "quest == %@", quest)
-            )
+        self.viewModel = viewModel ?? QuestTaskManagerViewModel()
     }
     
     struct QuestTaskListEntry: View {
@@ -48,88 +35,59 @@ struct QuestTaskList: View {
         }
         var body: some View {
             HStack(){
-                if qtask.quest!.isActive{
+                if qtask.quest?.isActive ?? false{
                     ZStack{
-                        RoundedRectangle(cornerRadius: 20).frame(width:60,height:20).foregroundColor( QuestTaskList.taskStatusColor(task: qtask) )
+                        RoundedRectangle(cornerRadius: 20).frame(width:60,height:20).foregroundColor( taskStatusColor )
                             .shadow(color:.black, radius: 1)
                         Text(qtask.currentStatus() + " ")
                     }
                 }
-                Text("- " + (qtask.name ?? "Error")).foregroundColor(UITraitCollection.current.userInterfaceStyle == .dark ? Color.white : Color.black).font(.custom("Bradley Hand", size: 20))
-            }.frame(height: 30)
+                Text("- " + (qtask.name ?? "Error")).foregroundColor(UITraitCollection.current.userInterfaceStyle == .dark ? Color.white : Color.black).font(.journalBody)
+            }
         }
-    }
-    
-    struct TaskTypeSelectorView: View {
-        @Environment(\.dismiss) var dismiss
-        @Environment(\.managedObjectContext) var context
-        @Binding var selection: QuestTask?
         
-        var body: some View {
-            ZStack{
-                ScrollView{
-                    LazyVGrid(columns: [GridItem(), GridItem()]) {
-                        Button(){
-                            selection = ManualQuestTask(context: context)
-                            dismiss()
-                          //  taskTypeSheetActive = false
-                        } label:{
-                            Image(systemName: "checklist")
-                        }
-                        // for each task type
-                        Button(){
-                            selection = TrainingQuestTask(context: context)
-                            dismiss()
-                        } label:{
-                            Image(systemName:"timer")
-                                .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
-                        }
-                        Button(){
-                            selection = SingleLocationTask(context: context, dummyVar: true)
-                            dismiss()
-                        } label:{
-                            Image("SingleLocationTaskIcon")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
-                        }
-                        Button(){
-                            selection = RNGLocationTask(context: context, dummyVar: true)
-                            dismiss()
-                        } label:{
-                            Image("RandomLocationTaskIcon")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)
-                        }
-
-                    }
-                }
+        var taskStatusColor: Color{
+            ///-2: inactive, no tasks -> doesnt matter what colour - take default
+            ///-1: inactive, failed
+            ///0: inactive, not started
+            ///1: active
+            ///2: inactive, completed successfully
+            switch(qtask.quest?.questStatus()){
+            case .failed:
+                return .red
+            case .inactive:
+                return .white
+            case .inProgress, .paused:
+                if qtask.completed { return .green }
+                return .yellow
+            case .completed:
+                return .green
+            default:
+                return .purple
             }
         }
     }
     
-    @State var newTaskName: String = ""
-    @State var newTaskType: QuestTask? = nil
+    @ObservedObject var viewModel: QuestTaskManagerViewModel
     let listItemHeight: CGFloat
-    @State var toDelete: IndexSet = IndexSet()
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0){
             ForEach(firstTaskIndex..<lastTaskIndex){i in
-                if i < tasks.count{
-                    SelectableLine(selections: $toDelete, value: i) {
-                        NavigationLink(destination: getView(task: tasks[i])) {
+                if i < viewModel.questTasks.count{
+                    SelectableView(selections: $viewModel.toDelete, value: i) {
+                        NavigationLink(destination: getView(task: viewModel.questTasks[i])) {
                             ZStack{
-                                QuestTaskListEntry(qtask: tasks[i]).frame(height: listItemHeight)
-                                if toDelete.contains(i){
+                                QuestTaskListEntry(qtask: viewModel.questTasks[i]).frame(height: listItemHeight)
+                                if viewModel.toDelete.contains(i){
                                     Rectangle().frame(height: 2).foregroundColor(.red)
                                 }
                             }
                         }
                         .disabled(editing)
                     }
-                }else if i == tasks.count{
-                    TextField("New Task \(Image(systemName: "plus"))", text: $newTaskName).font(.custom("Bradley Hand", size: 20)).submitLabel(.continue).onSubmit {taskTypeSheetActive=true}.frame(height: listItemHeight,alignment: .center)
+                }else if i == viewModel.questTasks.count{
+                    TextField("New Task \(Image(systemName: "plus"))", text: $viewModel.newTaskName).font(.journalBody).submitLabel(.continue).onSubmit {viewModel.taskTypeSheetActive=true}.frame(height: listItemHeight,alignment: .center)
                 }else{
                     Spacer().frame(height: listItemHeight)
                 }
@@ -138,76 +96,16 @@ struct QuestTaskList: View {
             maxWidth: .infinity,
             alignment: .topLeading
         )
-        //.sheet(isPresented: isTaskSheetPresented, onDismiss: {
-        //            newTaskName = ""
-        //        }){
-        //            if let id = inspectedTaskID {
-        //                let localTask = context.object(with: id) as! QuestTask
-        //                getView(task: localTask)
-        //            }
-        //        }
-        .sheet(isPresented: $taskTypeSheetActive,onDismiss: {
-            if newTaskType != nil{
-                newTaskType?.name = newTaskName
-                addTask(task: newTaskType!)
-                newTaskName = ""
-                newTaskType = nil
-            }
+        .sheet(isPresented: $viewModel.taskTypeSheetActive,onDismiss: {
+            viewModel.breakTask()
         }){
-            TaskTypeSelectorView(selection: $newTaskType)
+            TaskCreationView(viewModel: viewModel)
         }
-    }
-        //        .toolbar(){
-        //            if !quest.isActive { EditButton() }
-        //        }
-        //        .onChange(of: editing) { v in
-        //            if v == false{
-        //                context.perform {
-        //                    do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-        //                }
-        //            }
-        //        }
-    
-    func addTask(task: QuestTask){
-        context.perform {
-            withAnimation {
-                quest.addToTasks(task)
-                do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-                context.refreshAllObjects()
-            }
-        }
-    }
-    
-    
-    private func deleteTask(task: QuestTask) {
-        context.perform {
-            withAnimation {
-            
-                context.delete(task)
-                let key = QuestKey.generateKey(quest: quest)
-                key.keyType = .edited
-                do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-            }
-        }
-    }
-    static func taskStatusColor(task: QuestTask) -> Color{
-        ///-2: inactive, no tasks -> doesnt matter what colour - take default
-        ///-1: inactive, failed
-        ///0: inactive, not started
-        ///1: active
-        ///2: inactive, completed successfully
-        switch(task.quest?.questStatus()){
-        case .failed:
-            return .red
-        case .inactive:
-            return .white
-        case .inProgress, .paused:
-            if task.completed { return .green }
-            return .yellow
-        case .completed:
-            return .green
-        default:
-            return .purple
+        .onChange(of: editing) { newValue in
+            if viewModel.toDelete.isEmpty { return }
+            viewModel.deleteTasks(offsets: viewModel.toDelete)
+        }.onAppear(){
+            viewModel.assignPredicateQuest(quest: quest)
         }
     }
     

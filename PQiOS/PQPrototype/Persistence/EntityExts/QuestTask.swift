@@ -10,13 +10,15 @@ import CoreData
 import SwiftUI
 
 
-class InvalidTaskError: Error{
+class InvalidTaskError: Error, CustomStringConvertible{
     let task: String
     let invalidAttribute: String
     init(task: String, invalidAttribute: String) {
         self.task = task
         self.invalidAttribute = invalidAttribute
     }
+    
+    public var description: String { return "\(task) is invalid: \(invalidAttribute)" }
 }
 
 extension QuestTask{

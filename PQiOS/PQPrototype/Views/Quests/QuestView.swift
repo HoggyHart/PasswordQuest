@@ -9,6 +9,9 @@ import SwiftUI
 import CoreData
 import CoreLocation
 struct QuestView: View {
+    
+    @Environment(\.editMode) private var editMode
+    private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
     @Environment(\.managedObjectContext) private var context
     @Environment(\.dismiss) var dismiss
     
@@ -59,13 +62,15 @@ struct QuestView: View {
         } label : {
             ZStack{
                 RoundedRectangle(cornerRadius: 50, style: .circular)
-                    .foregroundColor(statusColor())
-                Text(startEndResetButtonText()).foregroundColor(.white)
+                    .foregroundColor(statusColor)
+                Text(startEndResetButtonText).foregroundColor(.white)
             }
         }
     }
     
-    @StateObject var viewModel = JournalViewModel(lineHeight: 60)
+    @StateObject var journalViewModel = JournalViewModel()
+    @StateObject var viewModel = QuestTaskManagerViewModel()
+    let rowHeight: CGFloat = 60
     
     let pageLines = 8
     let firstPageTasks: Int = 2
@@ -76,15 +81,15 @@ struct QuestView: View {
     }
     var taskStartIndex: Int{
         get{
-            return max(0, (viewModel.page-2)*(pageLines-1) + firstPageTasks - 1)
+            return max(0, (journalViewModel.page-2)*(pageLines-1) + firstPageTasks - 1)
         }
     }
     var taskEndIndex: Int{
         get{
-            if viewModel.page == 1 {
+            if journalViewModel.page == 1 {
                 return tasks.count > firstPageTasks-1 ? firstPageTasks-1 : firstPageTasks //step back for "More on next page" label
             }
-            return (viewModel.page-2)*perPageTasks + firstPageTasks + (pageLines-1) - 1
+            return (journalViewModel.page-2)*perPageTasks + firstPageTasks + (pageLines-1) - 1
         }
     }
     var extraTaskPages: Int{
@@ -99,8 +104,11 @@ struct QuestView: View {
             return 2+(tasks.count - (firstPageTasks - 1 + perPageTasks))/perPageTasks
         }
     }
+    
     var body: some View {
-        JournalView(extraPages: 1 + extraTaskPages, lines: pageLines, lineHeight: viewModel.lineHeight, backgroundPages: true, viewModel: viewModel) {
+        JournalView(extraPages: 1 + extraTaskPages, lines: pageLines, lineHeight: rowHeight, backgroundPages: true, viewModel: journalViewModel) {
+            
+            //Header: Page title and quest name
             VStack(spacing:0){
                 Button {
                     dismiss()
@@ -115,7 +123,8 @@ struct QuestView: View {
                 Spacer()
                 HStack(){
                     TextField("Quest Name", text: $quest.name)
-                        .font(.custom("Bradley Hand", size: 30))
+                        .font(.journalTitle)
+                    EditButton()
                     Image(systemName:"pencil")
                 }
                 Rectangle().frame(height: 2)
@@ -123,20 +132,20 @@ struct QuestView: View {
             .padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10))
         } content: {
             VStack{
-                if viewModel.page == 1{
+                if journalViewModel.page == 1{
                     VStack(spacing:0){
                         //task list
                         VStack(alignment: .leading, spacing: 0){
-                            Text("Tasks").underline().font(.custom("Bradley Hand", size: 25)).frame(height:viewModel.lineHeight)
-                                .offset(y:viewModel.lineHeight/2 - 12.5)
-                            QuestTaskList(quest: quest,firstTaskIndex: taskStartIndex,lastTaskIndex: taskEndIndex,listItemHeight: viewModel.lineHeight).id(tasks.count)
+                            Text("Tasks").underline().font(.journalSubheading).frame(height:rowHeight)
+                                .offset(y:rowHeight/2 - 12.5)
+                            QuestTaskList(quest: quest,firstTaskIndex: taskStartIndex,lastTaskIndex: taskEndIndex,listItemHeight: rowHeight,viewModel: viewModel).id(tasks.count)
                             if tasks.count>firstPageTasks-1{
-                                Text("Continued on next page...").frame(height: viewModel.lineHeight)
+                                Text("Continued on next page...").frame(height: rowHeight)
                             }
                         }
                         //Rewards
                         VStack(alignment:.leading, spacing:0){
-                            Text("Rewards").underline().font(.custom("Bradley Hand", size: 25)).offset(y:5).frame(height: viewModel.lineHeight)
+                            Text("Rewards").underline().font(.journalSubheading).offset(y:rowHeight/2 - 12.5).frame(height: rowHeight)
                             HStack{
                                 if quest.maxRewardValue.truncatingRemainder(dividingBy: 1) != 0{
                                     Text("\(Int(quest.maxRewardValue)) - \(Int(quest.maxRewardValue+1))")
@@ -144,7 +153,7 @@ struct QuestView: View {
                                     Text("\(Int(quest.maxRewardValue))")
                                 }
                                 Text("Time in a Bottle")
-                            }.frame(height: viewModel.lineHeight)
+                            }.frame(height: rowHeight)
                         }.frame(maxWidth: .infinity,alignment: .leading)
                         Spacer()
                         
@@ -183,21 +192,22 @@ struct QuestView: View {
                                 }
                             }
                         }.frame(height: 120)
-                    }.frame(maxWidth:.infinity, alignment: .topLeading)
+                    }
+                    .frame(maxWidth:.infinity, alignment: .topLeading)
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                 }
                 else{
                     VStack(spacing:0){
-                        if viewModel.page <= 1 + extraTaskPages{
+                        if journalViewModel.page <= 1 + extraTaskPages{
                             VStack(alignment: .leading, spacing: 0){
                                 HStack(spacing: 0){
-                                    Text("Tasks").underline().font(.custom("Bradley Hand", size: 25)).frame(height:viewModel.lineHeight).offset(y:5)
-                                    Text(" cont. (\(viewModel.page-1)/\(extraTaskPages))").font(.custom("Bradley Hand", size: 15)).offset(y:10)
+                                    Text("Tasks").underline().font(.journalSubheading).frame(height:rowHeight).offset(y:5)
+                                    Text(" cont. (\(journalViewModel.page-1)/\(extraTaskPages))").font(.journalBody).offset(y:10)
                                 }
                                 QuestTaskList(quest: quest,
                                               firstTaskIndex: taskStartIndex,
                                               lastTaskIndex: taskEndIndex,
-                                              listItemHeight: viewModel.lineHeight)
+                                              listItemHeight: rowHeight,viewModel: viewModel)
                                 .frame(minHeight:0)
                             }
                         }
@@ -230,7 +240,7 @@ struct QuestView: View {
                     }
                     .frame(maxWidth:.infinity, maxHeight: .infinity, alignment: .topLeading)
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-                    .id(viewModel.page)
+                    .id(journalViewModel.page)
                 }
             }
         }.navigationBarHidden(true)
@@ -275,7 +285,7 @@ struct QuestView: View {
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
     }
-    func startEndResetButtonText() -> String{
+    var startEndResetButtonText: String{
         ///-2: inactive, no tasks
         ///-1: inactive, failed
         ///0: inactive, not started
@@ -299,7 +309,7 @@ struct QuestView: View {
             return "Unknown status"
         }
     }
-    func statusColor() -> Color {
+    var statusColor: Color {
         ///-2: inactive, no tasks
         ///-1: inactive, failed
         ///0: inactive, not started
@@ -322,39 +332,13 @@ struct QuestView: View {
 
 #Preview {
     let stdQuest = Quest(context: PersistenceController.preview.container.viewContext, name: "New Quest")
-//    let task = ManualQuestTask(context: PersistenceController.preview.container.viewContext)
-//    task.name = "Manual Task"
-//    stdQuest.addToTasks(task)
-//    let task1 = TrainingQuestTask(context: PersistenceController.preview.container.viewContext)
-//    task1.name = "Training Task"
-//    stdQuest.addToTasks(task1)
-//    let task2 = SingleLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
-//    stdQuest.addToTasks(task2)
-//    task2.name = "Single Location Task"
-//    let task3 = RNGLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
-//    task3.name = "Randomly Generated Location Task"
-    //stdQuest.addToTasks(task3)
     let schedule = Schedule(context: PersistenceController.preview.container.viewContext, quest: stdQuest)
     //0,7,8,23,38
     for i in 0..<22{
-        let task3 = RNGLocationTask(context: PersistenceController.preview.container.viewContext, dummyVar: true)
+        let task3 = TrainingQuestTask(context: PersistenceController.preview.container.viewContext)
         task3.name = "Task \(i)"
         stdQuest.addToTasks(task3)
     }
-//    let task8 = ManualQuestTask(context: PersistenceController.preview.container.viewContext)
-//    stdQuest.addToTasks(task8)
-//    let task9 = ManualQuestTask(context: PersistenceController.preview.container.viewContext)
-//    stdQuest.addToTasks(task9)
-//    let task10 = ManualQuestTask(context: PersistenceController.preview.container.viewContext)
-//    stdQuest.addToTasks(task10)
-//    let task11 = ManualQuestTask(context: PersistenceController.preview.container.viewContext)
-//    stdQuest.addToTasks(task11)
-//    let task12 = ManualQuestTask(context: PersistenceController.preview.container.viewContext)
-//    stdQuest.addToTasks(task12)
-//    let task13 = ManualQuestTask(context: PersistenceController.preview.container.viewContext)
-//    stdQuest.addToTasks(task13)
-//    let task14 = ManualQuestTask(context: PersistenceController.preview.container.viewContext)
-//    stdQuest.addToTasks(task14)
     
     
     
