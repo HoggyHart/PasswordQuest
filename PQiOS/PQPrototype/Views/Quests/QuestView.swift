@@ -70,7 +70,7 @@ struct QuestView: View {
     
     @StateObject var journalViewModel = JournalViewModel()
     @StateObject var viewModel = QuestTaskManagerViewModel()
-    let rowHeight: CGFloat = 60
+    let rowHeight: CGFloat = 50
     
     let pageLines = 8
     let firstPageTasks: Int = 2
@@ -124,8 +124,10 @@ struct QuestView: View {
                 HStack(){
                     TextField("Quest Name", text: $quest.name)
                         .font(.journalTitle)
-                    EditButton().font(.journalSubheading)
-                    Image(systemName:"pencil").foregroundColor(.blue)
+                    if !quest.isActive{
+                        EditButton().font(.journalSubheading)
+                        Image(systemName:"pencil").foregroundColor(.blue)
+                    }
                 }
                 Rectangle().frame(height: 2)
             }.frame(maxWidth: .infinity,alignment: .leading)
@@ -140,7 +142,7 @@ struct QuestView: View {
                                 .offset(y:rowHeight/2 - 12.5)
                             QuestTaskList(quest: quest,firstTaskIndex: taskStartIndex,lastTaskIndex: taskEndIndex,listItemHeight: rowHeight,viewModel: viewModel).id(tasks.count)
                             if tasks.count>firstPageTasks-1{
-                                Text("Continued on next page...").frame(height: rowHeight)
+                                Text("Continued on next page...").frame(height: rowHeight) //TODO: make nicer. conceptually i like this, but having 1 task on a separate layout from all the rest feels strange
                             }
                         }
                         //Rewards
@@ -343,5 +345,7 @@ struct QuestView: View {
     
     
     stdQuest.isActive = true
-    return QuestView(quest: stdQuest).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    return VStack(spacing: 0){
+        MainHeader()
+        QuestView(quest: stdQuest)}.environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

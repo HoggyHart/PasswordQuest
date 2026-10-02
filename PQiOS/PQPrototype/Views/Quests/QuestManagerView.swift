@@ -26,7 +26,7 @@ struct QuestManagerView: View {
     let rowHeight: CGFloat = 50
     
     var body: some View {
-        JournalView(extraPages: viewModel.quests.count/viewModel.listSize, lines: 8, lineHeight: rowHeight, viewModel: jviewModel){
+        JournalView(extraPages: viewModel.quests.count/viewModel.listSize, viewModel: jviewModel){
             ZStack{
                 Button(){
                     viewContext.perform {
@@ -67,8 +67,8 @@ struct QuestManagerView: View {
                                 }
                                 .disabled(editing)
                             }
-                            //Add Quest
-                        }else if i == viewModel.quests.count{
+                        //Add Quest (as long as not implying adding new active quest)
+                        }else if i == viewModel.quests.count && predicateIndex != 1{
                             TextField("New Quest \(Image(systemName: "plus"))", text: $viewModel.newQuestName)
                                 .submitLabel(.done)
                                 .onSubmit {

@@ -86,7 +86,7 @@ struct QuestTaskList: View {
                         }
                         .disabled(editing)
                     }
-                }else if i == viewModel.questTasks.count{
+                }else if i == viewModel.questTasks.count && !quest.isActive{
                     TextField("New Task \(Image(systemName: "plus"))", text: $viewModel.newTaskName).font(.journalBody).submitLabel(.continue).onSubmit {viewModel.taskTypeSheetActive=true}.frame(height: listItemHeight,alignment: .center)
                 }else{
                     Spacer().frame(height: listItemHeight)

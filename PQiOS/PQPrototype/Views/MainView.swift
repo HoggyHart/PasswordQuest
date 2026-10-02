@@ -13,8 +13,10 @@ struct MainView: View {
     @State var menu = 0
 
     var body: some View {
-        NavigationView{
-                VStack(spacing: 0){
+        VStack(spacing:0){
+            MainHeader()
+            NavigationView{
+                VStack{ //VStack just to hide navbar for all if else views
                     //  GeometryReader{h in
                     if menu == 0{
                         QuestManagerView()
@@ -28,25 +30,18 @@ struct MainView: View {
                     else if menu == 3{
                         LocationManagerView()
                     }
-                    HStack(spacing: 1){
-                        ForEach(0..<views,id:\.self){i in
-                            Button(){
-                                menu = i
-                            } label: {
-                                Rectangle()
-                            }
-                        }
+                }.navigationBarHidden(true)
+            }
+            HStack(spacing: 1){
+                ForEach(0..<views,id:\.self){i in
+                    Button(){
+                        menu = i
+                    } label: {
+                        Rectangle()
                     }
-                    .frame(height: 30)
-                    //   }
-                }.navigationTitle("PasswordQuest")
-                    .navigationBarTitleDisplayMode(.inline)
-                    .navigationViewStyle(.stack)
-                    .toolbar{
-                        ToolbarItem{
-                            TimeInABottleDisplay(GlobalQuestLoot.getLoot(context).timeInABottle)
-                        }
-                    }
+                }
+            }
+            .frame(height: 30)
         }
     }
 }

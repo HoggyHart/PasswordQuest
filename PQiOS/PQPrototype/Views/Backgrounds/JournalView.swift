@@ -51,7 +51,7 @@ struct JournalView<Header: View, Content: View>: View {
     @ObservedObject var viewModel: JournalViewModel
     let content: (() -> Content)
     let header: (() -> Header)
-    init(extraPages: Int, lines: Int = 17, lineHeight: CGFloat = 30, backgroundPages: Bool = false, viewModel: JournalViewModel = JournalViewModel(), header: @escaping (() -> Header), content: @escaping (() -> Content)
+    init(extraPages: Int, lines: Int = 8, lineHeight: CGFloat = 50, backgroundPages: Bool = false, viewModel: JournalViewModel = JournalViewModel(), header: @escaping (() -> Header), content: @escaping (() -> Content)
     ){
         self.lines = lines
         self.lineHeight = lineHeight
