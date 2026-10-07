@@ -31,7 +31,7 @@ struct TaskCreationView: View {
                     // for each task type
                     Button(){
                         viewModel.newTaskType = TrainingQuestTask.self
-                    } label:{
+                    } label: {
                         ZStack{
                             Image(systemName:"timer")
                                 .frame(width: UIScreen.main.bounds.width/2,height: UIScreen.main.bounds.width/2)

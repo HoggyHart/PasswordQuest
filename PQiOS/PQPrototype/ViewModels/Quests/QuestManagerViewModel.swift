@@ -5,19 +5,24 @@ class QuestManagerViewModel: NSObject, ObservableObject, NSFetchedResultsControl
     var context: NSManagedObjectContext = PQPrototypeApp.mainContext
     
     var controller: NSFetchedResultsController<Quest>
-    var request = NSFetchRequest<Quest>(entityName: "Quest")
+    var mainRequest = NSFetchRequest<Quest>(entityName: "Quest")
     @Published var quests: [Quest] = []
-    
-    @Published var toDelete: IndexSet = IndexSet()
+    var subRequest = NSFetchRequest<Quest>(entityName: "Quest")
+    @Published var subListQuests: [Quest] = []
+    @Published var toDelete = [NSManagedObjectID]()
     @Published var newQuestName: String = ""
     
-    @Published var listOffset: Int = 0
-    var listSize: Int = 8
+    var listOffset: Int = 0
+    let listSize: Int = 8
     
     override init(){
-        self.request.sortDescriptors = []
+        self.mainRequest.sortDescriptors = []
         
-        self.controller = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        self.subRequest.sortDescriptors = []
+        self.subRequest.fetchOffset = 0
+        self.subRequest.fetchLimit = listSize
+        
+        self.controller = NSFetchedResultsController(fetchRequest: mainRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         super.init()
         self.controller.delegate = self
         
@@ -25,16 +30,28 @@ class QuestManagerViewModel: NSObject, ObservableObject, NSFetchedResultsControl
             try controller.performFetch()
             quests = controller.fetchedObjects ?? []
         }catch{}
+        updateDisplayList()
+    }
+    
+    func updateDisplayList(){
+        self.subRequest.predicate = self.mainRequest.predicate
+        do{
+            self.subListQuests = try context.fetch(subRequest)
+        }catch{
+            self.subListQuests = []
+        }
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         context.perform { [self] in
             do{
-                self.quests = try context.fetch(request)
+                self.quests = try context.fetch(mainRequest)
             }catch{
                 self.quests = []
             }
+            updateDisplayList()
         }
+        
     }
     
     func addQuest() {
@@ -54,15 +71,26 @@ class QuestManagerViewModel: NSObject, ObservableObject, NSFetchedResultsControl
         }
     }
     
-    func deleteQuests(offsets: IndexSet) {
+    func deleteQuests(ids: [NSManagedObjectID]) {
         context.perform { [self] in
+            var offsets = IndexSet()
+            
+            for i in 0..<quests.count{
+                if ids.contains(where: { id in
+                    id == quests[i].objectID
+                }){
+                    offsets.insert(i)
+                }
+            }
+            
             offsets.map {quests[$0] }.forEach { q in
                 let nullifyKey = QuestKey.generateKey(quest: q)
                 nullifyKey.keyType = .deleted
                 context.delete(q)
             }
-            quests = [] //empty to prevent "error: Mutating a managed object" before array is resorted via controllerDidChangeContent() and to prevent list shuffling in the view
-            toDelete = IndexSet()
+            subListQuests = [] //gets updated when controller sees changes
+            // empty list now to prevent "mutating deleted object" log when they are displayed between these 2 events
+            toDelete = [NSManagedObjectID]()
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
     }

@@ -21,7 +21,7 @@ struct ScheduleManagerView: View {
         _schedules = FetchRequest(
             sortDescriptors: [
                 NSSortDescriptor(keyPath: \Schedule.isActive, ascending: false),
-                NSSortDescriptor(keyPath: \Schedule.objectID, ascending: true)
+                NSSortDescriptor(keyPath: \Schedule.startTime, ascending: true)
             ],
             predicate: predicate
         )

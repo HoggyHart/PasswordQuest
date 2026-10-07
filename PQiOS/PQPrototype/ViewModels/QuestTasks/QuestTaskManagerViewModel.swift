@@ -10,47 +10,66 @@ import CoreData
 
 class QuestTaskManagerViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDelegate{
     var quest: Quest? = nil
+    var context: NSManagedObjectContext = PQPrototypeApp.mainContext
     
     var controller: NSFetchedResultsController<QuestTask>
-    var request = NSFetchRequest<QuestTask>(entityName: "QuestTask")
+    var mainRequest = NSFetchRequest<QuestTask>(entityName: "QuestTask")
     @Published var questTasks: [QuestTask] = []
+    var subRequest = NSFetchRequest<QuestTask>(entityName: "QuestTask")
+    @Published var displayedQuestTasks: [QuestTask] = []
     
-    var context: NSManagedObjectContext = PQPrototypeApp.mainContext
     @Published var newTaskName: String = ""
     @Published var newTaskType: AnyClass?
     @Published var taskCreationError: String = ""
     
     @Published var taskTypeSheetActive: Bool = false
     
-    @Published var toDelete: IndexSet = IndexSet()
+    @Published var toDelete = [NSManagedObjectID]()
+    var listOffset: Int = 0
+    var listSize: Int = 7
     
-    init(quest: Quest? = nil){
-        request.sortDescriptors = []
-        controller = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+    override init(){
+        mainRequest.sortDescriptors = []
+        
+        self.subRequest.sortDescriptors = []
+        self.subRequest.fetchOffset = 0
+        self.subRequest.fetchLimit = listSize
+        
+        controller = NSFetchedResultsController(fetchRequest: mainRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         super.init()
     }
     func assignPredicateQuest(quest: Quest){
         self.quest = quest
         
-        request.sortDescriptors = []
-        request.predicate = NSPredicate(format: "quest == %@", quest)
+        mainRequest.sortDescriptors = []
+        mainRequest.predicate = NSPredicate(format: "quest == %@", quest)
         
-        controller = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        controller = NSFetchedResultsController(fetchRequest: mainRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         controller.delegate = self
         
         do{
             try controller.performFetch()
             questTasks = controller.fetchedObjects ?? []
         }catch{}
+        updateDisplayList()
+    }
+    func updateDisplayList(){
+        self.subRequest.predicate = self.mainRequest.predicate
+        do{
+            self.displayedQuestTasks = try context.fetch(subRequest)
+        }catch{
+            self.displayedQuestTasks = []
+        }
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         context.perform { [self] in
             do{
-                self.questTasks = try context.fetch(request)
+                self.questTasks = try context.fetch(mainRequest)
             }catch{
                 self.questTasks = []
             }
+            updateDisplayList()
         }
     }
     private func buildTask() throws -> QuestTask{
@@ -78,32 +97,43 @@ class QuestTaskManagerViewModel: NSObject, ObservableObject, NSFetchedResultsCon
     }
     
     func addTask(){
-            context.perform{
-                if let quest = self.quest{
-                    let task: QuestTask
-                    do{
-                        task = try self.buildTask()
-                    }catch let e{
-                        self.taskCreationError = "\(e)"
-                        return
-                    }
-                    self.taskCreationError = ""
-                    quest.addToTasks(task)
-                    self.breakTask()
-                    do{try self.context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-                    self.taskTypeSheetActive = false
-                }else{
-                    self.taskCreationError = "No Quest To Add To!"
+        context.perform{
+            if let quest = self.quest{
+                let task: QuestTask
+                do{
+                    task = try self.buildTask()
+                }catch let e{
+                    self.taskCreationError = "\(e)"
+                    return
                 }
+                self.taskCreationError = ""
+                quest.addToTasks(task)
+                self.breakTask()
+                do{try self.context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
+                self.taskTypeSheetActive = false
+            }else{
+                self.taskCreationError = "No Quest To Add To!"
+            }
         }
     }
     
-    func deleteTasks(offsets: IndexSet) {
+    func deleteTasks(ids: [NSManagedObjectID]) {
         context.perform { [self] in
+            
+            var offsets = IndexSet()
+            
+            for i in 0..<questTasks.count{
+                if ids.contains(where: { id in
+                    id == questTasks[i].objectID
+                }){
+                    offsets.insert(i)
+                }
+            }
+            
             offsets.map {self.questTasks[$0] }.forEach { q in
                 context.delete(q)
             }
-            toDelete = IndexSet()
+            toDelete = [NSManagedObjectID]()
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
     }

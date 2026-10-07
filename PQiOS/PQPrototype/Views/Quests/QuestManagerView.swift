@@ -22,7 +22,6 @@ struct QuestManagerView: View {
     
     @StateObject var jviewModel = JournalViewModel()
     @StateObject var viewModel = QuestManagerViewModel()
-    
     let rowHeight: CGFloat = 50
     
     var body: some View {
@@ -50,37 +49,40 @@ struct QuestManagerView: View {
         } content: {
             //quest list
             VStack(alignment: .leading, spacing:0){
-                ForEach(viewModel.listOffset..<viewModel.listOffset+viewModel.listSize, id: \.self){i in
-                    VStack(alignment: .leading, spacing: 0){
-                        //Quest Line
-                        if i < viewModel.quests.count{
-                            SelectableView(selections: $viewModel.toDelete, value: i) {
-                                NavigationLink(destination: QuestView(quest: viewModel.quests[i])) {
-                                    ZStack{
-                                        Text("\(viewModel.quests[i].name)")
-                                            .font(.journalBody)
-                                            .foregroundColor(.classicInk)
-                                        if viewModel.toDelete.contains(i){
-                                            Rectangle().frame(height: 2).foregroundColor(.red)
-                                        }
-                                    }
+                ForEach(viewModel.subListQuests){q in
+                    //Quest Line
+                    SelectableView(selections: $viewModel.toDelete,
+                                   value: q.objectID) {
+                        NavigationLink(destination: QuestView(quest: q)) {
+                            ZStack{
+                                Text("\(q.name)")
+                                    .font(.journalBody)
+                                    .foregroundColor(.classicInk)
+                                if viewModel.toDelete.contains(where: { id in
+                                    return id == q.objectID
+                                }){
+                                    Rectangle().frame(height: 2).foregroundColor(.red)
                                 }
-                                .disabled(editing)
                             }
-                        //Add Quest (as long as not implying adding new active quest)
-                        }else if i == viewModel.quests.count && predicateIndex != 1{
+                        }
+                        .disabled(editing)
+                    }
+                    .frame(height:rowHeight)
+                }.id(predicateIndex)
+                if viewModel.subListQuests.count<viewModel.listSize{
+                    ForEach(0..<viewModel.listSize-viewModel.subListQuests.count, id: \.self){i in                    //Add Quest (as long as not implying adding new active quest)
+                        if i == 0 && predicateIndex != 1{
                             TextField("New Quest \(Image(systemName: "plus"))", text: $viewModel.newQuestName)
                                 .submitLabel(.done)
                                 .onSubmit {
                                     viewModel.addQuest()
-                                }
+                                }.frame(height:rowHeight)
                             //empty padding
                         }else{
-                            Rectangle().opacity(0)
+                            Rectangle().opacity(0).frame(height:rowHeight)
                         }
                     }
-                    .frame(height:rowHeight)
-                }.id(predicateIndex)
+                }
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
             .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
@@ -88,11 +90,12 @@ struct QuestManagerView: View {
         }
         .navigationViewStyle(.stack)
         .onChange(of: jviewModel.page, perform: { value in
-            viewModel.listOffset = (jviewModel.page-1)*viewModel.listSize
+            viewModel.subRequest.fetchOffset = (jviewModel.page-1)*viewModel.listSize
+            viewModel.updateDisplayList()
         })
         .onChange(of: editing) { newValue in
             if viewModel.toDelete.isEmpty { return }
-            viewModel.deleteQuests(offsets: viewModel.toDelete)
+            viewModel.deleteQuests(ids: viewModel.toDelete)
         }
     }
 }

@@ -18,17 +18,10 @@ struct QuestView: View {
     // -- CoreData
     @ObservedObject
     var quest: Quest
-    @FetchRequest private var tasks: FetchedResults<QuestTask>
     @FetchRequest private var schedules: FetchedResults<Schedule>
     
     init(quest: Quest){
         self.quest = quest
-        _tasks = FetchRequest(
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \QuestTask.objectID, ascending: true)
-            ],
-            predicate: NSPredicate(format: "quest == %@", quest)
-        )
         _schedules = FetchRequest(
             sortDescriptors: [
                 NSSortDescriptor(keyPath: \Schedule.objectID, ascending: true)
@@ -73,40 +66,23 @@ struct QuestView: View {
     let rowHeight: CGFloat = 50
     
     let pageLines = 8
-    let firstPageTasks: Int = 2
-    var perPageTasks: Int { //for task pages (-1 for the subheading
-        get {
-            return pageLines - 1
-        }
-    }
-    var taskStartIndex: Int{
-        get{
-            return max(0, (journalViewModel.page-2)*(pageLines-1) + firstPageTasks - 1)
-        }
-    }
-    var taskEndIndex: Int{
-        get{
-            if journalViewModel.page == 1 {
-                return tasks.count > firstPageTasks-1 ? firstPageTasks-1 : firstPageTasks //step back for "More on next page" label
-            }
-            return (journalViewModel.page-2)*perPageTasks + firstPageTasks + (pageLines-1) - 1
-        }
-    }
+    
     var extraTaskPages: Int{
         get{
             
             // 0 to F-1 ( the Xth one is replaced with "cont next page" to signify where overflow tasks go )
-            if tasks.count < firstPageTasks { return 0 }
-            // F to F + Y-1 -1 ( overflow Firstpage + amount that fit on a page - 1 (-1 since the Fth is one of those on-page tasks)
-            else if tasks.count < firstPageTasks + perPageTasks - 1 { return 1 }
-            //first extra page + first of these new pages + extra page per full page of tasks
-            // eppfpot =  (total tasks - tasks shown already)/perPageTasks
-            return 2+(tasks.count - (firstPageTasks - 1 + perPageTasks))/perPageTasks
+//            if viewModel.questTasks.count < firstPageTasks { return 1 }
+//            // F to F + Y-1 -1 ( overflow Firstpage + amount that fit on a page - 1 (-1 since the Fth is one of those on-page tasks)
+//            else if viewModel.questTasks.count < firstPageTasks + perPageTasks - 1 { return 2 }
+//            //first extra page + first of these new pages + extra page per full page of tasks
+//            // eppfpot =  (total tasks - tasks shown already)/perPageTasks
+//            return 3+(viewModel.questTasks.count - (firstPageTasks - 1 + perPageTasks))/perPageTasks
+            return 1 + viewModel.questTasks.count/8
         }
     }
     
     var body: some View {
-        JournalView(extraPages: 1 + extraTaskPages, lines: pageLines, lineHeight: rowHeight, backgroundPages: true, viewModel: journalViewModel) {
+        JournalView(extraPages: 1 + extraTaskPages, lines: viewModel.listSize+1, lineHeight: rowHeight, backgroundPages: true, viewModel: journalViewModel) {
             
             //Header: Page title and quest name
             VStack(spacing:0){
@@ -137,14 +113,14 @@ struct QuestView: View {
                 if journalViewModel.page == 1{
                     VStack(spacing:0){
                         //task list
-                        VStack(alignment: .leading, spacing: 0){
-                            Text("Tasks").underline().font(.journalSubheading).frame(height:rowHeight)
-                                .offset(y:rowHeight/2 - 12.5)
-                            QuestTaskList(quest: quest,firstTaskIndex: taskStartIndex,lastTaskIndex: taskEndIndex,listItemHeight: rowHeight,viewModel: viewModel).id(tasks.count)
-                            if tasks.count>firstPageTasks-1{
-                                Text("Continued on next page...").frame(height: rowHeight) //TODO: make nicer. conceptually i like this, but having 1 task on a separate layout from all the rest feels strange
-                            }
-                        }
+//                        VStack(alignment: .leading, spacing: 0){
+//                            Text("Tasks").underline().font(.journalSubheading).frame(height:rowHeight)
+//                                .offset(y:rowHeight/2 - 12.5)
+//                            QuestTaskList(quest: quest, listItemHeight: rowHeight, viewModel: viewModel)
+//                            if viewModel.displayedQuestTasks.count>firstPageTasks-1{
+//                                Text("Continued on next page...").frame(height: rowHeight) //TODO: make nicer. conceptually i like this, but having 1 task on a separate layout from all the rest feels strange
+//                            }
+//                        }
                         //Rewards
                         VStack(alignment:.leading, spacing:0){
                             Text("Rewards").underline().font(.journalSubheading).offset(y:rowHeight/2 - 12.5).frame(height: rowHeight)
@@ -203,14 +179,9 @@ struct QuestView: View {
                         if journalViewModel.page <= 1 + extraTaskPages{
                             VStack(alignment: .leading, spacing: 0){
                                 HStack(spacing: 0){
-                                    Text("Tasks").underline().font(.journalSubheading).frame(height:rowHeight).offset(y:5)
-                                    Text(" cont. (\(journalViewModel.page-1)/\(extraTaskPages))").font(.journalBody).offset(y:10)
+                                    Text("Tasks").underline().font(.journalSubheading).frame(height:rowHeight).offset(y:rowHeight/2 - 25/2)
                                 }
-                                QuestTaskList(quest: quest,
-                                              firstTaskIndex: taskStartIndex,
-                                              lastTaskIndex: taskEndIndex,
-                                              listItemHeight: rowHeight,viewModel: viewModel)
-                                .frame(minHeight:0)
+                                QuestTaskListView(quest: quest, listItemHeight: rowHeight,viewModel: viewModel).frame(minHeight:0)
                             }
                         }
                         else{

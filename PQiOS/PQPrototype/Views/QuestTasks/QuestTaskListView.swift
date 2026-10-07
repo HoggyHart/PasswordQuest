@@ -9,19 +9,15 @@ import SwiftUI
 import CoreData
 import MapKit
 
-struct QuestTaskList: View {
+struct QuestTaskListView: View {
     @Environment(\.editMode) private var editMode
     private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
     @Environment(\.managedObjectContext) private var context
     
     let quest: Quest
     
-    let firstTaskIndex: Int
-    let lastTaskIndex: Int
-    init(quest: Quest, firstTaskIndex: Int, lastTaskIndex: Int, listItemHeight: CGFloat = 30, viewModel: QuestTaskManagerViewModel? = nil){
+    init(quest: Quest, listItemHeight: CGFloat = 30, viewModel: QuestTaskManagerViewModel? = nil){
         self.quest = quest
-        self.firstTaskIndex = firstTaskIndex
-        self.lastTaskIndex = lastTaskIndex
         self.listItemHeight = listItemHeight
         self.viewModel = viewModel ?? QuestTaskManagerViewModel()
     }
@@ -73,20 +69,21 @@ struct QuestTaskList: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0){
-            ForEach(firstTaskIndex..<lastTaskIndex){i in
-                if i < viewModel.questTasks.count{
-                    SelectableView(selections: $viewModel.toDelete, value: i) {
-                        NavigationLink(destination: getView(task: viewModel.questTasks[i])) {
-                            ZStack{
-                                QuestTaskListEntry(qtask: viewModel.questTasks[i]).frame(height: listItemHeight)
-                                if viewModel.toDelete.contains(i){
-                                    Rectangle().frame(height: 2).foregroundColor(.red)
-                                }
+            ForEach(viewModel.displayedQuestTasks){q in
+                SelectableView(selections: $viewModel.toDelete, value: q.objectID) {
+                    NavigationLink(destination: getView(task: q)) {
+                        ZStack{
+                            QuestTaskListEntry(qtask: q).frame(height: listItemHeight)
+                            if viewModel.toDelete.contains(q.objectID){
+                                Rectangle().frame(height: 2).foregroundColor(.red)
                             }
                         }
-                        .disabled(editing)
                     }
-                }else if i == viewModel.questTasks.count && !quest.isActive{
+                    .disabled(editing)
+                }
+            }
+            ForEach(0..<viewModel.listSize - viewModel.displayedQuestTasks.count, id: \.self){ i in
+                if i == 0 && !quest.isActive{
                     TextField("New Task \(Image(systemName: "plus"))", text: $viewModel.newTaskName).font(.journalBody).submitLabel(.continue).onSubmit {viewModel.taskTypeSheetActive=true}.frame(height: listItemHeight,alignment: .center)
                 }else{
                     Spacer().frame(height: listItemHeight)
@@ -103,8 +100,9 @@ struct QuestTaskList: View {
         }
         .onChange(of: editing) { newValue in
             if viewModel.toDelete.isEmpty { return }
-            viewModel.deleteTasks(offsets: viewModel.toDelete)
-        }.onAppear(){
+            viewModel.deleteTasks(ids: viewModel.toDelete)
+        }
+        .onAppear(){
             viewModel.assignPredicateQuest(quest: quest)
         }
     }
@@ -142,7 +140,7 @@ struct QuestTaskList: View {
     q.addToTasks(task3)
     return VStack{
         EditButton()
-        QuestTaskList(quest: q,firstTaskIndex: 0,lastTaskIndex: 17).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        QuestTaskListView(quest: q).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 
 }

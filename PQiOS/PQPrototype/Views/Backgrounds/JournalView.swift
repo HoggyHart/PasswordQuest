@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-struct SelectableView<Content: View>: View {
+struct SelectableView<Content: View, ID: Equatable>: View {
     @Environment(\.editMode) private var editMode
     private var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
     
-    @Binding var selections: IndexSet
-    var value: Int = 0
+    @Binding var selections: [ID]
+    var value: ID
     var content: (() -> Content)
     
-    init(selections: Binding<IndexSet>, value: Int, content: @escaping (() -> Content)) {
+    init(selections: Binding<[ID]>, value: ID, content: @escaping (() -> Content)) {
         self.value = value
         _selections = selections
         self.content = content
@@ -33,9 +33,11 @@ struct SelectableView<Content: View>: View {
     
     func toggleSelection(){
         if selections.contains(self.value){
-            selections.remove(self.value)
+            selections.removeAll { id in
+                id == self.value
+            }
         }else{
-            selections.insert(self.value)
+            selections.append(self.value)
         }
     }
 }
