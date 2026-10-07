@@ -33,7 +33,7 @@
 		6B4C64112FEBE62500D5C1E2 /* GlobalQuestLoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4C64102FEBE62500D5C1E2 /* GlobalQuestLoot.swift */; };
 		6B5CF8172FA75CEC00769422 /* PQPrototype.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6B5CF8152FA75CEC00769422 /* PQPrototype.xcdatamodeld */; };
 		6B5CF8532FAAC5B000769422 /* TwoHeadedSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5CF8522FAAC5B000769422 /* TwoHeadedSlider.swift */; };
-		6B5CF8552FBF7F8000769422 /* QuestTaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5CF8542FBF7F8000769422 /* QuestTaskList.swift */; };
+		6B5CF8552FBF7F8000769422 /* QuestTaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5CF8542FBF7F8000769422 /* QuestTaskListView.swift */; };
 		6B7386AF2F1E53510076E77F /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7386AE2F1E53510076E77F /* Quest.swift */; };
 		6B7A48CA2F019263002102FE /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A48C92F019263002102FE /* Checkbox.swift */; };
 		6B7A48D12F02E31F002102FE /* UIViewtoViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A48D02F02E31F002102FE /* UIViewtoViewWrapper.swift */; };
@@ -166,7 +166,7 @@
 		6B4C64102FEBE62500D5C1E2 /* GlobalQuestLoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalQuestLoot.swift; sourceTree = "<group>"; };
 		6B5CF8162FA75CEC00769422 /* PQPrototype.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PQPrototype.xcdatamodel; sourceTree = "<group>"; };
 		6B5CF8522FAAC5B000769422 /* TwoHeadedSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoHeadedSlider.swift; sourceTree = "<group>"; };
-		6B5CF8542FBF7F8000769422 /* QuestTaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTaskList.swift; sourceTree = "<group>"; };
+		6B5CF8542FBF7F8000769422 /* QuestTaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTaskListView.swift; sourceTree = "<group>"; };
 		6B7386AE2F1E53510076E77F /* Quest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = "<group>"; };
 		6B7A48C92F019263002102FE /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		6B7A48D02F02E31F002102FE /* UIViewtoViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewtoViewWrapper.swift; sourceTree = "<group>"; };
@@ -361,7 +361,7 @@
 				6B94B59B3033BE7000EF0D60 /* TrainingTaskView */,
 				6B94B58E3031D6CD00EF0D60 /* SingleLocationTaskVIew */,
 				6B7CB8342FC618C400345B18 /* RNGLocationTaskView */,
-				6B5CF8542FBF7F8000769422 /* QuestTaskList.swift */,
+				6B5CF8542FBF7F8000769422 /* QuestTaskListView.swift */,
 				6BF5EF412FC4580600970F59 /* QuestTaskConfigView.swift */,
 				6B7A48CD2F02E1A2002102FE /* General */,
 				6BD76AD2306ABC6D0083435E /* TaskCreationView.swift */,
@@ -925,7 +925,7 @@
 				6B7A48D72F04BDE5002102FE /* TextFieldOverload.swift in Sources */,
 				6B7CB8402FC619FD00345B18 /* RNGLocationTask+CoreDataProperties.swift in Sources */,
 				6BD76AC03066A5560083435E /* MainViewModel.swift in Sources */,
-				6B5CF8552FBF7F8000769422 /* QuestTaskList.swift in Sources */,
+				6B5CF8552FBF7F8000769422 /* QuestTaskListView.swift in Sources */,
 				6BF5EF352FBF984100970F59 /* SingleLocationTask+CoreDataClass.swift in Sources */,
 				6B7A48D32F04109E002102FE /* QuestTaskEditView.swift in Sources */,
 				6BD76AB73066A5560083435E /* QuestManagerViewModel.swift in Sources */,
