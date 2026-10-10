@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B05351A30606CEA005C56A3 /* JournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B05351930606CEA005C56A3 /* JournalView.swift */; };
+		6B05351E30613171005C56A3 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B05351D30613171005C56A3 /* TestView.swift */; };
+		6B0535203062722B005C56A3 /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B05351F3062722B005C56A3 /* Placeholder.swift */; };
+		6B05352330667EE1005C56A3 /* RNGLocationTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B05352230667EE1005C56A3 /* RNGLocationTask+CoreDataClass.swift */; };
+		6B05352630667F7C005C56A3 /* ManualQuestTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B05352430667F7C005C56A3 /* ManualQuestTask+CoreDataClass.swift */; };
+		6B05352730667F7C005C56A3 /* ManualQuestTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B05352530667F7C005C56A3 /* ManualQuestTask+CoreDataProperties.swift */; };
 		6B2152C22EE8511500188D31 /* LocationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2152C12EE8511500188D31 /* LocationServices.swift */; };
 		6B2152D22EE8E75400188D31 /* CLCircularRegionTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2152D12EE8E75400188D31 /* CLCircularRegionTransformer.swift */; };
 		6B2152D62EEB261F00188D31 /* Week.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2152D52EEB261F00188D31 /* Week.swift */; };
@@ -16,7 +22,6 @@
 		6B2153402EECEC0900188D31 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B21533F2EECEC0900188D31 /* ScheduleView.swift */; };
 		6B24FE3D2F1E59E9002B3042 /* QuestRewardManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B24FE3C2F1E59E9002B3042 /* QuestRewardManagerView.swift */; };
 		6B331EF52F64882E00DBECA4 /* LocationManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B331EF42F64882E00DBECA4 /* LocationManagerView.swift */; };
-		6B331EF72F64889D00DBECA4 /* LocationManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B331EF62F64889D00DBECA4 /* LocationManagerModel.swift */; };
 		6B331EF92F649F2500DBECA4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B331EF82F649F2500DBECA4 /* Colors.swift */; };
 		6B331EFB2F7A73BE00DBECA4 /* ScheduleInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B331EFA2F7A73BE00DBECA4 /* ScheduleInfoView.swift */; };
 		6B4739972FCB1E3500DABF3C /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4739952FCB1E3500DABF3C /* Location+CoreDataClass.swift */; };
@@ -28,17 +33,14 @@
 		6B4C64112FEBE62500D5C1E2 /* GlobalQuestLoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4C64102FEBE62500D5C1E2 /* GlobalQuestLoot.swift */; };
 		6B5CF8172FA75CEC00769422 /* PQPrototype.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6B5CF8152FA75CEC00769422 /* PQPrototype.xcdatamodeld */; };
 		6B5CF8532FAAC5B000769422 /* TwoHeadedSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5CF8522FAAC5B000769422 /* TwoHeadedSlider.swift */; };
-		6B5CF8552FBF7F8000769422 /* QuestTaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5CF8542FBF7F8000769422 /* QuestTaskList.swift */; };
+		6B5CF8552FBF7F8000769422 /* QuestTaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5CF8542FBF7F8000769422 /* QuestTaskListView.swift */; };
 		6B7386AF2F1E53510076E77F /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7386AE2F1E53510076E77F /* Quest.swift */; };
 		6B7A48CA2F019263002102FE /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A48C92F019263002102FE /* Checkbox.swift */; };
 		6B7A48D12F02E31F002102FE /* UIViewtoViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A48D02F02E31F002102FE /* UIViewtoViewWrapper.swift */; };
 		6B7A48D32F04109E002102FE /* QuestTaskEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A48D22F04109E002102FE /* QuestTaskEditView.swift */; };
 		6B7A48D72F04BDE5002102FE /* TextFieldOverload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A48D62F04BDE5002102FE /* TextFieldOverload.swift */; };
 		6B7A48DC2F06163C002102FE /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A48DB2F06163C002102FE /* Schedule.swift */; };
-		6B7A48DF2F064EA3002102FE /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A48DE2F064EA3002102FE /* LocationViewModel.swift */; };
 		6B7CB8332FC618A000345B18 /* RNGLTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7CB8322FC618A000345B18 /* RNGLTaskView.swift */; };
-		6B7CB8362FC618E000345B18 /* RNGLTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7CB8352FC618E000345B18 /* RNGLTaskViewModel.swift */; };
-		6B7CB83F2FC619FD00345B18 /* RNGLocationTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7CB83D2FC619FD00345B18 /* RNGLocationTask+CoreDataClass.swift */; };
 		6B7CB8402FC619FD00345B18 /* RNGLocationTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7CB83E2FC619FD00345B18 /* RNGLocationTask+CoreDataProperties.swift */; };
 		6B7CB8422FC61AE800345B18 /* RNGLocationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7CB8412FC61AE800345B18 /* RNGLocationTask.swift */; };
 		6B80D0D82FFE618E00A75888 /* LocationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B80D0D72FFE618E00A75888 /* LocationTask.swift */; };
@@ -52,7 +54,6 @@
 		6B94B58B302C91CB00EF0D60 /* TrainingQuestTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B94B589302C91CB00EF0D60 /* TrainingQuestTask+CoreDataProperties.swift */; };
 		6B94B5933031D6CD00EF0D60 /* SingleLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B94B58F3031D6CD00EF0D60 /* SingleLocationView.swift */; };
 		6B94B5943031D6CD00EF0D60 /* SingleLocationTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B94B5903031D6CD00EF0D60 /* SingleLocationTaskView.swift */; };
-		6B94B5953031D6CD00EF0D60 /* SingleLocationTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B94B5913031D6CD00EF0D60 /* SingleLocationTaskViewModel.swift */; };
 		6B94B5963031D6CD00EF0D60 /* SLTConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B94B5923031D6CD00EF0D60 /* SLTConfigView.swift */; };
 		6B94B59830339B1F00EF0D60 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B94B59730339B1F00EF0D60 /* Notifications.swift */; };
 		6B94B59A3033B75700EF0D60 /* TrainingQuestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B94B5993033B75700EF0D60 /* TrainingQuestTask.swift */; };
@@ -75,9 +76,32 @@
 		6BA9DDC42F3CEDAC00AF1B06 /* QuestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9DDC32F3CEDAC00AF1B06 /* QuestTask.swift */; };
 		6BA9DDC62F3CEDC500AF1B06 /* QuestKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9DDC52F3CEDC500AF1B06 /* QuestKey.swift */; };
 		6BA9DE0A2F42003400AF1B06 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9DE092F42003400AF1B06 /* StringUtils.swift */; };
+		6BD76AB73066A5560083435E /* QuestManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76A953066A5560083435E /* QuestManagerViewModel.swift */; };
+		6BD76AB83066A5560083435E /* QuestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76A963066A5560083435E /* QuestViewModel.swift */; };
+		6BD76AB93066A5560083435E /* ScheduleListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76A983066A5560083435E /* ScheduleListModel.swift */; };
+		6BD76ABA3066A5560083435E /* ScheduleInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76A993066A5560083435E /* ScheduleInfoViewModel.swift */; };
+		6BD76ABB3066A5560083435E /* ScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76A9A3066A5560083435E /* ScheduleViewModel.swift */; };
+		6BD76ABC3066A5560083435E /* ScheduleManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76A9B3066A5560083435E /* ScheduleManagerViewModel.swift */; };
+		6BD76ABD3066A5560083435E /* QuestRewardManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76A9D3066A5560083435E /* QuestRewardManagerViewModel.swift */; };
+		6BD76ABE3066A5560083435E /* TimeInABottleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76A9E3066A5560083435E /* TimeInABottleViewModel.swift */; };
+		6BD76ABF3066A5560083435E /* JournalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76AA03066A5560083435E /* JournalViewModel.swift */; };
+		6BD76AC03066A5560083435E /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76AA13066A5560083435E /* MainViewModel.swift */; };
+		6BD76AC13066A5560083435E /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76AA43066A5560083435E /* LocationViewModel.swift */; };
+		6BD76AC33066A5560083435E /* LocationManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76AA63066A5560083435E /* LocationManagerViewModel.swift */; };
+		6BD76AC43066A5560083435E /* QuestTaskEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76AA93066A5560083435E /* QuestTaskEditViewModel.swift */; };
+		6BD76AC53066A5560083435E /* ManualTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76AAB3066A5560083435E /* ManualTaskViewModel.swift */; };
+		6BD76AC63066A5560083435E /* SingleLocationTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76AAD3066A5560083435E /* SingleLocationTaskViewModel.swift */; };
+		6BD76AC73066A5560083435E /* SingleLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76AAE3066A5560083435E /* SingleLocationViewModel.swift */; };
+		6BD76AC83066A5560083435E /* SLTConfigViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76AAF3066A5560083435E /* SLTConfigViewModel.swift */; };
+		6BD76AC93066A5560083435E /* QuestTaskListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76AB03066A5560083435E /* QuestTaskListModel.swift */; };
+		6BD76ACA3066A5560083435E /* RNGLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76AB23066A5560083435E /* RNGLocationViewModel.swift */; };
+		6BD76ACB3066A5560083435E /* RNGLTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76AB33066A5560083435E /* RNGLTaskViewModel.swift */; };
+		6BD76ACC3066A5560083435E /* QuestTaskConfigViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76AB43066A5560083435E /* QuestTaskConfigViewModel.swift */; };
+		6BD76ACD3066A5560083435E /* TrainingTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76AB63066A5560083435E /* TrainingTaskViewModel.swift */; };
+		6BD76AD3306ABC6D0083435E /* TaskCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76AD2306ABC6D0083435E /* TaskCreationView.swift */; };
+		6BD76AD5306AFAD70083435E /* QuestTaskManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76AD4306AFAD70083435E /* QuestTaskManagerViewModel.swift */; };
+		6BD76AD7306DB49B0083435E /* MainHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD76AD6306DB49B0083435E /* MainHeader.swift */; };
 		6BE32312304F18C900074E25 /* ManualTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE32311304F18C900074E25 /* ManualTaskView.swift */; };
-		6BE3231D3050B6B700074E25 /* ManualQuestTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE3231B3050B6B700074E25 /* ManualQuestTask+CoreDataClass.swift */; };
-		6BE3231E3050B6B700074E25 /* ManualQuestTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE3231C3050B6B700074E25 /* ManualQuestTask+CoreDataProperties.swift */; };
 		6BE323203052FDF400074E25 /* ManualQuestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE3231F3052FDF400074E25 /* ManualQuestTask.swift */; };
 		6BF5EF312FBF984100970F59 /* GlobalQuestLoot+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF5EF232FBF984100970F59 /* GlobalQuestLoot+CoreDataClass.swift */; };
 		6BF5EF322FBF984100970F59 /* GlobalQuestLoot+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF5EF242FBF984100970F59 /* GlobalQuestLoot+CoreDataProperties.swift */; };
@@ -114,6 +138,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6B05351930606CEA005C56A3 /* JournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalView.swift; sourceTree = "<group>"; };
+		6B05351D30613171005C56A3 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		6B05351F3062722B005C56A3 /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
+		6B05352230667EE1005C56A3 /* RNGLocationTask+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RNGLocationTask+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6B05352430667F7C005C56A3 /* ManualQuestTask+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ManualQuestTask+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6B05352530667F7C005C56A3 /* ManualQuestTask+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ManualQuestTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6B2152C12EE8511500188D31 /* LocationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServices.swift; sourceTree = "<group>"; };
 		6B2152D12EE8E75400188D31 /* CLCircularRegionTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLCircularRegionTransformer.swift; sourceTree = "<group>"; };
 		6B2152D52EEB261F00188D31 /* Week.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Week.swift; sourceTree = "<group>"; };
@@ -124,7 +154,6 @@
 		6B21533F2EECEC0900188D31 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		6B24FE3C2F1E59E9002B3042 /* QuestRewardManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestRewardManagerView.swift; sourceTree = "<group>"; };
 		6B331EF42F64882E00DBECA4 /* LocationManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerView.swift; sourceTree = "<group>"; };
-		6B331EF62F64889D00DBECA4 /* LocationManagerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerModel.swift; sourceTree = "<group>"; };
 		6B331EF82F649F2500DBECA4 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		6B331EFA2F7A73BE00DBECA4 /* ScheduleInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleInfoView.swift; sourceTree = "<group>"; };
 		6B3892B6303DBFC600FFD372 /* PQPrototype.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PQPrototype.xctestplan; sourceTree = "<group>"; };
@@ -137,7 +166,7 @@
 		6B4C64102FEBE62500D5C1E2 /* GlobalQuestLoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalQuestLoot.swift; sourceTree = "<group>"; };
 		6B5CF8162FA75CEC00769422 /* PQPrototype.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PQPrototype.xcdatamodel; sourceTree = "<group>"; };
 		6B5CF8522FAAC5B000769422 /* TwoHeadedSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoHeadedSlider.swift; sourceTree = "<group>"; };
-		6B5CF8542FBF7F8000769422 /* QuestTaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTaskList.swift; sourceTree = "<group>"; };
+		6B5CF8542FBF7F8000769422 /* QuestTaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTaskListView.swift; sourceTree = "<group>"; };
 		6B7386AE2F1E53510076E77F /* Quest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = "<group>"; };
 		6B7A48C92F019263002102FE /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		6B7A48D02F02E31F002102FE /* UIViewtoViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewtoViewWrapper.swift; sourceTree = "<group>"; };
@@ -145,10 +174,7 @@
 		6B7A48D62F04BDE5002102FE /* TextFieldOverload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldOverload.swift; sourceTree = "<group>"; };
 		6B7A48DB2F06163C002102FE /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		6B7A48DD2F064964002102FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		6B7A48DE2F064EA3002102FE /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		6B7CB8322FC618A000345B18 /* RNGLTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNGLTaskView.swift; sourceTree = "<group>"; };
-		6B7CB8352FC618E000345B18 /* RNGLTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNGLTaskViewModel.swift; sourceTree = "<group>"; };
-		6B7CB83D2FC619FD00345B18 /* RNGLocationTask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "RNGLocationTask+CoreDataClass.swift"; path = "../../../RNGLocationTask+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6B7CB83E2FC619FD00345B18 /* RNGLocationTask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RNGLocationTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6B7CB8412FC61AE800345B18 /* RNGLocationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNGLocationTask.swift; sourceTree = "<group>"; };
 		6B80D0D72FFE618E00A75888 /* LocationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTask.swift; sourceTree = "<group>"; };
@@ -162,7 +188,6 @@
 		6B94B589302C91CB00EF0D60 /* TrainingQuestTask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrainingQuestTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6B94B58F3031D6CD00EF0D60 /* SingleLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleLocationView.swift; sourceTree = "<group>"; };
 		6B94B5903031D6CD00EF0D60 /* SingleLocationTaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleLocationTaskView.swift; sourceTree = "<group>"; };
-		6B94B5913031D6CD00EF0D60 /* SingleLocationTaskViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleLocationTaskViewModel.swift; sourceTree = "<group>"; };
 		6B94B5923031D6CD00EF0D60 /* SLTConfigView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLTConfigView.swift; sourceTree = "<group>"; };
 		6B94B59730339B1F00EF0D60 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		6B94B5993033B75700EF0D60 /* TrainingQuestTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingQuestTask.swift; sourceTree = "<group>"; };
@@ -187,9 +212,32 @@
 		6BA9DDC32F3CEDAC00AF1B06 /* QuestTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTask.swift; sourceTree = "<group>"; };
 		6BA9DDC52F3CEDC500AF1B06 /* QuestKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestKey.swift; sourceTree = "<group>"; };
 		6BA9DE092F42003400AF1B06 /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
+		6BD76A953066A5560083435E /* QuestManagerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestManagerViewModel.swift; sourceTree = "<group>"; };
+		6BD76A963066A5560083435E /* QuestViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestViewModel.swift; sourceTree = "<group>"; };
+		6BD76A983066A5560083435E /* ScheduleListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleListModel.swift; sourceTree = "<group>"; };
+		6BD76A993066A5560083435E /* ScheduleInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleInfoViewModel.swift; sourceTree = "<group>"; };
+		6BD76A9A3066A5560083435E /* ScheduleViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleViewModel.swift; sourceTree = "<group>"; };
+		6BD76A9B3066A5560083435E /* ScheduleManagerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleManagerViewModel.swift; sourceTree = "<group>"; };
+		6BD76A9D3066A5560083435E /* QuestRewardManagerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestRewardManagerViewModel.swift; sourceTree = "<group>"; };
+		6BD76A9E3066A5560083435E /* TimeInABottleViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeInABottleViewModel.swift; sourceTree = "<group>"; };
+		6BD76AA03066A5560083435E /* JournalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalViewModel.swift; sourceTree = "<group>"; };
+		6BD76AA13066A5560083435E /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		6BD76AA43066A5560083435E /* LocationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
+		6BD76AA63066A5560083435E /* LocationManagerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManagerViewModel.swift; sourceTree = "<group>"; };
+		6BD76AA93066A5560083435E /* QuestTaskEditViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestTaskEditViewModel.swift; sourceTree = "<group>"; };
+		6BD76AAB3066A5560083435E /* ManualTaskViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManualTaskViewModel.swift; sourceTree = "<group>"; };
+		6BD76AAD3066A5560083435E /* SingleLocationTaskViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleLocationTaskViewModel.swift; sourceTree = "<group>"; };
+		6BD76AAE3066A5560083435E /* SingleLocationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleLocationViewModel.swift; sourceTree = "<group>"; };
+		6BD76AAF3066A5560083435E /* SLTConfigViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLTConfigViewModel.swift; sourceTree = "<group>"; };
+		6BD76AB03066A5560083435E /* QuestTaskListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestTaskListModel.swift; sourceTree = "<group>"; };
+		6BD76AB23066A5560083435E /* RNGLocationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNGLocationViewModel.swift; sourceTree = "<group>"; };
+		6BD76AB33066A5560083435E /* RNGLTaskViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNGLTaskViewModel.swift; sourceTree = "<group>"; };
+		6BD76AB43066A5560083435E /* QuestTaskConfigViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestTaskConfigViewModel.swift; sourceTree = "<group>"; };
+		6BD76AB63066A5560083435E /* TrainingTaskViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingTaskViewModel.swift; sourceTree = "<group>"; };
+		6BD76AD2306ABC6D0083435E /* TaskCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCreationView.swift; sourceTree = "<group>"; };
+		6BD76AD4306AFAD70083435E /* QuestTaskManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTaskManagerViewModel.swift; sourceTree = "<group>"; };
+		6BD76AD6306DB49B0083435E /* MainHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHeader.swift; sourceTree = "<group>"; };
 		6BE32311304F18C900074E25 /* ManualTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualTaskView.swift; sourceTree = "<group>"; };
-		6BE3231B3050B6B700074E25 /* ManualQuestTask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ManualQuestTask+CoreDataClass.swift"; path = "../../../ManualQuestTask+CoreDataClass.swift"; sourceTree = "<group>"; };
-		6BE3231C3050B6B700074E25 /* ManualQuestTask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ManualQuestTask+CoreDataProperties.swift"; path = "../../../ManualQuestTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6BE3231F3052FDF400074E25 /* ManualQuestTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualQuestTask.swift; sourceTree = "<group>"; };
 		6BF5EF232FBF984100970F59 /* GlobalQuestLoot+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GlobalQuestLoot+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6BF5EF242FBF984100970F59 /* GlobalQuestLoot+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GlobalQuestLoot+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -233,6 +281,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6B05351830606CCF005C56A3 /* Backgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				6B05351930606CEA005C56A3 /* JournalView.swift */,
+			);
+			path = Backgrounds;
+			sourceTree = "<group>";
+		};
 		6B2152BB2EE84EE200188D31 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -250,6 +306,7 @@
 			children = (
 				6B9E6D472F31789F000C403D /* StagedButton.swift */,
 				6B4C64082FCF0AA900D5C1E2 /* MyAnnotation.swift */,
+				6B05351D30613171005C56A3 /* TestView.swift */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -262,17 +319,19 @@
 			path = CoreDataTransformers;
 			sourceTree = "<group>";
 		};
-		6B2153202EEC28E100188D31 /* MainViews */ = {
+		6B2153202EEC28E100188D31 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6B05351830606CCF005C56A3 /* Backgrounds */,
 				6B2152E32EEB3C0900188D31 /* MainView.swift */,
 				6B331EEE2F647F4200DBECA4 /* Quests */,
 				6B331EF02F647F6700DBECA4 /* QuestTasks */,
 				6B331EEF2F647F5000DBECA4 /* Schedules */,
 				6B80D0E0300BB6AA00A75888 /* Loot */,
 				6B331EF32F647FAA00DBECA4 /* Locations */,
+				6BD76AD6306DB49B0083435E /* MainHeader.swift */,
 			);
-			path = MainViews;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		6B331EEE2F647F4200DBECA4 /* Quests */ = {
@@ -302,9 +361,10 @@
 				6B94B59B3033BE7000EF0D60 /* TrainingTaskView */,
 				6B94B58E3031D6CD00EF0D60 /* SingleLocationTaskVIew */,
 				6B7CB8342FC618C400345B18 /* RNGLocationTaskView */,
-				6B5CF8542FBF7F8000769422 /* QuestTaskList.swift */,
-				6BF5EF412FC4580600970F59 /* QuestTaskConfigView.swift */,
 				6B7A48CD2F02E1A2002102FE /* General */,
+				6B5CF8542FBF7F8000769422 /* QuestTaskListView.swift */,
+				6BF5EF412FC4580600970F59 /* QuestTaskConfigView.swift */,
+				6BD76AD2306ABC6D0083435E /* TaskCreationView.swift */,
 			);
 			path = QuestTasks;
 			sourceTree = "<group>";
@@ -314,7 +374,6 @@
 			children = (
 				6BA72D822F4757F50019649F /* LocationView */,
 				6B331EF42F64882E00DBECA4 /* LocationManagerView.swift */,
-				6B331EF62F64889D00DBECA4 /* LocationManagerModel.swift */,
 			);
 			path = Locations;
 			sourceTree = "<group>";
@@ -331,6 +390,7 @@
 				6B331EF82F649F2500DBECA4 /* Colors.swift */,
 				6B83BDC42F856617001472A6 /* MyJson.swift */,
 				6B5CF8522FAAC5B000769422 /* TwoHeadedSlider.swift */,
+				6B05351F3062722B005C56A3 /* Placeholder.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -347,7 +407,6 @@
 			isa = PBXGroup;
 			children = (
 				6B7CB8322FC618A000345B18 /* RNGLTaskView.swift */,
-				6B7CB8352FC618E000345B18 /* RNGLTaskViewModel.swift */,
 				6B4C640A2FE80F9B00D5C1E2 /* RNGLocationView.swift */,
 			);
 			path = RNGLocationTaskView;
@@ -367,7 +426,6 @@
 			children = (
 				6B94B58F3031D6CD00EF0D60 /* SingleLocationView.swift */,
 				6B94B5903031D6CD00EF0D60 /* SingleLocationTaskView.swift */,
-				6B94B5913031D6CD00EF0D60 /* SingleLocationTaskViewModel.swift */,
 				6B94B5923031D6CD00EF0D60 /* SLTConfigView.swift */,
 			);
 			path = SingleLocationTaskVIew;
@@ -408,9 +466,10 @@
 				6BA9DDBB2F3CE95900AF1B06 /* Persistence */,
 				6B7A48DD2F064964002102FE /* Info.plist */,
 				6B7A48C82F019255002102FE /* utils */,
-				6B2153202EEC28E100188D31 /* MainViews */,
-				6B2152CF2EE8E72700188D31 /* Test */,
 				6B2152BB2EE84EE200188D31 /* Models */,
+				6B2153202EEC28E100188D31 /* Views */,
+				6BD76A933066A5560083435E /* ViewModels */,
+				6B2152CF2EE8E72700188D31 /* Test */,
 				6BA3F8662ED8BF4F00EBE046 /* PQPrototypeApp.swift */,
 				6BA3F86A2ED8BF5200EBE046 /* Assets.xcassets */,
 				6BA3F86C2ED8BF5200EBE046 /* Preview Content */,
@@ -448,7 +507,6 @@
 			isa = PBXGroup;
 			children = (
 				6BA72D7E2F474C620019649F /* LocationView.swift */,
-				6B7A48DE2F064EA3002102FE /* LocationViewModel.swift */,
 			);
 			path = LocationView;
 			sourceTree = "<group>";
@@ -468,8 +526,8 @@
 		6BA9DDBC2F3CE9F500AF1B06 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				6BE3231B3050B6B700074E25 /* ManualQuestTask+CoreDataClass.swift */,
-				6BE3231C3050B6B700074E25 /* ManualQuestTask+CoreDataProperties.swift */,
+				6B05352430667F7C005C56A3 /* ManualQuestTask+CoreDataClass.swift */,
+				6B05352530667F7C005C56A3 /* ManualQuestTask+CoreDataProperties.swift */,
 				6B94B588302C91CB00EF0D60 /* TrainingQuestTask+CoreDataClass.swift */,
 				6B94B589302C91CB00EF0D60 /* TrainingQuestTask+CoreDataProperties.swift */,
 				6B80D0D93006F7BC00A75888 /* TimeInABottle+CoreDataClass.swift */,
@@ -478,7 +536,7 @@
 				6B47399A2FCB213400DABF3C /* LocationTask+CoreDataProperties.swift */,
 				6B4739952FCB1E3500DABF3C /* Location+CoreDataClass.swift */,
 				6B4739962FCB1E3500DABF3C /* Location+CoreDataProperties.swift */,
-				6B7CB83D2FC619FD00345B18 /* RNGLocationTask+CoreDataClass.swift */,
+				6B05352230667EE1005C56A3 /* RNGLocationTask+CoreDataClass.swift */,
 				6B7CB83E2FC619FD00345B18 /* RNGLocationTask+CoreDataProperties.swift */,
 				6BF5EF232FBF984100970F59 /* GlobalQuestLoot+CoreDataClass.swift */,
 				6BF5EF242FBF984100970F59 /* GlobalQuestLoot+CoreDataProperties.swift */,
@@ -521,6 +579,132 @@
 				6BE3231F3052FDF400074E25 /* ManualQuestTask.swift */,
 			);
 			path = EntityExts;
+			sourceTree = "<group>";
+		};
+		6BD76A933066A5560083435E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				6BD76A943066A5560083435E /* Quests */,
+				6BD76A973066A5560083435E /* Schedules */,
+				6BD76A9C3066A5560083435E /* Loot */,
+				6BD76A9F3066A5560083435E /* Backgrounds */,
+				6BD76AA13066A5560083435E /* MainViewModel.swift */,
+				6BD76AA23066A5560083435E /* Locations */,
+				6BD76AA73066A5560083435E /* QuestTasks */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		6BD76A943066A5560083435E /* Quests */ = {
+			isa = PBXGroup;
+			children = (
+				6BD76A953066A5560083435E /* QuestManagerViewModel.swift */,
+				6BD76A963066A5560083435E /* QuestViewModel.swift */,
+			);
+			path = Quests;
+			sourceTree = "<group>";
+		};
+		6BD76A973066A5560083435E /* Schedules */ = {
+			isa = PBXGroup;
+			children = (
+				6BD76A983066A5560083435E /* ScheduleListModel.swift */,
+				6BD76A993066A5560083435E /* ScheduleInfoViewModel.swift */,
+				6BD76A9A3066A5560083435E /* ScheduleViewModel.swift */,
+				6BD76A9B3066A5560083435E /* ScheduleManagerViewModel.swift */,
+			);
+			path = Schedules;
+			sourceTree = "<group>";
+		};
+		6BD76A9C3066A5560083435E /* Loot */ = {
+			isa = PBXGroup;
+			children = (
+				6BD76A9D3066A5560083435E /* QuestRewardManagerViewModel.swift */,
+				6BD76A9E3066A5560083435E /* TimeInABottleViewModel.swift */,
+			);
+			path = Loot;
+			sourceTree = "<group>";
+		};
+		6BD76A9F3066A5560083435E /* Backgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				6BD76AA03066A5560083435E /* JournalViewModel.swift */,
+			);
+			path = Backgrounds;
+			sourceTree = "<group>";
+		};
+		6BD76AA23066A5560083435E /* Locations */ = {
+			isa = PBXGroup;
+			children = (
+				6BD76AA33066A5560083435E /* LocationView */,
+				6BD76AA63066A5560083435E /* LocationManagerViewModel.swift */,
+			);
+			path = Locations;
+			sourceTree = "<group>";
+		};
+		6BD76AA33066A5560083435E /* LocationView */ = {
+			isa = PBXGroup;
+			children = (
+				6BD76AA43066A5560083435E /* LocationViewModel.swift */,
+			);
+			path = LocationView;
+			sourceTree = "<group>";
+		};
+		6BD76AA73066A5560083435E /* QuestTasks */ = {
+			isa = PBXGroup;
+			children = (
+				6BD76AA83066A5560083435E /* General */,
+				6BD76AAA3066A5560083435E /* ManualTaskView */,
+				6BD76AAC3066A5560083435E /* SingleLocationTaskVIew */,
+				6BD76AB03066A5560083435E /* QuestTaskListModel.swift */,
+				6BD76AB13066A5560083435E /* RNGLocationTaskView */,
+				6BD76AB43066A5560083435E /* QuestTaskConfigViewModel.swift */,
+				6BD76AB53066A5560083435E /* TrainingTaskView */,
+				6BD76AD4306AFAD70083435E /* QuestTaskManagerViewModel.swift */,
+			);
+			path = QuestTasks;
+			sourceTree = "<group>";
+		};
+		6BD76AA83066A5560083435E /* General */ = {
+			isa = PBXGroup;
+			children = (
+				6BD76AA93066A5560083435E /* QuestTaskEditViewModel.swift */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		6BD76AAA3066A5560083435E /* ManualTaskView */ = {
+			isa = PBXGroup;
+			children = (
+				6BD76AAB3066A5560083435E /* ManualTaskViewModel.swift */,
+			);
+			path = ManualTaskView;
+			sourceTree = "<group>";
+		};
+		6BD76AAC3066A5560083435E /* SingleLocationTaskVIew */ = {
+			isa = PBXGroup;
+			children = (
+				6BD76AAD3066A5560083435E /* SingleLocationTaskViewModel.swift */,
+				6BD76AAE3066A5560083435E /* SingleLocationViewModel.swift */,
+				6BD76AAF3066A5560083435E /* SLTConfigViewModel.swift */,
+			);
+			path = SingleLocationTaskVIew;
+			sourceTree = "<group>";
+		};
+		6BD76AB13066A5560083435E /* RNGLocationTaskView */ = {
+			isa = PBXGroup;
+			children = (
+				6BD76AB23066A5560083435E /* RNGLocationViewModel.swift */,
+				6BD76AB33066A5560083435E /* RNGLTaskViewModel.swift */,
+			);
+			path = RNGLocationTaskView;
+			sourceTree = "<group>";
+		};
+		6BD76AB53066A5560083435E /* TrainingTaskView */ = {
+			isa = PBXGroup;
+			children = (
+				6BD76AB63066A5560083435E /* TrainingTaskViewModel.swift */,
+			);
+			path = TrainingTaskView;
 			sourceTree = "<group>";
 		};
 		6BE32310304F18BA00074E25 /* ManualTaskView */ = {
@@ -661,53 +845,72 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B05351E30613171005C56A3 /* TestView.swift in Sources */,
+				6BD76AC63066A5560083435E /* SingleLocationTaskViewModel.swift in Sources */,
 				6B7386AF2F1E53510076E77F /* Quest.swift in Sources */,
 				6B2152C22EE8511500188D31 /* LocationServices.swift in Sources */,
 				6BF5EF382FBF984100970F59 /* Schedule+CoreDataProperties.swift in Sources */,
+				6BD76AC43066A5560083435E /* QuestTaskEditViewModel.swift in Sources */,
 				6B9E6D482F31789F000C403D /* StagedButton.swift in Sources */,
 				6B7CB8332FC618A000345B18 /* RNGLTaskView.swift in Sources */,
+				6BD76ABD3066A5560083435E /* QuestRewardManagerViewModel.swift in Sources */,
 				6B80D0DB3006F7BC00A75888 /* TimeInABottle+CoreDataClass.swift in Sources */,
 				6B80D0D82FFE618E00A75888 /* LocationTask.swift in Sources */,
+				6BD76ACC3066A5560083435E /* QuestTaskConfigViewModel.swift in Sources */,
 				6B83BDC52F856617001472A6 /* MyJson.swift in Sources */,
 				6B94B5963031D6CD00EF0D60 /* SLTConfigView.swift in Sources */,
+				6BD76ABE3066A5560083435E /* TimeInABottleViewModel.swift in Sources */,
+				6BD76AC73066A5560083435E /* SingleLocationViewModel.swift in Sources */,
+				6BD76ABA3066A5560083435E /* ScheduleInfoViewModel.swift in Sources */,
 				6B94B5933031D6CD00EF0D60 /* SingleLocationView.swift in Sources */,
 				6B2152DE2EEB31FE00188D31 /* ScheduleManagerView.swift in Sources */,
+				6BD76ABB3066A5560083435E /* ScheduleViewModel.swift in Sources */,
 				6B80D0DC3006F7BC00A75888 /* TimeInABottle+CoreDataProperties.swift in Sources */,
 				6B4C64112FEBE62500D5C1E2 /* GlobalQuestLoot.swift in Sources */,
+				6BD76ABF3066A5560083435E /* JournalViewModel.swift in Sources */,
 				6BF5EF3C2FBF984100970F59 /* Quest+CoreDataProperties.swift in Sources */,
+				6BD76AC83066A5560083435E /* SLTConfigViewModel.swift in Sources */,
 				6BF5EF402FC05E7900970F59 /* ScheduleList.swift in Sources */,
-				6BE3231E3050B6B700074E25 /* ManualQuestTask+CoreDataProperties.swift in Sources */,
+				6B0535203062722B005C56A3 /* Placeholder.swift in Sources */,
 				6B94B59830339B1F00EF0D60 /* Notifications.swift in Sources */,
 				6B2153232EEC2BEB00188D31 /* QuestView.swift in Sources */,
 				6BA72D7F2F474C620019649F /* LocationView.swift in Sources */,
 				6BF5EF322FBF984100970F59 /* GlobalQuestLoot+CoreDataProperties.swift in Sources */,
 				6BE323203052FDF400074E25 /* ManualQuestTask.swift in Sources */,
+				6BD76ABC3066A5560083435E /* ScheduleManagerViewModel.swift in Sources */,
 				6BF5EF332FBF984100970F59 /* QuestTask+CoreDataClass.swift in Sources */,
 				6B2152D22EE8E75400188D31 /* CLCircularRegionTransformer.swift in Sources */,
 				6B94B59D30345AFB00EF0D60 /* TrainingTaskView.swift in Sources */,
+				6BD76AC53066A5560083435E /* ManualTaskViewModel.swift in Sources */,
 				6BA9DE0A2F42003400AF1B06 /* StringUtils.swift in Sources */,
 				6BF5EF3B2FBF984100970F59 /* Quest+CoreDataClass.swift in Sources */,
 				6B2153402EECEC0900188D31 /* ScheduleView.swift in Sources */,
+				6B05352630667F7C005C56A3 /* ManualQuestTask+CoreDataClass.swift in Sources */,
 				6B94B58B302C91CB00EF0D60 /* TrainingQuestTask+CoreDataProperties.swift in Sources */,
 				6BE32312304F18C900074E25 /* ManualTaskView.swift in Sources */,
+				6BD76ACB3066A5560083435E /* RNGLTaskViewModel.swift in Sources */,
 				6B331EF92F649F2500DBECA4 /* Colors.swift in Sources */,
+				6BD76AD7306DB49B0083435E /* MainHeader.swift in Sources */,
 				6B7A48D12F02E31F002102FE /* UIViewtoViewWrapper.swift in Sources */,
+				6BD76AD5306AFAD70083435E /* QuestTaskManagerViewModel.swift in Sources */,
 				6B7CB8422FC61AE800345B18 /* RNGLocationTask.swift in Sources */,
-				6B7CB8362FC618E000345B18 /* RNGLTaskViewModel.swift in Sources */,
 				6BA3F8702ED8BF5200EBE046 /* Persistence.swift in Sources */,
+				6B05352330667EE1005C56A3 /* RNGLocationTask+CoreDataClass.swift in Sources */,
 				6BF5EF342FBF984100970F59 /* QuestTask+CoreDataProperties.swift in Sources */,
 				6B24FE3D2F1E59E9002B3042 /* QuestRewardManagerView.swift in Sources */,
 				6B7A48CA2F019263002102FE /* Checkbox.swift in Sources */,
 				6BF5EF422FC4580600970F59 /* QuestTaskConfigView.swift in Sources */,
 				6B331EFB2F7A73BE00DBECA4 /* ScheduleInfoView.swift in Sources */,
 				6BF5EF372FBF984100970F59 /* Schedule+CoreDataClass.swift in Sources */,
-				6B331EF72F64889D00DBECA4 /* LocationManagerModel.swift in Sources */,
 				6B331EF52F64882E00DBECA4 /* LocationManagerView.swift in Sources */,
-				6BE3231D3050B6B700074E25 /* ManualQuestTask+CoreDataClass.swift in Sources */,
 				6B47399B2FCB213400DABF3C /* LocationTask+CoreDataClass.swift in Sources */,
 				6B4739982FCB1E3500DABF3C /* Location+CoreDataProperties.swift in Sources */,
+				6BD76AB83066A5560083435E /* QuestViewModel.swift in Sources */,
+				6BD76AC13066A5560083435E /* LocationViewModel.swift in Sources */,
+				6BD76AD3306ABC6D0083435E /* TaskCreationView.swift in Sources */,
 				6BF5EF362FBF984100970F59 /* SingleLocationTask+CoreDataProperties.swift in Sources */,
 				6BA5CD662F2D974000D07596 /* DateCompare.swift in Sources */,
+				6BD76ACA3066A5560083435E /* RNGLocationViewModel.swift in Sources */,
 				6BA3F8672ED8BF4F00EBE046 /* PQPrototypeApp.swift in Sources */,
 				6BA9DDC22F3CED8F00AF1B06 /* SingleLocationTask.swift in Sources */,
 				6BA9DDBF2F3CEA2C00AF1B06 /* Quest2QuestV2.swift in Sources */,
@@ -721,25 +924,30 @@
 				6BF5EF3E2FBF984100970F59 /* QuestKey+CoreDataProperties.swift in Sources */,
 				6B7A48D72F04BDE5002102FE /* TextFieldOverload.swift in Sources */,
 				6B7CB8402FC619FD00345B18 /* RNGLocationTask+CoreDataProperties.swift in Sources */,
-				6B5CF8552FBF7F8000769422 /* QuestTaskList.swift in Sources */,
+				6BD76AC03066A5560083435E /* MainViewModel.swift in Sources */,
+				6B5CF8552FBF7F8000769422 /* QuestTaskListView.swift in Sources */,
 				6BF5EF352FBF984100970F59 /* SingleLocationTask+CoreDataClass.swift in Sources */,
-				6B7A48DF2F064EA3002102FE /* LocationViewModel.swift in Sources */,
 				6B7A48D32F04109E002102FE /* QuestTaskEditView.swift in Sources */,
+				6BD76AB73066A5560083435E /* QuestManagerViewModel.swift in Sources */,
 				6BA9DDC62F3CEDC500AF1B06 /* QuestKey.swift in Sources */,
-				6B7CB83F2FC619FD00345B18 /* RNGLocationTask+CoreDataClass.swift in Sources */,
 				6BA72D842F475CBF0019649F /* MainView.swift in Sources */,
+				6B05352730667F7C005C56A3 /* ManualQuestTask+CoreDataProperties.swift in Sources */,
 				6B80D0DE30070B0800A75888 /* TimeInABottle.swift in Sources */,
 				6B5CF8172FA75CEC00769422 /* PQPrototype.xcdatamodeld in Sources */,
 				6B80D0E2300BB6E100A75888 /* TimeInABottleView.swift in Sources */,
 				6B4C64092FCF0AA900D5C1E2 /* MyAnnotation.swift in Sources */,
+				6BD76AC33066A5560083435E /* LocationManagerViewModel.swift in Sources */,
+				6BD76AB93066A5560083435E /* ScheduleListModel.swift in Sources */,
 				6B94B5943031D6CD00EF0D60 /* SingleLocationTaskView.swift in Sources */,
 				6B94B58A302C91CB00EF0D60 /* TrainingQuestTask+CoreDataClass.swift in Sources */,
-				6B94B5953031D6CD00EF0D60 /* SingleLocationTaskViewModel.swift in Sources */,
 				6BA72D7D2F4687E70019649F /* Location.swift in Sources */,
 				6B5CF8532FAAC5B000769422 /* TwoHeadedSlider.swift in Sources */,
 				6B94B59A3033B75700EF0D60 /* TrainingQuestTask.swift in Sources */,
+				6BD76ACD3066A5560083435E /* TrainingTaskViewModel.swift in Sources */,
+				6B05351A30606CEA005C56A3 /* JournalView.swift in Sources */,
 				6B7A48DC2F06163C002102FE /* Schedule.swift in Sources */,
 				6B47399C2FCB213400DABF3C /* LocationTask+CoreDataProperties.swift in Sources */,
+				6BD76AC93066A5560083435E /* QuestTaskListModel.swift in Sources */,
 				6B2152DC2EEB31F100188D31 /* QuestManagerView.swift in Sources */,
 				6BA9DDC42F3CEDAC00AF1B06 /* QuestTask.swift in Sources */,
 			);

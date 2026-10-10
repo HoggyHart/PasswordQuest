@@ -16,7 +16,24 @@ extension ManualQuestTask {
         return NSFetchRequest<ManualQuestTask>(entityName: "ManualQuestTask")
     }
 
-    @NSManaged public var subTasks: ManualQuestTask?
+    @NSManaged public var subTasks: NSSet?
     @NSManaged public var superTask: ManualQuestTask?
+
+}
+
+// MARK: Generated accessors for subTasks
+extension ManualQuestTask {
+
+    @objc(addSubTasksObject:)
+    @NSManaged public func addToSubTasks(_ value: ManualQuestTask)
+
+    @objc(removeSubTasksObject:)
+    @NSManaged public func removeFromSubTasks(_ value: ManualQuestTask)
+
+    @objc(addSubTasks:)
+    @NSManaged public func addToSubTasks(_ values: NSSet)
+
+    @objc(removeSubTasks:)
+    @NSManaged public func removeFromSubTasks(_ values: NSSet)
 
 }

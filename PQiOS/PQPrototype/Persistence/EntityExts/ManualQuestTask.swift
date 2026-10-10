@@ -29,6 +29,12 @@ extension ManualQuestTask{
             superTask?.chainCompletionToggle()
         }
     }
+    override func start() throws{
+        try super.start()
+        if subTasks?.count == 0{
+            self.completed = true
+        }
+    }
     
     override func reset() {
         self.completed = false
@@ -36,5 +42,15 @@ extension ManualQuestTask{
             (task as! ManualQuestTask).completed = false
             (task as! ManualQuestTask).reset()
         }
+    }
+    
+    override func currentStatus() -> String {
+        var comp = 0
+        for task in subTasks?.allObjects ?? []{
+            if (task as! ManualQuestTask).completed{
+                comp += 1
+            }
+        }
+        return "\(comp)/\(subTasks?.allObjects.count ?? 0)"
     }
 }

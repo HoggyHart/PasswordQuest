@@ -1,2 +1,8 @@
 ## User settings
-xcuserdata
+xcuserdata/
+.xcuserstate
+.xcworkspace
+UserInterfaceState.xcuserstate
+
+## Mac OS DS_Store
+.DS_Store
