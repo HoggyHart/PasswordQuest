@@ -31,6 +31,7 @@ class RNGLTaskViewModel: LocationViewModel {
     
     func updateQuestMarkers(forceRefresh: Bool = false){
         //if number of areas has changed
+        guard let centralLoc = task?.location else { return }
         if markers.count != task!.numberOfGeneratedLocations+1 || forceRefresh{//+1 for the origin location
             areas = [task!.location!]
             for lTask in task!.randomLocationTasks!.allObjects{

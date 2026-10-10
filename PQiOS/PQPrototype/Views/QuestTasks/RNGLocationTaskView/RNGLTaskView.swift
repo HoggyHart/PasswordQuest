@@ -21,8 +21,6 @@ struct RNGLTaskView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Location.name, ascending: true)],animation: .default)
     private var locations: FetchedResults<Location>
 
-    // --
-
     @StateObject var viewModel = RNGLTaskViewModel()
     
     init(locationTask: RNGLocationTask){
@@ -97,7 +95,7 @@ struct RNGLTaskView: View {
     
     private func save() -> Bool{
         context.perform {
-            task.name = task.location != nil ? "Explore "+task.location!.name! : "Unfinished Task"
+            //task.name = task.location != nil ? "Explore "+task.location!.name! : "Unfinished Task"
             do{try context.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
         }
         return true

@@ -361,9 +361,9 @@
 				6B94B59B3033BE7000EF0D60 /* TrainingTaskView */,
 				6B94B58E3031D6CD00EF0D60 /* SingleLocationTaskVIew */,
 				6B7CB8342FC618C400345B18 /* RNGLocationTaskView */,
+				6B7A48CD2F02E1A2002102FE /* General */,
 				6B5CF8542FBF7F8000769422 /* QuestTaskListView.swift */,
 				6BF5EF412FC4580600970F59 /* QuestTaskConfigView.swift */,
-				6B7A48CD2F02E1A2002102FE /* General */,
 				6BD76AD2306ABC6D0083435E /* TaskCreationView.swift */,
 			);
 			path = QuestTasks;

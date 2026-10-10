@@ -111,8 +111,9 @@ struct ScheduleView: View {
     
     var body: some View {
         VStack{
-            // --EDIT TOOLBAR ==needed since ScheduleView is raised as a form from the bottom of QuestView, it needs its own edit button.
-            if schedule.getState() != .inProgress {
+            // --EDIT TOOLBAR ==needed since ScheduleView is raised as a form from the bottom of QuestView, it needs its own edit button. // miight be unnecessary in future.
+            //TODO: edit here is usually used to delay quest by more than 5 minutes, leads to forgetting to change scheduled period back to previous state + free delays. Needs change on delay function to allow moore flexibility with dynamic cost scaling with delay time. In turn maybe make schedules editable but not affect currentStartTime if currently the cause of an active quest, then current start time is only updated when the quest ends. In that case, when the quest *does* end, measures must be taken to ensure the startTime only syncs with the scheduledStartTime instead of moving the schedule along.
+            if schedule.quest?.getCurrentScheduler() != schedule{
                 HStack{
                     Spacer()
                     EditButton()
