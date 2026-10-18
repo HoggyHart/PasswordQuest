@@ -22,10 +22,9 @@ struct QuestManagerView: View {
     
     @StateObject var jviewModel = JournalViewModel()
     @StateObject var viewModel = QuestManagerViewModel()
-    let rowHeight: CGFloat = 50
-    
+
     var body: some View {
-        JournalView(extraPages: viewModel.quests.count/viewModel.listSize, viewModel: jviewModel){
+        JournalView(extraPages: viewModel.fullList.count/viewModel.subListSize, viewModel: jviewModel){
             ZStack{
                 Button(){
                     viewContext.perform {
@@ -49,16 +48,16 @@ struct QuestManagerView: View {
         } content: {
             //quest list
             VStack(alignment: .leading, spacing:0){
-                ForEach(viewModel.subListQuests){q in
+                ForEach(viewModel.subList){q in
                     //Quest Line
-                    SelectableView(selections: $viewModel.toDelete,
+                    SelectableView(selections: $viewModel.selectedListItems,
                                    value: q.objectID) {
                         NavigationLink(destination: QuestView(quest: q)) {
                             ZStack{
                                 Text("\(q.name)")
                                     .font(.journalBody)
                                     .foregroundColor(.classicInk)
-                                if viewModel.toDelete.contains(where: { id in
+                                if viewModel.selectedListItems.contains(where: { id in
                                     return id == q.objectID
                                 }){
                                     Rectangle().frame(height: 2).foregroundColor(.red)
@@ -67,19 +66,19 @@ struct QuestManagerView: View {
                         }
                         .disabled(editing)
                     }
-                    .frame(height:rowHeight)
-                }.id(predicateIndex)
-                if viewModel.subListQuests.count<viewModel.listSize{
-                    ForEach(0..<viewModel.listSize-viewModel.subListQuests.count, id: \.self){i in                    //Add Quest (as long as not implying adding new active quest)
+                                   .frame(height:jviewModel.lineHeight)
+                }
+                if viewModel.subList.count<viewModel.subListSize{
+                    ForEach(0..<viewModel.subListSize-viewModel.subList.count, id: \.self){i in                    //Add Quest (as long as not implying adding new active quest)
                         if i == 0 && predicateIndex != 1{
                             TextField("New Quest \(Image(systemName: "plus"))", text: $viewModel.newQuestName)
                                 .submitLabel(.done)
                                 .onSubmit {
-                                    viewModel.addQuest()
-                                }.frame(height:rowHeight)
+                                    viewModel.addItem()
+                                }.frame(height:jviewModel.lineHeight)
                             //empty padding
                         }else{
-                            Rectangle().opacity(0).frame(height:rowHeight)
+                            Rectangle().opacity(0).frame(height:jviewModel.lineHeight)
                         }
                     }
                 }
@@ -90,12 +89,10 @@ struct QuestManagerView: View {
         }
         .navigationViewStyle(.stack)
         .onChange(of: jviewModel.page, perform: { value in
-            viewModel.subRequest.fetchOffset = (jviewModel.page-1)*viewModel.listSize
-            viewModel.updateDisplayList()
+            viewModel.updateSubList(newOffset: (jviewModel.page-1)*viewModel.subListSize)
         })
         .onChange(of: editing) { newValue in
-            if viewModel.toDelete.isEmpty { return }
-            viewModel.deleteQuests(ids: viewModel.toDelete)
+            viewModel.deleteItems()
         }
     }
 }

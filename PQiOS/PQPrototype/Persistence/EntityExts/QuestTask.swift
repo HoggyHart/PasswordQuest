@@ -9,18 +9,6 @@ import Foundation
 import CoreData
 import SwiftUI
 
-
-class InvalidTaskError: Error, CustomStringConvertible{
-    let task: String
-    let invalidAttribute: String
-    init(task: String, invalidAttribute: String) {
-        self.task = task
-        self.invalidAttribute = invalidAttribute
-    }
-    
-    public var description: String { return "\(task) is invalid: \(invalidAttribute)" }
-}
-
 extension QuestTask{
     @objc
     public var currentReward: Float{

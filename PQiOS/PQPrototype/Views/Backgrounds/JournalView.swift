@@ -42,23 +42,30 @@ struct SelectableView<Content: View, ID: Equatable>: View {
     }
 }
 
+struct JournalDefaults{
+    static let defaultLines: Int = 10
+    static let defaultRowHeight: CGFloat = 400/CGFloat(defaultLines)
+}
 struct JournalView<Header: View, Content: View>: View {
     
     let backgroundPages: Int
     let bCCornerRadius: CGFloat = 10
     let extraPages: Int
-    let lines: Int
-    let lineHeight: CGFloat
+    var lines: Int { get{
+        return viewModel.lines
+    }}
+    var lineHeight: CGFloat{ get{
+        return viewModel.lineHeight
+    }}
     
     @ObservedObject var viewModel: JournalViewModel
     let content: (() -> Content)
     let header: (() -> Header)
-    init(extraPages: Int, lines: Int = 8, lineHeight: CGFloat = 50, backgroundPages: Bool = false, viewModel: JournalViewModel = JournalViewModel(), header: @escaping (() -> Header), content: @escaping (() -> Content)
+    init(extraPages: Int, lines: Int = 10, lineHeight: CGFloat = 40, backgroundPages: Bool = false, viewModel: JournalViewModel = JournalViewModel(), header: @escaping (() -> Header), content: @escaping (() -> Content)
     ){
-        self.lines = lines
-        self.lineHeight = lineHeight
-        self.backgroundPages = backgroundPages ? 5 : 0
+        viewModel.lines = lines
         self.viewModel = viewModel
+        self.backgroundPages = backgroundPages ? 5 : 0
         self.header = header
         self.content = content
         if extraPages < 0 { self.extraPages = Int.max-1}

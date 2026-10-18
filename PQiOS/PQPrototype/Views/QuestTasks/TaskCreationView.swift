@@ -69,7 +69,7 @@ struct TaskCreationView: View {
                 }
             }
             Button(){
-                viewModel.addTask()
+                viewModel.addItem()
             } label : {
                 Text("Confirm")
             }

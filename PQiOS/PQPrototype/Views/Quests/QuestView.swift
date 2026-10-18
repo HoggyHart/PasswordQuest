@@ -61,12 +61,9 @@ struct QuestView: View {
         }
     }
     
-    @StateObject var journalViewModel = JournalViewModel()
+    @StateObject var jViewModel = JournalViewModel()
     @StateObject var viewModel = QuestTaskManagerViewModel()
-    let rowHeight: CGFloat = 50
-    
-    let pageLines = 8
-    
+ 
     var extraTaskPages: Int{
         get{
             
@@ -77,12 +74,12 @@ struct QuestView: View {
 //            //first extra page + first of these new pages + extra page per full page of tasks
 //            // eppfpot =  (total tasks - tasks shown already)/perPageTasks
 //            return 3+(viewModel.questTasks.count - (firstPageTasks - 1 + perPageTasks))/perPageTasks
-            return 1 + viewModel.questTasks.count/8
+            return 1 + viewModel.fullList.count/viewModel.subListSize
         }
     }
     
     var body: some View {
-        JournalView(extraPages: 1 + extraTaskPages, lines: viewModel.listSize+1, lineHeight: rowHeight, backgroundPages: true, viewModel: journalViewModel) {
+        JournalView(extraPages: 1 + extraTaskPages, backgroundPages: true, viewModel: jViewModel) {
             
             //Header: Page title and quest name
             VStack(spacing:0){
@@ -110,20 +107,11 @@ struct QuestView: View {
             .padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10))
         } content: {
             VStack{
-                if journalViewModel.page == 1{
+                if jViewModel.page == 1{
                     VStack(spacing:0){
-                        //task list
-//                        VStack(alignment: .leading, spacing: 0){
-//                            Text("Tasks").underline().font(.journalSubheading).frame(height:rowHeight)
-//                                .offset(y:rowHeight/2 - 12.5)
-//                            QuestTaskList(quest: quest, listItemHeight: rowHeight, viewModel: viewModel)
-//                            if viewModel.displayedQuestTasks.count>firstPageTasks-1{
-//                                Text("Continued on next page...").frame(height: rowHeight) //TODO: make nicer. conceptually i like this, but having 1 task on a separate layout from all the rest feels strange
-//                            }
-//                        }
                         //Rewards
                         VStack(alignment:.leading, spacing:0){
-                            Text("Rewards").underline().font(.journalSubheading).offset(y:rowHeight/2 - 12.5).frame(height: rowHeight)
+                            Text("Rewards").underline().font(.journalSubheading).offset(y:jViewModel.lineHeight/2 - 12.5).frame(height: jViewModel.lineHeight)
                             HStack{
                                 if quest.maxRewardValue.truncatingRemainder(dividingBy: 1) != 0{
                                     Text("\(Int(quest.maxRewardValue)) - \(Int(quest.maxRewardValue+1))")
@@ -131,7 +119,7 @@ struct QuestView: View {
                                     Text("\(Int(quest.maxRewardValue))")
                                 }
                                 Text("Time in a Bottle")
-                            }.frame(height: rowHeight)
+                            }.frame(height: JournalDefaults.defaultRowHeight)
                         }.frame(maxWidth: .infinity,alignment: .leading)
                         Spacer()
                         
@@ -174,14 +162,16 @@ struct QuestView: View {
                     .frame(maxWidth:.infinity, alignment: .topLeading)
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                 }
+                //page 2+
                 else{
                     VStack(spacing:0){
-                        if journalViewModel.page <= 1 + extraTaskPages{
+                        //pages 2 -> (x-1)
+                        if jViewModel.page <= 1 + extraTaskPages{
                             VStack(alignment: .leading, spacing: 0){
                                 HStack(spacing: 0){
-                                    Text("Tasks").underline().font(.journalSubheading).frame(height:rowHeight).offset(y:rowHeight/2 - 25/2)
+                                    Text("Tasks").underline().font(.journalSubheading).frame(height:jViewModel.lineHeight).offset(y:jViewModel.lineHeight/2 - 25/2)
                                 }
-                                QuestTaskListView(quest: quest, listItemHeight: rowHeight,viewModel: viewModel).frame(minHeight:0)
+                                QuestTaskListView(quest: quest, listItemHeight: jViewModel.lineHeight,viewModel: viewModel).frame(minHeight:0)
                             }
                         }
                         else{
@@ -213,10 +203,18 @@ struct QuestView: View {
                     }
                     .frame(maxWidth:.infinity, maxHeight: .infinity, alignment: .topLeading)
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-                    .id(journalViewModel.page)
+                    .id(jViewModel.page)
+                    .onChange(of: jViewModel.page) { newValue in
+                        print("hi")
+                        viewModel.updateSubList(newOffset: (jViewModel.page-2)*viewModel.subListSize)
+                    }
                 }
             }
         }.navigationBarHidden(true)
+            .onAppear(){
+                viewModel.subListSize = jViewModel.lines-1
+                viewModel.assignPredicateQuest(quest: quest)
+            }
     }
 
     func startEndResetButtonFunc(){

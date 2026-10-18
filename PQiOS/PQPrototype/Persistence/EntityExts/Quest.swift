@@ -59,6 +59,7 @@ extension Quest{
         guard let sch = sch else {return}
         self.locked = sch.nextSchLocked
         sch.lastScheduleCompletedOnTime = false
+        QuestScheduleManager.shared.activeRegister.updateValue(sch, forKey: self.objectID)
     }
     
     public func updateProgress(){
@@ -141,6 +142,7 @@ extension Quest{
             
             //end scheduler
             endCurrentScheduler()
+            QuestScheduleManager.shared.activeRegister.removeValue(forKey: self.objectID)
             
             //leave task progress and questStartTime alone to indicate quest status as completed or failed
             //these are changed in reset()
@@ -218,16 +220,21 @@ extension Quest{
         return true
     }
     
-    public func getCurrentScheduler() -> Schedule?{
-        guard let qst = self.questStartTime else { return nil }
-        for schedule in schedulers!{
-            let schedule = schedule as! Schedule
-            //if this scheduler is active and was scheduled to start a quest at the same time this quest was started (i.e. this scheduler started this now-ending quest) then log the last completion date
-            if schedule.isActive && schedule.nextStart.equals(date2: qst) {
-                return schedule
+    public func getCurrentScheduler(thorough: Bool = false) -> Schedule?{
+        if thorough{
+            guard let qst = self.questStartTime else { return nil }
+            for schedule in schedulers!{
+                let schedule = schedule as! Schedule
+                //if this scheduler is active and was scheduled to start a quest at the same time this quest was started (i.e. this scheduler started this now-ending quest) then log the last completion date
+                if schedule.isActive && schedule.nextStart.equals(date2: qst) {
+                    return schedule
+                }
             }
+            return nil
         }
-        return nil
+        else{
+            return QuestScheduleManager.shared.activeRegister[self.objectID]
+        }
     }
     
     public func delay(seconds: Double) {

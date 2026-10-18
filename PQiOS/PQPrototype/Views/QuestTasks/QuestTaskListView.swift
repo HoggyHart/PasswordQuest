@@ -69,12 +69,12 @@ struct QuestTaskListView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0){
-            ForEach(viewModel.displayedQuestTasks){q in
-                SelectableView(selections: $viewModel.toDelete, value: q.objectID) {
+            ForEach(viewModel.subList){q in
+                SelectableView(selections: $viewModel.selectedListItems, value: q.objectID) {
                     NavigationLink(destination: getView(task: q)) {
                         ZStack{
                             QuestTaskListEntry(qtask: q).frame(height: listItemHeight)
-                            if viewModel.toDelete.contains(q.objectID){
+                            if viewModel.selectedListItems.contains(q.objectID){
                                 Rectangle().frame(height: 2).foregroundColor(.red)
                             }
                         }
@@ -82,7 +82,7 @@ struct QuestTaskListView: View {
                     .disabled(editing)
                 }
             }
-            ForEach(0..<viewModel.listSize - viewModel.displayedQuestTasks.count, id: \.self){ i in
+            ForEach(0..<viewModel.subListSize - viewModel.subList.count, id: \.self){ i in
                 if i == 0 && !quest.isActive{
                     TextField("New Task \(Image(systemName: "plus"))", text: $viewModel.newTaskName).font(.journalBody).submitLabel(.continue).onSubmit {viewModel.taskTypeSheetActive=true}.frame(height: listItemHeight,alignment: .center)
                 }else{
@@ -99,11 +99,7 @@ struct QuestTaskListView: View {
             TaskCreationView(viewModel: viewModel)
         }
         .onChange(of: editing) { newValue in
-            if viewModel.toDelete.isEmpty { return }
-            viewModel.deleteTasks(ids: viewModel.toDelete)
-        }
-        .onAppear(){
-            viewModel.assignPredicateQuest(quest: quest)
+            viewModel.deleteItems()
         }
     }
     
