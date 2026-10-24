@@ -49,16 +49,28 @@ struct QuestView: View {
         .disabled(quest.locked ? true : false)
     }
     
+    let stampWHRatio: CGFloat = 1.75
+    @State var stampRotation: Double = Double.random(in: QuestView.stampRotationRange)
+    static let stampRotationRange: Range<Double> = -20..<20
     var questStatusButton: some View{
         Button(){
             startEndResetButtonFunc()
+            stampRotation = Double.random(in: QuestView.stampRotationRange)
         } label : {
             ZStack{
-                RoundedRectangle(cornerRadius: 50, style: .circular)
+                Rectangle()
+                    .stroke(style: StrokeStyle(lineWidth: 4, lineCap: .round, lineJoin: .miter, miterLimit: 0,dash: [25,120*stampWHRatio-50,25,0,25,70,25,0],dashPhase: 0))
+                    .foregroundColor(.classicInk)
+                Text(startEndResetButtonText)
+                    .font(Font.custom("Old Stamper", size: 60))
                     .foregroundColor(statusColor)
-                Text(startEndResetButtonText).foregroundColor(.white)
-            }
+                    .minimumScaleFactor(0.1)
+                    .lineLimit(1)
+                    .rotationEffect(Angle(degrees: stampRotation))
+                    .shadow(color:.classicInk, radius: 1.5)
+            }.frame(width: 120*stampWHRatio, height: 120)
         }
+        .buttonStyle(ButtonStampAnimationStyle())
     }
     
     @StateObject var jViewModel = JournalViewModel()
@@ -66,14 +78,6 @@ struct QuestView: View {
  
     var extraTaskPages: Int{
         get{
-            
-            // 0 to F-1 ( the Xth one is replaced with "cont next page" to signify where overflow tasks go )
-//            if viewModel.questTasks.count < firstPageTasks { return 1 }
-//            // F to F + Y-1 -1 ( overflow Firstpage + amount that fit on a page - 1 (-1 since the Fth is one of those on-page tasks)
-//            else if viewModel.questTasks.count < firstPageTasks + perPageTasks - 1 { return 2 }
-//            //first extra page + first of these new pages + extra page per full page of tasks
-//            // eppfpot =  (total tasks - tasks shown already)/perPageTasks
-//            return 3+(viewModel.questTasks.count - (firstPageTasks - 1 + perPageTasks))/perPageTasks
             return 1 + viewModel.fullList.count/viewModel.subListSize
         }
     }
@@ -131,23 +135,23 @@ struct QuestView: View {
                                 HStack{
                                     //lock/unlock button
                                     if quest.isActive {
-                                        lockButton
+                                      //  lockButton
                                     }
                                     //start/end button
                                     ZStack{
                                         questStatusButton
                                     }
-                                }.frame(width: 250, height: 50)
-                                if quest.isActive{
-                                    Button(){
-                                        context.perform {
-                                            quest.delay(seconds: 300)
-                                            do{try context.save()}catch{}
-                                        }
-                                    } label: {
-                                        Text("Delay 5 Minutes (5\(Image(systemName: "hourglass")))")
-                                    }
                                 }
+//                                if quest.isActive{
+//                                    Button(){
+//                                        context.perform {
+//                                            quest.delay(seconds: 300)
+//                                            do{try context.save()}catch{}
+//                                        }
+//                                    } label: {
+//                                        Text("Delay 5 Minutes (5\(Image(systemName: "hourglass")))")
+//                                    }
+//                                }
                             }
                             Spacer()
                             NavigationLink(destination: ScheduleManagerView(predicate: NSPredicate(format:"quest == %@",quest))) {
@@ -264,18 +268,18 @@ struct QuestView: View {
         ///2: inactive, completed successfully
         switch(quest.questStatus()){
         case .failed:
-            return "Failed"
+            return "[Failed]"
         case .inactive:
-            return "Start"
+            return ""
         case .inProgress:
-            if quest.locked{
-                return "Skip? (\(Int(quest.maxRewardValue))"
-            }
-            return "End"
+//            if quest.locked{
+//                return "Skip? (\(Int(quest.maxRewardValue)))"
+//            }
+            return "[Active]"
         case .completed:
-            return "Turn In"
+            return "[Complete]"
         case .paused:
-            return "Resume"
+            return "[Paused]"
         default:
             return "Unknown status"
         }
@@ -292,11 +296,11 @@ struct QuestView: View {
         case .inactive, .paused:
             return .blue
         case .inProgress:
-            return .gray
+            return .yellow
         case .completed:
             return .green
         default:
-            return .yellow
+            return .purple
         }
     }
 }
@@ -316,5 +320,6 @@ struct QuestView: View {
     stdQuest.isActive = true
     return VStack(spacing: 0){
         MainHeader()
-        QuestView(quest: stdQuest)}.environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        QuestView(quest: stdQuest)
+    }.environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

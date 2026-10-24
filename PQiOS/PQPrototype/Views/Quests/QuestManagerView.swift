@@ -20,11 +20,11 @@ struct QuestManagerView: View {
     @State var curPredicate: NSPredicate? = nil
     let predicateName: [String] = ["", "Active ", "Inactive "]
     
-    @StateObject var jviewModel = JournalViewModel()
+    @StateObject var jViewModel = JournalViewModel()
     @StateObject var viewModel = QuestManagerViewModel()
 
     var body: some View {
-        JournalView(extraPages: viewModel.fullList.count/viewModel.subListSize, viewModel: jviewModel){
+        JournalView(extraPages: viewModel.fullList.count/viewModel.subListSize, viewModel: jViewModel){
             ZStack{
                 Button(){
                     viewContext.perform {
@@ -54,19 +54,24 @@ struct QuestManagerView: View {
                                    value: q.objectID) {
                         NavigationLink(destination: QuestView(quest: q)) {
                             ZStack{
-                                Text("\(q.name)")
-                                    .font(.journalBody)
-                                    .foregroundColor(.classicInk)
-                                if viewModel.selectedListItems.contains(where: { id in
-                                    return id == q.objectID
-                                }){
-                                    Rectangle().frame(height: 2).foregroundColor(.red)
-                                }
-                            }
+                                HStack(){
+                                    Text("\(q.name)")
+                                        .font(.journalBody)
+                                        .foregroundColor(.classicInk)
+                                        .strikethrough(viewModel.selectedListItems.contains(where: { id in
+                                                        return id == q.objectID
+                                                        }),
+                                            color: .red)
+                                    if !editing{
+                                        Spacer()
+                                        Image(systemName: "chevron.right").foregroundColor(.classicInk)
+                                    }
+                                }.frame(maxWidth: .infinity, alignment:.leading)
+                            }.frame(maxWidth: .infinity)
                         }
                         .disabled(editing)
                     }
-                                   .frame(height:jviewModel.lineHeight)
+                                   .frame(height:jViewModel.lineHeight)
                 }
                 if viewModel.subList.count<viewModel.subListSize{
                     ForEach(0..<viewModel.subListSize-viewModel.subList.count, id: \.self){i in                    //Add Quest (as long as not implying adding new active quest)
@@ -75,10 +80,10 @@ struct QuestManagerView: View {
                                 .submitLabel(.done)
                                 .onSubmit {
                                     viewModel.addItem()
-                                }.frame(height:jviewModel.lineHeight)
+                                }.frame(height:jViewModel.lineHeight)
                             //empty padding
                         }else{
-                            Rectangle().opacity(0).frame(height:jviewModel.lineHeight)
+                            Rectangle().opacity(0).frame(height:jViewModel.lineHeight)
                         }
                     }
                 }
@@ -88,8 +93,8 @@ struct QuestManagerView: View {
             
         }
         .navigationViewStyle(.stack)
-        .onChange(of: jviewModel.page, perform: { value in
-            viewModel.updateSubList(newOffset: (jviewModel.page-1)*viewModel.subListSize)
+        .onChange(of: jViewModel.page, perform: { value in
+            viewModel.updateSubList(newOffset: (jViewModel.page-1)*viewModel.subListSize)
         })
         .onChange(of: editing) { newValue in
             viewModel.deleteItems()

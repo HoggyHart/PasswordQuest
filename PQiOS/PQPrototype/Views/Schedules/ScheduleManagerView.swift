@@ -9,51 +9,66 @@ import SwiftUI
 import CoreData
 
 struct ScheduleManagerView: View {
-    
-    
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.editMode) private var editMode
+    var editing: Bool { get { return  editMode!.wrappedValue.isEditing }}
     
-    @FetchRequest private var schedules: FetchedResults<Schedule>
+    @StateObject private var jViewModel = JournalViewModel()
+    @StateObject private var viewModel = ScheduleManagerViewModel()
     
     let filters: NSPredicate?
     init(predicate: NSPredicate? = nil){
         filters = predicate
-        _schedules = FetchRequest(
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Schedule.isActive, ascending: false),
-                NSSortDescriptor(keyPath: \Schedule.startTime, ascending: true)
-            ],
-            predicate: predicate
-        )
     }
     
     var body: some View {
-        VStack{
+        JournalView(extraPages: viewModel.fullList.count/viewModel.subListSize, viewModel: jViewModel) {
             HStack{
-                Text("Schedule Manager")
-                Button(){
-                    viewContext.perform {
-                        newSynchroniseWithDesktopApp()
-                        do{try viewContext.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
-                    }
-                } label: {
-                    Text("Synchronise")
-                }
-            }
-            List {
-                ForEach(schedules) { schedule in
-                    NavigationLink {
-                        ScheduleView(scheduleToLoad: schedule)
-                        
-                    } label: {
-                        HStack{
-                            Text("\(schedule.scheduleName!)")
-                            Spacer()
-                            ScheduleInfoView(schedule: schedule)
+                VStack{
+                    Text("Schedule Manager").font(.journalTitle)
+                    Button(){
+                        viewContext.perform {
+                            newSynchroniseWithDesktopApp()
+                            do{try viewContext.save()}catch{let nsError = error as NSError;fatalError("Unresolved error \(nsError),\(nsError.userInfo)")}
                         }
+                    } label: {
+                        Text("Synchronise").font(.journalBody)
                     }
                 }
+                EditButton().font(.journalSubheading)
             }
+        } content: {
+            VStack(alignment: .leading,spacing: 0){
+                ForEach(viewModel.subList){s in
+                    //Quest Line
+                    SelectableView(selections: $viewModel.selectedListItems,
+                                   value: s.objectID) {
+                        NavigationLink(destination: ScheduleView(scheduleToLoad: s)) {
+                            ZStack{
+                                HStack{
+                                    Text("\(s.scheduleName!)").font(.journalBody).foregroundColor(.classicInk)
+                                    Spacer()
+                                    ScheduleInfoView(schedule: s)
+                                    Image(systemName: "chevron.right")
+                                }
+                                if viewModel.selectedListItems.contains(where: { id in
+                                    return id == s.objectID
+                                }){
+                                    Rectangle().frame(height: 2).foregroundColor(.red)
+                                }
+                            }
+                        }
+                        .disabled(editing)
+                    }
+                    .frame(height:jViewModel.lineHeight)
+                }
+            }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+        }.onChange(of: jViewModel.page, perform: { value in
+            viewModel.updateSubList(newOffset: (jViewModel.page-1)*viewModel.subListSize)
+        })
+        .onChange(of: editing) { newValue in
+            viewModel.deleteItems()
         }
     }
     
@@ -66,7 +81,7 @@ struct ScheduleManagerView: View {
             
             //sync scheedules
             var data = "{ \"scheduleList\": [\n"
-            for schedule in schedules{
+            for schedule in viewModel.fullList{
                 data += schedule.toJson() + ",\n"
             }
             data.removeLast(2) //removes last ",\n"

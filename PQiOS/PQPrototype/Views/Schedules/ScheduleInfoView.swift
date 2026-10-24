@@ -21,6 +21,7 @@ struct ScheduleInfoView: View {
                     .foregroundColor(dynamicColour(schedule: schedule, dateOnly: schButtonFlip))
                     .shadow(color: .black, radius: 1)
                 dynamicText(schedule: schedule, dateOnly: schButtonFlip)
+                    .font(.journalBody)
                     .foregroundColor(.black)
             }
         }
