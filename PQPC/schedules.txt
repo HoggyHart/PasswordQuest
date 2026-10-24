@@ -1,84 +1,220 @@
 {
     "scheduleList": [
         {
-            "scheduleName": "Gym Schedule",
+            "scheduleName": "Gym Quest Schedule",
             "isActive": true,
             "quest": {
                 "questName": "Gym",
-                "questUUID": "4250E4F8-0A36-491B-8277-66B100DB9A37",
-                "expiryDate": "21/5/2026, 12:0:49",
+                "questUUID": "68CF13F8-B4D0-4F15-AF7B-2C999986F362",
+                "startDate": "nil",
+                "expiryDate": "24/10/2026, 16:0:0",
                 "scheduler": "0"
             },
-            "schedule_everyXDays": false,
-            "schedule_XDayDelay": 1,
-            "scheduledStartTime": "20/5/2026, 13:0:0",
-            "scheduledEndTime": "20/5/2026, 16:0:5",
-            "schedule_scheduledDays": "101001",
-            "scheduleUUID": "70FD4B9E-B77A-4ADC-9659-C2764D743F4C"
+            "startTime": "24/10/2026, 14:5:47",
+            "schedule_everyXDays": true,
+            "schedule_XDayDelay": 3,
+            "scheduledStartTime": "24/10/2026, 14:0:0",
+            "scheduledEndTime": "24/10/2026, 16:0:0",
+            "schedule_scheduledDays": "0000000",
+            "scheduleUUID": "9EF700A3-47B1-4A71-8746-71310A7B54D8"
         },
         {
-            "scheduleName": "Sleep Schedule",
+            "scheduleName": "Dinner",
+            "isActive": true,
+            "quest": {
+                "questName": "Food",
+                "questUUID": "5E29AA3D-2F5F-4D4B-8406-327EB85CDCA4",
+                "startDate": "nil",
+                "expiryDate": "24/10/2026, 20:10:29",
+                "scheduler": "0"
+            },
+            "startTime": "24/10/2026, 20:0:0",
+            "schedule_everyXDays": true,
+            "schedule_XDayDelay": 1,
+            "scheduledStartTime": "24/10/2026, 20:0:0",
+            "scheduledEndTime": "24/10/2026, 22:30:0",
+            "schedule_scheduledDays": "0111110",
+            "scheduleUUID": "53F420B5-549A-4B8D-B6AE-2B0925CE7066"
+        },
+        {
+            "scheduleName": "Bedtime Schedule",
             "isActive": true,
             "quest": {
                 "questName": "Sleep",
-                "questUUID": "E474227F-AF18-4E36-9334-4366DD4ABAF0",
-                "expiryDate": "21/5/2026, 12:0:49",
+                "questUUID": "7B726517-2032-4B3B-8AAE-CEDE87D842F6",
+                "startDate": "nil",
+                "expiryDate": "24/10/2026, 21:30:0",
                 "scheduler": "0"
             },
+            "startTime": "24/10/2026, 21:30:0",
             "schedule_everyXDays": true,
             "schedule_XDayDelay": 1,
-            "scheduledStartTime": "20/5/2026, 22:0:0",
-            "scheduledEndTime": "21/5/2026, 7:0:5",
-            "schedule_scheduledDays": "0",
-            "scheduleUUID": "204C80DC-BF9E-416E-B189-74C4DB273C6B"
+            "scheduledStartTime": "24/10/2026, 21:30:0",
+            "scheduledEndTime": "25/10/2026, 6:0:0",
+            "schedule_scheduledDays": "0111110",
+            "scheduleUUID": "1E2DA2C4-467A-406E-9494-6E10C51DD5EA"
+        },
+        {
+            "scheduleName": "Grustle and Hustle Schedule",
+            "isActive": true,
+            "quest": {
+                "questName": "Grustle and Hustle",
+                "questUUID": "26FD79B3-068C-4978-853A-B6F237150585",
+                "startDate": "nil",
+                "expiryDate": "25/10/2026, 13:0:48",
+                "scheduler": "0"
+            },
+            "startTime": "26/10/2026, 8:0:0",
+            "schedule_everyXDays": false,
+            "schedule_XDayDelay": 1,
+            "scheduledStartTime": "26/10/2026, 8:0:0",
+            "scheduledEndTime": "26/10/2026, 17:0:0",
+            "schedule_scheduledDays": "0110111",
+            "scheduleUUID": "901CAD04-330C-4E65-9F4D-00B16DDB599F"
+        },
+        {
+            "scheduleName": "Fog Lane Treasure Hunt Schedule",
+            "isActive": false,
+            "quest": {
+                "questName": "Fog lane park",
+                "questUUID": "14868B98-1E71-4730-9C8B-90AE5A0ECE81",
+                "startDate": "nil",
+                "expiryDate": "25/10/2026, 13:0:48",
+                "scheduler": "0"
+            },
+            "startTime": "25/10/2026, 5:0:0",
+            "schedule_everyXDays": true,
+            "schedule_XDayDelay": 1,
+            "scheduledStartTime": "25/10/2026, 5:0:0",
+            "scheduledEndTime": "25/10/2026, 8:0:0",
+            "schedule_scheduledDays": "0111110",
+            "scheduleUUID": "A237FDE9-F07E-41D0-BCC5-38284F33F60A"
+        },
+        {
+            "scheduleName": "Morning Shower",
+            "isActive": false,
+            "quest": {
+                "questName": "Shower",
+                "questUUID": "26907CD5-331A-47A4-8585-3F9A5AC2EB57",
+                "startDate": "nil",
+                "expiryDate": "25/10/2026, 13:0:48",
+                "scheduler": "0"
+            },
+            "startTime": "25/10/2026, 6:0:0",
+            "schedule_everyXDays": true,
+            "schedule_XDayDelay": 1,
+            "scheduledStartTime": "25/10/2026, 6:0:0",
+            "scheduledEndTime": "25/10/2026, 8:0:5",
+            "schedule_scheduledDays": "0111110",
+            "scheduleUUID": "20335090-4F6B-4AAC-8EF6-C40DA114A2F1"
+        },
+        {
+            "scheduleName": "Breakfast",
+            "isActive": false,
+            "quest": {
+                "questName": "Food",
+                "questUUID": "5E29AA3D-2F5F-4D4B-8406-327EB85CDCA4",
+                "startDate": "nil",
+                "expiryDate": "24/10/2026, 20:10:29",
+                "scheduler": "0"
+            },
+            "startTime": "25/10/2026, 7:0:0",
+            "schedule_everyXDays": true,
+            "schedule_XDayDelay": 1,
+            "scheduledStartTime": "25/10/2026, 7:0:0",
+            "scheduledEndTime": "25/10/2026, 9:0:0",
+            "schedule_scheduledDays": "0111110",
+            "scheduleUUID": "B7DA9C6E-F9B8-49E3-A911-DD4642751993"
+        },
+        {
+            "scheduleName": "UC Appointment Schedule",
+            "isActive": false,
+            "quest": {
+                "questName": "UC Appointment",
+                "questUUID": "81FEFC10-499A-4EA6-97D7-A26C2B3D640F",
+                "startDate": "nil",
+                "expiryDate": "25/10/2026, 13:0:48",
+                "scheduler": "0"
+            },
+            "startTime": "25/10/2026, 9:30:0",
+            "schedule_everyXDays": false,
+            "schedule_XDayDelay": 1,
+            "scheduledStartTime": "25/10/2026, 9:30:0",
+            "scheduledEndTime": "25/10/2026, 23:0:0",
+            "schedule_scheduledDays": "0000000",
+            "scheduleUUID": "6610DE92-D56E-4EE5-8E7C-C85741AAA50F"
+        },
+        {
+            "scheduleName": "Get ready to go Schedule",
+            "isActive": false,
+            "quest": {
+                "questName": "Get ready to go",
+                "questUUID": "94317AF1-E406-4766-94C0-769ACF77B694",
+                "startDate": "nil",
+                "expiryDate": "25/10/2026, 13:0:48",
+                "scheduler": "0"
+            },
+            "startTime": "25/10/2026, 10:45:0",
+            "schedule_everyXDays": false,
+            "schedule_XDayDelay": 1,
+            "scheduledStartTime": "25/10/2026, 10:45:0",
+            "scheduledEndTime": "25/10/2026, 11:15:0",
+            "schedule_scheduledDays": "0000000",
+            "scheduleUUID": "62125A2D-9BAB-4B6C-8DD8-FFB3B7F20EE8"
         },
         {
             "scheduleName": "Cooking Schedule",
             "isActive": false,
             "quest": {
                 "questName": "Cooking",
-                "questUUID": "AA727D25-6670-4836-B0C1-99101AA0B2A1",
-                "expiryDate": "21/5/2026, 12:0:49",
+                "questUUID": "9AA7017D-5F49-40E7-B1E4-CCE959330DE2",
+                "startDate": "nil",
+                "expiryDate": "25/10/2026, 13:0:48",
                 "scheduler": "0"
             },
-            "schedule_everyXDays": false,
-            "schedule_XDayDelay": 1,
-            "scheduledStartTime": "15/5/2026, 16:0:0",
-            "scheduledEndTime": "16/5/2026, 0:9:5",
-            "schedule_scheduledDays": "100000",
-            "scheduleUUID": "7F977DB9-9097-4041-9F67-205F0C9413B8"
-        },
-        {
-            "scheduleName": "Shop Schedule",
-            "isActive": false,
-            "quest": {
-                "questName": "Shop",
-                "questUUID": "ABE39A31-793C-46B5-8CCA-EFB7849579AC",
-                "expiryDate": "21/5/2026, 12:0:49",
-                "scheduler": "0"
-            },
-            "schedule_everyXDays": false,
-            "schedule_XDayDelay": 1,
-            "scheduledStartTime": "18/5/2026, 10:0:0",
-            "scheduledEndTime": "18/5/2026, 10:45:5",
-            "schedule_scheduledDays": "0",
-            "scheduleUUID": "D6B6054A-C936-40DA-935D-C3B8CEA09873"
-        },
-        {
-            "scheduleName": "Morning Wake-up Cycle Schedule",
-            "isActive": false,
-            "quest": {
-                "questName": "Morning Wake-up Cycle",
-                "questUUID": "A4F81EAF-7C96-47EE-9966-2BAB1599EEB4",
-                "expiryDate": "21/5/2026, 12:0:49",
-                "scheduler": "0"
-            },
+            "startTime": "25/10/2026, 11:0:0",
             "schedule_everyXDays": true,
             "schedule_XDayDelay": 1,
-            "scheduledStartTime": "20/5/2026, 8:0:0",
-            "scheduledEndTime": "20/5/2026, 11:0:5",
-            "schedule_scheduledDays": "111110",
-            "scheduleUUID": "F93860A1-653C-4806-83D6-26E9F364C4FF"
+            "scheduledStartTime": "25/10/2026, 11:0:0",
+            "scheduledEndTime": "25/10/2026, 23:0:0",
+            "schedule_scheduledDays": "1111111",
+            "scheduleUUID": "3875000A-3C66-4D3F-B93F-64FA0F2F68AA"
+        },
+        {
+            "scheduleName": "Lunch",
+            "isActive": false,
+            "quest": {
+                "questName": "Food",
+                "questUUID": "5E29AA3D-2F5F-4D4B-8406-327EB85CDCA4",
+                "startDate": "nil",
+                "expiryDate": "24/10/2026, 20:10:29",
+                "scheduler": "0"
+            },
+            "startTime": "25/10/2026, 12:0:0",
+            "schedule_everyXDays": true,
+            "schedule_XDayDelay": 1,
+            "scheduledStartTime": "25/10/2026, 12:0:0",
+            "scheduledEndTime": "25/10/2026, 14:0:0",
+            "schedule_scheduledDays": "0111110",
+            "scheduleUUID": "7ED3638B-3AB3-47EA-9650-0F7982B24C80"
+        },
+        {
+            "scheduleName": "5 Day Shopping Schedule",
+            "isActive": false,
+            "quest": {
+                "questName": "Shopping",
+                "questUUID": "E552B022-9BAC-4537-994A-1BABB6312922",
+                "startDate": "nil",
+                "expiryDate": "25/10/2026, 13:0:48",
+                "scheduler": "0"
+            },
+            "startTime": "29/10/2026, 10:27:0",
+            "schedule_everyXDays": true,
+            "schedule_XDayDelay": 5,
+            "scheduledStartTime": "29/10/2026, 10:27:0",
+            "scheduledEndTime": "29/10/2026, 23:59:0",
+            "schedule_scheduledDays": "0000000",
+            "scheduleUUID": "A3FCB220-588D-4B8C-A0E3-AF288278F5DD"
         }
     ]
 }

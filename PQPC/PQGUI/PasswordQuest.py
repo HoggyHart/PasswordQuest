@@ -2,7 +2,7 @@ import tkinter as tk
 import sys
 sys.path.insert(1, 'C:\\Users\\willi\\Desktop\\code\\PasswordQuest\\PQPC')
 import iOS_PQPrototypeWaiter
-from PQCONSTS import PQLOG
+from PQCONSTS import PQLOG, DEBUGMODE
 import ComputerControl
 import threading
 import time
@@ -79,7 +79,7 @@ class PQWindow(tk.Tk):
         self.statusFrame = tk.Frame(self.headerFrame)
         self.statusFrame.grid(row=1,column=0,sticky='N')
 
-        self.statusLabel = tk.Label(self.statusFrame, text="Locked (SyncLock)",  font=('Consolas',14), fg="red")
+        self.statusLabel = tk.Label(self.statusFrame, text="SyncLocked",  font=('Consolas',14), fg="red")
         self.statusLabel.grid(row=0,column=0, sticky='N')
 
         self.connectionStatusLabel = tk.Label(self.statusFrame, text="Connection Status", font = ('Consolas',14), fg='red')
@@ -156,21 +156,20 @@ class PQWindow(tk.Tk):
             #if sch.questInProgress:
                 #newOutput += "--->In Progress<---\n"
             if sch.isActive:
-                newOutput += "Starts at "+sch.scheduledStartTime.__str__()+"\n"
+                newOutput += "Starts at "+sch.startTime.__str__()+"\n"
             else:
                 newOutput += "Not Active\n"
             newOutput += "\n"
         self.scheduleOutput.config(text=newOutput)
 
         #lock status
-        if not self.mainProcess.syncLock:
-            if self.mainProcess.computerLocked:
-                self.statusLabel.config(text="Locked |",fg="red")
+        if self.mainProcess.computerLocked:
+            if not DEBUGMODE:
                 fullscreenWindow()
-            else:
-                self.statusLabel.config(text="Unlocked |", fg="green")
+            if not self.mainProcess.syncLock: #otherwise leave as default "SyncLocked"
+                self.statusLabel.config(text="Locked |",fg="red")
         else:
-            fullscreenWindow()
+            self.statusLabel.config(text="Unlocked |", fg="green")
 
         if self.mainProcess.connectedToNetwork:
             self.connectionStatusLabel.config(text=" Connected To Phone ",fg="green")

@@ -1,14 +1,16 @@
-import ThreadUtils
-import threading
+import random
 import time
-import logger
+tottot = 0
+num = 100000
+for number in range(0,num):
+    i = 1000
+    tot = 0
+    random.seed()
+    while i > 0:
+        i -= 1
+        if random.random() >0.996:
+            i += 75
+        tot += 1
+    tottot += tot
 
-logger.set_debug_logger("root")
-obj = ThreadUtils.ThreadUtility()
-
-obj.acquireLock("MyLock")
-def fun():
-    obj.acquireLock("MyLock")
-threading.Thread(target=fun).start()
-time.sleep(1)
-obj.releaseLock("MyLock")
+print("avg: ",tottot/num)
