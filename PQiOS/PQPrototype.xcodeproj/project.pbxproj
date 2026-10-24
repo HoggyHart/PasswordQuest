@@ -31,6 +31,8 @@
 		6B4C64092FCF0AA900D5C1E2 /* MyAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4C64082FCF0AA900D5C1E2 /* MyAnnotation.swift */; };
 		6B4C640B2FE80F9B00D5C1E2 /* RNGLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4C640A2FE80F9B00D5C1E2 /* RNGLocationView.swift */; };
 		6B4C64112FEBE62500D5C1E2 /* GlobalQuestLoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4C64102FEBE62500D5C1E2 /* GlobalQuestLoot.swift */; };
+		6B5A8059308A83A1007CDE4D /* NoButtonTapAnimationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5A8058308A83A1007CDE4D /* NoButtonTapAnimationStyle.swift */; };
+		6B5A805C308A8605007CDE4D /* StampButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5A805B308A8605007CDE4D /* StampButton.swift */; };
 		6B5CF8172FA75CEC00769422 /* PQPrototype.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6B5CF8152FA75CEC00769422 /* PQPrototype.xcdatamodeld */; };
 		6B5CF8532FAAC5B000769422 /* TwoHeadedSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5CF8522FAAC5B000769422 /* TwoHeadedSlider.swift */; };
 		6B5CF8552FBF7F8000769422 /* QuestTaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5CF8542FBF7F8000769422 /* QuestTaskListView.swift */; };
@@ -76,6 +78,8 @@
 		6BA9D1293084F26200BB556E /* InvalidTaskError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9D1283084F26200BB556E /* InvalidTaskError.swift */; };
 		6BA9D12B3084F2C800BB556E /* FailedQuestStartError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9D12A3084F2C800BB556E /* FailedQuestStartError.swift */; };
 		6BA9D12D3084F34400BB556E /* NotImplementedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9D12C3084F34400BB556E /* NotImplementedError.swift */; };
+		6BA9D13430878DE700BB556E /* license.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6BA9D13230878DE700BB556E /* license.txt */; };
+		6BA9D13530878DE700BB556E /* old_stamper.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BA9D13330878DE700BB556E /* old_stamper.ttf */; };
 		6BA9DDBF2F3CEA2C00AF1B06 /* Quest2QuestV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9DDBE2F3CEA2C00AF1B06 /* Quest2QuestV2.swift */; };
 		6BA9DDC22F3CED8F00AF1B06 /* SingleLocationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9DDC12F3CED8F00AF1B06 /* SingleLocationTask.swift */; };
 		6BA9DDC42F3CEDAC00AF1B06 /* QuestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA9DDC32F3CEDAC00AF1B06 /* QuestTask.swift */; };
@@ -169,6 +173,8 @@
 		6B4C64082FCF0AA900D5C1E2 /* MyAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAnnotation.swift; sourceTree = "<group>"; };
 		6B4C640A2FE80F9B00D5C1E2 /* RNGLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNGLocationView.swift; sourceTree = "<group>"; };
 		6B4C64102FEBE62500D5C1E2 /* GlobalQuestLoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalQuestLoot.swift; sourceTree = "<group>"; };
+		6B5A8058308A83A1007CDE4D /* NoButtonTapAnimationStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoButtonTapAnimationStyle.swift; sourceTree = "<group>"; };
+		6B5A805B308A8605007CDE4D /* StampButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampButton.swift; sourceTree = "<group>"; };
 		6B5CF8162FA75CEC00769422 /* PQPrototype.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PQPrototype.xcdatamodel; sourceTree = "<group>"; };
 		6B5CF8522FAAC5B000769422 /* TwoHeadedSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoHeadedSlider.swift; sourceTree = "<group>"; };
 		6B5CF8542FBF7F8000769422 /* QuestTaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTaskListView.swift; sourceTree = "<group>"; };
@@ -217,6 +223,8 @@
 		6BA9D1283084F26200BB556E /* InvalidTaskError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidTaskError.swift; sourceTree = "<group>"; };
 		6BA9D12A3084F2C800BB556E /* FailedQuestStartError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedQuestStartError.swift; sourceTree = "<group>"; };
 		6BA9D12C3084F34400BB556E /* NotImplementedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotImplementedError.swift; sourceTree = "<group>"; };
+		6BA9D13230878DE700BB556E /* license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license.txt; sourceTree = "<group>"; };
+		6BA9D13330878DE700BB556E /* old_stamper.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = old_stamper.ttf; sourceTree = "<group>"; };
 		6BA9DDBE2F3CEA2C00AF1B06 /* Quest2QuestV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest2QuestV2.swift; sourceTree = "<group>"; };
 		6BA9DDC12F3CED8F00AF1B06 /* SingleLocationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLocationTask.swift; sourceTree = "<group>"; };
 		6BA9DDC32F3CEDAC00AF1B06 /* QuestTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTask.swift; sourceTree = "<group>"; };
@@ -334,6 +342,7 @@
 		6B2153202EEC28E100188D31 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6B5A805A308A85E9007CDE4D /* Miscellaneous */,
 				6BA9D121307E502D00BB556E /* Templates */,
 				6B05351830606CCF005C56A3 /* Backgrounds */,
 				6B2152E32EEB3C0900188D31 /* MainView.swift */,
@@ -391,6 +400,14 @@
 			path = Locations;
 			sourceTree = "<group>";
 		};
+		6B5A805A308A85E9007CDE4D /* Miscellaneous */ = {
+			isa = PBXGroup;
+			children = (
+				6B5A805B308A8605007CDE4D /* StampButton.swift */,
+			);
+			path = Miscellaneous;
+			sourceTree = "<group>";
+		};
 		6B7A48C82F019255002102FE /* utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -404,6 +421,7 @@
 				6B83BDC42F856617001472A6 /* MyJson.swift */,
 				6B5CF8522FAAC5B000769422 /* TwoHeadedSlider.swift */,
 				6B05351F3062722B005C56A3 /* Placeholder.swift */,
+				6B5A8058308A83A1007CDE4D /* NoButtonTapAnimationStyle.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -476,6 +494,7 @@
 		6BA3F8652ED8BF4F00EBE046 /* PQPrototype */ = {
 			isa = PBXGroup;
 			children = (
+				6BA9D13630878E1600BB556E /* Fonts */,
 				6BA9DDBB2F3CE95900AF1B06 /* Persistence */,
 				6B7A48DD2F064964002102FE /* Info.plist */,
 				6B7A48C82F019255002102FE /* utils */,
@@ -547,6 +566,23 @@
 				6BA9D12C3084F34400BB556E /* NotImplementedError.swift */,
 			);
 			path = Errors;
+			sourceTree = "<group>";
+		};
+		6BA9D13130878DE700BB556E /* old-stamper */ = {
+			isa = PBXGroup;
+			children = (
+				6BA9D13230878DE700BB556E /* license.txt */,
+				6BA9D13330878DE700BB556E /* old_stamper.ttf */,
+			);
+			path = "old-stamper";
+			sourceTree = "<group>";
+		};
+		6BA9D13630878E1600BB556E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				6BA9D13130878DE700BB556E /* old-stamper */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		6BA9DDBB2F3CE95900AF1B06 /* Persistence */ = {
@@ -858,6 +894,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BA9D13430878DE700BB556E /* license.txt in Resources */,
+				6BA9D13530878DE700BB556E /* old_stamper.ttf in Resources */,
 				6BA3F86E2ED8BF5200EBE046 /* Preview Assets.xcassets in Resources */,
 				6BA3F86B2ED8BF5200EBE046 /* Assets.xcassets in Resources */,
 			);
@@ -897,6 +935,7 @@
 				6B80D0D82FFE618E00A75888 /* LocationTask.swift in Sources */,
 				6BD76ACC3066A5560083435E /* QuestTaskConfigViewModel.swift in Sources */,
 				6B83BDC52F856617001472A6 /* MyJson.swift in Sources */,
+				6B5A805C308A8605007CDE4D /* StampButton.swift in Sources */,
 				6B94B5963031D6CD00EF0D60 /* SLTConfigView.swift in Sources */,
 				6BD76ABE3066A5560083435E /* TimeInABottleViewModel.swift in Sources */,
 				6BD76AC73066A5560083435E /* SingleLocationViewModel.swift in Sources */,
@@ -975,6 +1014,7 @@
 				6BA9DDC62F3CEDC500AF1B06 /* QuestKey.swift in Sources */,
 				6BA72D842F475CBF0019649F /* MainView.swift in Sources */,
 				6B05352730667F7C005C56A3 /* ManualQuestTask+CoreDataProperties.swift in Sources */,
+				6B5A8059308A83A1007CDE4D /* NoButtonTapAnimationStyle.swift in Sources */,
 				6B80D0DE30070B0800A75888 /* TimeInABottle.swift in Sources */,
 				6B5CF8172FA75CEC00769422 /* PQPrototype.xcdatamodeld in Sources */,
 				6B80D0E2300BB6E100A75888 /* TimeInABottleView.swift in Sources */,
